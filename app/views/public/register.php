@@ -11,6 +11,7 @@ print_r($_SESSION['email']);
         <div class="card w-100 shadow" style="max-width: 400px; background-color: #242e36; border-radius: 20px;">
             <div class="card-body position-relative p-5">
                 <img src="vendor/img/elemento.png" alt="Elemento Decorativo" style="position: absolute; right: 95%; top: 50%; transform: translateY(-50%); width: 150px; height: auto; border-radius: 20px;">
+                <img src="vendor/img/elemento.png" alt="Elemento Decorativo" style="position: absolute; right: -33%; top: 50%; transform: translateY(-50%); width: 150px; height: auto; border-radius: 20px;">
                 <div class="text-center mb-4">
                     <img src="vendor/img/logo-branco.png" alt="FEPACOC Logo" style="width: 150px; height: auto;">
                 </div>
