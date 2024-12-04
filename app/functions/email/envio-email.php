@@ -6,18 +6,18 @@ require '../../vendor/autoload.php';
 $pasta = dirname(__DIR__, 3); // Caminho até o diretório da raiz do projeto
 $dotenv = Dotenv\Dotenv::createImmutable($pasta); // Não precisa passar o nome do arquivo se for .env
 $dotenv->load();
-function enviarEmail($para, $assunto, $mensagemHTML, $mensagemTexto = '', $de = 'noreply@vempublicar.com', $nomeDe = 'Fepacoc Members') {
+function enviarEmail($para, $assunto, $mensagemHTML, $mensagemTexto = '', $de = 'noreply@fepacoc.com.br', $nomeDe = 'Fepacoc Members') {
     $mail = new PHPMailer(true);
 
     try {
         // Configurações do servidor SMTP
         $mail->isSMTP();
-        $mail->Host = getenv('SMTP_HOST');
-        $mail->Username = getenv('SMTP_USER');
-        $mail->Password = getenv('SMTP_PASSWORD');
-        $mail->Port = getenv('SMTP_PORT');
-        $mail->SMTPSecure = getenv('SMTP_SECURE');
-        $mail->SMTPAuth   = true;    
+        $mail->Host       = getenv('SMTP_HOST'); // Servidor SMTP
+        $mail->Username   = getenv('SMTP_USER'); // Usuário SMTP
+        $mail->Password   = getenv('SMTP_PASSWORD'); // Senha SMTP
+        $mail->Port       = (int)getenv('SMTP_PORT'); // Porta SMTP
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Tipo de Criptografia
+        $mail->SMTPAuth   = true; // Ativar autenticação SMTP
 
         // Definir o remetente
         $mail->setFrom($de, $nomeDe);
@@ -26,7 +26,7 @@ function enviarEmail($para, $assunto, $mensagemHTML, $mensagemTexto = '', $de = 
         $mail->addAddress($para);
 
         // Conteúdo do email
-        $mail->isHTML(true);                                  
+        $mail->isHTML(true);
         $mail->Subject = $assunto;
         $mail->Body    = $mensagemHTML;
 
@@ -41,7 +41,7 @@ function enviarEmail($para, $assunto, $mensagemHTML, $mensagemTexto = '', $de = 
         return true; // Email enviado com sucesso
     } catch (Exception $e) {
         // Registra erro em um log para depuração
-        error_log("Erro ao enviar email: {$mail->ErrorInfo}", 3, '/path/to/logfile.log');
+        error_log("Erro ao enviar email: {$mail->ErrorInfo}", 3, __DIR__ . '/logs/email_errors.log');
         return "Erro ao enviar email: {$mail->ErrorInfo}";
     }
 }
