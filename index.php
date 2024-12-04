@@ -3,19 +3,19 @@ $page = $_GET['pg'] ?? '';
 
 switch ($page) {
     case 'register':
-        require 'app/views/register.php';
+        require 'app/views/public/register.php';
         break;
 
-    case 'submit_registration':
-        require 'app/submit_registration.php';
+    case 'painel':
+        require 'app/views/private/area-membros.php';
         break;
 
-    case 'thank_you':
-        require 'app/views/thank_you.php';
+    case 'videos':
+        require 'app/views/private/videos.php';
         break;
 
-    case 'cadastro':
-        require 'app/views/cadastro.php';
+    case 'verificar-email':
+        require 'app/views/public/verifica-email.php';
         break;
 
     case 'cp_a':
@@ -27,7 +27,7 @@ switch ($page) {
         break;
 
     case 'login':
-        require 'app/views/login.php';
+        require 'app/views/public/login.php';
         break;
 
         case 'logout':
@@ -40,6 +40,6 @@ switch ($page) {
 
     default:
         // Carrega uma página de campanha aleatória
-        require 'app/views/login.php';
+        require 'app/views/public/login.php';
         break;
 }
