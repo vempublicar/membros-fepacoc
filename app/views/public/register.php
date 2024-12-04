@@ -1,6 +1,6 @@
-<?php 
+<?php
 session_start();
-include "app/views/parts/head.php" ;
+include "app/views/parts/head.php";
 
 print_r($_SESSION['email']);
 
@@ -11,6 +11,7 @@ print_r($_SESSION['email']);
         <div class="card w-100 shadow" style="max-width: 400px; background-color: #242e36; border-radius: 20px;">
             <div class="card-body position-relative p-5">
                 <img src="vendor/img/elemento.png" alt="Elemento Decorativo" style="position: absolute; right: 95%; top: 50%; transform: translateY(-50%); width: 150px; height: auto; border-radius: 20px;">
+                <img src="vendor/img/elemento.png" alt="Elemento Decorativo" style="position: absolute; right: -33%; top: 50%; transform: translateY(-50%); width: 150px; height: auto; border-radius: 20px;">
                 <div class="text-center mb-4">
                     <img src="vendor/img/logo-branco.png" alt="FEPACOC Logo" style="width: 150px; height: auto;">
                 </div>
@@ -22,7 +23,11 @@ print_r($_SESSION['email']);
                     <div class="mb-3">
                         <label for="email" class="form-label text-white">Email</label>
                         <input type="email" class="form-control" id="email" name="email-username" required>
-                        <div class="form-text text-center text-white">Uma senha será enviada para o seu email após o cadastro.</div>
+                        <?php if (isset($_GET['msg']) && base64_decode($_GET['msg'], true)) { ?>
+                            <div class="form-text text-center text-warning">!*<?= base64_decode($_GET['msg']) ?></div>
+                        <?php } else { ?>
+                            <div class="form-text text-center text-secondary">Uma senha será enviada para o seu email após o cadastro.</div>
+                        <?php } ?>
                     </div>
                     <div class="mb-3">
                         <label for="whatsapp" class="form-label text-white">WhatsApp</label>
