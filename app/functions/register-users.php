@@ -6,7 +6,7 @@ include '../config/path.php';
 include 'cadastro-lead.php';
 include 'email/envio-email.php';
 
-// Verificar se os dados do formulário foram enviados
+// Verificar se os dados do formulário foram enviados 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Coletar dados do formulário
     // print_r($_POST);
