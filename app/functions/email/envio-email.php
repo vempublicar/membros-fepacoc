@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php';
+require '../../vendor/autoload.php';
 $pasta = dirname(__DIR__, 3); // Caminho até o diretório da raiz do projeto
 $dotenv = Dotenv\Dotenv::createImmutable($pasta); // Não precisa passar o nome do arquivo se for .env
 $dotenv->load();
