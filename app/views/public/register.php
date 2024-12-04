@@ -1,6 +1,6 @@
-<?php 
+<?php
 session_start();
-include "app/views/parts/head.php" ;
+include "app/views/parts/head.php";
 
 print_r($_SESSION['email']);
 
@@ -22,7 +22,11 @@ print_r($_SESSION['email']);
                     <div class="mb-3">
                         <label for="email" class="form-label text-white">Email</label>
                         <input type="email" class="form-control" id="email" name="email-username" required>
-                        <div class="form-text text-center text-white">Uma senha será enviada para o seu email após o cadastro.</div>
+                        <?php if (isset($_GET['msg']) && base64_decode($_GET['msg'], true)) { ?>
+                            <div class="form-text text-center text-warning">!*<?= base64_decode($_GET['msg']) ?></div>
+                        <?php } else { ?>
+                            <div class="form-text text-center text-secondary">Uma senha será enviada para o seu email após o cadastro.</div>
+                        <?php } ?>
                     </div>
                     <div class="mb-3">
                         <label for="whatsapp" class="form-label text-white">WhatsApp</label>

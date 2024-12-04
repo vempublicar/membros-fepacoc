@@ -18,8 +18,8 @@ switch ($page) {
         require 'app/views/public/verifica-email.php';
         break;
 
-    case 'cp_a':
-        include_once 'app/views/pages/cp_a.php';
+    case 'email':
+        include_once 'app/functions/email/envio-email.php';
         break;
 
     case 'setup':

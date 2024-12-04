@@ -61,12 +61,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'acesso' => $password
         ];
         $cadastroLeads = inserirDadosSupabase($tabelaLead, $dados);
-        $_SESSION['email'] = enviarLinkCadastroSenha($email, $nome, $password);
+        
         // print_r($cadastroLeads);
         // echo '<hr>teste';
         if (isset($responseArray['id'])) {
 
-
+            enviarLinkCadastroSenha($email, $nome, $password);
             if (empty($responseArray['identities'])) {
                 // Usuário já registrado e confirmou o email
                 header("Location: " . BASE_URL . "login&msg=" . $errorMsg);
@@ -78,7 +78,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errorCode = $responseArray['code'];
             $errorMsg = $responseArray['msg'];
             $errorDetail = isset($responseArray['error_code']) ? $responseArray['error_code'] : '';
-
+            $titulo = 'Erro de Cadastro! Fepacoc Membros';
+            $texto = 'Estamos com problemas para cadastrar este e-mail, verifique com a equipe de suporte. <br> Acreditamos que este e-mail já está registrado, basta solicitar nova senha.';
+            enviarEmailGenerico($email, $nome, $titulo, $texto);
             switch ($errorCode) {
                 case 400:
                     if ($errorDetail === 'email_address_not_authorized') {
@@ -94,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $errorMsg = 'Limite de requisições excedido. Tente novamente mais tarde.';
                     break;
                 default:
-                    $errorMsg = 'Erro desconhecido. Entre em contato com o suporte.';
+                    $errorMsg = 'Acreditamos que este email já esta registrado. Verifique com o suporte.';
                     break;
             }
 
@@ -102,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: " . BASE_URL . "register&msg=" . $errorMsg);
         } else {
             // Caso não haja um código de erro, redireciona para um erro genérico
-            $errorMsg = base64_encode('Erro desconhecido');
+            $errorMsg = base64_encode('Tente novamente com outro email');
             header("Location: " . BASE_URL . "register&msg=" . $errorMsg);
         }
     }
