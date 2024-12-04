@@ -2,21 +2,21 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../../vendor/autoload.php';
+require 'vendor/autoload.php';
 $pasta = dirname(__DIR__, 3); // Caminho até o diretório da raiz do projeto
 $dotenv = Dotenv\Dotenv::createImmutable($pasta); // Não precisa passar o nome do arquivo se for .env
 $dotenv->load();
-function enviarEmail($para, $assunto, $mensagemHTML, $mensagemTexto = '', $de = 'noreply@vempublicar.com', $nomeDe = 'Fepacoc Members') {
+function enviarEmail($para, $assunto, $mensagemHTML, $mensagemTexto = '', $de = 'vempublicar@gmail.com', $nomeDe = 'Fepacoc Members') {
     $mail = new PHPMailer(true);
 
     try {
         // Configurações do servidor SMTP
         $mail->isSMTP();
-        $mail->Host       = 'smtp.hostinger.com';
-        $mail->Username   = 'noreply@vempublicar.com'; 
-        $mail->Password   = 'Noreply**251';
-        $mail->SMTPSecure = 'tls';
-        $mail->Port       = 587;
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->Username   = 'vempublicar@gmail.com'; 
+        $mail->Password   = 'bowd vlxs evku gzub';
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port       = 465;
        $mail->SMTPAuth   = true;
         
         // Debugging SMTP - útil para depuração (0 = off, 1 = cliente, 2 = cliente e servidor)
