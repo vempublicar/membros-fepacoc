@@ -12,12 +12,12 @@ function enviarEmail($para, $assunto, $mensagemHTML, $mensagemTexto = '', $de = 
     try {
         // Configurações do servidor SMTP
         $mail->isSMTP();
-        $mail->Host       = getenv('SMTP_HOST') ?: 'localhost';
-        $mail->Username   = getenv('SMTP_USER');
-        $mail->Password   = getenv('SMTP_PASSWORD');
-        $mail->Port       = (int)getenv('SMTP_PORT') ?: 587;
-        $mail->SMTPSecure = getenv('SMTP_SECURE') ?: PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->SMTPAuth   = true;      
+        $mail->Host = getenv('SMTP_HOST');
+        $mail->Username = getenv('SMTP_USER');
+        $mail->Password = getenv('SMTP_PASSWORD');
+        $mail->Port = getenv('SMTP_PORT');
+        $mail->SMTPSecure = getenv('SMTP_SECURE');
+        $mail->SMTPAuth   = true;    
 
         // Definir o remetente
         $mail->setFrom($de, $nomeDe);
