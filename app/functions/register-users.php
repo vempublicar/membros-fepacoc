@@ -61,12 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'acesso' => $password
         ];
         $cadastroLeads = inserirDadosSupabase($tabelaLead, $dados);
-        
+        sleep(1);
         // print_r($cadastroLeads);
         // echo '<hr>teste';
         if (isset($responseArray['id'])) {
 
             enviarLinkCadastroSenha($email, $nome, $password);
+            sleep(1);
             if (empty($responseArray['identities'])) {
                 // Usuário já registrado e confirmou o email
                 header("Location: " . BASE_URL . "login&msg=" . $errorMsg);
@@ -81,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $titulo = 'Erro de Cadastro! Fepacoc Membros';
             $texto = 'Estamos com problemas para cadastrar este e-mail, verifique com a equipe de suporte. <br> Acreditamos que este e-mail já está registrado, basta solicitar nova senha.';
             enviarEmailGenerico($email, $nome, $titulo, $texto);
+            sleep(1);
             switch ($errorCode) {
                 case 400:
                     if ($errorDetail === 'email_address_not_authorized') {
