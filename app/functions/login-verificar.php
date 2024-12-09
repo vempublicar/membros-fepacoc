@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $response = curl_exec($curl);
     $err = curl_error($curl);
     curl_close($curl);
-print_r($response);
+// print_r($response);
     if ($err) {
         $errorMsg = 'Erro ao tentar se conectar ao banco de dados.';
         $errorMsg = base64_encode($errorMsg);

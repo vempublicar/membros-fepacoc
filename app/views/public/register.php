@@ -2,14 +2,14 @@
 session_start();
 include "app/views/parts/head.php";
 
-print_r($_SESSION['email']);
+// print_r($_SESSION['email']);
 
 ?>
 
 <body class="bg-dark">
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card w-100 shadow" style="max-width: 400px; background-color: #242e36; border-radius: 20px;">
-            <div class="card-body position-relative p-5">
+            <div class="card-body bg-dark position-relative p-5">
                 <img src="vendor/img/elemento.png" alt="Elemento Decorativo" style="position: absolute; right: 95%; top: 50%; transform: translateY(-50%); width: 150px; height: auto; border-radius: 20px;">
                 <div class="text-center mb-4">
                     <img src="vendor/img/logo-branco.png" alt="FEPACOC Logo" style="width: 150px; height: auto;">

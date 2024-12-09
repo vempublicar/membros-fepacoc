@@ -1,0 +1,410 @@
+<?php
+include "app/functions/data/busca-dados.php";
+
+$videos = fetchVideos();
+$leads = fetchLeads();
+?>
+
+<head>
+    <?php include_once "app/views/parts/head.php"; ?>
+    <title>Área Administrativa - FEPACOC</title>
+</head>
+
+<body>
+    <?php include_once "app/views/parts/header.php"; ?>
+
+    <div class="container-fluid">
+        <header class="mb-4">
+            <h1 class="text-center">Área Administrativa - FEPACOC</h1>
+        </header>
+
+        <div class="row">
+            <!-- Menu lateral para navegação -->
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#videos">Gerenciar Vídeos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#servicos">Gerenciar Serviços</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#produtos">Gerenciar Produtos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#aulas">Gerenciar Aulas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#leads">Lista Leads</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Conteúdo principal -->
+            <main class="col-md-10 ml-sm-auto col-lg-10 px-4">
+                <section id="dashboard" class="content-section">
+                    <h2>Dashboard</h2>
+                    <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
+                </section>
+                <section id="videos" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/videos.php" ?>
+                </section>
+                <section id="servicos" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/servicos.php" ?>
+                </section>
+                <section id="produtos" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/produtos.php" ?>
+                </section>
+                <section id="aulas" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/aulas.php" ?>
+                </section>
+                <section id="leads" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/leads.php" ?>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Offcanvas para o formulário -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="videoOffcanvas" aria-labelledby="offcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasLabel">Inserir</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form action="app/functions/push/crud-video.php" id="addVideoForm" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="action" id="formAction" value="create">
+                <input type="hidden" name="id" id="videoId">
+                <div class="mb-3">
+                    <label for="videoForm" class="form-label">Formato</label>
+                    <select class="form-control" id="videoForm" name="form" required>
+                        <option value="Video Curto" selected>Video Curto</option>
+                        <option value="Video Longo">Video Longo</option>
+                        <option value="Produto">Produto</option>
+                        <option value="Serviço">Serviço</option>
+                        <option value="Aula">Aula</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="videoTitle" class="form-label">Título do Vídeo</label>
+                    <input type="text" class="form-control" id="videoTitle" name="videoTitle" required>
+                </div>
+                <div class="mb-3">
+                    <label for="videoLink" class="form-label">Link do Vídeo</label>
+                    <input type="text" class="form-control" id="videoLink" name="videoLink" required>
+                </div>
+                <div class="mb-3">
+                    <label for="videoCover" class="form-label">Capa do Vídeo</label>
+                    <input type="file" class="form-control" id="videoCover" name="videoCover" accept="image/*">
+                    <img id="videoCoverPreview" src="#" alt="Preview" style="display: none; max-width: 200px; max-height: 200px; margin-top: 10px;">
+                </div>
+                <div class="mb-3">
+                    <label for="videoSector" class="form-label">Setor</label>
+                    <select class="form-control" id="videoSector" name="videoSector">
+                        <option>Setor 1</option>
+                        <option>Setor 2</option>
+                        <!-- Outros setores -->
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="videoCategory" class="form-label">Categoria</label>
+                    <select class="form-control" id="videoCategory" name="videoCategory">
+                        <option>Categoria 1</option>
+                        <option>Categoria 2</option>
+                        <!-- Outras categorias -->
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="videoType" class="form-label">Tipo</label>
+                    <select class="form-control" id="videoType" name="videoType">
+                        <option>Pago</option>
+                        <option>Gratuito</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="videoShort" class="form-label">Short</label>
+                    <select class="form-control" id="videoShort" name="videoShort">
+                        <option value="Sim">Sim</option>
+                        <option value="Não">Não</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-control" id="stauts" name="status">
+                        <option value="Ativo">Ativo</option>
+                        <option value="Inativo">Inativo</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="videoDesc" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="videoDesc" name="videoDesc" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </form>
+        </div>
+    </div>
+    <!-- Modal para exibir o vídeo -->
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="videoModalLabel">Vídeo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="videoIframe" src="" width="100%" height="400" frameborder="0"
+                        allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+        function deleteVideo(videoId) {
+            if (confirm('Tem certeza que deseja excluir este vídeo?')) {
+                const formData = new FormData();
+                formData.append('action', 'delete');
+                formData.append('id', videoId);
+
+                fetch('app/functions/push/crud-video.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert('Vídeo excluído com sucesso!');
+                            location.reload();
+                        } else {
+                            alert('Erro ao excluir o vídeo: ' + data.message);
+                        }
+                    })
+                    .catch(error => console.error('Erro:', error));
+            }
+        }
+
+        function editVideo(video) {
+            // Preencher os campos do formulário
+            document.getElementById('formAction').value = 'update';
+            document.getElementById('videoId').value = video.id;
+            document.getElementById('videoForm').value = video.form;
+            document.getElementById('videoTitle').value = video.title;
+            document.getElementById('videoLink').value = video.link;
+            document.getElementById('videoSector').value = video.sector;
+            document.getElementById('videoCategory').value = video.category;
+            document.getElementById('videoType').value = video.type;
+            document.getElementById('videoShort').value = video.short;
+            document.getElementById('videoDesc').value = video.description;
+
+            // Preencher o valor do status
+            const statusField = document.getElementById('stauts'); // ID corrigido para 'stauts'
+            if (video.status) {
+                statusField.value = video.status.charAt(0).toUpperCase() + video.status.slice(1); // Capitaliza o valor
+            } else {
+                statusField.value = 'Inativo'; // Valor padrão caso o status esteja ausente
+            }
+
+            // Mostrar preview da capa, se houver
+            const coverPreview = document.getElementById('videoCoverPreview');
+            if (video.cover) {
+                coverPreview.src = `vendor/videos/capas/${video.cover}`;
+                coverPreview.style.display = 'block';
+            } else {
+                coverPreview.style.display = 'none';
+            }
+
+            // Abrir o offcanvas
+            const offcanvas = new bootstrap.Offcanvas(document.getElementById('videoOffcanvas'));
+            offcanvas.show();
+        }
+
+        function openOffcanvas() {
+            document.getElementById('addVideoForm').reset();
+            document.getElementById('formAction').value = 'create';
+            document.getElementById('videoId').value = '';
+            document.getElementById('videoForm').value = 'Video Curto';
+            document.getElementById('videoCoverPreview').style.display = 'none';
+
+            const offcanvas = new bootstrap.Offcanvas(document.getElementById('videoOffcanvas'));
+            offcanvas.show();
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Função para mostrar a seção com base no fragmento da URL
+            function showSectionFromHash() {
+                var hash = window.location.hash; // Pega o fragmento da URL
+                if (hash) {
+                    $('.content-section').hide(); // Esconde todas as seções
+                    $(hash).show(); // Mostra a seção com o id correspondente ao fragmento
+                    $('.nav-link').removeClass('active'); // Remove a classe 'active' de todos os links
+                    $('a[href="' + hash + '"]').addClass('active'); // Adiciona a classe 'active' ao link correspondente
+                } else {
+                    // Se não houver hash, mostra a seção padrão
+                    $('.content-section').first().show();
+                    $('.nav-link').first().addClass('active');
+                }
+            }
+
+            // Chamada inicial para mostrar a seção quando a página carrega
+            showSectionFromHash();
+
+            // Evento de clique para os links do menu
+            $('.nav-link').click(function(e) {
+                e.preventDefault();
+                var targetId = $(this).attr('href');
+                window.location.hash = targetId; // Atualiza o hash na URL
+                showSectionFromHash(); // Atualiza a visibilidade da seção
+            });
+
+            // Evento para lidar com mudanças no hash (quando o usuário utiliza o botão de voltar do navegador)
+            $(window).on('hashchange', function() {
+                showSectionFromHash();
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('videoCover').addEventListener('change', function(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('videoCoverPreview');
+                output.src = reader.result;
+                output.style.display = 'block'; // Mostra a imagem
+            };
+            if (event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            } else {
+                var output = document.getElementById('videoCoverPreview');
+                output.src = '';
+                output.style.display = 'none'; // Esconde a imagem se não houver arquivo
+            }
+        });
+
+        function openVideoModal(link, title, internalVideo = null) {
+            let embedLink;
+
+            // Vimeo
+            if (link && link.includes('vimeo.com')) {
+                const videoId = link.split('/').pop().split('?')[0]; // Extrai o ID do vídeo
+                embedLink = `https://player.vimeo.com/video/${videoId}`;
+
+                // YouTube
+            } else if (link && (link.includes('youtube.com') || link.includes('youtu.be'))) {
+                let videoId;
+                if (link.includes('youtube.com')) {
+                    const urlParams = new URLSearchParams(new URL(link).search);
+                    videoId = urlParams.get('v'); // Extrai o parâmetro 'v'
+                } else {
+                    videoId = link.split('/').pop(); // Extrai o ID do vídeo de um link curto
+                }
+                embedLink = `https://www.youtube.com/embed/${videoId}`;
+
+                // Armazenamento interno
+            } else if (internalVideo) {
+                embedLink = `vendor/videos/play/${internalVideo}`;
+
+                // Link genérico
+            } else if (link) {
+                embedLink = link; // Usa o link diretamente como iframe genérico
+
+                // Fallback
+            } else {
+                embedLink = ''; // Fallback vazio se nada estiver disponível
+            }
+
+            // Configurar o título do modal
+            const modalTitle = document.getElementById('videoModalLabel');
+            modalTitle.textContent = title;
+
+            // Configurar o iframe com o link do vídeo
+            const videoIframe = document.getElementById('videoIframe');
+            videoIframe.src = embedLink;
+
+            // Abrir o modal
+            const videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
+            videoModal.show();
+        }
+
+        // Limpar o iframe ao fechar o modal
+        document.getElementById('videoModal').addEventListener('hidden.bs.modal', function() {
+            const videoIframe = document.getElementById('videoIframe');
+            videoIframe.src = '';
+        });
+
+        // Limpar o iframe ao fechar o modal
+        document.getElementById('videoModal').addEventListener('hidden.bs.modal', function() {
+            const videoIframe = document.getElementById('videoIframe');
+            videoIframe.src = '';
+        });
+
+        // Limpar o iframe ao fechar o modal
+        document.getElementById('videoModal').addEventListener('hidden.bs.modal', function() {
+            const videoIframe = document.getElementById('videoIframe');
+            videoIframe.src = '';
+        });
+
+        // Limpar o iframe ao fechar o modal para evitar reprodução contínua
+        document.getElementById('videoModal').addEventListener('hidden.bs.modal', function() {
+            const videoIframe = document.getElementById('videoIframe');
+            videoIframe.src = '';
+        });
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Função para abrir o modal e preencher os dados
+            window.openPromoteModal = function(lead) {
+                // Preenche os campos do formulário com os dados do lead
+                document.getElementById('leadId').value = lead.id;
+                document.getElementById('leadName').value = lead.nome;
+                document.getElementById('leadEmail').value = lead.email;
+                document.getElementById('leadPhone').value = lead.fone;
+                document.getElementById('leadAccess').value = lead.acesso;
+                document.getElementById('leadType').value = lead.tipo || 'Gratuito'; // Preenche ou define como "Gratuito" por padrão
+                document.getElementById('leadDados').value = lead.dados || '';
+
+                // Define o valor padrão do campo "action"
+                document.getElementById('action').value = 'update';
+
+                // Abre o modal (usando Bootstrap)
+                const promoteModal = new bootstrap.Modal(document.getElementById('promoteModal'));
+                promoteModal.show();
+            };
+
+            document.querySelectorAll('#promoteForm button[type="submit"]').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    // Impede o comportamento padrão do botão temporariamente
+                    event.preventDefault();
+
+                    // Altere o valor do campo oculto "action" com base no botão clicado
+                    const form = document.getElementById('promoteForm');
+                    const action = this.getAttribute('data-action');
+                    document.getElementById('action').value = action;
+
+                    // Submete o formulário
+                    form.submit();
+                });
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

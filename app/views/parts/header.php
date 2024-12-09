@@ -1,4 +1,4 @@
-<header id="top" class="position-sticky top-0 start-0" style="z-index: 10;">
+<header id="top" class="position-sticky top-0 start-0" style="z-index: 999;">
     <nav class="navbar navbar-expand-lg bg-white fixed-top shadow-sm">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <!-- Logo e Texto "Membros" -->
@@ -31,11 +31,11 @@
                         <img src="vendor/images/post-thumb-1.jpg" alt="User Profile" class="rounded-circle" width="40" height="40">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        <li><a class="dropdown-item" href="#">Conta</a></li>
-                        <li><a class="dropdown-item" href="#">Configuração</a></li>
-                        <li><a class="dropdown-item" href="#">Assinatura</a></li>
+                        <li><a class="dropdown-item" href="painel">Início</a></li>
+                        <li><a class="dropdown-item" href="minha-conta">Conta</a></li>
+                        <!-- <li><a class="dropdown-item" href="minha-assinatura">Assinatura</a></li> -->
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" href="logout">Logout</a></li>
                     </ul>
                 </div>
             </div>
