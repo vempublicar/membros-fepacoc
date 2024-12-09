@@ -46,6 +46,10 @@ switch ($page) {
         require 'app/views/public/login.php';
         break;
 
+    case 'esqueci-senha':
+        require 'app/views/public/esqueci-senha.php';
+        break;
+
     case 'logout':
         require 'app/views/logout.php';
         break;
