@@ -6,17 +6,26 @@ include '../config/path.php';
 include 'cadastro-lead.php';
 include 'email/envio-email.php';
 
-// Verificar se os dados do formulário foram enviados 
+// Função para sanitizar dados
+function sanitizar($data) {
+    return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+}
+
+// Verificar se os dados do formulário foram enviados
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Coletar dados do formulário
-    $nome = $_POST['name'];
-    $whatsapp = $_POST['whatsapp'];
-    $email = $_POST['email-username'];
-    $password = $_POST['password'];
+    // Coletar e sanitizar dados do formulário
+    $nome = sanitizar($_POST['name']);
+    $whatsapp = sanitizar($_POST['whatsapp']);
+    $email = sanitizar($_POST['email-username']);
+    $password = sanitizar($_POST['password']);
 
     // Validações básicas
-    if (empty($email) || empty($password)) {
-        exit('Por favor, preencha todos os campos.');
+    if (empty($nome) || empty($whatsapp) || empty($email) || empty($password)) {
+        redirecionarComMensagem("cadastro", "Por favor, preencha todos os campos.");
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        redirecionarComMensagem("cadastro", "Formato de email inválido.");
     }
 
     // Preparar dados para enviar à API do Supabase
@@ -43,37 +52,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $err = curl_error($curl);
     $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
-    sleep(2);
-    if ($err) {
-        echo "Erro ao conectar ao Supabase: $err";
-    } else {
-        // Processar a resposta
-        $responseArray = json_decode($response, true);
 
-        // Verificar o código HTTP retornado
-        if ($httpCode === 201 && isset($responseArray['access_token'])) {
-            // Cadastro bem-sucedido
+    if ($err || $httpCode >= 400) {
+        $mensagemErro = $err ?: "Erro na requisição ao Supabase. Código HTTP: $httpCode";
+        redirecionarComMensagem("cadastro", $mensagemErro);
+    } else {
+        // Decodificar a resposta para verificar o sucesso
+        $responseData = json_decode($response, true);
+
+        if (isset($responseData['error'])) {
+            redirecionarComMensagem("cadastro", "Erro: " . $responseData['error']['message']);
+        } else {
+            // Inserir dados no banco de dados local
+            $tabela = 'leads';
+            $dados = [
+                'nome' => $nome,
+                'fone' => $whatsapp,
+                'email' => $email,
+                'acesso' => $password,
+            ];
+
+            inserirDadosSupabase($tabela, $dados);
+
+            // Enviar email de confirmação
             enviarLinkCadastroSenha($email, $nome, $password);
+
+            // Redirecionar para página de verificação de email
             header("Location: " . BASE_URL . "verificar-email");
             exit();
-        } elseif ($httpCode === 409 || (isset($responseArray['error_code']) && $responseArray['error_code'] === 'user_already_exists')) {
-            // Email já registrado
-            $titulo = 'Erro de Cadastro! Fepacoc Membros';
-            $texto = 'Estamos com problemas para cadastrar este e-mail, verifique com a equipe de suporte. <br> Acreditamos que este e-mail já está registrado, basta solicitar nova senha.';
-            enviarEmailGenerico($email, $nome, $titulo, $texto);
-
-            $errorMsg = 'Este email já está registrado. Por favor, faça login ou use outro email.';
-            redirecionarComMensagem("register", $errorMsg);
-        } else {
-            // Caso não haja um código específico, redireciona para um erro genérico
-            redirecionarComMensagem("register", 'Erro ao registrar, tente novamente.');
         }
     }
 } else {
     header("Location: " . BASE_URL . "login");
     exit();
 }
+
+// Função para redirecionar com mensagem
 function redirecionarComMensagem($url, $mensagem) {
-    header("Location: " . BASE_URL . $url . "&msg=" . base64_encode($mensagem));
+    header("Location: " . BASE_URL . $url . "?msg=" . urlencode($mensagem));
     exit();
 }
