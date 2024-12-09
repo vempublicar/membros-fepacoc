@@ -2,7 +2,13 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../../vendor/autoload.php';
+if (file_exists('../../vendor/autoload.php')) {
+    require '../../vendor/autoload.php';
+} elseif (file_exists('../../../vendor/autoload.php')) {
+    require '../../../vendor/autoload.php';
+} else {
+    require 'vendor/autoload.php';
+}
 $pasta = dirname(__DIR__, 3); // Caminho até o diretório da raiz do projeto
 $dotenv = Dotenv\Dotenv::createImmutable($pasta); // Não precisa passar o nome do arquivo se for .env
 $dotenv->load();
@@ -60,15 +66,37 @@ function enviarLinkCadastroSenha($destinatario, $nome, $senhaCadastrada) {
 
     // Corpo do email
     $mensagemHTML = "
+    <!DOCTYPE html>
+    <html lang='pt-BR'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Bem-vindo ao Fepacoc</title>
+    </head>
+    <body style='font-family: Arial, sans-serif; line-height: 1.6;'>
         <h2>Olá $nome, que bom ver você aqui!</h2>
-        <p>Estamos entusiasmados em lhe ajudar com o crescimento da sua empresa!<br> Na Área de Membros do Fepacoc, você se aprofunda em uma variedade de vídeos, serviços e recursos valiosos para ajudar ativamente na sua gestão.</p>
+        <p>Estamos entusiasmados em lhe ajudar com o crescimento da sua empresa!<br> 
+        Na Área de Membros do Fepacoc, você se aprofunda em uma variedade de vídeos, serviços e recursos valiosos para ajudar ativamente na sua gestão.</p>
         
         <i>Para acessar a Área de Membros, informe o email cadastrado e a senha destacada abaixo.</i>
-        <hr><p>Sua senha de acesso é: <strong>$senhaCadastrada</strong></p><hr>
         
-        <p><a href='https://members.fepacoc.com.br/login' style='background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none;'>Acessar Área de Membros</a></p>
-        <p>Acreditamos que o método Fepacoc pode transformar positivamente sua empresa. <br> Obrigado pelo seu cadastro e precisar de qualquer assistência, não hesite em entrar em contato conosco pelo email: <a href='mailto:suporte@fepacoc.com.br'>suporte@fepacoc.com.br</a>.</p>
-        <p>Atenciosamente, <br> Equipe Fepacoc</p>";
+        <hr>
+        <p>Sua senha de acesso é: <strong>$senhaCadastrada</strong></p>
+        <hr>
+        
+        <p>
+            <a href='https://members.fepacoc.com.br/login' 
+                style='background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; display: inline-block;'>Acessar Área de Membros
+            </a>
+        </p>
+        
+        <p>Acreditamos que o método Fepacoc pode transformar positivamente sua empresa.<br> 
+        Obrigado pelo seu cadastro! Caso precise de qualquer assistência, não hesite em entrar em contato conosco pelo email: 
+        <a href='mailto:suporte@fepacoc.com.br'>suporte@fepacoc.com.br</a>.
+        </p>
+
+        <p>Atenciosamente, <br> Equipe Fepacoc</p>
+    </body>
+    </html>";
 
     // Envia o email utilizando a função de envio
     return enviarEmail($destinatario, $assunto, $mensagemHTML);
@@ -82,6 +110,21 @@ function enviarEmailGenerico($destinatario, $nome, $titulo, $texto) {
         <h2>Olá $nome</h2>
         <p>$texto</p>
         <p>Entrar em contato conosco pelo email: <a href='mailto:suporte@fepacoc.com.br'>suporte@fepacoc.com.br</a>.</p>
+        <p>Atenciosamente, <br> Equipe Fepacoc</p>";
+
+    // Envia o email utilizando a função de envio
+    return enviarEmail($destinatario, $assunto, $mensagemHTML);
+}
+
+function enviarEmailRecuperar($destinatario, $nome, $senhaCadastrada) {
+    // Assunto do email
+    $assunto = 'Suporte Fepacoc';
+
+    // Corpo do email
+    $mensagemHTML = "
+        <h2>Olá $nome</h2>
+        <p>O seu código de acesso: $senhaCadastrada</p>
+        <p>Qualquer dúvida entre em contato conosco pelo email: <a href='mailto:suporte@fepacoc.com.br'>suporte@fepacoc.com.br</a>.</p>
         <p>Atenciosamente, <br> Equipe Fepacoc</p>";
 
     // Envia o email utilizando a função de envio

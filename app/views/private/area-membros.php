@@ -1,76 +1,45 @@
 <?php
+session_start();
 include_once "app/views/parts/head.php";
 include_once "app/views/parts/header.php";
+include "app/functions/data/busca-dados.php";
+if (isset($_SESSION['user_dados'])) {
+    $userDados = json_decode($_SESSION['user_dados'], true);
+    $email = $userDados['user']['email'];  // Acessa o email do usuário logado
 
-$videos = [
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "vendor/videos/teste.mp4", "tipo" => "exclusivo"], 
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "vendor/videos/teste.mp4", "tipo" => "gratuito"],
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "vendor/videos/teste.mp4", "tipo" => "gratuito"],
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "vendor/videos/teste.mp4", "tipo" => "exclusivo"],
-];
-$videosAulas = [
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "https://www.youtube.com/embed/VIDEO_ID_1"],
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "https://www.youtube.com/embed/VIDEO_ID_2"],
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "https://www.youtube.com/embed/VIDEO_ID_3"],
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "https://www.youtube.com/embed/VIDEO_ID_4"],
-];
-$listaProdutos = [
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "https://www.youtube.com/embed/VIDEO_ID_1"],
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "https://www.youtube.com/embed/VIDEO_ID_2"],
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "https://www.youtube.com/embed/VIDEO_ID_3"],
-];
-$materialApoio = [
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "https://www.youtube.com/embed/VIDEO_ID_1"],
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "https://www.youtube.com/embed/VIDEO_ID_2"],
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "https://www.youtube.com/embed/VIDEO_ID_3"],
-    ["capa" => "vendor/images/illustration-2.jpg", "url" => "https://www.youtube.com/embed/VIDEO_ID_4"],
-];
+    // Busca os dados do usuário com base no email
+    $usuarios = fetchLeads();
+    foreach ($usuarios as $usuario) {
+        if ($usuario['email'] == $email) {
+            $user = $usuario;
+            break;
+        }
+    }
+} else {
+    echo "Usuário não logado.";
+    // Redirecionar para página de login ou mostrar mensagem apropriada
+    exit;
+}
+$videos = fetchVideos();
+// print_r($user);
 ?>
-<section class="py-5 mt-3">
-    <div class="container">
-        <div class="rounded-4 p-5"
-            style="background-image: url(vendor/images/section-banner.png); background-size: cover ; background-repeat: no-repeat; background-position: center;">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="h-100 bg-black text-white p-4 rounded-4">
-                        <h3>
-                            References
-                        </h3>
-                        <div class="py-4">
-                            <p class="text-light-emphasis">
-                                1998 - 2004
-                            </p>
-                            <h5>
-                                Dr. Stephen H. King
-                            </h5>
-                            <p class="text-light-emphasis">
-                                Harvard School of Science and management
-                            </p>
-                        </div>
-                        <p class="text-light-emphasis">
-                            2004 - 2006
-                        </p>
-                        <h5>
-                            Dr. David Howard
-                        </h5>
-                        <p class="text-light-emphasis">
-                            Harvard School of Science and management
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section class="top-banner  mt-5">
+    <div class="container-fluid p-3">
+        <picture>
+            <!-- Versão para mobile -->
+            <source media="(max-width: 768px)" srcset="vendor/img/capa-mobile-membros.png">
+            <!-- Versão para desktops e tablets maiores -->
+            <img src="vendor/img/capa-membros.png" class="img-fluid rounded-4" alt="Capa do vídeo">
+        </picture>
     </div>
 </section>
 <div class="row justify-content-center">
 
-    <div id="filters" class="button-group d-flex flex-wrap gap-3 justify-content-center py-5" data-aos="fade-up">
-        <a href="#" class="btn btn-primary text-decoration-none text-uppercase"
-            data-filter=".illustrations">Sobre Fepacoc</a>
-        <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-filter=".branding">Entregáveis</a>
-        <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-filter=".branding">Planos e Preços</a>
-        <a href="#" class="btn btn-primary text-decoration-none text-uppercase is-checked"
-            data-filter=".photography">Área Exclusiva</a>
+    <div class="d-flex flex-wrap gap-3 justify-content-center py-5" >
+        <a href="sobre" class="btn btn-primary text-decoration-none text-uppercase">Sobre Fepacoc</a>
+        <a href="entregaveis" class="btn btn-primary text-decoration-none text-uppercase" >Entregáveis</a>
+        <a href="planos" class="btn btn-primary text-decoration-none text-uppercase" >Planos e Preços</a>
+        <a href="area-exclusiva" class="btn btn-primary text-decoration-none text-uppercase is-checked">Área Exclusiva</a>
     </div>
 </div>
 <section class="portfolio py-5">
@@ -84,15 +53,21 @@ $materialApoio = [
             </div>
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
                 <?php foreach ($videos as $video): ?>
-                    <div class="col mb-4 portfolio-item photography">
-                    <?php if ($video['tipo'] === 'exclusivo'): ?>
-                                <i class="fas fa-crown exclusive-icon position-absolute ms-2" title="Conteúdo Exclusivo" ></i>
+                    <?php if ($video['form'] === 'Video Curto'): ?>
+                        <div class="col mb-4 portfolio-item photography">
+                            <?php if ($video['type'] === 'Pago'): ?>
+                                <i class="fas fa-crown exclusive-icon position-absolute ms-2" title="Conteúdo Exclusivo"></i>
                             <?php endif; ?>
-                            <a href="#" class="video-link" data-video-url="<?= $video['url']; ?>">
-                            <img src="<?= $video['capa']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
-                        </a>
-                    </div>
-                <?php endforeach; ?>
+                            <a href="#" class="video-link" data-video-url="vendor/videos/play/<?= $video['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)">
+                                <img src="vendor/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                            </a>
+                            <button class="btn btn-icon float-end" onclick="openModal('<?= $video['id']; ?>')">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </div>
+
+                    <?php endif; ?>
+                <?php endforeach;  ?>
             </div>
 
             <div class="text-center p-3">
@@ -103,6 +78,8 @@ $materialApoio = [
         </div>
     </div>
 </section>
+<?php // print_r($_SESSION['user_dados']); 
+?>
 <section class="p-5 ">
     <div class="container">
         <div class="row justify-content-center">
@@ -169,12 +146,17 @@ $materialApoio = [
                 </h3>
             </div>
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
-                <?php foreach ($videosAulas as $video): ?>
-                    <div class="col mb-4 portfolio-item photography">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $video['url']; ?>">
-                            <img src="<?= $video['capa']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
-                        </a>
-                    </div>
+                <?php foreach ($videos as $video): ?>
+                    <?php if ($video['form'] === 'Aula'): ?>
+                        <div class="col mb-4 portfolio-item photography">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $video['link']; ?>">
+                                <img src="vendor/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
+                            </a>
+                            <button class="btn btn-icon float-end" onclick="openModal('<?= $video['id']; ?>')">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </div>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </div>
 
@@ -197,12 +179,17 @@ $materialApoio = [
         <div class="justify-content-center">
 
             <div class="grid p-0 clearfix row row-cols-1 row-cols-lg-3 " data-aos="fade-up">
-                <?php foreach ($listaProdutos as $video): ?>
-                    <div class="col mb-4 portfolio-item photography">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $video['url']; ?>">
-                            <img src="<?= $video['capa']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
-                        </a>
-                    </div>
+                <?php foreach ($videos as $video): ?>
+                    <?php if ($video['form'] === 'Servicos'): ?>
+                        <div class="col mb-4 portfolio-item photography">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $video['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
+                                <img src="vendor/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                            </a>
+                            <button class="btn btn-icon float-end" onclick="openModal('<?= $video['id']; ?>')">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </div>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </div>
 
@@ -225,12 +212,17 @@ $materialApoio = [
             </div>
 
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
-                <?php foreach ($videosAulas as $video): ?>
-                    <div class="col mb-4 portfolio-item photography">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $video['url']; ?>">
-                            <img src="<?= $video['capa']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
-                        </a>
-                    </div>
+                <?php foreach ($videos as $video): ?>
+                    <?php if ($video['form'] === 'Produtos'): ?>
+                        <div class="col mb-4 portfolio-item photography">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $video['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
+                                <img src="vendor/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                            </a>
+                            <button class="btn btn-icon float-end" onclick="openModal('<?= $video['id']; ?>')">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </div>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </div>
 
@@ -242,8 +234,6 @@ $materialApoio = [
         </div>
     </div>
 </section>
-
-
 
 <!-- Modal do Bootstrap para vídeos -->
 <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
@@ -261,6 +251,43 @@ $materialApoio = [
         </div>
     </div>
 </div>
+<!-- Modal para Avaliação -->
+<div class="modal" id="ratingModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Avaliar Vídeo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body">
+                <form id="ratingForm" action="app/functions/push/avalia-aula.php" method="POST">
+                    <div class="mb-3">
+                        <label for="reviewText" class="form-label">Seu Comentário</label>
+                        <textarea class="form-control" id="reviewText" name="reviewText" rows="5" required></textarea>
+                    </div>
+                    <label for="reviewText" class="form-label">Avalie o conteúdo</label>
+                    <div class="star-rating">
+                        <span class="star" data-value="1">&#9733;</span>
+                        <span class="star" data-value="2">&#9733;</span>
+                        <span class="star" data-value="3">&#9733;</span>
+                        <span class="star" data-value="4">&#9733;</span>
+                        <span class="star" data-value="5">&#9733;</span>
+                    </div>
+                    <input type="hidden" name="rating" id="rating-input" value="">
+                    <p id="rating-value" class="mt-2"></p>
+                    <input type="hidden" id="videoId" name="videoId">
+                    <!-- Campo oculto para o email do usuário -->
+                    <input type="hidden" name="userEmail" value="<?php echo $user['email']; ?>">
+                    <!-- Campo oculto para a data atual no formato brasileiro -->
+                    <input type="hidden" name="currentDate" value="<?php echo date('d/m/Y'); ?>">
+                    <button type="submit" class="btn btn-primary float-end">Enviar Avaliação</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="videoLightbox" class="video-lightbox d-none">
     <button type="button" class="btn-close position-absolute top-0 end-0 m-3" id="closeLightbox" aria-label="Close"></button>
     <div class="video-container">
@@ -303,6 +330,33 @@ $materialApoio = [
 
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 <script src="vendor/js/script.js"></script>
+<script>
+    function openModal(videoId) {
+        // Define o valor do id do vídeo no campo oculto
+        document.getElementById('videoId').value = videoId;
+
+        // Abre o modal
+        $('#ratingModal').modal('show');
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        const stars = document.querySelectorAll(".star-rating .star");
+        const ratingInput = document.getElementById("rating-input");
+
+        stars.forEach((star, index) => {
+            star.addEventListener("click", function() {
+                // Define o valor no input oculto
+                ratingInput.value = index + 1;
+
+                // Atualiza as classes das estrelas
+                stars.forEach((s, i) => {
+                    s.classList.toggle("active", i <= index);
+                });
+            });
+        });
+    });
+
+    // Adicione um ouvinte de evento para o formulário de envio, se necessário
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const themeToggle = document.getElementById("themeToggle");
@@ -360,6 +414,37 @@ $materialApoio = [
             }
         });
     });
+
+    function trackUserAction(title, email) {
+        const date = new Date();
+        const formattedDate = date.toISOString().split('T')[0]; // Formato: YYYY-MM-DD
+        const formattedTime = date.toTimeString().split(' ')[0]; // Formato: HH:MM:SS
+
+        // Dados a serem enviados
+        const data = {
+            title: title,
+            email: email,
+            date: formattedDate,
+            time: formattedTime,
+        };
+
+        
+        // Enviar via AJAX
+        fetch('app/functions/push/track.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result); // Log do sucesso ou erro
+            })
+            .catch(error => {
+                console.error('Erro ao registrar a ação:', error);
+            });
+    }
 </script>
 </body>
 

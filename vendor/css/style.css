@@ -230,3 +230,60 @@ p.a { line-height: 10%; }
     max-width: 100%;
     max-height: 100%;
 }
+.star-rating {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+  }
+  
+  .star-rating .star.active {
+    color: #ffd700;
+  }
+  .card-header {
+    background-color: #007bff;
+    color: #fff;
+    border-bottom: none;
+}
+.card-body {
+    background-color: #f8f9fa;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+}
+.card-price {
+    font-size: 40px;
+    font-weight: bold;
+}
+.price-discount {
+    font-size: 14px;
+    color: #28a745;
+    font-weight: bold;
+}
+.period {
+    font-size: 16px;
+    color: #6c757d;
+}
+.card {
+    border-radius: .5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,.1);
+    transition: transform .3s;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+.btn-primary, .btn-success, .btn-danger {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+.list-group-item {
+    border: none;
+    padding: 5px 20px;
+}
+.list-group-item i {
+    color: green;
+    margin-right: 10px;
+}
