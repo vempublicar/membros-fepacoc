@@ -17,8 +17,8 @@ if (isset($_SESSION['user_dados'])) {
     }
 } else {
     echo "Usuário não logado.";
-    // Redirecionar para página de login ou mostrar mensagem apropriada
-    exit;
+    header('Location: login');
+    // exit;
 }
 $videos = fetchVideos();
 // print_r($user);

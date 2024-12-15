@@ -287,3 +287,15 @@ p.a { line-height: 10%; }
     color: green;
     margin-right: 10px;
 }
+.fundo-difuso {
+    background: url('../../vendor/images/fundo.jpg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+.fundo-difuso-login {
+    background: url('../../vendor/images/login.jpg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
