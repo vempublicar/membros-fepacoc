@@ -42,6 +42,7 @@ $leads = fetchLeads();
                             <a class="nav-link" href="#leads">Lista Leads</a>
                         </li>
                     </ul>
+                    <a href="painel" onclick="logout()" class="btn btn-danger w-100" style=" bottom: 0;">Sair</a>
                 </div>
             </nav>
 
@@ -105,18 +106,18 @@ $leads = fetchLeads();
                 </div>
                 <div class="mb-3">
                     <label for="videoSector" class="form-label">Setor</label>
-                    <select class="form-control" id="videoSector" name="videoSector">
-                        <option>Setor 1</option>
-                        <option>Setor 2</option>
-                        <!-- Outros setores -->
-                    </select>
+                    <input type="text" class="form-control" id="videoSector" name="videoSector" required>
                 </div>
                 <div class="mb-3">
                     <label for="videoCategory" class="form-label">Categoria</label>
                     <select class="form-control" id="videoCategory" name="videoCategory">
-                        <option>Categoria 1</option>
-                        <option>Categoria 2</option>
-                        <!-- Outras categorias -->
+                        <option>Financeiro</option>
+                        <option>Estrutura</option>
+                        <option>Produto</option>
+                        <option>Anúncio</option>
+                        <option>Cliente</option>
+                        <option>Operacional</option>
+                        <option>Consistência</option>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -164,10 +165,26 @@ $leads = fetchLeads();
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="accessModal" tabindex="-1" aria-labelledby="accessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accessModalLabel">Validação de Acesso</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="accessForm" method="POST">
+                        <div class="mb-3">
+                            <label for="adminPassword" class="form-label">Digite a senha para acessar</label>
+                            <input type="password" class="form-control" id="adminPassword" name="adminPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Validar</button>
+                    </form>
+                    <div id="errorFeedback" class="text-danger mt-2" style="display: none;">Senha inválida. Tente novamente.</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-
-
         function deleteVideo(videoId) {
             if (confirm('Tem certeza que deseja excluir este vídeo?')) {
                 const formData = new FormData();
@@ -245,6 +262,80 @@ $leads = fetchLeads();
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accessModal = new bootstrap.Modal(document.getElementById('accessModal'), {
+                backdrop: 'static',
+                keyboard: false
+            });
+            const token = localStorage.getItem('adminAccessToken');
+
+            if (token) {
+                // Verifica o token no servidor
+                validateToken(token, accessModal);
+            } else {
+                // Exibe o modal se não houver token
+                accessModal.show();
+            }
+
+            // Valida a senha e salva o token
+            document.getElementById('accessForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const password = document.getElementById('adminPassword').value;
+
+                fetch('app/functions/validate-access.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            password: password
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            // Salva o token no localStorage
+                            localStorage.setItem('adminAccessToken', data.token);
+                            accessModal.hide();
+                        } else {
+                            document.getElementById('errorFeedback').style.display = 'block';
+                        }
+                    })
+                    .catch(error => console.error('Erro:', error));
+            });
+        });
+
+        // Função para validar o token no servidor
+        function validateToken(token, accessModal) {
+            fetch('app/functions/validate-token.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: token
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status !== 'success') {
+                        // Token inválido: Exibe o modal para senha
+                        localStorage.removeItem('adminAccessToken'); // Remove token inválido
+                        accessModal.show();
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    accessModal.show();
+                });
+        }
+        function logout() {
+            localStorage.removeItem('adminAccessToken');
+            location.reload(); // Recarrega a página
+        }
+    </script>
     <script>
         $(document).ready(function() {
             // Função para mostrar a seção com base no fragmento da URL
