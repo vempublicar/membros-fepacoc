@@ -13,6 +13,28 @@ function fetchVideos() {
     }
     return [];
 }
+function fetchMateriais() {
+    $queryParams = [
+        'limit' => 500,       // Limite de 500 registros
+        'order' => 'id.desc', // Ordenação decrescente pelo campo 'id'
+    ];
+    $response = sendSupabaseRequest('GET', 'materiais?' . http_build_query($queryParams)); // Endpoint da tabela "videos"
+    if ($response['status'] === 'success' && $response['http_code'] === 200) {
+        return $response['response'];
+    }
+    return [];
+}
+function fetchProdutos() {
+    $queryParams = [
+        'limit' => 500,       // Limite de 500 registros
+        'order' => 'id.desc', // Ordenação decrescente pelo campo 'id'
+    ];
+    $response = sendSupabaseRequest('GET', 'produtos?' . http_build_query($queryParams)); // Endpoint da tabela "videos"
+    if ($response['status'] === 'success' && $response['http_code'] === 200) {
+        return $response['response'];
+    }
+    return [];
+}
 function fetchLeads() {
     // Parâmetros de consulta para limitar e ordenar
     $queryParams = [

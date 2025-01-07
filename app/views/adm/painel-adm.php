@@ -2,6 +2,8 @@
 include "app/functions/data/busca-dados.php";
 
 $videos = fetchVideos();
+$produtos = fetchProdutos();
+$materiais = fetchMateriais();
 $leads = fetchLeads();
 ?>
 
@@ -30,7 +32,7 @@ $leads = fetchLeads();
                             <a class="nav-link" href="#videos">Gerenciar Vídeos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#servicos">Gerenciar Serviços</a>
+                            <a class="nav-link" href="#materiais">Gerenciar Materiais</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#produtos">Gerenciar Produtos</a>
@@ -55,8 +57,8 @@ $leads = fetchLeads();
                 <section id="videos" class="content-section" style="display: none;">
                     <?php include "app/views/adm/content/videos.php" ?>
                 </section>
-                <section id="servicos" class="content-section" style="display: none;">
-                    <?php include "app/views/adm/content/servicos.php" ?>
+                <section id="materiais" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/materiais.php" ?>
                 </section>
                 <section id="produtos" class="content-section" style="display: none;">
                     <?php include "app/views/adm/content/produtos.php" ?>
@@ -85,9 +87,8 @@ $leads = fetchLeads();
                     <label for="videoForm" class="form-label">Formato</label>
                     <select class="form-control" id="videoForm" name="form" required>
                         <option value="Video Curto" selected>Video Curto</option>
-                        <option value="Video Longo">Video Longo</option>
                         <option value="Produto">Produto</option>
-                        <option value="Serviço">Serviço</option>
+                        <option value="Material">Material</option>
                         <option value="Aula">Aula</option>
                     </select>
                 </div>

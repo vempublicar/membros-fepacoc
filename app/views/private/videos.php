@@ -17,7 +17,25 @@ $videosPagina = array_slice($videos, $inicio, $videosPorPagina);
 
 // print_r($videosPagina);
 ?>
+<section class="top-banner  mt-5">
+    <div class="container-fluid p-3">
+        <picture>
+            <!-- Versão para mobile -->
+            <source media="(max-width: 768px)" srcset="vendor/img/capa-mobile-membros.png">
+            <!-- Versão para desktops e tablets maiores -->
+            <img src="vendor/img/capa-membros.png" class="img-fluid rounded-4" alt="Capa do vídeo">
+        </picture>
+    </div>
+</section>
+<div class="row justify-content-center">
 
+    <div class="d-flex flex-wrap gap-3 justify-content-center py-5" >
+        <a href="painel" class="btn btn-primary text-decoration-none text-uppercase">Inicio</a>
+        <a href="aulas" class="btn btn-primary text-decoration-none text-uppercase" >Aulas</a>
+        <a href="material" class="btn btn-primary text-decoration-none text-uppercase" >Material de Apoio</a>
+        <a href="area-exclusiva" class="btn btn-primary text-decoration-none text-uppercase is-checked">Área Exclusiva</a>
+    </div>
+</div>
 <section class="portfolio py-5 mt-5">
     <div class="container">
         <div class="row">

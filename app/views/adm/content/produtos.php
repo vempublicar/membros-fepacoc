@@ -20,15 +20,15 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($videos)): ?>
-                    <?php foreach ($videos as $video): ?>
-                        <?php if ($video['form'] == 'Produto'): ?>
+                <?php if (!empty($produtos)): ?>
+                    <?php foreach ($produtos as $produto): ?>
+                        <?php if ($produto['form'] == 'Produto'): ?>
                             <tr>
                                 <!-- Miniatura -->
                                 <td>
-                                    <?php if (!empty($video['cover'])): ?>
-                                        <img src="vendor/videos/capas/<?= htmlspecialchars($video['cover']) ?>"
-                                            alt="<?= htmlspecialchars($video['title']) ?>"
+                                    <?php if (!empty($produto['cover'])): ?>
+                                        <img src="vendor/img/produto/capas/<?= htmlspecialchars($produto['cover']) ?>"
+                                            alt="<?= htmlspecialchars($produto['title']) ?>"
                                             style="width: 50px; height: auto; border-radius: 5px;">
                                     <?php else: ?>
                                         <img src="path/to/default-thumbnail.jpg"
@@ -39,17 +39,17 @@
 
                                 <!-- Ícone para abrir o vídeo -->
                                 <td class="text-center">
-                                    <?php if (!empty($video['link'])): ?>
+                                    <?php if (!empty($produto['link'])): ?>
                                         <i class="fa fa-play-circle text-primary"
                                             style="cursor: pointer;"
                                             title="Abrir Vídeo"
-                                            onclick="openVideoModal('<?= htmlspecialchars($video['link']) ?>', '<?= htmlspecialchars($video['title']) ?>')">
+                                            onclick="openVideoModal('<?= htmlspecialchars($produto['link']) ?>', '<?= htmlspecialchars($video['title']) ?>')">
                                         </i>
-                                    <?php elseif (!empty($video['internal_name'])): ?>
+                                    <?php elseif (!empty($produto['internal_name'])): ?>
                                         <i class="fa fa-play-circle text-primary"
                                             style="cursor: pointer;"
                                             title="Abrir Vídeo Interno"
-                                            onclick="openVideoModal(null, '<?= htmlspecialchars($video['title']) ?>', '<?= htmlspecialchars($video['internal_name']) ?>')">
+                                            onclick="openVideoModal(null, '<?= htmlspecialchars($produto['title']) ?>', '<?= htmlspecialchars($video['internal_name']) ?>')">
                                         </i>
                                     <?php else: ?>
                                         <i class="fa fa-ban text-muted" title="Sem link disponível"></i>
@@ -57,13 +57,13 @@
                                 </td>
 
                                 <!-- Outras informações -->
-                                <td><?= htmlspecialchars($video['title']) ?></td>
-                                <td><?= htmlspecialchars($video['sector']) ?></td>
-                                <td><?= htmlspecialchars($video['category']) ?></td>
-                                <td><?= htmlspecialchars($video['type']) ?></td>
-                                <td><?= htmlspecialchars($video['short']) ?></td>
+                                <td><?= htmlspecialchars($produto['title']) ?></td>
+                                <td><?= htmlspecialchars($produto['sector']) ?></td>
+                                <td><?= htmlspecialchars($produto['category']) ?></td>
+                                <td><?= htmlspecialchars($produto['type']) ?></td>
+                                <td><?= htmlspecialchars($produto['short']) ?></td>
                                 <td class="text-center">
-                                    <?php if (!empty($video['status']) && $video['status'] === 'ativo'): ?>
+                                    <?php if (!empty($produto['status']) && $produto['status'] === 'ativo'): ?>
                                         <i class="fa fa-eye text-primary"></i>
                                     <?php else: ?>
                                         <i class="fa fa-eye-slash text-secondary"></i>
@@ -72,10 +72,10 @@
                                 <td>
                                     <i class="fa fa-edit text-primary me-2"
                                         style="cursor: pointer;"
-                                        onclick="editVideo(<?= htmlspecialchars(json_encode($video)) ?>)"></i>
+                                        onclick="editVideo(<?= htmlspecialchars(json_encode($produto)) ?>)"></i>
                                     <i class="fa fa-trash text-danger"
                                         style="cursor: pointer;"
-                                        onclick="deleteVideo(<?= $video['id'] ?>)"></i>
+                                        onclick="deleteVideo(<?= $produto['id'] ?>)"></i>
                                 </td>
                             </tr>
                         <?php endif; ?>
