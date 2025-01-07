@@ -39,7 +39,7 @@ switch ($page) {
                 break;
 
                 case 'material':
-                    require 'app/views/private/material.php';
+                    require 'app/views/private/materiais.php';
                     break;
                     
                 case 'aulas':
