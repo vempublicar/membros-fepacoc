@@ -22,7 +22,7 @@
             <tbody>
                 <?php if (!empty($produtos)): ?>
                     <?php foreach ($produtos as $produto): ?>
-                        <?php if ($produto['form'] == 'Produto'): ?>
+                        <?php // if ($produto['form'] == 'Produto'): ?>
                             <tr>
                                 <!-- Miniatura -->
                                 <td>
@@ -78,7 +78,7 @@
                                         onclick="deleteVideo(<?= $produto['id'] ?>)"></i>
                                 </td>
                             </tr>
-                        <?php endif; ?>
+                        <?php // endif; ?>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>

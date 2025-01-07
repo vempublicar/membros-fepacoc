@@ -126,6 +126,7 @@ $leads = fetchLeads();
                     <select class="form-control" id="videoType" name="videoType">
                         <option>Pago</option>
                         <option>Gratuito</option>
+                        <option>Destaque</option>
                     </select>
                 </div>
                 <div class="mb-3">

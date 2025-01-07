@@ -23,7 +23,7 @@ if (isset($_SESSION['user_dados'])) {
 $videos = fetchVideos();
 $produtos = fetchProdutos();
 $materiais = fetchMateriais();
-// print_r($user);
+ print_r($materiais);
 ?>
 <section class="top-banner  mt-5">
     <div class="container-fluid p-3">
@@ -182,7 +182,7 @@ $materiais = fetchMateriais();
 
             <div class="grid p-0 clearfix row row-cols-1 row-cols-lg-3 " data-aos="fade-up">
                 <?php foreach ($produtos as $produto): ?>
-                    <?php if ($produto['form'] === 'Destaque'): ?>
+                    <?php if ($produto['type'] === 'Destaque'): ?>
                         <div class="col mb-4 portfolio-item photography">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $produto['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
                                 <img src="vendor/img/produtos/capas/<?= $produto['cover']; ?>" class="img-fluid rounded-4" alt="Capa do Produto">
@@ -215,7 +215,7 @@ $materiais = fetchMateriais();
 
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
                 <?php foreach ($materiais as $material): ?>
-                    <?php if ($material['form'] === 'Gratuito'): ?>
+                    <?php if ($material['type'] === 'Gratuito'): ?>
                         <div class="col mb-4 portfolio-item photography">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $material['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
                                 <img src="vendor/img/materiais/capas/<?= $material['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
