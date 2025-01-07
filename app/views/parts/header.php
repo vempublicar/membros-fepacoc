@@ -6,7 +6,7 @@
                 <a class="navbar-brand d-flex align-items-center" href="painel">
                     <img src="vendor/img/logo_escuro.png" class="img-fluid" style="height: 26px;" id="logo" alt="Logo">
                 </a>
-                <span class="ms-0  text-dark">Membros</span>
+                <span class="ms-0  text-dark">Membros - 1.0.0</span>
             </div>
 
             <!-- Ícones de Redes Sociais -->
@@ -31,11 +31,11 @@
                         <img src="vendor/images/post-thumb-1.jpg" alt="User Profile" class="rounded-circle" width="40" height="40">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        <li><a class="dropdown-item" href="painel">Início</a></li>
-                        <li><a class="dropdown-item" href="minha-conta">Conta</a></li>
+                        <li><a class="dropdown-item text-black" href="painel">Início</a></li>
+                        <li><a class="dropdown-item text-black" href="minha-conta">Conta</a></li>
                         <!-- <li><a class="dropdown-item" href="minha-assinatura">Assinatura</a></li> -->
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="logout">Logout</a></li>
+                        <li><a class="dropdown-item text-black" href="logout">Logout</a></li>
                     </ul>
                 </div>
             </div>
