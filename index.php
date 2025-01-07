@@ -30,6 +30,11 @@ switch ($page) {
         require 'app/views/private/minha-assinatura.php';
         break;
 
+        case 'area-exclusiva':
+            require 'app/views/private/minha-assinatura.php';
+            break;
+    
+
     case 'sobre':
         require 'app/views/private/sobre.php';
         break;
@@ -62,4 +67,5 @@ switch ($page) {
         // Carrega uma página de campanha aleatória
         require 'app/views/public/login.php';
         break;
+
 }

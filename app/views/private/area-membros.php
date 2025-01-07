@@ -21,6 +21,8 @@ if (isset($_SESSION['user_dados'])) {
     // exit;
 }
 $videos = fetchVideos();
+$produtos = fetchProdutos();
+$materiais = fetchMateriais();
 // print_r($user);
 ?>
 <section class="top-banner  mt-5">
@@ -48,7 +50,7 @@ $videos = fetchVideos();
 
             <div class="text-center">
                 <h3 class="display-6 mb-5">
-                    Vídeos curtos
+                    Vídeos Curtos
                 </h3>
             </div>
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
@@ -59,7 +61,7 @@ $videos = fetchVideos();
                                 <i class="fas fa-crown exclusive-icon position-absolute ms-2" title="Conteúdo Exclusivo"></i>
                             <?php endif; ?>
                             <a href="#" class="video-link" data-video-url="vendor/videos/play/<?= $video['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)">
-                                <img src="vendor/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                                <img src="vendor/img/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                             </a>
                             <button class="btn btn-icon float-end" onclick="openModal('<?= $video['id']; ?>')">
                                 <i class="fas fa-star"></i>
@@ -150,7 +152,7 @@ $videos = fetchVideos();
                     <?php if ($video['form'] === 'Aula'): ?>
                         <div class="col mb-4 portfolio-item photography">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $video['link']; ?>">
-                                <img src="vendor/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
+                                <img src="vendor/img/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
                             </a>
                             <button class="btn btn-icon float-end" onclick="openModal('<?= $video['id']; ?>')">
                                 <i class="fas fa-star"></i>
@@ -161,7 +163,7 @@ $videos = fetchVideos();
             </div>
 
             <div class="text-center p-3">
-                <a href="videos" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
+                <a href="aulas" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
                     Ver mais
                 </a>
             </div>
@@ -179,13 +181,13 @@ $videos = fetchVideos();
         <div class="justify-content-center">
 
             <div class="grid p-0 clearfix row row-cols-1 row-cols-lg-3 " data-aos="fade-up">
-                <?php foreach ($videos as $video): ?>
-                    <?php if ($video['form'] === 'Servicos'): ?>
+                <?php foreach ($produtos as $produto): ?>
+                    <?php if ($produto['form'] === 'Destaque'): ?>
                         <div class="col mb-4 portfolio-item photography">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $video['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
-                                <img src="vendor/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $produto['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
+                                <img src="vendor/img/produto/capas/<?= $produto['cover']; ?>" class="img-fluid rounded-4" alt="Capa do Produto">
                             </a>
-                            <button class="btn btn-icon float-end" onclick="openModal('<?= $video['id']; ?>')">
+                            <button class="btn btn-icon float-end" onclick="openModal('<?= $produto['id']; ?>')">
                                 <i class="fas fa-star"></i>
                             </button>
                         </div>
@@ -194,8 +196,8 @@ $videos = fetchVideos();
             </div>
 
             <div class="text-center p-3">
-                <a href="videos" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
-                    Ver todos vídeos
+                <a href="produtos" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
+                    Ver Produtos
                 </a>
             </div>
         </div>
@@ -212,13 +214,13 @@ $videos = fetchVideos();
             </div>
 
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
-                <?php foreach ($videos as $video): ?>
-                    <?php if ($video['form'] === 'Produtos'): ?>
+                <?php foreach ($materiais as $material): ?>
+                    <?php if ($material['form'] === 'Gratuito'): ?>
                         <div class="col mb-4 portfolio-item photography">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $video['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
-                                <img src="vendor/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $material['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
+                                <img src="vendor/img/material/capas/<?= $material['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                             </a>
-                            <button class="btn btn-icon float-end" onclick="openModal('<?= $video['id']; ?>')">
+                            <button class="btn btn-icon float-end" onclick="openModal('<?= $material['id']; ?>')">
                                 <i class="fas fa-star"></i>
                             </button>
                         </div>
@@ -227,14 +229,15 @@ $videos = fetchVideos();
             </div>
 
             <div class="text-center p-3">
-                <a href="videos" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
+                <a href="material" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
                     Ver mais
                 </a>
             </div>
         </div>
     </div>
 </section>
-
+<!-- Rodapé -->
+ <?php include "app/views/parts/footer.php" ?>
 <!-- Modal do Bootstrap para vídeos -->
 <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

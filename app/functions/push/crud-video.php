@@ -76,11 +76,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             // Enviar os dados para o Supabase
-            $response = sendSupabaseRequest('POST', 'videos', $videoData);
-            if($_POST['form'] == 'Video Curto'){$hash = '#videos';}
-            if($_POST['form'] == 'Produto'){$hash = '#produtos';}
-            if($_POST['form'] == 'Serviço'){$hash = '#servicos';}
-            if($_POST['form'] == 'Aula'){$hash = '#aulas';}
+            
+            if($_POST['form'] == 'Video Curto'){
+                $response = sendSupabaseRequest('POST', 'videos', $videoData);
+                $hash = '#videos';
+            }
+            if($_POST['form'] == 'Produto'){
+                $response = sendSupabaseRequest('POST', 'produtos', $videoData);
+                $hash = '#produtos';
+            }
+            if($_POST['form'] == 'Material'){
+                $response = sendSupabaseRequest('POST', 'materiais', $videoData);
+                $hash = '#materiais';}
+            if($_POST['form'] == 'Aula'){
+                $response = sendSupabaseRequest('POST', 'videos', $videoData);
+                $hash = '#aulas';
+            }
 
             // Verificar a resposta e redirecionar
             if ($response['status'] === 'success' && $response['http_code'] === 201) {
