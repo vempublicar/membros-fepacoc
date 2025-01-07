@@ -27,7 +27,7 @@
                                 <!-- Miniatura -->
                                 <td>
                                     <?php if (!empty($material['cover'])): ?>
-                                        <img src="vendor/img/material/capas/<?= htmlspecialchars($material['cover']) ?>"
+                                        <img src="vendor/img/materiais/capas/<?= htmlspecialchars($material['cover']) ?>"
                                             alt="<?= htmlspecialchars($material['title']) ?>"
                                             style="width: 50px; height: auto; border-radius: 5px;">
                                     <?php else: ?>

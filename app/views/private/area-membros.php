@@ -152,7 +152,7 @@ $materiais = fetchMateriais();
                     <?php if ($video['form'] === 'Aula'): ?>
                         <div class="col mb-4 portfolio-item photography">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $video['link']; ?>">
-                                <img src="vendor/img/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
+                                <img src="vendor/img/aulas/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
                             </a>
                             <button class="btn btn-icon float-end" onclick="openModal('<?= $video['id']; ?>')">
                                 <i class="fas fa-star"></i>
@@ -185,7 +185,7 @@ $materiais = fetchMateriais();
                     <?php if ($produto['form'] === 'Destaque'): ?>
                         <div class="col mb-4 portfolio-item photography">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $produto['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
-                                <img src="vendor/img/produto/capas/<?= $produto['cover']; ?>" class="img-fluid rounded-4" alt="Capa do Produto">
+                                <img src="vendor/img/produtos/capas/<?= $produto['cover']; ?>" class="img-fluid rounded-4" alt="Capa do Produto">
                             </a>
                             <button class="btn btn-icon float-end" onclick="openModal('<?= $produto['id']; ?>')">
                                 <i class="fas fa-star"></i>
@@ -218,7 +218,7 @@ $materiais = fetchMateriais();
                     <?php if ($material['form'] === 'Gratuito'): ?>
                         <div class="col mb-4 portfolio-item photography">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $material['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
-                                <img src="vendor/img/material/capas/<?= $material['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                                <img src="vendor/img/materiais/capas/<?= $material['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                             </a>
                             <button class="btn btn-icon float-end" onclick="openModal('<?= $material['id']; ?>')">
                                 <i class="fas fa-star"></i>

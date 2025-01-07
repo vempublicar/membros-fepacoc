@@ -3,7 +3,7 @@
       <div class="row g-md-5 my-5">
         <div class="col-md-4">
           <div class="info-box">
-            <img src="images/logo-2.png" class="img-fluid">
+            <img src="vendor/img/logo-branco.png" class="img-fluid">
             <p class="py-4">
               Subscribe to newsletter to get some updates related with branding, designs and more.
             </p>
@@ -46,17 +46,17 @@
             <div class="col-6">
               <ul class="list-unstyled">
                 <li>
-                  <a class="text-decoration-none text-white" href="index.html">Home</a>
+                  <a href="https://fepacoc.com/" class="text-decoration-none text-white" target="_blank">Fepacoc</a>
                 </li>
-                <li>
-                  <a class="text-decoration-none text-white" href="#">About</a>
+                <!--<li>
+                  <a class="text-decoration-none text-white" href="#">Sobre</a>
                 </li>
                 <li>
                   <a class="text-decoration-none text-white" href="index.html">Team</a>
                 </li>
                 <li>
                   <a class="text-decoration-none text-white" href="index.html">Portfolio</a>
-                </li>
+                </li>-->
               </ul>
             </div>
             <div class="col-6">
@@ -71,15 +71,15 @@
         </div>
         <div class="col-md-5">
           <p>
-            Just feel free to contact if you wanna collaborate with me, or simply have a conversation.
+            Metodologia exclusiva, construída para facilitar sua gestão e melhorar a performance da sua empresa.
           </p>
           <h3>
-            <a href="mailto:contact@yourwebsite.com" class="text-white text-decoration-none">contact@yourwebsite.com</a>
+            <a href="mailto:suporte@fepacoc.com.br" class="text-white text-decoration-none">suporte@fepacoc.com.br</a>
           </h3>
         </div>
       </div>
       <div class="row">
-        <p>©2024 Jessica. Free HTML Template by <a href="https://templatesjungle.com/" class="text-white" target="_blank">TemplatesJungle</a>. Distributed By <a href="https://themewagon.com" class="text-white" target="blamk">ThemeWagon</a> </p>
+        <p>Área de Membros - Fepacoc. Criado pelo time <a href="https://vempublicar.com/" class="text-white" target="_blank">Vempublicar</a>. Versão Beta 1.0.02 </p>
       </div>
     </div>
   </footer>
