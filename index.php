@@ -31,9 +31,16 @@ switch ($page) {
         break;
 
         case 'area-exclusiva':
-            require 'app/views/private/minha-assinatura.php';
+            require 'app/views/private/area-exclusiva.php';
             break;
-    
+
+            case 'produtos':
+                require 'app/views/private/produtos.php';
+                break;
+
+                case 'material':
+                    require 'app/views/private/material.php';
+                    break;
 
     case 'sobre':
         require 'app/views/private/sobre.php';

@@ -4,9 +4,9 @@
         <div class="col-md-4">
           <div class="info-box">
             <img src="vendor/img/logo-branco.png" class="img-fluid">
-            <p class="py-4">
+            <!--<p class="py-4">
               Subscribe to newsletter to get some updates related with branding, designs and more.
-            </p>
+            </p>-->
             <div class="social-links">
               <svg class="skype" width="24" height="24">
                 <use xlink:href="#skype"></use>
