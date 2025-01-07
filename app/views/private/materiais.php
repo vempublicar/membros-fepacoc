@@ -3,17 +3,17 @@ include_once "app/views/parts/head.php";
 include_once "app/views/parts/header.php";
 include "app/functions/data/busca-dados.php";
 
-$videos = fetchVideos();
+$materiais = fetchMateriais();
 $leads = fetchLeads();
 // JSON com dados dos vídeos (capa, URL do vídeo do YouTube, título, categoria e setor)
 
 
-$videosPorPagina = 12; // Número ajustado para considerar a lógica de 13 a 25, 26 a 38, etc.
-$totalVideos = count($videos);
-$totalPaginas = ceil($totalVideos / $videosPorPagina);
+$materiaisPorPagina = 12; // Número ajustado para considerar a lógica de 13 a 25, 26 a 38, etc.
+$totalMateriais = count($materiais);
+$totalPaginas = ceil($totalMateriais / $materiaisPorPagina);
 $paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-$inicio = ($paginaAtual - 1) * $videosPorPagina;
-$videosPagina = array_slice($videos, $inicio, $videosPorPagina);
+$inicio = ($paginaAtual - 1) * $materiaisPorPagina;
+$materiaisPagina = array_slice($materiais, $inicio, $materiaisPorPagina);
 
 // print_r($videosPagina);
 ?>
@@ -59,13 +59,13 @@ $videosPagina = array_slice($videos, $inicio, $videosPorPagina);
             </div>
             <div class="col-lg-9">
                 <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" id="videoGrid" data-aos="fade-up">
-                    <?php foreach ($videosPagina as $video): ?>
-                        <div class="col mb-4 portfolio-item" data-categoria="<?= $video['category']; ?>" data-setor="<?= $video['sector']; ?>" data-titulo="<?= strtolower($video['title']); ?>">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="vendor/videos/play/<?= $video['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
-                                <img src="vendor/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                    <?php foreach ($materiaisPagina as $materiais): ?>
+                        <div class="col mb-4 portfolio-item" data-categoria="<?= $materiais['category']; ?>" data-setor="<?= $materiais['sector']; ?>" data-titulo="<?= strtolower($materiais['title']); ?>">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="vendor/img/materiais/play/<?= $materiais['link']; ?>" onclick="trackUserAction('<?= $materiais['title']; ?>', <?= $user['email'] ?>)" >
+                                <img src="vendor/img/materiais/capas/<?= $materiais['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                                 <div class="mt-2">
-                                    <h6 class="fw-bold mb-0"><?= $video['title']; ?></h6>
-                                    <small class="text-muted"><?= $video['category']; ?> - <?= $video['sector']; ?></small>
+                                    <h6 class="fw-bold mb-0"><?= $materiais['title']; ?></h6>
+                                    <small class="text-muted"><?= $materiais['category']; ?> - <?= $materiais['sector']; ?></small>
                                 </div>
                             </a>
                         </div>

@@ -5,15 +5,20 @@ include "app/functions/data/busca-dados.php";
 
 $videos = fetchVideos();
 $leads = fetchLeads();
-// JSON com dados dos vídeos (capa, URL do vídeo do YouTube, título, categoria e setor)
 
+// Filtrar apenas os vídeos cuja 'form' é 'Aula'
+$videosAulas = array_filter($videos, function ($video) {
+    return isset($video['form']) && $video['form'] === 'Aula';
+});
 
 $videosPorPagina = 12; // Número ajustado para considerar a lógica de 13 a 25, 26 a 38, etc.
-$totalVideos = count($videos);
+$totalVideos = count($videosAulas);
 $totalPaginas = ceil($totalVideos / $videosPorPagina);
 $paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 $inicio = ($paginaAtual - 1) * $videosPorPagina;
-$videosPagina = array_slice($videos, $inicio, $videosPorPagina);
+
+// Paginar apenas os vídeos filtrados
+$videosPagina = array_slice($videosAulas, $inicio, $videosPorPagina);
 
 // print_r($videosPagina);
 ?>
