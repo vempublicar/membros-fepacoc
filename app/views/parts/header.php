@@ -31,11 +31,11 @@
                         <img src="vendor/images/post-thumb-1.jpg" alt="User Profile" class="rounded-circle" width="40" height="40">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        <li><a class="dropdown-item" href="painel">Início</a></li>
-                        <li><a class="dropdown-item" href="minha-conta">Conta</a></li>
+                        <li><a class="dropdown-item text-black" href="painel">Início</a></li>
+                        <li><a class="dropdown-item text-black" href="minha-conta">Conta</a></li>
                         <!-- <li><a class="dropdown-item" href="minha-assinatura">Assinatura</a></li> -->
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="logout">Logout</a></li>
+                        <li><a class="dropdown-item text-black" href="logout">Logout</a></li>
                     </ul>
                 </div>
             </div>
