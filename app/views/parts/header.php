@@ -21,6 +21,9 @@
 
             <div class="d-flex align-items-center gap-3">
                 <!-- Botão de Alternância de Tema -->
+                <a href="painel" class="btn btn-outline-secondary">
+                    <i class="fas fa-home"></i>
+                </a>
                 <button id="themeToggle" class="btn btn-outline-secondary">
                     <i class="fas fa-sun"></i>
                 </button>

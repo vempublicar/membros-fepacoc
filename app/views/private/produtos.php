@@ -3,17 +3,17 @@ include_once "app/views/parts/head.php";
 include_once "app/views/parts/header.php";
 include "app/functions/data/busca-dados.php";
 
-$videos = fetchVideos();
+$produtos = fetchProdutos();
 $leads = fetchLeads();
 // JSON com dados dos vídeos (capa, URL do vídeo do YouTube, título, categoria e setor)
 
 
-$videosPorPagina = 12; // Número ajustado para considerar a lógica de 13 a 25, 26 a 38, etc.
-$totalVideos = count($videos);
-$totalPaginas = ceil($totalVideos / $videosPorPagina);
+$produtosPorPagina = 12; // Número ajustado para considerar a lógica de 13 a 25, 26 a 38, etc.
+$totalProdutos = count($produtos);
+$totalPaginas = ceil($totalProdutos / $produtosPorPagina);
 $paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-$inicio = ($paginaAtual - 1) * $videosPorPagina;
-$videosPagina = array_slice($videos, $inicio, $videosPorPagina);
+$inicio = ($paginaAtual - 1) * $produtosPorPagina;
+$produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
 
 // print_r($videosPagina);
 ?>
@@ -59,13 +59,13 @@ $videosPagina = array_slice($videos, $inicio, $videosPorPagina);
             </div>
             <div class="col-lg-9">
                 <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" id="videoGrid" data-aos="fade-up">
-                    <?php foreach ($videosPagina as $video): ?>
-                        <div class="col mb-4 portfolio-item" data-categoria="<?= $video['category']; ?>" data-setor="<?= $video['sector']; ?>" data-titulo="<?= strtolower($video['title']); ?>">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="vendor/videos/play/<?= $video['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
-                                <img src="vendor/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                    <?php foreach ($produtosPagina as $produto): ?>
+                        <div class="col mb-4 portfolio-item" data-categoria="<?= $produto['category']; ?>" data-setor="<?= $produto['sector']; ?>" data-titulo="<?= strtolower($produto['title']); ?>">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="vendor/img/produto/play/<?= $produto['link']; ?>" onclick="trackUserAction('<?= $produto['title']; ?>', <?= $user['email'] ?>)" >
+                                <img src="vendor/img/produtos/capas/<?= $produto['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                                 <div class="mt-2">
-                                    <h6 class="fw-bold mb-0"><?= $video['title']; ?></h6>
-                                    <small class="text-muted"><?= $video['category']; ?> - <?= $video['sector']; ?></small>
+                                    <h6 class="fw-bold mb-0"><?= $produto['title']; ?></h6>
+                                    <small class="text-muted"><?= $produto['category']; ?> - <?= $produto['sector']; ?></small>
                                 </div>
                             </a>
                         </div>
@@ -77,19 +77,19 @@ $videosPagina = array_slice($videos, $inicio, $videosPorPagina);
                     <ul class="pagination justify-content-center mt-4">
                         <?php if ($paginaAtual > 1): ?>
                             <li class="page-item">
-                                <a class="page-link" href="videos&pagina=<?= $paginaAtual - 1; ?>" aria-label="Anterior">
+                                <a class="page-link" href="produtos&pagina=<?= $paginaAtual - 1; ?>" aria-label="Anterior">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
                         <?php endif; ?>
                         <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
                             <li class="page-item <?= $i == $paginaAtual ? 'active' : ''; ?>">
-                                <a class="page-link" href="videos&pagina=<?= $i; ?>"><?= $i; ?></a>
+                                <a class="page-link" href="produtos&pagina=<?= $i; ?>"><?= $i; ?></a>
                             </li>
                         <?php endfor; ?>
                         <?php if ($paginaAtual < $totalPaginas): ?>
                             <li class="page-item">
-                                <a class="page-link" href="videos&pagina=<?= $paginaAtual + 1; ?>" aria-label="Próximo">
+                                <a class="page-link" href="produtos&pagina=<?= $paginaAtual + 1; ?>" aria-label="Próximo">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
