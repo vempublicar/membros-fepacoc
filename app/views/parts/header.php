@@ -6,7 +6,7 @@
                 <a class="navbar-brand d-flex align-items-center" href="painel">
                     <img src="vendor/img/logo_escuro.png" class="img-fluid" style="height: 26px;" id="logo" alt="Logo">
                 </a>
-                <span class="ms-0  text-dark">Membros</span>
+                <span class="ms-0  text-dark">Membros - 1.0.0</span>
             </div>
 
             <!-- Ícones de Redes Sociais -->
