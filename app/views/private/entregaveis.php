@@ -26,7 +26,7 @@ include_once "app/views/parts/header.php";
                     <li class="list-group-item"><i class="fas fa-check"></i> Crescimento Real da Empresa</li>
                     <li class="list-group-item"><i class="fas fa-check"></i> Valuation</li>
                     <li class="list-group-item"><i class="fas fa-check"></i> Custo de Aquisição de Clientes (CAC)</li>
-                    <li class="list-group-item"><i class="fas fa-check"></i> Lucro Antes de Juros, Impostos, Depreciação e Amortização (EBITDA)</li>
+                    <li class="list-group-item"><i class="fas fa-check"></i> Lucro Antes de Juros, Impostos e Taxas (EBIT)</li>
                     <li class="list-group-item"><i class="fas fa-check"></i> Performance de Departamentos</li>
                 </ul>
             </div>

@@ -30,10 +30,10 @@ $videosPagina = array_slice($videos, $inicio, $videosPorPagina);
 <div class="row justify-content-center">
 
     <div class="d-flex flex-wrap gap-3 justify-content-center py-5" >
-        <a href="painel" class="btn btn-primary text-decoration-none text-uppercase">Inicio</a>
-        <a href="aulas" class="btn btn-primary text-decoration-none text-uppercase" >Aulas</a>
-        <a href="material" class="btn btn-primary text-decoration-none text-uppercase" >Material de Apoio</a>
-        <a href="area-exclusiva" class="btn btn-primary text-decoration-none text-uppercase is-checked">Área Exclusiva</a>
+        <a href="painel" class="btn btn-primary ">Inicio</a>
+        <a href="aulas" class="btn btn-primary " >Aulas</a>
+        <a href="material" class="btn btn-primary " >Material de Apoio</a>
+        <a href="area-exclusiva" class="btn btn-primary ">Área Exclusiva</a>
     </div>
 </div>
 <section class="portfolio py-5 mt-5">
