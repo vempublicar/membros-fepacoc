@@ -65,7 +65,7 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
                     <?php foreach ($produtosPagina as $produto): ?>
                         <div class="col mb-4 portfolio-item" data-categoria="<?= $produto['category']; ?>" data-setor="<?= $produto['sector']; ?>" data-titulo="<?= strtolower($produto['title']); ?>">
                         <div class="card border border-secondary bg-transparent">
-        <div class="card-body">
+        <div class="card-body bg-transparent">
                         <a href="#" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#mediaModal" 
