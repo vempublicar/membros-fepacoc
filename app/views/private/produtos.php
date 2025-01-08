@@ -30,7 +30,7 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
 </section>
 <section class="portfolio py-5 mt-5">
     <div class="container">
-    <h3 class="text-center mb-2" >Produtos</h3>
+    <h2 class="text-center mb-2">Produtos</h2><hr>
     <div class="custom-divider"></div>
         <div class="row">
             <!--
