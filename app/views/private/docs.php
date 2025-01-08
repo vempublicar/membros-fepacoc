@@ -1,6 +1,6 @@
 <?php
 // Caminho base absoluto dos arquivos
-$basePath = 'vendor/img/produtos/play/';
+$basePath = __DIR__ . '/vendor/img/produtos/play/';
 
 // Obtenha o nome do arquivo solicitado (parâmetro GET)
 $file = $_GET['file'] ?? null;
