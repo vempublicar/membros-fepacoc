@@ -4,7 +4,7 @@ $basePath = '/vendor/img/produtos/play/';
 
 // Obtenha o nome do arquivo solicitado (parâmetro GET)
 $file = $_GET['file'] ?? null;
-
+print_r($file);
 if ($file) {
     // Resolva o caminho real do arquivo
     $realPath = realpath($basePath . $file);
