@@ -63,7 +63,9 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
             <div class="col-lg-12">
                 <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" id="videoGrid" data-aos="fade-up">
                     <?php foreach ($produtosPagina as $produto): ?>
-                        <div class="col card mb-4 portfolio-item" data-categoria="<?= $produto['category']; ?>" data-setor="<?= $produto['sector']; ?>" data-titulo="<?= strtolower($produto['title']); ?>">
+                        <div class="col mb-4 portfolio-item" data-categoria="<?= $produto['category']; ?>" data-setor="<?= $produto['sector']; ?>" data-titulo="<?= strtolower($produto['title']); ?>">
+                        <div class="card border border-secondary bg-transparent">
+        <div class="card-body">
                         <a href="#" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#mediaModal" 
@@ -76,6 +78,8 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
                                     <h6 class="fw-bold mb-0 "><?= $produto['title']; ?></h6>
                                     <small class="text-secondary"><?= $produto['category']; ?> - <?= $produto['sector']; ?></small><hr>
                                     <small class="text-secondary"><?= $produto['description']; ?>
+                                </div>
+                                </div>
                                 </div>
                         </div>
                     <?php endforeach; ?>
