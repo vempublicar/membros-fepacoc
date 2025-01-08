@@ -1,6 +1,7 @@
+<img src="vendor/img/produtos/play/loja-lucrativa.jpg" alt="Teste de Imagem">
 <?php
 // Caminho base dos arquivos
-$basePath = '../../vendor/img/produto/play/';
+$basePath = 'vendor/img/produto/play/';
 
 // Obtenha o nome do arquivo solicitado (parâmetro GET)
 $file = $_GET['file'] ?? null;
