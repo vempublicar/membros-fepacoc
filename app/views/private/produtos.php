@@ -26,7 +26,7 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
             <img src="vendor/img/capa-produtos-desk.jpg" style="width: 100vw" class="img-fluid rounded-4" alt="Capa do vídeo">
         </picture>
     </div>
-    <hr class="custom-divider" >
+    
 </section>
 <section class="portfolio py-5 mt-5">
     <div class="container">
@@ -62,6 +62,7 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
             -->
             <div class="col-lg-12">
                 <h3 class="text-center mb-2" >Produtos</h3>
+                <div class="custom-divider"></div>
                 <p>Aqui você encontrará soluções pontuais que utilizam a metodologia FEPACOC para otimizar os processos e a operação da sua empresa.</p>
                 <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" id="videoGrid" data-aos="fade-up">
                     <?php foreach ($produtosPagina as $produto): ?>
