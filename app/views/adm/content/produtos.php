@@ -75,7 +75,7 @@
                                         onclick="editVideo(<?= htmlspecialchars(json_encode($produto)) ?>)"></i>
                                     <i class="fa fa-trash text-danger"
                                         style="cursor: pointer;"
-                                        onclick="deleteVideo(<?= $produto['id'] ?>)"></i>
+                                        onclick="deleteVideo(<?= $produto['id'] ?>,'produtos')"></i>
                                 </td>
                             </tr>
                         <?php // endif; ?>

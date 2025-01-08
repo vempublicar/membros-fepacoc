@@ -187,11 +187,12 @@ $leads = fetchLeads();
         </div>
     </div>
     <script>
-        function deleteVideo(videoId) {
+        function deleteVideo(videoId, tabelaDel) {
             if (confirm('Tem certeza que deseja excluir este vídeo?')) {
                 const formData = new FormData();
                 formData.append('action', 'delete');
                 formData.append('id', videoId);
+                formData.append('tabela', tabelaDel);
 
                 fetch('app/functions/push/crud-video.php', {
                         method: 'POST',

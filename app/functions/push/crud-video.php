@@ -164,9 +164,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($action === 'delete') {
             // Excluir vídeo
             $id = $_POST['id'] ?? null;
+            $tabela = $_POST['tabela'] ?? null;
             if (!$id) throw new Exception('ID do vídeo não informado');
 
-            $response = sendSupabaseRequest('DELETE', "videos?id=eq.$id");
+            $response = sendSupabaseRequest('DELETE', "$tabela.?id=eq.$id");
             echo json_encode($response);
 
         } else {
