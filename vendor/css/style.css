@@ -299,3 +299,11 @@ p.a { line-height: 10%; }
     position: relative;
     overflow: hidden;
 }
+
+.custom-divider {
+    width: 70%;
+    height: 5px; /* Espessura da linha */
+    background-color: #71707e; /* Cor da linha */
+    margin: 20px auto; /* Centraliza horizontalmente */
+    border-radius: 2px; /* Bordas arredondadas (opcional) */
+}
