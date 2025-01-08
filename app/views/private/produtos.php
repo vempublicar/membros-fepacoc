@@ -30,34 +30,36 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
 <section class="portfolio py-5 mt-5">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3">
-                <div class="filters mb-4">
-                    <h5 class="fw-bold">Filtros</h5>
-                    <div class="mb-3">
-                        <label for="pesquisa" class="form-label">Pesquisar</label>
-                        <input type="text" id="pesquisa" class="form-control" placeholder="Digite o título do vídeo...">
-                    </div>
-                    <div class="mb-3">
-                        <label for="categoria" class="form-label">Categoria</label>
-                        <select id="categoria" class="form-select">
-                            <option value="">Todas</option>
-                            <option value="Categoria 1">Categoria 1</option>
-                            <option value="Categoria 2">Categoria 2</option>
-                            <option value="Categoria 3">Categoria 3</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="setor" class="form-label">Setor</label>
-                        <select id="setor" class="form-select">
-                            <option value="">Todos</option>
-                            <option value="Setor 2">Setor 2</option>
-                            <option value="Setor 1">Setor 1</option>
-                            <option value="Setor 3">Setor 3</option>
-                        </select>
+            <!--
+                <div class="col-lg-3">
+                    <div class="filters mb-4">
+                        <h5 class="fw-bold">Filtros</h5>
+                        <div class="mb-3">
+                            <label for="pesquisa" class="form-label">Pesquisar</label>
+                            <input type="text" id="pesquisa" class="form-control" placeholder="Digite o título do vídeo...">
+                        </div>
+                        <div class="mb-3">
+                            <label for="categoria" class="form-label">Categoria</label>
+                            <select id="categoria" class="form-select">
+                                <option value="">Todas</option>
+                                <option value="Categoria 1">Categoria 1</option>
+                                <option value="Categoria 2">Categoria 2</option>
+                                <option value="Categoria 3">Categoria 3</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="setor" class="form-label">Setor</label>
+                            <select id="setor" class="form-select">
+                                <option value="">Todos</option>
+                                <option value="Setor 2">Setor 2</option>
+                                <option value="Setor 1">Setor 1</option>
+                                <option value="Setor 3">Setor 3</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-9">
+            -->
+            <div class="col-lg-12">
                 <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" id="videoGrid" data-aos="fade-up">
                     <?php foreach ($produtosPagina as $produto): ?>
                         <div class="col mb-4 portfolio-item" data-categoria="<?= $produto['category']; ?>" data-setor="<?= $produto['sector']; ?>" data-titulo="<?= strtolower($produto['title']); ?>">
@@ -102,21 +104,20 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
 </section>
 
 <!-- Modal do Bootstrap para vídeos -->
-<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="videoModalLabel">Vídeo</h5>
+                <h5 class="modal-title" id="mediaModalLabel">Mídia</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="ratio ratio-16x9">
-                    <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
+                <iframe id="mediaFrame" src="" frameborder="0" class="w-100 h-100"></iframe>
             </div>
         </div>
     </div>
 </div>
+
 
 
 
@@ -158,45 +159,51 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var videoModal = document.getElementById('videoModal');
-        var videoGrid = document.getElementById('videoGrid');
-        videoModal.addEventListener('show.bs.modal', function (event) {
-            var button = event.relatedTarget;
-            var videoUrl = button.getAttribute('data-video-url');
-            var videoFrame = document.getElementById('videoFrame');
-            videoFrame.src = videoUrl;
-        });
+    var mediaModal = document.getElementById('mediaModal');
+    var mediaGrid = document.getElementById('videoGrid');
+    var mediaFrame = document.getElementById('mediaFrame');
 
-        videoModal.addEventListener('hidden.bs.modal', function () {
-            var videoFrame = document.getElementById('videoFrame');
-            videoFrame.src = '';
-        });
-
-        document.getElementById('categoria').addEventListener('change', filtrarVideos);
-        document.getElementById('setor').addEventListener('change', filtrarVideos);
-        document.getElementById('pesquisa').addEventListener('input', filtrarVideos);
-
-        function filtrarVideos() {
-            var categoria = document.getElementById('categoria').value;
-            var setor = document.getElementById('setor').value;
-            var pesquisa = document.getElementById('pesquisa').value.toLowerCase();
-            var videos = document.querySelectorAll('#videoGrid .portfolio-item');
-
-            videos.forEach(function (video) {
-                var videoCategoria = video.getAttribute('data-categoria');
-                var videoSetor = video.getAttribute('data-setor');
-                var videoTitulo = video.getAttribute('data-titulo');
-
-                if ((categoria === '' || categoria === videoCategoria) &&
-                    (setor === '' || setor === videoSetor) &&
-                    (pesquisa === '' || videoTitulo.includes(pesquisa))) {
-                    video.style.display = 'block';
-                } else {
-                    video.style.display = 'none';
-                }
-            });
+    mediaModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var mediaUrl = button.getAttribute('data-video-url');
+        
+        // Verifica o tipo de mídia pelo final da URL
+        if (mediaUrl.endsWith('.pdf')) {
+            mediaFrame.src = mediaUrl;
+        } else {
+            mediaFrame.src = mediaUrl + '?autoplay=1';
         }
     });
+
+    mediaModal.addEventListener('hidden.bs.modal', function () {
+        mediaFrame.src = ''; // Limpa o iframe ao fechar
+    });
+
+    document.getElementById('categoria').addEventListener('change', filtrarVideos);
+    document.getElementById('setor').addEventListener('change', filtrarVideos);
+    document.getElementById('pesquisa').addEventListener('input', filtrarVideos);
+
+    function filtrarVideos() {
+        var categoria = document.getElementById('categoria').value;
+        var setor = document.getElementById('setor').value;
+        var pesquisa = document.getElementById('pesquisa').value.toLowerCase();
+        var videos = document.querySelectorAll('#videoGrid .portfolio-item');
+
+        videos.forEach(function (video) {
+            var videoCategoria = video.getAttribute('data-categoria');
+            var videoSetor = video.getAttribute('data-setor');
+            var videoTitulo = video.getAttribute('data-titulo');
+
+            if ((categoria === '' || categoria === videoCategoria) &&
+                (setor === '' || setor === videoSetor) &&
+                (pesquisa === '' || videoTitulo.includes(pesquisa))) {
+                video.style.display = 'block';
+            } else {
+                video.style.display = 'none';
+            }
+        });
+    }
+});
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
