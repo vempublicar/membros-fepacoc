@@ -45,6 +45,9 @@ switch ($page) {
                 case 'aulas':
                     require 'app/views/private/aulas.php';
                     break;
+                    case 'doc':
+                        require 'app/views/private/docs.php';
+                        break;
 
     case 'sobre':
         require 'app/views/private/sobre.php';

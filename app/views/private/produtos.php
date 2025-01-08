@@ -66,7 +66,7 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
                         <a href="#" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#mediaModal" 
-                                data-file-url="<?= 'https://' . $_SERVER['HTTP_HOST'] . '/vendor/img/produto/play/' . $produto['link']; ?>" 
+                                data-file-url="doc?file=<?= urlencode($produto['link']); ?>" 
                                 onclick="trackUserAction('<?= $produto['title']; ?>', '<?= $user['email'] ?>')">
                                     <img src="vendor/img/produtos/capas/<?= $produto['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                                     
