@@ -38,7 +38,7 @@ function sendSupabaseRequest($method, $endpoint, $data = null) {
 // Função para gerenciar o upload de arquivos
 function handleFileUpload($file, $uploadDir) {
     if ($file['error'] === UPLOAD_ERR_OK) {
-        $filename = uniqid('video_') . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+        $filename = uniqid('arquivo_') . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
         $destination = $uploadDir . $filename;
         if (move_uploaded_file($file['tmp_name'], $destination)) {
             return $filename;
@@ -70,29 +70,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Enviar os dados para o Supabase
             
             if($_POST['form'] == 'Video Curto'){
-                $response = sendSupabaseRequest('POST', 'videos', $videoData);
                 $hash = 'videos';
+                if (isset($_FILES['videoCover'])) { 
+                    $videoData['cover'] = upfotos($_FILES['videoCover'],$hash);                
+                }
+                $response = sendSupabaseRequest('POST', 'videos', $videoData);                
             }
             if($_POST['form'] == 'Produto'){
-                $response = sendSupabaseRequest('POST', 'produtos', $videoData);
                 $hash = 'produtos';
+                if (isset($_FILES['videoCover'])) { 
+                    $videoData['cover'] = upfotos($_FILES['videoCover'],$hash);                
+                }
+                $response = sendSupabaseRequest('POST', 'produtos', $videoData);
             }
             if($_POST['form'] == 'Material'){
+                $hash = 'materiais';
+                if (isset($_FILES['videoCover'])) { 
+                    $videoData['cover'] = upfotos($_FILES['videoCover'],$hash);                
+                }
                 $response = sendSupabaseRequest('POST', 'materiais', $videoData);
-                $hash = 'materiais';}
+            }
             if($_POST['form'] == 'Aula'){
-                $response = sendSupabaseRequest('POST', 'videos', $videoData);
                 $hash = 'aulas';
+                if (isset($_FILES['videoCover'])) { 
+                    $videoData['cover'] = upfotos($_FILES['videoCover'],$hash);                
+                }
+                $response = sendSupabaseRequest('POST', 'videos', $videoData);
             }
 
             // Gerenciar upload da capa do vídeo
-            if (isset($_FILES['videoCover'])) {
+            function upfotos($file,$hash){
                 $uploadDir = "../../../vendor/img/".$hash."/capas/";
-                $uploadedFile = handleFileUpload($_FILES['videoCover'], $uploadDir);
+                $uploadedFile = handleFileUpload($file, $uploadDir);
                 if ($uploadedFile) {
-                    $videoData['cover'] = $uploadedFile;
+                    return $uploadedFile;                    
+                }else{
+                    return 'avatar.jpg';
                 }
+                
             }
+            
 
             // Verificar a resposta e redirecionar
             if ($response['status'] === 'success' && $response['http_code'] === 201) {
