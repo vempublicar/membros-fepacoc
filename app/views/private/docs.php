@@ -1,31 +1,37 @@
-<img src="vendor/img/produtos/play/loja-lucrativa.jpg" style="height: 100px" alt="Teste de Imagem">
 <?php
-// Caminho base dos arquivos
+// Caminho base absoluto dos arquivos
 $basePath = 'vendor/img/produtos/play/';
 
 // Obtenha o nome do arquivo solicitado (parâmetro GET)
 $file = $_GET['file'] ?? null;
 
 if ($file) {
-    // Evite que acessem arquivos fora da pasta especificada
+    // Resolva o caminho real do arquivo
     $realPath = realpath($basePath . $file);
-    echo 'teste';
-print_r($realPath);
+
+    // Verifique se o arquivo está dentro do diretório permitido e existe
     if ($realPath && strpos($realPath, $basePath) === 0 && file_exists($realPath)) {
         // Determine o tipo MIME do arquivo
         $mimeType = mime_content_type($realPath);
 
-        // Defina os cabeçalhos corretos
+        // Cabeçalhos para exibir o PDF diretamente
         header('Content-Type: ' . $mimeType);
         header('Content-Length: ' . filesize($realPath));
         header('Content-Disposition: inline; filename="' . basename($realPath) . '"');
 
-        // Leia e envie o arquivo
+        // Limpe buffers e leia o arquivo
+        ob_clean();
+        flush();
         readfile($realPath);
+        exit;
+    } else {
+        // Caso o arquivo não seja encontrado ou esteja fora do diretório permitido
+        http_response_code(404);
+        echo "Arquivo não encontrado ou acesso não permitido.";
         exit;
     }
 }
 
-// Caso o arquivo não seja encontrado ou não seja permitido
-http_response_code(404);
-echo "Arquivo não encontrado ou acesso não permitido neste momento.".$file;
+// Caso o parâmetro `file` não seja passado
+http_response_code(400);
+echo "Nenhum arquivo especificado.";
