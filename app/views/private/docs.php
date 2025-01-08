@@ -8,7 +8,7 @@ $file = $_GET['file'] ?? null;
 if ($file) {
     // Evite que acessem arquivos fora da pasta especificada
     $realPath = realpath($basePath . $file);
-
+print_r($realPath);
     if ($realPath && strpos($realPath, $basePath) === 0 && file_exists($realPath)) {
         // Determine o tipo MIME do arquivo
         $mimeType = mime_content_type($realPath);
