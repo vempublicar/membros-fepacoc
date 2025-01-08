@@ -68,21 +68,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             
             // Enviar os dados para o Supabase
+            $formMap = [
+                'Video Curto' => ['table' => 'videos', 'hash' => 'videos'],
+                'Produto' => ['table' => 'produtos', 'hash' => 'produtos'],
+                'Material' => ['table' => 'materiais', 'hash' => 'materiais'],
+                'Aula' => ['table' => 'videos', 'hash' => 'aulas']
+            ];
+            $formType = $formMap[$_POST['form']];
+            $hash = $formType['hash'];
+            $table = $formType['table'];
             
             if($_POST['form'] == 'Video Curto'){
                 $response = sendSupabaseRequest('POST', 'videos', $videoData);
-                $hash = 'videos';
             }
             if($_POST['form'] == 'Produto'){
                 $response = sendSupabaseRequest('POST', 'produtos', $videoData);
-                $hash = 'produtos';
             }
             if($_POST['form'] == 'Material'){
                 $response = sendSupabaseRequest('POST', 'materiais', $videoData);
-                $hash = 'materiais';}
+            }
             if($_POST['form'] == 'Aula'){
                 $response = sendSupabaseRequest('POST', 'videos', $videoData);
-                $hash = 'aulas';
             }
 
             // Gerenciar upload da capa do vídeo
