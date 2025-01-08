@@ -303,7 +303,7 @@ p.a { line-height: 10%; }
 .custom-divider {
     width: 70%;
     height: 5px; /* Espessura da linha */
-    background-color: #71707e; /* Cor da linha */
+    background-color: #9796a0; /* Cor da linha */
     margin: 20px auto; /* Centraliza horizontalmente */
     border-radius: 2px; /* Bordas arredondadas (opcional) */
 }
