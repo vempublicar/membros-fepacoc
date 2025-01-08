@@ -67,47 +67,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
 
             
-            // Enviar os dados para o Supabase
-            
-            if($_POST['form'] == 'Video Curto'){
-                $hash = 'videos';
-                if (isset($_FILES['videoCover'])) { 
-                    $videoData['cover'] = upfotos($_FILES['videoCover'],$hash);                
+            // Mapear os tipos de formulário para as tabelas e diretórios
+            $formMap = [
+                'Video Curto' => ['table' => 'videos', 'hash' => 'videos'],
+                'Produto' => ['table' => 'produtos', 'hash' => 'produtos'],
+                'Material' => ['table' => 'materiais', 'hash' => 'materiais'],
+                'Aula' => ['table' => 'videos', 'hash' => 'aulas']
+            ];
+
+            if (isset($_POST['form']) && isset($formMap[$_POST['form']])) {
+                $formType = $formMap[$_POST['form']];
+                $hash = $formType['hash'];
+                $table = $formType['table'];
+
+                // Gerenciar upload da capa do vídeo
+                if (isset($_FILES['videoCover']) && $_FILES['videoCover']['error'] === UPLOAD_ERR_OK) {
+                    $videoData['cover'] = upfotos($_FILES['videoCover'], $hash);
+                } else {
+                    $videoData['cover'] = 'avatar.jpg'; // Valor padrão se não houver upload válido
                 }
-                $response = sendSupabaseRequest('POST', 'videos', $videoData);                
-            }
-            if($_POST['form'] == 'Produto'){
-                $hash = 'produtos';
-                if (isset($_FILES['videoCover'])) { 
-                    $videoData['cover'] = upfotos($_FILES['videoCover'],$hash);                
+
+                // Enviar os dados para o Supabase
+                $response = sendSupabaseRequest('POST', $table, $videoData);
+
+                // Tratamento de resposta (opcional)
+                if ($response['status'] === 200) {
+                    echo json_encode(['status' => 'success', 'message' => 'Registro criado com sucesso']);
+                } else {
+                    echo json_encode(['status' => 'error', 'message' => 'Erro ao criar registro']);
                 }
-                $response = sendSupabaseRequest('POST', 'produtos', $videoData);
-            }
-            if($_POST['form'] == 'Material'){
-                $hash = 'materiais';
-                if (isset($_FILES['videoCover'])) { 
-                    $videoData['cover'] = upfotos($_FILES['videoCover'],$hash);                
-                }
-                $response = sendSupabaseRequest('POST', 'materiais', $videoData);
-            }
-            if($_POST['form'] == 'Aula'){
-                $hash = 'aulas';
-                if (isset($_FILES['videoCover'])) { 
-                    $videoData['cover'] = upfotos($_FILES['videoCover'],$hash);                
-                }
-                $response = sendSupabaseRequest('POST', 'videos', $videoData);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Formulário inválido']);
             }
 
-            // Gerenciar upload da capa do vídeo
-            function upfotos($file,$hash){
-                $uploadDir = "../../../vendor/img/".$hash."/capas/";
+            // Função de upload encapsulada
+            function upfotos($file, $hash) {
+                $uploadDir = "../../../vendor/img/" . $hash . "/capas/";
                 $uploadedFile = handleFileUpload($file, $uploadDir);
-                if ($uploadedFile) {
-                    return $uploadedFile;                    
-                }else{
-                    return 'avatar.jpg';
-                }
-                
+
+                return $uploadedFile ? $uploadedFile : 'avatar.jpg';
             }
             
 
