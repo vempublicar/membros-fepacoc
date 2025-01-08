@@ -10,7 +10,7 @@ if ($file) {
     $realPath = $basePath . $file;
 print_r($realPath);
     // Verifique se o arquivo está dentro do diretório permitido e existe
-    if ($realPath && strpos($realPath, $basePath) === 0 && file_exists($realPath)) {
+    if (file_exists($realPath)) {
         // Determine o tipo MIME do arquivo
         $mimeType = mime_content_type($realPath);
 
