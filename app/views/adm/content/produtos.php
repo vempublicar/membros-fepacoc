@@ -82,7 +82,7 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="9" class="text-center">Nenhum vídeo curto cadastrado</td>
+                        <td colspan="9" class="text-center">Nenhum produto cadastrado</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

@@ -66,8 +66,9 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
                             <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="vendor/img/produto/play/<?= $produto['link']; ?>" onclick="trackUserAction('<?= $produto['title']; ?>', <?= $user['email'] ?>)" >
                                 <img src="vendor/img/produtos/capas/<?= $produto['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                                 <div class="mt-2">
-                                    <h6 class="fw-bold mb-0"><?= $produto['title']; ?></h6>
+                                    <h6 class="fw-bold mb-0 text-center"><?= $produto['title']; ?></h6>
                                     <small class="text-muted"><?= $produto['category']; ?> - <?= $produto['sector']; ?></small>
+                                    <small class="text-muted"><?= $produto['description']; ?>
                                 </div>
                             </a>
                         </div>
