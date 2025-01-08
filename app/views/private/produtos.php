@@ -175,10 +175,11 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
         
         // Verifica o tipo de mídia pelo final da URL
         if (mediaUrl.endsWith('.pdf')) {
-            mediaFrame.src = mediaUrl;
-        } else {
-            mediaFrame.src = mediaUrl + '?autoplay=1';
-        }
+    alert(mediaUrl); // Exibe o valor de mediaUrl
+    mediaFrame.src = mediaUrl;
+} else {
+    mediaFrame.src = mediaUrl + '?autoplay=1';
+}
     });
 
     mediaModal.addEventListener('hidden.bs.modal', function () {
