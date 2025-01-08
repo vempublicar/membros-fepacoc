@@ -1,6 +1,6 @@
 <?php
 // Caminho base absoluto dos arquivos
-$basePath = __DIR__ . '/vendor/img/produtos/play/';
+$basePath = '/vendor/img/produtos/play/';
 
 // Obtenha o nome do arquivo solicitado (parâmetro GET)
 $file = $_GET['file'] ?? null;
@@ -8,7 +8,7 @@ $file = $_GET['file'] ?? null;
 if ($file) {
     // Resolva o caminho real do arquivo
     $realPath = realpath($basePath . $file);
-
+print_r($realPath);
     // Verifique se o arquivo está dentro do diretório permitido e existe
     if ($realPath && strpos($realPath, $basePath) === 0 && file_exists($realPath)) {
         // Determine o tipo MIME do arquivo
