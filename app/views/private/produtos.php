@@ -21,9 +21,9 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
     <div class="container-fluid p-3">
         <picture>
             <!-- Versão para mobile -->
-            <source media="(max-width: 768px)"  srcset="vendor/img/capa-produtos-mobile.jpg">
+            <source media="(max-width: 768px)" style="width: 100vw" srcset="vendor/img/capa-produtos-mobile.jpg">
             <!-- Versão para desktops e tablets maiores -->
-            <img src="vendor/img/capa-produtos-desk.jpg"  class="img-fluid rounded-4" alt="Capa do vídeo">
+            <img src="vendor/img/capa-produtos-desk.jpg" style="width: 100vw" class="img-fluid rounded-4" alt="Capa do vídeo">
         </picture>
     </div>
     <hr class="custom-divider" >
