@@ -61,12 +61,12 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
                 </div>
             -->
             <div class="col-lg-12">
-                <h4>Produtos</h4>
+                <h3 class="text-center mb-2" >Produtos</h3>
                 <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" id="videoGrid" data-aos="fade-up">
                     <?php foreach ($produtosPagina as $produto): ?>
                         <div class="col mb-4 portfolio-item" data-categoria="<?= $produto['category']; ?>" data-setor="<?= $produto['sector']; ?>" data-titulo="<?= strtolower($produto['title']); ?>">
                         <div class="card border border-secondary bg-transparent">
-        <div class="card-body bg-transparent">
+                    <div class="card-body bg-transparent">
                         <a href="#" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#mediaModal" 
