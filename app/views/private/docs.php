@@ -7,7 +7,7 @@ $file = $_GET['file'] ?? null;
 print_r($file);
 if ($file) {
     // Resolva o caminho real do arquivo
-    $realPath = realpath($basePath . $file);
+    $realPath = $basePath . $file;
 print_r($realPath);
     // Verifique se o arquivo está dentro do diretório permitido e existe
     if ($realPath && strpos($realPath, $basePath) === 0 && file_exists($realPath)) {
