@@ -26,4 +26,4 @@ if ($file) {
 
 // Caso o arquivo não seja encontrado ou não seja permitido
 http_response_code(404);
-echo "Arquivo não encontrado ou acesso não permitido.";
+echo "Arquivo não encontrado ou acesso não permitido.".$_GET['file'];
