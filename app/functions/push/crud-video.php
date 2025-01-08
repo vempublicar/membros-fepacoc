@@ -77,6 +77,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $formType = $formMap[$_POST['form']];
             $hash = $formType['hash'];
             $table = $formType['table'];
+
+            // Gerenciar upload da capa do vídeo
+            if (isset($_FILES['videoCover'])) {
+                $uploadDir = "../../../vendor/img/".$hash."/capas/";
+                $uploadedFile = handleFileUpload($_FILES['videoCover'], $uploadDir);
+                if ($uploadedFile) {
+                    $videoData['cover'] = $uploadedFile;
+                }
+            }
             
             if($_POST['form'] == 'Video Curto'){
                 $response = sendSupabaseRequest('POST', 'videos', $videoData);
@@ -91,14 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $response = sendSupabaseRequest('POST', 'videos', $videoData);
             }
 
-            // Gerenciar upload da capa do vídeo
-            if (isset($_FILES['videoCover'])) {
-                $uploadDir = "../../../vendor/img/".$hash."/capas/";
-                $uploadedFile = handleFileUpload($_FILES['videoCover'], $uploadDir);
-                if ($uploadedFile) {
-                    $videoData['cover'] = $uploadedFile;
-                }
-            }
+            
 
             // Verificar a resposta e redirecionar
             if ($response['status'] === 'success' && $response['http_code'] === 201) {
@@ -127,9 +129,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'description' => $_POST['videoDesc']
             ];
 
-            // Gerenciar upload da capa do vídeo, se houver
+            // Enviar os dados para o Supabase
+            $formMap = [
+                'Video Curto' => ['table' => 'videos', 'hash' => 'videos'],
+                'Produto' => ['table' => 'produtos', 'hash' => 'produtos'],
+                'Material' => ['table' => 'materiais', 'hash' => 'materiais'],
+                'Aula' => ['table' => 'videos', 'hash' => 'aulas']
+            ];
+            $formType = $formMap[$_POST['form']];
+            $hash = $formType['hash'];
+            $table = $formType['table'];
+
+            // Gerenciar upload da capa do vídeo
             if (isset($_FILES['videoCover'])) {
-                $uploadDir = "../../../vendor/videos/capas/";
+                $uploadDir = "../../../vendor/img/".$hash."/capas/";
                 $uploadedFile = handleFileUpload($_FILES['videoCover'], $uploadDir);
                 if ($uploadedFile) {
                     $videoData['cover'] = $uploadedFile;
@@ -137,16 +150,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             // Enviar atualização para o Supabase
-            $response = sendSupabaseRequest('PATCH', "videos?id=eq.$id", $videoData);
-            if($_POST['form'] == 'Video Curto'){$hash = '#videos';}
-            if($_POST['form'] == 'Produto'){$hash = '#produtos';}
-            if($_POST['form'] == 'Serviço'){$hash = '#servicos';}
-            if($_POST['form'] == 'Aula'){$hash = '#aulas';}
-            if ($response['status'] === 'success' && $response['http_code'] === 204) {
-                header("Location: ".$_SERVER['HTTP_REFERER'].$hash);
+            $response = sendSupabaseRequest('PATCH', "$table?id=eq.$id", $videoData);
+            
+            if ($response['status'] === 'success' && $response['http_code'] === 201) {
+                header("Location: ".$_SERVER['HTTP_REFERER'].'#'.$hash);
                 exit;
             } else {
-                header("Location: ".$_SERVER['HTTP_REFERER'].$hash);
+                header("Location: ".$_SERVER['HTTP_REFERER'].'#'.$hash);
                 exit;
             }
 
