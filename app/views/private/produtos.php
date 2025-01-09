@@ -30,8 +30,9 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
 </section>
 <section class="portfolio py-5 mt-5">
     <div class="container">
-    <h2 class="text-center mb-2">Produtos</h2><hr>
-    <div class="custom-divider"></div>
+    <h2 class="text-center mb-2">Produtos</h2>
+    <p>Aqui você encontrará soluções pontuais que utilizam a metodologia FEPACOC para otimizar os processos e a operação da sua empresa.</p>
+    <hr>
         <div class="row">
             <!--
                 <div class="col-lg-3">
@@ -63,8 +64,6 @@ $produtosPagina = array_slice($produtos, $inicio, $produtosPorPagina);
                 </div>
             -->
             <div class="col-lg-12">
-                
-                <p>Aqui você encontrará soluções pontuais que utilizam a metodologia FEPACOC para otimizar os processos e a operação da sua empresa.</p>
                 <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" id="videoGrid" data-aos="fade-up">
                     <?php foreach ($produtosPagina as $produto): ?>
                         <div class="col mb-4 portfolio-item" data-categoria="<?= $produto['category']; ?>" data-setor="<?= $produto['sector']; ?>" data-titulo="<?= strtolower($produto['title']); ?>">

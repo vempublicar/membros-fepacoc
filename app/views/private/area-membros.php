@@ -23,7 +23,7 @@ if (isset($_SESSION['user_dados'])) {
 $videos = fetchVideos();
 $produtos = fetchProdutos();
 $materiais = fetchMateriais();
- print_r($materiais);
+// print_r($materiais);
 ?>
 <section class="top-banner  mt-5">
     <div class="container-fluid p-3">
