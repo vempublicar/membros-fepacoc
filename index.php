@@ -2,6 +2,11 @@
 $page = $_GET['pg'] ?? '';
 
 switch ($page) {
+    
+    case 'webhook':
+        require 'app/views/public/register.php';
+        break;
+
     case 'register':
         require 'app/views/public/register.php';
         break;
