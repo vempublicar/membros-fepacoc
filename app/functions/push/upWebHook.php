@@ -3,7 +3,17 @@ include "config/supabase/supabase_config.php"; // Ajuste o caminho conforme nece
 
 // Função para lidar com o webhook do Pagar.me
 function handlePagarMeWebhook($event) {
-    return 'teste';
+    switch ($event['type']) {
+        case 'customer.created':
+        case 'customer.updated':
+            return 'teste'
+         //   return handleCustomerEvent($event['data']);
+        case 'charge.payment_failed':
+            return 'teste 2'
+         //   return handlePaymentFailure($event['data']);
+        default:
+            return ['status' => 'error', 'message' => 'Tipo de evento não tratado'];
+    }
 }
 
 // Função para salvar dados no banco
