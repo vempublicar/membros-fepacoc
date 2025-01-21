@@ -3,40 +3,48 @@ include "../../config/supabase/supabase_config.php"; // Adjust the path as neces
 
 // Function to handle Pagar.me webhook
 function handlePagarMeWebhook($event) {
-    // Check the type of event (e.g., transaction approved, subscription canceled)
     switch ($event['type']) {
-        case 'transaction_approved':
-            return updateUserAccess($event['data']);
-        case 'subscription_canceled':
-            return cancelUserAccess($event['data']);
+        case 'customer.created':
+        case 'customer.updated':
+            return handleCustomerEvent($event['data']);
+        case 'charge.payment_failed':
+            return handlePaymentFailure($event['data']);
         default:
             return ['status' => 'error', 'message' => 'Unhandled event type'];
     }
 }
 
-// Function to update or create user access based on transaction details
-function updateUserAccess($data) {
-    $email = $data['customer']['email'];
-    $subscriptionId = $data['subscription_id'];
-    $accessGranted = true; // Set based on your business logic
+// Handle customer creation or update events
+function handleCustomerEvent($data) {
+    $email = $data['email'];
+    $customerData = [
+        'email' => $email,
+        'name' => $data['name'],
+        'document' => $data['document'],
+        'address' => json_encode($data['address']), // Store address as JSON string
+        'phone' => $data['phones']['mobile_phone']['number'],
+        'updated_at' => date('Y-m-d H:i:s')
+    ];
 
     // Check if user exists
     $response = sendSupabaseRequest('GET', "users?email=eq.$email");
-
     if (!empty($response['response'])) {
-        // User exists, update access
-        $updateData = ['access_granted' => $accessGranted];
-        return sendSupabaseRequest('PATCH', "users?email=eq.$email", $updateData);
+        // User exists, update data
+        return sendSupabaseRequest('PATCH', "users?email=eq.$email", $customerData);
     } else {
-        // No user found, create new user with access
-        $newUserData = ['email' => $email, 'access_granted' => $accessGranted, 'subscription_id' => $subscriptionId];
-        return sendSupabaseRequest('POST', 'users', $newUserData);
+        // No user found, create new user
+        $customerData['created_at'] = date('Y-m-d H:i:s');
+        return sendSupabaseRequest('POST', 'users', $customerData);
     }
 }
 
-// Function to cancel user access based on subscription details
-function cancelUserAccess($data) {
+// Handle payment failure events
+function handlePaymentFailure($data) {
     $email = $data['customer']['email'];
-    $updateData = ['access_granted' => false];
+    $updateData = [
+        'payment_status' => 'failed',
+        'updated_at' => date('Y-m-d H:i:s')
+    ];
     return sendSupabaseRequest('PATCH', "users?email=eq.$email", $updateData);
 }
+?>
