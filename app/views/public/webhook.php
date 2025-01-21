@@ -1,14 +1,28 @@
 <?php
 include "app/functions/push/upWebHook.php";  // Ensure the path is correct based on your folder structure
 
-$data = file_get_contents("php://input");
-file_put_contents('webhook_log.txt', $data, FILE_APPEND);
-$event = json_decode($data, true);
+function logData($message) {
+    file_put_contents('webhook_errors.log', $message, FILE_APPEND);
+}
 
-if ($event) {
-    $result = handlePagarMeWebhook($event);
-    echo json_encode(['status' => 'success', 'message' => 'Webhook processed successfully', 'result' => $result]);
-} else {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid webhook data']);
+$data = file_get_contents("php://input");
+logData("Received: " . $data . "\n");
+
+$json = json_decode($data, true);
+
+try {
+    if ($json) {
+        // Suponha que você tem uma função para salvar os dados
+        $result = saveToDatabase($json['data']);
+        if ($result === true) {
+            logData("Data saved successfully\n");
+        } else {
+            logData("Failed to save data: " . $result . "\n");
+        }
+    } else {
+        throw new Exception("Invalid JSON data");
+    }
+} catch (Exception $e) {
+    logData("Error: " . $e->getMessage() . "\n");
 }
 ?>
