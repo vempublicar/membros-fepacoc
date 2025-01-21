@@ -6,11 +6,9 @@ function handlePagarMeWebhook($event) {
     switch ($event['type']) {
         case 'customer.created':
         case 'customer.updated':
-            return 'teste'
-         //   return handleCustomerEvent($event['data']);
+            return handleCustomerEvent($event['data']);
         case 'charge.payment_failed':
-            return 'teste 2'
-         //   return handlePaymentFailure($event['data']);
+            return handlePaymentFailure($event['data']);
         default:
             return ['status' => 'error', 'message' => 'Tipo de evento não tratado'];
     }
@@ -42,11 +40,13 @@ function handleCustomerEvent($data) {
     $response = sendSupabaseRequest('GET', "users?email=eq.$email");
     if (!empty($response['response'])) {
         // Usuário existe, atualizar dados
-        return saveToDatabase('users', $customerData, 'PATCH', $email);
+        return $response;
+        //return saveToDatabase('users', $customerData, 'PATCH', $email);
     } else {
         // Nenhum usuário encontrado, criar novo usuário
+        return $response;
         $customerData['created_at'] = date('Y-m-d H:i:s');
-        return saveToDatabase('users', $customerData, 'POST');
+        //return saveToDatabase('users', $customerData, 'POST');
     }
 }
 
