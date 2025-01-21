@@ -10,17 +10,18 @@ function handlePagarMeWebhook($event) {
         case 'charge.payment_failed':
             return handlePaymentFailure($event['data']);
         default:
-            return ['status' => 'error', 'message' => 'Unhandled event type'];
+            return ['status' => 'error', 'message' => 'Tipo de evento não tratado'];
     }
 }
 
 // Função para salvar dados no banco
 function saveToDatabase($table, $data, $method, $key = null) {
-    $endpoint = $table;
-    if ($key) {
-        $endpoint .= "?email=eq.$key";
+    $endpoint = $table . ($key ? "?email=eq.$key" : "");
+    $response = sendSupabaseRequest($method, $endpoint, $data);
+    if ($response['status'] === 'error') {
+        return $response; // Retorna a resposta de erro para ser tratada ou logada
     }
-    return sendSupabaseRequest($method, $endpoint, $data);
+    return ['status' => 'success', 'message' => 'Dados processados com sucesso'];
 }
 
 // Manipular eventos de criação ou atualização de clientes
@@ -35,6 +36,7 @@ function handleCustomerEvent($data) {
         'updated_at' => date('Y-m-d H:i:s')
     ];
 
+    // Verifica se o usuário já existe
     $response = sendSupabaseRequest('GET', "users?email=eq.$email");
     if (!empty($response['response'])) {
         // Usuário existe, atualizar dados
@@ -54,5 +56,36 @@ function handlePaymentFailure($data) {
         'updated_at' => date('Y-m-d H:i:s')
     ];
     return saveToDatabase('users', $updateData, 'PATCH', $email);
+}
+
+function sendSupabaseRequest($method, $endpoint, $data = null) {
+    $url = SUPABASE_URL . '/rest/v1/' . $endpoint;
+    $headers = [
+        "Content-Type: application/json",
+        "apikey: " . SUPABASE_KEY,
+        "Authorization: Bearer " . SUPABASE_KEY
+    ];
+
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CUSTOMREQUEST => $method,
+        CURLOPT_HTTPHEADER => $headers
+    ]);
+
+    if ($data) {
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+    }
+
+    $response = curl_exec($curl);
+    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+
+    if ($httpCode != 200 && $httpCode != 201) { // Considerando 200 e 201 como sucesso
+        return ['status' => 'error', 'message' => 'Erro na requisição HTTP', 'http_code' => $httpCode];
+    }
+
+    return ['status' => 'success', 'response' => json_decode($response, true)];
 }
 ?>
