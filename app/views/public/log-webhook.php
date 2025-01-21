@@ -2,7 +2,7 @@
 //curl -X POST -H "Content-Type: application/json" -d '{"id": "test_id", "type": "customer.created"}' https://members.fepacoc.com.br/webhook
 
 // Caminho para o arquivo de log
-$logFilePath = 'app/functions/push/webhook_log.txt';
+$logFilePath = 'webhook_log.txt';
 
 // Verifica se o arquivo de log existe
 if (file_exists($logFilePath)) {
