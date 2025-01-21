@@ -38,6 +38,7 @@ function handleCustomerEvent($data) {
 
     // Verifica se o usuário já existe
     $response = sendSupabaseRequest('GET', "users?email=eq.$email");
+    return $response;
     if (!empty($response['response'])) {
         // Usuário existe, atualizar dados
         return 'não tem usuário';
