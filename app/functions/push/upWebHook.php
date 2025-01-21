@@ -40,7 +40,7 @@ function handleCustomerEvent($data) {
     $response = sendSupabaseRequest('GET', "users?email=eq.$email");
     if (!empty($response['response'])) {
         // Usuário existe, atualizar dados
-        return $response;
+        return 'não tem usuário';
         //return saveToDatabase('users', $customerData, 'PATCH', $email);
     } else {
         // Nenhum usuário encontrado, criar novo usuário
