@@ -66,7 +66,7 @@ function sendSupabaseRequest($method, $endpoint, $data = null) {
     $headers = [
         "Content-Type: application/json",
         "apikey: " . SUPABASE_KEY,
-        "Authorization: Bearer " . SUPABASE_KEY
+        "Authorization: Bearer " . SUPABASE_KEY,
     ];
 
     $curl = curl_init();
@@ -74,7 +74,7 @@ function sendSupabaseRequest($method, $endpoint, $data = null) {
         CURLOPT_URL => $url,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CUSTOMREQUEST => $method,
-        CURLOPT_HTTPHEADER => $headers
+        CURLOPT_HTTPHEADER => $headers,
     ]);
 
     if ($data) {
@@ -83,12 +83,13 @@ function sendSupabaseRequest($method, $endpoint, $data = null) {
 
     $response = curl_exec($curl);
     $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    $error = curl_error($curl);
     curl_close($curl);
 
-    if ($httpCode != 200 && $httpCode != 201) { // Considerando 200 e 201 como sucesso
-        return ['status' => 'error', 'message' => 'Erro na requisição HTTP', 'http_code' => $httpCode];
+    if ($error) {
+        return ['status' => 'error', 'message' => $error];
     }
 
-    return ['status' => 'success', 'response' => json_decode($response, true)];
+    return ['status' => 'success', 'http_code' => $httpCode, 'response' => json_decode($response, true)];
 }
 ?>
