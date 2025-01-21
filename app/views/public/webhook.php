@@ -10,6 +10,6 @@ logData("Received: " . $data . "\n");
 
 $json = json_decode($data, true);
 $result = saveToDatabase($json['data']);
-logData($result);
+logData('resposta:'.$result);
 
 ?>
