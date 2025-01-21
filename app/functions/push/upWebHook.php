@@ -1,5 +1,5 @@
 <?php
-include "../../config/supabase/supabase_config.php"; // Adjust the path as necessary
+include "config/supabase/supabase_config.php"; // Adjust the path as necessary
 
 // Function to handle Pagar.me webhook
 function handlePagarMeWebhook($event) {
