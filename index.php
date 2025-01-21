@@ -4,7 +4,7 @@ $page = $_GET['pg'] ?? '';
 switch ($page) {
     
     case 'webhook':
-        require 'app/views/public/register.php';
+        require 'app/views/public/webhook.php';
         break;
 
     case 'register':
