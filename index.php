@@ -7,6 +7,11 @@ switch ($page) {
         require 'app/views/public/webhook.php';
         break;
 
+        
+    case 'log-webhook':
+        require 'app/views/public/log-webhook.php';
+        break;
+
     case 'register':
         require 'app/views/public/register.php';
         break;
