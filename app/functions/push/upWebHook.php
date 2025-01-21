@@ -1,7 +1,7 @@
 <?php
-include "config/supabase/supabase_config.php"; // Adjust the path as necessary
+include "config/supabase/supabase_config.php"; // Ajuste o caminho conforme necessário
 
-// Function to handle Pagar.me webhook
+// Função para lidar com o webhook do Pagar.me
 function handlePagarMeWebhook($event) {
     switch ($event['type']) {
         case 'customer.created':
@@ -14,37 +14,45 @@ function handlePagarMeWebhook($event) {
     }
 }
 
-// Handle customer creation or update events
+// Função para salvar dados no banco
+function saveToDatabase($table, $data, $method, $key = null) {
+    $endpoint = $table;
+    if ($key) {
+        $endpoint .= "?email=eq.$key";
+    }
+    return sendSupabaseRequest($method, $endpoint, $data);
+}
+
+// Manipular eventos de criação ou atualização de clientes
 function handleCustomerEvent($data) {
     $email = $data['email'];
     $customerData = [
         'email' => $email,
         'name' => $data['name'],
         'document' => $data['document'],
-        'address' => json_encode($data['address']), // Store address as JSON string
+        'address' => json_encode($data['address']),
         'phone' => $data['phones']['mobile_phone']['number'],
         'updated_at' => date('Y-m-d H:i:s')
     ];
 
-    // Check if user exists
     $response = sendSupabaseRequest('GET', "users?email=eq.$email");
     if (!empty($response['response'])) {
-        // User exists, update data
-        return sendSupabaseRequest('PATCH', "users?email=eq.$email", $customerData);
+        // Usuário existe, atualizar dados
+        return saveToDatabase('users', $customerData, 'PATCH', $email);
     } else {
-        // No user found, create new user
+        // Nenhum usuário encontrado, criar novo usuário
         $customerData['created_at'] = date('Y-m-d H:i:s');
-        return sendSupabaseRequest('POST', 'users', $customerData);
+        return saveToDatabase('users', $customerData, 'POST');
     }
 }
 
-// Handle payment failure events
+// Manipular eventos de falha de pagamento
 function handlePaymentFailure($data) {
     $email = $data['customer']['email'];
     $updateData = [
         'payment_status' => 'failed',
         'updated_at' => date('Y-m-d H:i:s')
     ];
-    return sendSupabaseRequest('PATCH', "users?email=eq.$email", $updateData);
+    return saveToDatabase('users', $updateData, 'PATCH', $email);
 }
 ?>

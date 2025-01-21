@@ -1,5 +1,5 @@
 <?php
-include "app/functions/push/upWebHook.php";  // Ensure the path is correct based on your folder structure
+include "app/functions/push/upWebHook.php";  // Verifique se o caminho está correto
 
 function logData($message) {
     file_put_contents('webhook_errors.log', $message, FILE_APPEND);
@@ -9,7 +9,10 @@ $data = file_get_contents("php://input");
 logData("Received: " . $data . "\n");
 
 $json = json_decode($data, true);
-$result = saveToDatabase($json['data']);
-logData('resposta:'.$result);
-
+if ($json) {
+    $result = handlePagarMeWebhook($json);  // Ajuste para chamar a função correta
+    logData('Resposta: ' . print_r($result, true) . "\n");
+} else {
+    logData("Erro na decodificação do JSON\n");
+}
 ?>
