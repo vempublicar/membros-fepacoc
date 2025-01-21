@@ -6,67 +6,45 @@ function handlePagarMeWebhook($event) {
     switch ($event['type']) {
         case 'customer.created':
         case 'customer.updated':
-            return handleCustomerEvent($event['data']);
+            saveCustomerEvent($event['data']);
+            break;
         case 'charge.payment_failed':
-            return handlePaymentFailure($event['data']);
-        default:
-            return ['status' => 'error', 'message' => 'Tipo de evento não tratado'];
+            savePaymentFailure($event['data']);
+            break;
     }
 }
 
-// Função para salvar dados no banco
-function saveToDatabase($table, $data, $method, $key = null) {
-    $endpoint = $table . ($key ? "?email=eq.$key" : "");
-    //$response = sendSupabaseRequest($method, $endpoint, $data);
-    //if ($response['status'] === 'error') {
-    //   return $response; // Retorna a resposta de erro para ser tratada ou logada
-    //}
-    return ['status' => 'success', 'message' => 'Dados processados com sucesso'];
-}
-
-// Manipular eventos de criação ou atualização de clientes
-function handleCustomerEvent($data) {
-    $email = $data['email'];
+// Função para salvar eventos de cliente
+function saveCustomerEvent($data) {
     $customerData = [
-        'email' => $email,
+        'email' => $data['email'],
         'name' => $data['name'],
         'document' => $data['document'],
         'address' => json_encode($data['address']),
         'phone' => $data['phones']['mobile_phone']['number'],
-        'updated_at' => date('Y-m-d H:i:s')
+        'updated_at' => date('Y-m-d H:i:s'),
+        'created_at' => date('Y-m-d H:i:s')  // A data de criação é sempre atualizada para garantir o registro
     ];
-
-    // Verifica se o usuário já existe
-    $response = sendSupabaseRequest('GET', "users?email=eq.$email");
-    return $response;
-    if (!empty($response['response'])) {
-        // Usuário existe, atualizar dados
-        return 'não tem usuário';
-        //return saveToDatabase('users', $customerData, 'PATCH', $email);
-    } else {
-        // Nenhum usuário encontrado, criar novo usuário
-        return $response;
-        $customerData['created_at'] = date('Y-m-d H:i:s');
-        //return saveToDatabase('users', $customerData, 'POST');
-    }
+    sendSupabaseRequest('POST', 'users', $customerData);
 }
 
-// Manipular eventos de falha de pagamento
-function handlePaymentFailure($data) {
-    $email = $data['customer']['email'];
-    $updateData = [
+// Função para salvar falhas de pagamento
+function savePaymentFailure($data) {
+    $failureData = [
+        'email' => $data['customer']['email'],
         'payment_status' => 'failed',
         'updated_at' => date('Y-m-d H:i:s')
     ];
-    return saveToDatabase('users', $updateData, 'PATCH', $email);
+    sendSupabaseRequest('PATCH', "users?email=eq." . $data['customer']['email'], $failureData);
 }
 
-function sendSupabaseRequest($method, $endpoint, $data = null) {
+// Função para enviar requisições ao Supabase
+function sendSupabaseRequest($method, $endpoint, $data) {
     $url = SUPABASE_URL . '/rest/v1/' . $endpoint;
     $headers = [
         "Content-Type: application/json",
         "apikey: " . SUPABASE_KEY,
-        "Authorization: Bearer " . SUPABASE_KEY,
+        "Authorization: Bearer " . SUPABASE_KEY
     ];
 
     $curl = curl_init();
@@ -75,21 +53,11 @@ function sendSupabaseRequest($method, $endpoint, $data = null) {
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CUSTOMREQUEST => $method,
         CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_POSTFIELDS => json_encode($data)
     ]);
 
-    if ($data) {
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
-    }
-
     $response = curl_exec($curl);
-    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    $error = curl_error($curl);
     curl_close($curl);
-
-    if ($error) {
-        return ['status' => 'error', 'message' => $error];
-    }
-
-    return ['status' => 'success', 'http_code' => $httpCode, 'response' => json_decode($response, true)];
 }
+
 ?>
