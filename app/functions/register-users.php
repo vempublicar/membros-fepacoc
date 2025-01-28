@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include '../../config/bd/conection.php';
+include '../config/bd/conection.php';
 include '../config/path.php';
 include 'cadastro-lead.php';
 include 'email/envio-email.php';
