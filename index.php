@@ -67,6 +67,10 @@ switch ($page) {
         require 'app/views/private/entregaveis.php';
         break;
 
+        case 'ferramentas':
+            require 'app/views/private/ferramentas.php';
+            break;
+
     case 'planos':
         require 'app/views/private/planos.php';
         break;

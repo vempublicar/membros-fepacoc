@@ -6,7 +6,6 @@
                 <a class="navbar-brand d-flex align-items-center" href="painel">
                     <img src="vendor/img/logo_escuro.png" class="img-fluid" style="height: 26px;" id="logo" alt="Logo">
                 </a>
-                <span class="ms-0 text-dark">Membros</span>
             </div>
 
             <!-- Botão de Toggle para Mobile -->
@@ -15,7 +14,7 @@
             </button>
 
             <!-- Links do Menu -->
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="sobre">Sobre</a>
@@ -30,16 +29,6 @@
                         <a class="nav-link" href="servicos">Serviços</a>
                     </li>
                 </ul>
-            </div>
-
-            <!-- Ícones de Redes Sociais -->
-            <div class="d-none d-lg-flex align-items-center gap-3">
-                <a href="#" class="text-decoration-none">
-                    <svg class="skype" width="24" height="24">
-                        <use xlink:href="#skype"></use>
-                    </svg>
-                </a>
-                <!-- Adicione mais ícones aqui -->
             </div>
 
             <div class="d-flex align-items-center gap-3">
