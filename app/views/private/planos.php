@@ -8,16 +8,9 @@ include_once "app/views/parts/header.php";
     <div class="row">
         <!-- Plano ESTRATÉGIA -->
         <h2 class="text-center mb-4 mt-5">Planos do FEPACOC</h2>
-        <div class="row justify-content-center">
-            <div class="d-flex flex-wrap gap-3 justify-content-center py-5">
-                <a href="painel" class="btn btn-dark text-decoration-none text-uppercase">Inicio</a>
-                <a href="entregaveis" class="btn btn-dark text-decoration-none text-uppercase">Entregáveis</a>
-                <a href="planos" class="btn btn-dark text-decoration-none text-uppercase">Planos e Preços</a>
-                <a href="area-exclusiva" class="btn btn-dark text-decoration-none text-uppercase is-checked">Área Exclusiva</a>
-            </div>
-        </div>
+        
         <div class="col-md-4">
-            <div class="card bg-dark ">
+            <div class="card bg-dark">
                 <div class="card-header bg-dark">
                     <h4 class=" text-center py-4">ESTRATÉGIA</h4>
                 </div>

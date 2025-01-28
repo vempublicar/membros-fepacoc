@@ -8,15 +8,7 @@ include_once "app/views/parts/header.php";
     <div class="row">
         <h2 class="text-center mb-4 mt-5">Entregáveis do FEPACOC</h2>
         <p class="text-center mb-4 ">Descubra tudo o que sua empresa pode analisar e implementar com eficiência ao gerenciar com o método Fepacoc.</p>
-        <div class="row justify-content-center">
-
-            <div class="d-flex flex-wrap gap-3 justify-content-center py-5">
-                <a href="painel" class="btn btn-primary text-decoration-none text-uppercase">Início</a>
-                <a href="sobre" class="btn btn-primary text-decoration-none text-uppercase">Sobre Fepacoc</a>
-                <a href="planos" class="btn btn-primary text-decoration-none text-uppercase">Planos e Preços</a>
-                <a href="area-exclusiva" class="btn btn-primary text-decoration-none text-uppercase is-checked">Área Exclusiva</a>
-            </div>
-        </div>
+        
         <div class="col-sm-6">
             <div class="card mb-4">
                 <ul class="list-group list-group-flush">

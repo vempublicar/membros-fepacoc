@@ -17,6 +17,9 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
+                        <a class="nav-link" href="painel">Painel</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="sobre">Sobre</a>
                     </li>
                     <li class="nav-item">
@@ -32,10 +35,6 @@
             </div>
 
             <div class="d-flex align-items-center gap-3">
-                <!-- Botão de Alternância de Tema -->
-                <a href="painel" class="btn btn-outline-secondary">
-                    <i class="fas fa-home"></i>
-                </a>
                 <button id="themeToggle" class="btn btn-outline-secondary">
                     <i class="fas fa-sun"></i>
                 </button>
