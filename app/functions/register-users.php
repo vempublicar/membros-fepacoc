@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Inicializar a conexão com o MySQL
-  //  $mysqlClient = new MySQLClient();
+    $mysqlClient = new MySQLClient();
 
     // Inserir dados no banco de dados MySQL
     try {
