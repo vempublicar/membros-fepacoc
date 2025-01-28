@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Inicializar a conexão com o MySQL
-    $mysqlClient = new MySQLClient();
+  //  $mysqlClient = new MySQLClient();
 
     // Inserir dados no banco de dados MySQL
     try {
@@ -47,11 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO $tabela ($colunas) VALUES ($valores)";
 
         // Executar a query
-        $stmt = $mysqlClient->getPdo()->prepare($sql);
-        $stmt->execute($dados);
+     //   $stmt = $mysqlClient->getPdo()->prepare($sql);
+     //   $stmt->execute($dados);
 
         // Enviar email de confirmação
-       // enviarLinkCadastroSenha($email, $nome, $password);
+        enviarLinkCadastroSenha($email, $nome, $password);
 
         // Redirecionar para página de verificação de email
         header("Location: " . BASE_URL . "verificar-email");
