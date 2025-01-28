@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute($dados);
 
         // Enviar email de confirmação
-        enviarLinkCadastroSenha($email, $nome, $password);
+       // enviarLinkCadastroSenha($email, $nome, $password);
 
         // Redirecionar para página de verificação de email
         header("Location: " . BASE_URL . "verificar-email");
