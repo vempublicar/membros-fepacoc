@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../../config/supabase/supabase_config.php";
+include "../../config/supabase/SupabaseClient.php";
 include "../email/envio-email.php";
 
 // Função para enviar requisições ao Supabase

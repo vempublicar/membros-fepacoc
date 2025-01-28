@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include '../config/supabase/supabase_config.php';
+include '../config/bd/conection.php';
 include '../config/path.php';
 include 'cadastro-lead.php';
 include 'email/envio-email.php';
@@ -28,60 +28,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         redirecionarComMensagem("cadastro", "Formato de email inválido.");
     }
 
-    // Preparar dados para enviar à API do Supabase
-    $data = [
-        'email' => $email,
-        'password' => $password
-    ];
+    // Inicializar a conexão com o MySQL
+    $mysqlClient = new MySQLClient();
 
-    // Inicializar cURL
-    $curl = curl_init();
-    curl_setopt_array($curl, [
-        CURLOPT_URL => SUPABASE_URL . "/auth/v1/signup",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => json_encode($data),
-        CURLOPT_HTTPHEADER => [
-            "Content-Type: application/json",
-            "apikey: " . SUPABASE_KEY,
-        ],
-    ]);
+    // Inserir dados no banco de dados MySQL
+    try {
+        $tabela = 'leads';
+        $dados = [
+            'nome' => $nome,
+            'fone' => $whatsapp,
+            'email' => $email,
+            'acesso' => $password,
+        ];
 
-    // Executar a requisição
-    $response = curl_exec($curl);
-    $err = curl_error($curl);
-    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    curl_close($curl);
+        // Preparar a query SQL
+        $colunas = implode(", ", array_keys($dados));
+        $valores = ":" . implode(", :", array_keys($dados));
+        $sql = "INSERT INTO $tabela ($colunas) VALUES ($valores)";
 
-    if ($err || $httpCode >= 400) {
-        $mensagemErro = $err ?: "Erro na requisição ao Supabase. Código HTTP: $httpCode";
-        redirecionarComMensagem("cadastro", $mensagemErro);
-    } else {
-        // Decodificar a resposta para verificar o sucesso
-        $responseData = json_decode($response, true);
+        // Executar a query
+        $stmt = $mysqlClient->getPdo()->prepare($sql);
+        $stmt->execute($dados);
 
-        if (isset($responseData['error'])) {
-            redirecionarComMensagem("cadastro", "Erro: " . $responseData['error']['message']);
-        } else {
-            // Inserir dados no banco de dados local
-            $tabela = 'leads';
-            $dados = [
-                'nome' => $nome,
-                'fone' => $whatsapp,
-                'email' => $email,
-                'acesso' => $password,
-            ];
+        // Enviar email de confirmação
+        enviarLinkCadastroSenha($email, $nome, $password);
 
-            inserirDadosSupabase($tabela, $dados);
+        // Redirecionar para página de verificação de email
+        header("Location: " . BASE_URL . "verificar-email");
+        exit();
 
-            // Enviar email de confirmação
-            enviarLinkCadastroSenha($email, $nome, $password);
-
-            // Redirecionar para página de verificação de email
-            header("Location: " . BASE_URL . "verificar-email");
-            exit();
-        }
+    } catch (PDOException $e) {
+        // Em caso de erro, redirecionar com mensagem de erro
+        redirecionarComMensagem("cadastro", "Erro ao inserir dados no banco de dados: " . $e->getMessage());
     }
+
 } else {
     header("Location: " . BASE_URL . "login");
     exit();
