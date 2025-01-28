@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
   
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="vendor/css/lightbox.min.css">
   <link rel="icon" href="vendor/images/icone.png" type="image/png">
   <!--style sheet-->
