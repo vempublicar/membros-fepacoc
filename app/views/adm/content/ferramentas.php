@@ -98,7 +98,7 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
     </div>
     <div class="offcanvas-body">
-        <form id="formFerramenta" action="app/functions/push/crud.php" method="POST">
+        <form id="formFerramenta" action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
             <!-- Ação e Tabela (Campos Ocultos) -->
             <input type="hidden" name="action" value="create" id="formAction">
             <input type="hidden" name="tabela" value="ferramentas">
