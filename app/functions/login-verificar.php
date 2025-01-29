@@ -7,7 +7,7 @@ include '../config/path.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Coletar dados do formulário
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    $password = $_POST['password'];  // Continuamos a receber uma variável chamada $password para manter a consistência no formulário
 
     // Validações básicas
     if (empty($email) || empty($password)) {
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Inicializar a conexão com o banco de dados
     try {
         $pdo = db_connect();
-        $stmt = $pdo->prepare("SELECT id, email, password, created_at FROM leads WHERE email = :email");
+        $stmt = $pdo->prepare("SELECT id, email, acesso, created_at FROM leads WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
 
@@ -28,8 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->rowCount() > 0) {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Verificar a senha
-            if (password_verify($password, $user['password'])) {
+            // Verificar a senha (aqui usamos a coluna 'acesso' para a comparação)
+            if (password_verify($password, $user['acesso'])) {
                 // Armazenar dados na sessão
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_email'] = $user['email'];
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: " . BASE_URL . "painel");
                 exit();
             } else {
-                $errorMsg = 'Credenciais inválidas. ';
+                $errorMsg = 'Credenciais inválidas.';
                 $errorMsg = base64_encode($errorMsg);
                 header("Location: " . BASE_URL . "login&msg=" . $errorMsg);
                 exit();
