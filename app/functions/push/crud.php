@@ -1,180 +1,135 @@
 <?php
 session_start();
-include "../../config/supabase/supabase_config.php";
+include "../../config/bd/connection.php"; // Conexão com o banco de dados
 
-// Função para enviar requisições cURL ao Supabase
-function sendSupabaseRequest($method, $endpoint, $data = null) {
-    $url = SUPABASE_URL . '/rest/v1/' . $endpoint;
-    $headers = [
-        "Content-Type: application/json",
-        "apikey: " . SUPABASE_KEY,
-        "Authorization: Bearer " . SUPABASE_KEY,
-    ];
-
-    $curl = curl_init();
-    curl_setopt_array($curl, [
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_CUSTOMREQUEST => $method,
-        CURLOPT_HTTPHEADER => $headers,
-    ]);
-
-    if ($data) {
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
-    }
-
-    $response = curl_exec($curl);
-    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    $error = curl_error($curl);
-    curl_close($curl);
-
-    if ($error) {
-        return ['status' => 'error', 'message' => $error];
-    }
-
-    return ['status' => 'success', 'http_code' => $httpCode, 'response' => json_decode($response, true)];
-}
-
-// Função para gerenciar o upload de arquivos
+// Função para upload de arquivos (imagens/vídeos)
 function handleFileUpload($file, $uploadDir) {
     if ($file['error'] === UPLOAD_ERR_OK) {
-        $filename = uniqid('video_') . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+        $extensao = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $filename = uniqid('file_') . '.' . $extensao;
         $destination = $uploadDir . $filename;
+
+        // Criar diretório caso não exista
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
         if (move_uploaded_file($file['tmp_name'], $destination)) {
-            return $filename;
+            return $filename; // Retorna o nome do arquivo salvo
         }
     }
-    return null;
+    return null; // Retorna null se o upload falhar
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? '';
+// Verifica se é uma requisição POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header("Location: " . $_SERVER['HTTP_REFERER'] . "?status=error&msg=" . urlencode("Método de requisição inválido."));
+    exit();
+}
 
-    try {
-        if ($action === 'create') {
-            // Preparar os dados do vídeo
-            $videoData = [
-                'form' => $_POST['form'],
-                'title' => $_POST['videoTitle'],
-                'short' => $_POST['videoShort'],
-                'link' => $_POST['videoLink'],
-                'cover' => null, // Caminho da capa
-                'sector' => $_POST['videoSector'],
-                'category' => $_POST['videoCategory'],
-                'type' => $_POST['videoType'],
-                'status' => $_POST['status'],
-                'description' => $_POST['videoDesc']
-            ];
+$action = $_POST['action'] ?? null;
+$tabela = $_POST['tabela'] ?? null;
 
-            
-            // Enviar os dados para o Supabase
-            $formMap = [
-                'Video Curto' => ['table' => 'videos', 'hash' => 'videos'],
-                'Produto' => ['table' => 'produtos', 'hash' => 'produtos'],
-                'Material' => ['table' => 'materiais', 'hash' => 'materiais'],
-                'Aula' => ['table' => 'videos', 'hash' => 'aulas']
-            ];
-            $formType = $formMap[$_POST['form']];
-            $hash = $formType['hash'];
-            $table = $formType['table'];
+// Valida a tabela para evitar SQL Injection
+if (!$tabela || !preg_match('/^[a-zA-Z0-9_]+$/', $tabela)) {
+    header("Location: " . $_SERVER['HTTP_REFERER'] . "?status=error&msg=" . urlencode("Tabela inválida ou não informada."));
+    exit();
+}
 
-            // Gerenciar upload da capa do vídeo
-            if (isset($_FILES['videoCover'])) {
-                $uploadDir = "../../../vendor/img/".$hash."/capas/";
-                $uploadedFile = handleFileUpload($_FILES['videoCover'], $uploadDir);
-                if ($uploadedFile) {
-                    $videoData['cover'] = $uploadedFile;
-                }
+try {
+    $pdo = db_connect(); // Conectar ao MySQL
+
+    if ($action === 'create') {
+        // Construir array de dados dinamicamente
+        $dados = [];
+        foreach ($_POST as $chave => $valor) {
+            if (!in_array($chave, ['action', 'tabela'])) {
+                $dados[$chave] = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
             }
-            
-            if($_POST['form'] == 'Video Curto'){
-                $response = sendSupabaseRequest('POST', 'videos', $videoData);
-            }
-            if($_POST['form'] == 'Produto'){
-                $response = sendSupabaseRequest('POST', 'produtos', $videoData);
-            }
-            if($_POST['form'] == 'Material'){
-                $response = sendSupabaseRequest('POST', 'materiais', $videoData);
-            }
-            if($_POST['form'] == 'Aula'){
-                $response = sendSupabaseRequest('POST', 'videos', $videoData);
-            }
-
-            
-
-            // Verificar a resposta e redirecionar
-            if ($response['status'] === 'success' && $response['http_code'] === 201) {
-                header("Location: ".$_SERVER['HTTP_REFERER'].'#'.$hash);
-                exit;
-            } else {
-                header("Location: ".$_SERVER['HTTP_REFERER'].'#'.$hash);
-                exit;
-            }
-            
-
-        } elseif ($action === 'update') {
-            // Atualizar vídeo existente
-            $id = $_POST['id'] ?? null;
-            if (!$id) throw new Exception('ID do vídeo não informado');
-
-            $videoData = [
-                'form' => $_POST['form'],
-                'title' => $_POST['videoTitle'],
-                'short' => $_POST['videoShort'],
-                'link' => $_POST['videoLink'],
-                'sector' => $_POST['videoSector'],
-                'category' => $_POST['videoCategory'],
-                'type' => $_POST['videoType'],
-                'status' => $_POST['status'],
-                'description' => $_POST['videoDesc']
-            ];
-
-            // Enviar os dados para o Supabase
-            $formMap = [
-                'Video Curto' => ['table' => 'videos', 'hash' => 'videos'],
-                'Produto' => ['table' => 'produtos', 'hash' => 'produtos'],
-                'Material' => ['table' => 'materiais', 'hash' => 'materiais'],
-                'Aula' => ['table' => 'videos', 'hash' => 'aulas']
-            ];
-            $formType = $formMap[$_POST['form']];
-            $hash = $formType['hash'];
-            $table = $formType['table'];
-
-            // Gerenciar upload da capa do vídeo
-            if (isset($_FILES['videoCover'])) {
-                $uploadDir = "../../../vendor/img/".$hash."/capas/";
-                $uploadedFile = handleFileUpload($_FILES['videoCover'], $uploadDir);
-                if ($uploadedFile) {
-                    $videoData['cover'] = $uploadedFile;
-                }
-            }
-
-            // Enviar atualização para o Supabase
-            $response = sendSupabaseRequest('PATCH', "$table?id=eq.$id", $videoData);
-            
-            if ($response['status'] === 'success' && $response['http_code'] === 201) {
-                header("Location: ".$_SERVER['HTTP_REFERER'].'#'.$hash);
-                exit;
-            } else {
-                header("Location: ".$_SERVER['HTTP_REFERER'].'#'.$hash);
-                exit;
-            }
-
-        } elseif ($action === 'delete') {
-            // Excluir vídeo
-            $id = $_POST['id'] ?? null;
-            $tabela = $_POST['tabela'] ?? null;
-            if (!$id) throw new Exception('ID do vídeo não informado');
-
-            $response = sendSupabaseRequest('DELETE', "$tabela?id=eq.$id");
-            echo json_encode($response);
-
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Ação inválida']);
         }
-    } catch (Exception $e) {
-        echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+
+        // Upload de arquivos (se houver)
+        if (!empty($_FILES)) {
+            foreach ($_FILES as $inputName => $file) {
+                if ($file['size'] > 0) {
+                    $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
+                    $uploadedFile = handleFileUpload($file, $uploadDir);
+                    if ($uploadedFile) {
+                        $dados[$inputName] = $uploadedFile;
+                    }
+                }
+            }
+        }
+
+        // Construir query SQL dinâmica
+        $colunas = implode(", ", array_keys($dados));
+        $valores = ":" . implode(", :", array_keys($dados));
+        $sql = "INSERT INTO `$tabela` ($colunas) VALUES ($valores)";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($dados);
+
+        header("Location: " . $_SERVER['HTTP_REFERER'] . "?status=success&msg=" . urlencode("Registro criado com sucesso."));
+        exit();
+
+    } elseif ($action === 'update') {
+        $id = $_POST['id'] ?? null;
+        if (!$id || !is_numeric($id)) {
+            header("Location: " . $_SERVER['HTTP_REFERER'] . "?status=error&msg=" . urlencode("ID inválido."));
+            exit();
+        }
+
+        $dados = [];
+        foreach ($_POST as $chave => $valor) {
+            if (!in_array($chave, ['action', 'tabela', 'id'])) {
+                $dados[$chave] = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
+            }
+        }
+
+        // Upload de arquivos (se houver)
+        if (!empty($_FILES)) {
+            foreach ($_FILES as $inputName => $file) {
+                if ($file['size'] > 0) {
+                    $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
+                    $uploadedFile = handleFileUpload($file, $uploadDir);
+                    if ($uploadedFile) {
+                        $dados[$inputName] = $uploadedFile;
+                    }
+                }
+            }
+        }
+
+        // Construir query SQL dinâmica
+        $setCampos = implode(", ", array_map(fn($k) => "$k = :$k", array_keys($dados)));
+        $sql = "UPDATE `$tabela` SET $setCampos WHERE id = :id";
+        $dados['id'] = $id;
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($dados);
+
+        header("Location: " . $_SERVER['HTTP_REFERER'] . "?status=success&msg=" . urlencode("Registro atualizado com sucesso."));
+        exit();
+
+    } elseif ($action === 'delete') {
+        $id = $_POST['id'] ?? null;
+        if (!$id || !is_numeric($id)) {
+            header("Location: " . $_SERVER['HTTP_REFERER'] . "?status=error&msg=" . urlencode("ID inválido."));
+            exit();
+        }
+
+        $sql = "DELETE FROM `$tabela` WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        header("Location: " . $_SERVER['HTTP_REFERER'] . "?status=success&msg=" . urlencode("Registro excluído com sucesso."));
+        exit();
     }
-} else {
-    echo json_encode(['status' => 'error', 'message' => 'Método de requisição inválido']);
+
+    header("Location: " . $_SERVER['HTTP_REFERER'] . "?status=error&msg=" . urlencode("Ação inválida."));
+    exit();
+
+} catch (Exception $e) {
+    header("Location: " . $_SERVER['HTTP_REFERER'] . "?status=error&msg=" . urlencode($e->getMessage()));
+    exit();
 }
+?>

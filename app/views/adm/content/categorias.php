@@ -75,7 +75,18 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
     </div>
     <div class="offcanvas-body">
-        <form id="formAddCategory" action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
+        <!-- Exibir mensagem de sucesso/erro -->
+        <?php if (isset($_GET['msg'])): ?>
+            <div class="alert alert-<?= $_GET['status'] === 'success' ? 'success' : 'danger' ?>">
+                <?= htmlspecialchars($_GET['msg']) ?>
+            </div>
+        <?php endif; ?>
+
+        <form action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
+            <!-- Ação e Tabela (Campos Ocultos) -->
+            <input type="hidden" name="action" value="create">
+            <input type="hidden" name="tabela" value="categorias">
+
             <!-- Campo Nome -->
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome</label>
@@ -108,4 +119,5 @@
         </form>
     </div>
 </div>
+
 
