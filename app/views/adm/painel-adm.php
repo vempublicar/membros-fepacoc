@@ -280,7 +280,7 @@ $ferramentas = fetchFerramentas();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
 function navigateTo(anchor) {
-    let baseUrl = window.location.origin + window.location.pathname; // Remove parâmetros da URL
+    let baseUrl = window.location.origin; // Remove parâmetros da URL
     window.location.href = baseUrl + "#" + anchor; // Atualiza a URL com a âncora
     window.location.reload(); // Recarrega a página para aplicar a âncora corretamente
 }
