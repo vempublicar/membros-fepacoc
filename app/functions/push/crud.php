@@ -2,14 +2,14 @@
 session_start();
 include "../../config/bd/connection.php"; // Conexão com o banco de dados
 
-// Função para verificar e criar a pasta automaticamente
+// Função para criar pastas automaticamente
 function checkAndCreateFolder($folderPath) {
     if (!file_exists($folderPath)) {
         mkdir($folderPath, 0777, true);
     }
 }
 
-// Função para fazer upload de arquivos (imagem/vídeo)
+// Função para upload de arquivos
 function handleFileUpload($file, $uploadDir) {
     checkAndCreateFolder($uploadDir);
 
@@ -22,10 +22,10 @@ function handleFileUpload($file, $uploadDir) {
             return $filename; // Retorna o nome do arquivo salvo
         }
     }
-    return null; // Retorna null se o upload falhar
+    return null;
 }
 
-// Verifica se é uma requisição POST
+// Processamento do CRUD
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: " . $_SERVER['HTTP_REFERER']);
     exit();
@@ -34,17 +34,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $action = $_POST['action'] ?? null;
 $tabela = $_POST['tabela'] ?? null;
 
-// Valida o nome da tabela para evitar SQL Injection
+// Validação da tabela (evita SQL Injection)
 if (!$tabela || !preg_match('/^[a-zA-Z0-9_]+$/', $tabela)) {
     header("Location: " . $_SERVER['HTTP_REFERER'] . "#erro");
     exit();
 }
 
 try {
-    $pdo = db_connect(); // Conectar ao MySQL
+    $pdo = db_connect();
 
     if ($action === 'create') {
-        // Construir array de dados dinamicamente
         $dados = [];
         foreach ($_POST as $chave => $valor) {
             if (!in_array($chave, ['action', 'tabela'])) {
@@ -52,24 +51,27 @@ try {
             }
         }
 
-        // Upload de arquivos (se houver)
-        if (!empty($_FILES)) {
-            foreach ($_FILES as $inputName => $file) {
-                if ($file['size'] > 0) {
-                    $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
-                    $uploadedFile = handleFileUpload($file, $uploadDir);
-                    if ($uploadedFile) {
-                        $dados[$inputName] = $uploadedFile;
-                    }
-                }
-            }
+        // Upload de imagens (campo 'capa' ou 'cover')
+        if (!empty($_FILES['capa']['size'])) {
+            $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
+            $dados['capa'] = handleFileUpload($_FILES['capa'], $uploadDir);
+        }
+        if (!empty($_FILES['cover']['size'])) {
+            $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
+            $dados['cover'] = handleFileUpload($_FILES['cover'], $uploadDir);
         }
 
-        // Construir query SQL dinâmica
+        // Upload de arquivos (campo 'link' → PDF, DOCX, MP4)
+        if (!empty($_FILES['link']['size'])) {
+            $uploadDir = "../../../vendor/uploads/" . $tabela . "/arquivo/";
+            $dados['link'] = handleFileUpload($_FILES['link'], $uploadDir);
+        }
+
+        // Construção da query SQL dinâmica
         $colunas = implode(", ", array_keys($dados));
         $valores = ":" . implode(", :", array_keys($dados));
         $sql = "INSERT INTO `$tabela` ($colunas) VALUES ($valores)";
-
+        
         $stmt = $pdo->prepare($sql);
         $stmt->execute($dados);
 
@@ -90,20 +92,23 @@ try {
             }
         }
 
-        // Upload de arquivos (se houver)
-        if (!empty($_FILES)) {
-            foreach ($_FILES as $inputName => $file) {
-                if ($file['size'] > 0) {
-                    $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
-                    $uploadedFile = handleFileUpload($file, $uploadDir);
-                    if ($uploadedFile) {
-                        $dados[$inputName] = $uploadedFile;
-                    }
-                }
-            }
+        // Upload de imagens (capa, cover)
+        if (!empty($_FILES['capa']['size'])) {
+            $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
+            $dados['capa'] = handleFileUpload($_FILES['capa'], $uploadDir);
+        }
+        if (!empty($_FILES['cover']['size'])) {
+            $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
+            $dados['cover'] = handleFileUpload($_FILES['cover'], $uploadDir);
         }
 
-        // Construir query SQL dinâmica
+        // Upload de arquivos (link)
+        if (!empty($_FILES['link']['size'])) {
+            $uploadDir = "../../../vendor/uploads/" . $tabela . "/arquivo/";
+            $dados['link'] = handleFileUpload($_FILES['link'], $uploadDir);
+        }
+
+        // Construção da query SQL dinâmica
         $setCampos = implode(", ", array_map(fn($k) => "$k = :$k", array_keys($dados)));
         $sql = "UPDATE `$tabela` SET $setCampos WHERE id = :id";
         $dados['id'] = $id;
