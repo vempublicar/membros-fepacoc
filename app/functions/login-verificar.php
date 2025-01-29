@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: " . BASE_URL . "painel");
                 exit();
             } else {
-                $errorMsg = 'Credenciais inválidas.';
+                $errorMsg = 'Credenciais inválidas.'.$email.'/'.$user['email'].'/'.$password.'/'.$user['acesso'];
                 $errorMsg = base64_encode($errorMsg);
                 header("Location: " . BASE_URL . "login&msg=" . $errorMsg);
                 exit();
