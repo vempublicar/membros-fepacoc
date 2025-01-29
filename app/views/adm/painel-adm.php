@@ -31,7 +31,7 @@ $ferramentas = fetchFerramentas();
                             <a class="nav-link active" href="#dashboard">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#categorias">Categorias Vídeos</a>
+                            <a class="nav-link" href="#categorias">Categorias</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#videos">Gerenciar Vídeos</a>

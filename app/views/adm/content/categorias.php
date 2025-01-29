@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-12">
         <!-- Botão para adicionar nova categoria -->
-        <button class="btn btn-primary mb-3" style="float: left;" onclick="openOffcanvas()">
+        <button class="btn btn-primary mb-3" style="float: left;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddCategory">
             <i class="fa fa-plus"></i> Adicionar Categoria
         </button>
         <h3 class="text-center">Categorias</h3>
@@ -109,10 +109,3 @@
     </div>
 </div>
 
-<!-- Script para abrir o offcanvas -->
-<script>
-    function openOffcanvas() {
-        const offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasAddCategory'));
-        offcanvas.show();
-    }
-</script>
