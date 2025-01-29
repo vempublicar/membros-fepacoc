@@ -3,10 +3,10 @@ function db_connect()
 {
     try {
         $dbhost = 'localhost'; // Alterado para localhost
-        $dbname = 'u821650166_members'; // Nome do banco
+        $dbname = 'u821650166_AreaMembros'; // Nome do banco
         $charset = 'utf8mb4'; // Conjunto de caracteres
-        $username = 'u821650166_Members'; // Usuário do banco
-        $password = 'Members**251251'; // Senha do banco
+        $username = 'u821650166_Henrique'; // Usuário do banco
+        $password = 'Membros**251251'; // Senha do banco
 
         // Configura a string de conexão DSN
         $dsn = "mysql:host={$dbhost};dbname={$dbname};charset={$charset}";
