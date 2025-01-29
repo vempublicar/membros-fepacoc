@@ -25,3 +25,9 @@ function fetchLeads() {
     $stmt = $pdo->query("SELECT * FROM leads ORDER BY id DESC LIMIT 500");
     return $stmt->fetchAll();
 }
+
+function fetchLeads() {
+    $pdo = db_connect();
+    $stmt = $pdo->query("SELECT * FROM ferramentas ORDER BY id DESC LIMIT 500");
+    return $stmt->fetchAll();
+}
