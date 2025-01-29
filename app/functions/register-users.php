@@ -3,7 +3,7 @@ session_start();
 
 include '../config/bd/connection.php';  // Caminho corrigido e nome do arquivo corrigido
 include '../config/path.php';
-include 'cadastro-lead.php';
+//include 'cadastro-lead.php';
 include 'email/envio-email.php';
 
 // Função para sanitizar dados
