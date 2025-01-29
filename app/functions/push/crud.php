@@ -2,16 +2,16 @@
 session_start();
 include "../../config/bd/connection.php"; // Conexão com o banco de dados
 
-// Função para verificar e criar diretório, se necessário
+// Função para verificar e criar a pasta automaticamente
 function checkAndCreateFolder($folderPath) {
     if (!file_exists($folderPath)) {
-        mkdir($folderPath, 0777, true); // Cria a pasta com permissões corretas
+        mkdir($folderPath, 0777, true);
     }
 }
 
 // Função para fazer upload de arquivos (imagem/vídeo)
 function handleFileUpload($file, $uploadDir) {
-    checkAndCreateFolder($uploadDir); // Garante que a pasta existe
+    checkAndCreateFolder($uploadDir);
 
     if ($file['error'] === UPLOAD_ERR_OK) {
         $extensao = pathinfo($file['name'], PATHINFO_EXTENSION);
@@ -27,16 +27,16 @@ function handleFileUpload($file, $uploadDir) {
 
 // Verifica se é uma requisição POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: " . $_SERVER['HTTP_REFERER'] ."#dashboard");
+    header("Location: " . $_SERVER['HTTP_REFERER']);
     exit();
 }
 
 $action = $_POST['action'] ?? null;
 $tabela = $_POST['tabela'] ?? null;
 
-// Valida a tabela para evitar SQL Injection
+// Valida o nome da tabela para evitar SQL Injection
 if (!$tabela || !preg_match('/^[a-zA-Z0-9_]+$/', $tabela)) {
-    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
+    header("Location: " . $_SERVER['HTTP_REFERER'] . "#erro");
     exit();
 }
 
@@ -73,13 +73,13 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($dados);
 
-        header("Location: " . $_SERVER['HTTP_REFERER'] . "#".$tabela);
+        header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "#$tabela");
         exit();
 
     } elseif ($action === 'update') {
         $id = $_POST['id'] ?? null;
         if (!$id || !is_numeric($id)) {
-            header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
+            header("Location: " . $_SERVER['HTTP_REFERER'] . "#$tabela");
             exit();
         }
 
@@ -111,29 +111,30 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($dados);
 
-        header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
+        header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "#$tabela");
         exit();
 
     } elseif ($action === 'delete') {
         $id = $_POST['id'] ?? null;
         if (!$id || !is_numeric($id)) {
-            header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
+            header("Location: " . $_SERVER['HTTP_REFERER'] . "#$tabela");
             exit();
         }
 
+        // Deletar o registro do banco
         $sql = "DELETE FROM `$tabela` WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
 
-        header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
+        header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "#$tabela");
         exit();
     }
 
-    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
+    header("Location: " . $_SERVER['HTTP_REFERER'] . "#$tabela");
     exit();
 
 } catch (Exception $e) {
-    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
+    header("Location: " . $_SERVER['HTTP_REFERER'] . "#erro");
     exit();
 }
 ?>

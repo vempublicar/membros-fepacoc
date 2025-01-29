@@ -21,6 +21,17 @@
                 <?php if (!empty($ferramentas)): ?>
                     <?php foreach ($ferramentas as $ferramenta): ?>
                         <tr>
+                        <td>
+                                <?php if (!empty($ferramenta['capa'])): ?>
+                                    <img src="vendor/uploads/ferramentas/<?= htmlspecialchars($ferramenta['capa']) ?>"
+                                        alt="<?= htmlspecialchars($ferramenta['nome']) ?>"
+                                        style="width: 50px; height: auto; border-radius: 5px;">
+                                <?php else: ?>
+                                    <img src="vendor/uploads/ferramentas/default.jpg"
+                                        alt="Imagem Padrão"
+                                        style="width: 50px; height: auto; border-radius: 5px;">
+                                <?php endif; ?>
+                            </td>
                             <!-- Nome -->
                             <td><?= htmlspecialchars($ferramenta['nome']) ?></td>
 
@@ -92,7 +103,10 @@
             <input type="hidden" name="action" value="create" id="formAction">
             <input type="hidden" name="tabela" value="ferramentas">
             <input type="hidden" name="id" id="ferramentaId">
-
+            <div class="mb-3">
+                <label for="capa" class="form-label">Imagem da Ferramenta</label>
+                <input type="file" class="form-control" id="capa" name="capa" accept="image/*">
+            </div>
             <!-- Nome -->
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome</label>
