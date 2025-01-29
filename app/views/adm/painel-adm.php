@@ -11,7 +11,7 @@ $ferramentas = fetchFerramentas();
 
 <head>
     <?php include_once "app/views/parts/head.php"; ?>
-    <title>Área Administrativa - FEPACOC</title>
+    <title class="mt-6">Área Administrativa - FEPACOC</title>
 </head>
 
 <body>
