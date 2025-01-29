@@ -27,7 +27,7 @@
                                         alt="<?= htmlspecialchars($ferramenta['nome']) ?>"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>
-                                    <img src="vendor/uploads/ferramentas/default.jpg"
+                                    <img src="vendor/uploads/ferramentas/default.png"
                                         alt="Imagem Padrão"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php endif; ?>

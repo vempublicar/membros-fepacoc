@@ -26,7 +26,7 @@
                                         alt="<?= htmlspecialchars($categoria['nome']) ?>"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>
-                                    <img src="vendor/uploads/categorias/<?= htmlspecialchars($categoria['capa']) ?>"
+                                    <img src="vendor/uploads/ferramentas/default.png"
                                         alt="Miniatura padrão"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php endif; ?>
