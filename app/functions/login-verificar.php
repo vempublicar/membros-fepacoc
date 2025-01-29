@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Inicializar a conexão com o banco de dados
     try {
         $pdo = db_connect();
-        $stmt = $pdo->prepare("SELECT id, email, password, created_at FROM empresa WHERE email = :email");
+        $stmt = $pdo->prepare("SELECT id, email, password, created_at FROM leads WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
 
