@@ -2,17 +2,21 @@
 session_start();
 include "../../config/bd/connection.php"; // Conexão com o banco de dados
 
-// Função para upload de arquivos (imagens/vídeos)
+// Função para verificar e criar diretório, se necessário
+function checkAndCreateFolder($folderPath) {
+    if (!file_exists($folderPath)) {
+        mkdir($folderPath, 0777, true); // Cria a pasta com permissões corretas
+    }
+}
+
+// Função para fazer upload de arquivos (imagem/vídeo)
 function handleFileUpload($file, $uploadDir) {
+    checkAndCreateFolder($uploadDir); // Garante que a pasta existe
+
     if ($file['error'] === UPLOAD_ERR_OK) {
         $extensao = pathinfo($file['name'], PATHINFO_EXTENSION);
         $filename = uniqid('file_') . '.' . $extensao;
         $destination = $uploadDir . $filename;
-
-        // Criar diretório caso não exista
-        if (!file_exists($uploadDir)) {
-            mkdir($uploadDir, 0777, true);
-        }
 
         if (move_uploaded_file($file['tmp_name'], $destination)) {
             return $filename; // Retorna o nome do arquivo salvo
