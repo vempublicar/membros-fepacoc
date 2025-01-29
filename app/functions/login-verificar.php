@@ -32,6 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($password === $user['acesso']) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_email'] = $user['email'];
+                $_SESSION['nome'] = $user['nome'];
+                $_SESSION['fone'] = $user['fone'];
+                $_SESSION['tipo'] = $user['tipo'];
+                $_SESSION['created_at'] = $user['created_at'];
 
                 header("Location: " . BASE_URL . "painel");
                 exit();
