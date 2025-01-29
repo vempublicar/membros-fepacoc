@@ -28,28 +28,28 @@ $ferramentas = fetchFerramentas();
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#dashboard">Dashboard</a>
+                            <a class="nav-link active" href="https://members.fepacoc.com.br/adm-painel#dashboard">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#categorias">Categorias</a>
+                            <a class="nav-link" href="https://members.fepacoc.com.br/adm-painel#categorias">Categorias</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#videos">Gerenciar Vídeos</a>
+                            <a class="nav-link" href="https://members.fepacoc.com.br/adm-painel#videos">Gerenciar Vídeos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#materiais">Gerenciar Materiais</a>
+                            <a class="nav-link" href="https://members.fepacoc.com.br/adm-painel#materiais">Gerenciar Materiais</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#produtos">Gerenciar Produtos</a>
+                            <a class="nav-link" href="https://members.fepacoc.com.br/adm-painel#produtos">Gerenciar Produtos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#aulas">Gerenciar Aulas</a>
+                            <a class="nav-link" href="https://members.fepacoc.com.br/adm-painel#aulas">Gerenciar Aulas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#ferramentas">Ferramentas</a>
+                            <a class="nav-link" href="https://members.fepacoc.com.br/adm-painel#ferramentas">Ferramentas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#leads">Lista Leads</a>
+                            <a class="nav-link" href="https://members.fepacoc.com.br/adm-painel#leads">Lista Leads</a>
                         </li>
                     </ul>
                     <a href="painel" onclick="logout()" class="btn btn-danger w-100" style=" bottom: 0;">Sair</a>
