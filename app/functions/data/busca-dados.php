@@ -31,3 +31,9 @@ function fetchFerramentas() {
     $stmt = $pdo->query("SELECT * FROM ferramentas ORDER BY id DESC LIMIT 500");
     return $stmt->fetchAll();
 }
+
+function fetchCategorias() {
+    $pdo = db_connect();
+    $stmt = $pdo->query("SELECT * FROM categorias ORDER BY id DESC LIMIT 500");
+    return $stmt->fetchAll();
+}

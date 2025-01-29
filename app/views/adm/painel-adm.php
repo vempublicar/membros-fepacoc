@@ -5,6 +5,8 @@ $videos = fetchVideos();
 $produtos = fetchProdutos();
 $materiais = fetchMateriais();
 $leads = fetchLeads();
+$categorias = fetchCategorias();
+$ferramentas = fetchFerramentas();
 ?>
 
 <head>
@@ -29,6 +31,9 @@ $leads = fetchLeads();
                             <a class="nav-link active" href="#dashboard">Dashboard</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#categorias">Categorias Vídeos</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#videos">Gerenciar Vídeos</a>
                         </li>
                         <li class="nav-item">
@@ -39,6 +44,9 @@ $leads = fetchLeads();
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#aulas">Gerenciar Aulas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#ferramentas">Ferramentas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#leads">Lista Leads</a>
@@ -68,6 +76,12 @@ $leads = fetchLeads();
                 </section>
                 <section id="leads" class="content-section" style="display: none;">
                     <?php include "app/views/adm/content/leads.php" ?>
+                </section>
+                <section id="categorias" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/categorias.php" ?>
+                </section>
+                <section id="ferramentas" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/ferramentas.php" ?>
                 </section>
             </main>
         </div>
