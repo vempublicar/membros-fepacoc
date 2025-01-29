@@ -22,11 +22,11 @@
                             <!-- Miniatura da Categoria -->
                             <td>
                                 <?php if (!empty($categoria['capa'])): ?>
-                                    <img src="<?= htmlspecialchars($categoria['capa']) ?>"
+                                    <img src="vendor/uploads/categorias/<?= htmlspecialchars($categoria['capa']) ?>"
                                         alt="<?= htmlspecialchars($categoria['nome']) ?>"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>
-                                    <img src="path/to/default-category-thumbnail.jpg"
+                                    <img src="vendor/uploads/categorias/<?= htmlspecialchars($categoria['capa']) ?>"
                                         alt="Miniatura padrão"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php endif; ?>
