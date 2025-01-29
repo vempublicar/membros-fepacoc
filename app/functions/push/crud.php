@@ -27,7 +27,7 @@ function handleFileUpload($file, $uploadDir) {
 
 // Verifica se é uma requisição POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
+    header("Location: " . $_SERVER['HTTP_REFERER'] ."#dashboard");
     exit();
 }
 
@@ -36,7 +36,7 @@ $tabela = $_POST['tabela'] ?? null;
 
 // Valida a tabela para evitar SQL Injection
 if (!$tabela || !preg_match('/^[a-zA-Z0-9_]+$/', $tabela)) {
-    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
+    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
     exit();
 }
 
@@ -73,13 +73,13 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($dados);
 
-        header("Location: " . $_SERVER['HTTP_REFERER'] . "#".$tabela));
+        header("Location: " . $_SERVER['HTTP_REFERER'] . "#".$tabela);
         exit();
 
     } elseif ($action === 'update') {
         $id = $_POST['id'] ?? null;
         if (!$id || !is_numeric($id)) {
-            header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
+            header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
             exit();
         }
 
@@ -111,13 +111,13 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($dados);
 
-        header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
+        header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
         exit();
 
     } elseif ($action === 'delete') {
         $id = $_POST['id'] ?? null;
         if (!$id || !is_numeric($id)) {
-            header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
+            header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
             exit();
         }
 
@@ -125,15 +125,15 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
 
-        header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
+        header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
         exit();
     }
 
-    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
+    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
     exit();
 
 } catch (Exception $e) {
-    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
+    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela);
     exit();
 }
 ?>
