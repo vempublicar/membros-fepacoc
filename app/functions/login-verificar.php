@@ -29,16 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             // Verificar a senha (aqui usamos a coluna 'acesso' para a comparação)
-            if (password_verify($password, $user['acesso'])) {
-                // Armazenar dados na sessão
+            if ($password === $user['acesso']) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_email'] = $user['email'];
-                $_SESSION['user_created_at'] = $user['created_at'];
 
                 header("Location: " . BASE_URL . "painel");
                 exit();
             } else {
-                $errorMsg = 'Credenciais inválidas.'.$email.'/'.$user['email'].'/'.$password.'/'.$user['acesso'];
+                $errorMsg = 'Credenciais inválidas.';
                 $errorMsg = base64_encode($errorMsg);
                 header("Location: " . BASE_URL . "login&msg=" . $errorMsg);
                 exit();
