@@ -27,7 +27,7 @@ function handleFileUpload($file, $uploadDir) {
 
 // Verifica se é uma requisição POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "&status=error&msg=" . urlencode("Método de requisição inválido."."#".$tabela.));
+    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
     exit();
 }
 
@@ -36,7 +36,7 @@ $tabela = $_POST['tabela'] ?? null;
 
 // Valida a tabela para evitar SQL Injection
 if (!$tabela || !preg_match('/^[a-zA-Z0-9_]+$/', $tabela)) {
-    header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "&status=error&msg=" . urlencode("Tabela inválida ou não informada."."#".$tabela.));
+    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
     exit();
 }
 
@@ -73,13 +73,13 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($dados);
 
-        header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "&status=success&msg=" . urlencode("Registro criado com sucesso."."#".$tabela.));
+        header("Location: " . $_SERVER['HTTP_REFERER'] . "#".$tabela));
         exit();
 
     } elseif ($action === 'update') {
         $id = $_POST['id'] ?? null;
         if (!$id || !is_numeric($id)) {
-            header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') ."&status=error&msg=" . urlencode("ID inválido."."#".$tabela.));
+            header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
             exit();
         }
 
@@ -111,13 +111,13 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($dados);
 
-        header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "&status=success&msg=" . urlencode("Registro atualizado com sucesso."."#".$tabela.));
+        header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
         exit();
 
     } elseif ($action === 'delete') {
         $id = $_POST['id'] ?? null;
         if (!$id || !is_numeric($id)) {
-            header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "&status=error&msg=" . urlencode("ID inválido."."#".$tabela.));
+            header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
             exit();
         }
 
@@ -125,15 +125,15 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
 
-        header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "&status=success&msg=" . urlencode("Registro excluído com sucesso."."#".$tabela.));
+        header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
         exit();
     }
 
-    header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "&status=error&msg=" . urlencode("Ação inválida."."#".$tabela.));
+    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
     exit();
 
 } catch (Exception $e) {
-    header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "&status=error&msg=" . urlencode($e->getMessage()."#".$tabela.));
+    header("Location: " . $_SERVER['HTTP_REFERER'] ."#".$tabela));
     exit();
 }
 ?>

@@ -26,32 +26,32 @@ $ferramentas = fetchFerramentas();
             <!-- Menu lateral para navegação -->
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                 <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-    <li class="nav-item">
-        <a class="nav-link active" href="#" onclick="navigateTo('dashboard')">Dashboard</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" onclick="navigateTo('categorias')">Categorias</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" onclick="navigateTo('videos')">Gerenciar Vídeos</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" onclick="navigateTo('materiais')">Gerenciar Materiais</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" onclick="navigateTo('produtos')">Gerenciar Produtos</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" onclick="navigateTo('aulas')">Gerenciar Aulas</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" onclick="navigateTo('ferramentas')">Ferramentas</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" onclick="navigateTo('leads')">Lista Leads</a>
-    </li>
-</ul>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#categorias">Categorias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#videos">Gerenciar Vídeos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#materiais">Gerenciar Materiais</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#produtos">Gerenciar Produtos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#aulas">Gerenciar Aulas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#ferramentas">Ferramentas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#leads">Lista Leads</a>
+                        </li>
+                    </ul>
                     <a href="painel" onclick="logout()" class="btn btn-danger w-100" style=" bottom: 0;">Sair</a>
                 </div>
             </nav>
@@ -278,13 +278,7 @@ $ferramentas = fetchFerramentas();
 
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-function navigateTo(anchor) {
-    let baseUrl = window.location.origin; // Remove parâmetros da URL
-    window.location.href = baseUrl + "#" + anchor; // Atualiza a URL com a âncora
-    window.location.reload(); // Recarrega a página para aplicar a âncora corretamente
-}
-</script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const accessModal = new bootstrap.Modal(document.getElementById('accessModal'), {
