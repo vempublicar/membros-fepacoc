@@ -51,10 +51,23 @@
                             <td>
                                 <i class="fa fa-edit text-primary me-2"
                                     style="cursor: pointer;"
-                                    onclick="editCategory(<?= htmlspecialchars(json_encode($categoria)) ?>)"></i>
-                                <i class="fa fa-trash text-danger"
-                                    style="cursor: pointer;"
-                                    onclick="deleteCategory(<?= $categoria['id'] ?>)"></i>
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvasAddCategory"
+                                    data-id="<?= $categoria['id'] ?>"
+                                    data-nome="<?= htmlspecialchars($categoria['nome']) ?>"
+                                    data-descricao="<?= htmlspecialchars($categoria['descricao']) ?>"
+                                    data-status="<?= $categoria['status'] ?>"
+                                    data-capa="<?= htmlspecialchars($categoria['capa'] ?? '') ?>"
+                                    onclick="editCategory(this)"></i>
+
+                                <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
+                                    <input type="hidden" name="action" value="delete">
+                                    <input type="hidden" name="tabela" value="categorias">
+                                    <input type="hidden" name="id" value="<?= $categoria['id'] ?>">
+                                    <button type="submit" class="btn btn-link text-danger p-0 border-0" onclick="return confirm('Tem certeza que deseja excluir esta categoria?');">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -75,17 +88,11 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
     </div>
     <div class="offcanvas-body">
-        <!-- Exibir mensagem de sucesso/erro -->
-        <?php if (isset($_GET['msg'])): ?>
-            <div class="alert alert-<?= $_GET['status'] === 'success' ? 'success' : 'danger' ?>">
-                <?= htmlspecialchars($_GET['msg']) ?>
-            </div>
-        <?php endif; ?>
-
-        <form action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
+        <form id="formCategory" action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
             <!-- Ação e Tabela (Campos Ocultos) -->
-            <input type="hidden" name="action" value="create">
+            <input type="hidden" name="action" value="create" id="formAction">
             <input type="hidden" name="tabela" value="categorias">
+            <input type="hidden" name="id" id="categoryId">
 
             <!-- Campo Nome -->
             <div class="mb-3">
@@ -119,5 +126,28 @@
         </form>
     </div>
 </div>
+<script>
+function editCategory(element) {
+    document.getElementById("offcanvasAddCategoryLabel").textContent = "Editar Categoria";
+    document.getElementById("formAction").value = "update";
+    document.getElementById("categoryId").value = element.getAttribute("data-id");
+    document.getElementById("nome").value = element.getAttribute("data-nome");
+    document.getElementById("descricao").value = element.getAttribute("data-descricao");
+    document.getElementById("status").value = element.getAttribute("data-status");
 
+    // Se houver uma imagem antiga, pode-se exibir
+    let capa = element.getAttribute("data-capa");
+    if (capa) {
+        let capaInput = document.getElementById("capa");
+        capaInput.setAttribute("data-placeholder", "Imagem já cadastrada");
+    }
+}
+
+function resetForm() {
+    document.getElementById("offcanvasAddCategoryLabel").textContent = "Adicionar Nova Categoria";
+    document.getElementById("formCategory").reset();
+    document.getElementById("formAction").value = "create";
+    document.getElementById("categoryId").value = "";
+}
+</script>
 
