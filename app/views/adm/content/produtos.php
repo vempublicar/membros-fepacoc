@@ -33,8 +33,8 @@
                                 <?php endif; ?>
                             </td>
 
-                            <td><?= htmlspecialchars($produto['nome']) ?></td>
-                            <td><?= htmlspecialchars($produto['categoria']) ?></td>
+                            <td><?= htmlspecialchars($produto['nome_produto']) ?></td>
+                            <td><?= htmlspecialchars($produto['categoria_produto']) ?></td>
                             <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
 
                             <td class="text-center">
@@ -51,11 +51,11 @@
                                     data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasAddProduct"
                                     data-id="<?= $produto['id'] ?>"
-                                    data-nome="<?= htmlspecialchars($produto['nome']) ?>"
+                                    data-nome="<?= htmlspecialchars($produto['nome_produto']) ?>"
                                     data-pagina="<?= htmlspecialchars($produto['pagina']) ?>"
                                     data-preco="<?= htmlspecialchars($produto['preco']) ?>"
-                                    data-descricao="<?= htmlspecialchars($produto['descricao']) ?>"
-                                    data-categoria="<?= htmlspecialchars($produto['categoria']) ?>"
+                                    data-descricao="<?= htmlspecialchars($produto['descricao_produto']) ?>"
+                                    data-categoria="<?= htmlspecialchars($produto['categoria_produto']) ?>"
                                     data-status="<?= $produto['status'] ?>"
                                     data-capa="<?= htmlspecialchars($produto['capa'] ?? '') ?>"
                                     onclick="editProduct(this)"></i>
@@ -95,13 +95,13 @@
 
             <div class="row">
                 <div class="col-12 mb-3">
-                    <label for="nome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" required>
+                    <label for="nome_produto" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome_produto" name="nome_produto" required>
                 </div>
 
                 <div class="col-6 mb-3">
-                    <label for="categoria" class="form-label">Categoria</label>
-                    <select class="form-select" id="categoria" name="categoria" required>
+                    <label for="categoria_produto" class="form-label">Categoria</label>
+                    <select class="form-select" id="categoria_produto" name="categoria_produto" required>
                         <option value="">Selecione</option>
                         <?php foreach ($categorias as $categoria): ?>
                             <option value="<?= htmlspecialchars($categoria['nome']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
@@ -115,8 +115,8 @@
                 </div>
 
                 <div class="col-12 mb-3">
-                    <label for="descricao" class="form-label">Descrição</label>
-                    <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
+                    <label for="descricao_produto" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="descricao_produto" name="descricao_produto" rows="3"></textarea>
                 </div>
 
                 <div class="col-6 mb-3">
@@ -148,13 +148,13 @@ function editProduct(element) {
     document.getElementById("productId").value = element.getAttribute("data-id");
     
     // Preencher os campos do formulário
-    document.getElementById("nome").value = element.getAttribute("data-nome");
+    document.getElementById("nome_produto").value = element.getAttribute("data-nome");
     document.getElementById("preco").value = element.getAttribute("data-preco");
-    document.getElementById("descricao").value = element.getAttribute("data-descricao");
+    document.getElementById("descricao_produto").value = element.getAttribute("data-descricao");
 
     // Selecionar a categoria corretamente
     let categoriaSelecionada = element.getAttribute("data-categoria");
-    document.getElementById("categoria").value = categoriaSelecionada;
+    document.getElementById("categoria_produto").value = categoriaSelecionada;
 
     // Selecionar status corretamente
     let statusSelecionado = element.getAttribute("data-status");
