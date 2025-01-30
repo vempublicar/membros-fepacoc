@@ -58,7 +58,7 @@
                                     data-categoria="<?= htmlspecialchars($produto['categoria']) ?>"
                                     data-status="<?= $produto['status'] ?>"
                                     data-capa="<?= htmlspecialchars($produto['capa'] ?? '') ?>"
-                                    onclick="editProduct(this)"></i>
+                                    onclick="editarProduct(this)"></i>
 
                                 <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
                                     <input type="hidden" name="action" value="delete">
@@ -140,7 +140,7 @@
 </div>
 
 <script>
-function editProduct(element) {
+function editarProduct(element) {
     document.getElementById("offcanvasAddProductLabel").textContent = "Editar Produto";
     document.getElementById("formAction").value = "update";
     document.getElementById("productId").value = element.getAttribute("data-id");
