@@ -8,16 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Obtém o email do formulário
         $email = $_POST['email'] ?? null;
         if (!$email) {
-            throw new Exception('E-mail não informado');
+            throw new Exception('E-mail não informado.');
         }
-
-        $tipo = $_POST['tipo'] ?? '';
 
         // Prepara os dados do formulário
         $formData = [
             'empresa' => $_POST['empresa'] ?? '',
             'cnpj' => $_POST['cnpj'] ?? '',
-            'email-pro' => $_POST['emailPro'] ?? '',
+            'email_pro' => $_POST['emailPro'] ?? '',
             'setor' => $_POST['setor'] ?? '',
             'phone' => $_POST['phone'] ?? '',
             'cep' => $_POST['cep'] ?? '',
@@ -25,47 +23,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'estado' => $_POST['estado'] ?? '',
             'faturamento' => $_POST['faturamento'] ?? '',
             'prioridade' => $_POST['prioridade'] ?? '',
-            'necessidade' => $_POST['necessidade'] ?? []
+            'necessidade' => isset($_POST['necessidade']) ? json_encode($_POST['necessidade'], JSON_UNESCAPED_UNICODE) : '[]'
         ];
-
-        // Gera o JSON para a coluna `dados`
-        $jsonDados = json_encode($formData, JSON_UNESCAPED_UNICODE);
 
         // Conectar ao banco de dados
         $pdo = db_connect();
 
-        // Verifica se o lead já existe
-        $stmt = $pdo->prepare("SELECT id FROM leads WHERE email = :email");
-        $stmt->bindParam(':email', $email);
+        // Verifica se a empresa já existe para este email
+        $stmt = $pdo->prepare("SELECT id FROM empresa WHERE email = :email");
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            // Atualiza os dados se o lead já existe
+            // Atualiza os dados se a empresa já existir
             $updateStmt = $pdo->prepare("
-                UPDATE leads SET tipo = :tipo, dados = :dados WHERE email = :email
+                UPDATE empresa SET 
+                    empresa = :empresa, 
+                    cnpj = :cnpj, 
+                    email_pro = :email_pro, 
+                    setor = :setor, 
+                    phone = :phone, 
+                    cep = :cep, 
+                    cidade = :cidade, 
+                    estado = :estado, 
+                    faturamento = :faturamento, 
+                    prioridade = :prioridade, 
+                    necessidade = :necessidade 
+                WHERE email = :email
             ");
-            $updateStmt->bindParam(':tipo', $tipo);
-            $updateStmt->bindParam(':dados', $jsonDados);
-            $updateStmt->bindParam(':email', $email);
-            $updateStmt->execute();
-
-            $_SESSION['message'] = 'Dados atualizados com sucesso!';
         } else {
-            // Insere um novo lead caso não exista
-            $insertStmt = $pdo->prepare("
-                INSERT INTO leads (email, tipo, dados) VALUES (:email, :tipo, :dados)
+            // Insere um novo registro caso não exista
+            $updateStmt = $pdo->prepare("
+                INSERT INTO empresa 
+                (email, empresa, cnpj, email_pro, setor, phone, cep, cidade, estado, faturamento, prioridade, necessidade) 
+                VALUES 
+                (:email, :empresa, :cnpj, :email_pro, :setor, :phone, :cep, :cidade, :estado, :faturamento, :prioridade, :necessidade)
             ");
-            $insertStmt->bindParam(':email', $email);
-            $insertStmt->bindParam(':tipo', $tipo);
-            $insertStmt->bindParam(':dados', $jsonDados);
-            $insertStmt->execute();
-
-            $_SESSION['message'] = 'Dados cadastrados com sucesso!';
         }
 
-        // **Agora salvamos os dados da empresa na sessão para carregamento automático**
-        $_SESSION['dados_profissionais'] = $jsonDados;
+        // Bind dos parâmetros
+        foreach ($formData as $key => &$value) {
+            $updateStmt->bindParam(":$key", $value, PDO::PARAM_STR);
+        }
+        $updateStmt->bindParam(":email", $email, PDO::PARAM_STR);
+        $updateStmt->execute();
 
+        // **Agora salvamos os dados da empresa na sessão para carregamento automático**
+        $_SESSION['dados_profissionais'] = json_encode($formData, JSON_UNESCAPED_UNICODE);
+
+        $_SESSION['message'] = 'Dados da empresa salvos com sucesso!';
         header("Location: " . $_SERVER['HTTP_REFERER'] . "#sucesso");
         exit();
 
