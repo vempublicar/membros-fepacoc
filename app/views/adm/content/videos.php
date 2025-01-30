@@ -150,6 +150,32 @@
                         <option value="paisagem">Paisagem</option>
                     </select>
                 </div>
+                <div class="col-6 mb-3">
+                    <label for="staus" class="form-label">Status</label>
+                    <select class="form-select" id="staus" name="staus" required>
+                        <option value="ativo">Ativo</option>
+                        <option value="inativo">Inativo</option>
+                    </select>
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="tipo" class="form-label">Tipo</label>
+                    <select class="form-select" id="tipo" name="tipo" required>
+                        <option value="Aula">Aula</option>
+                        <option value="Estratégia">Estratégia</option>
+                        <option value="Aplicação">Aplicação</option>
+                        <option value="Dica">Dica</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="situacao" class="form-label">Liberado ao Usuário</label>
+                    <select class="form-select" id="situacao" name="situacao" required>
+                        <option value="Bronze">Bronze</option>
+                        <option value="Prata">Prata</option>
+                        <option value="Ouro">Ouro</option>
+                        <option value="Diamante">Diamante</option>
+                    </select>
+                </div>
 
                 <div class="col-12 mb-3">
                     <label for="formulario" class="form-label">Link do Formulário</label>
