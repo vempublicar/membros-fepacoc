@@ -54,7 +54,7 @@
                                     data-produto="<?= htmlspecialchars($produto['produto']) ?>"
                                     data-pagina="<?= htmlspecialchars($produto['pagina']) ?>"
                                     data-preco="<?= htmlspecialchars($produto['preco']) ?>"
-                                    data-descricao="<?= htmlspecialchars($produto['descricao']) ?>"
+                                    data-sobre="<?= htmlspecialchars($produto['sobre']) ?>"
                                     data-categoria="<?= htmlspecialchars($produto['categoria']) ?>"
                                     data-status="<?= $produto['status'] ?>"
                                     data-capa="<?= htmlspecialchars($produto['capa'] ?? '') ?>"
@@ -116,8 +116,8 @@
                 </div>
 
                 <div class="col-12 mb-3">
-                    <label for="descricao" class="form-label">Descrição</label>
-                    <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
+                    <label for="sobre" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="sobre" name="sobre" rows="3"></textarea>
                 </div>
 
                 <div class="col-6 mb-3">
@@ -147,7 +147,7 @@ function editarProduct(element) {
     document.getElementById("productId").value = element.getAttribute("data-id");
     document.getElementById("produto").value = element.getAttribute("data-produto");
     document.getElementById("preco").value = element.getAttribute("data-preco");
-    document.getElementById("descricao").value = element.getAttribute("data-descricao");
+    document.getElementById("sobre").value = element.getAttribute("data-sobre");
 
     // Selecionar a categoria corretamente
     let categoriaSelecionada = element.getAttribute("data-categoria");
