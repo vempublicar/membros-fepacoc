@@ -117,21 +117,16 @@
                 </div>
 
                 <div class="col-6 mb-3">
+                    <label for="descricao" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
+                </div>
+
+                <div class="col-6 mb-3">
                     <label for="categoria" class="form-label">Categoria</label>
                     <select class="form-select" id="categoria" name="categoria" required>
                         <option value="">Selecione</option>
                         <?php foreach ($categorias as $categoria): ?>
                             <option value="<?= htmlspecialchars($categoria['nome']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="col-6 mb-3">
-                    <label for="produtor" class="form-label">Produtor</label>
-                    <select class="form-select" id="produtor" name="produtor" required>
-                        <option value="">Selecione</option>
-                        <?php foreach ($produtores as $produtor): ?>
-                            <option value="<?= htmlspecialchars($produtor['nome']) ?>"><?= htmlspecialchars($produtor['nome']) ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
