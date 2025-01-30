@@ -4,41 +4,9 @@ include_once "app/views/parts/head.php";
 include_once "app/views/parts/header.php";
 include_once "app/functions/data/busca-dados.php";
 
-// Verifica se os dados do usuário estão armazenados na sessão
-if (!isset($_SESSION['user_dados'])) {
-    echo "<div class='alert alert-danger text-center'>Usuário não logado.</div>";
-    exit;
-}
-
-// Obtém os dados da sessão
-$userDados = json_decode($_SESSION['user_dados'], true);
-$email = $userDados['user']['email'] ?? '';
-
-// Busca os dados do usuário no array de leads
-$usuarios = fetchLeads();
-$user = null;
-
-print_r($user);
-
-foreach ($usuarios as $usuario) {
-    if ($usuario['email'] === $email) {
-        $user = $usuario;
-        break;
-    }
-}
-
-// Se não encontrar o usuário, exibir mensagem de erro
-if (!$user) {
-    echo "<div class='alert alert-danger text-center'>Usuário não encontrado.</div>";
-    exit;
-}
-
-// Decodifica os dados profissionais, se existirem
-$dadosProfissionais = !empty($user['dados']) ? json_decode($user['dados'], true) : [];
+print_r($_SESSION);
 
 ?>
-
-
 
 <div class="container mt-5">
     <div class="row">
