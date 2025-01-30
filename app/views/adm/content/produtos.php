@@ -22,8 +22,8 @@
                     <?php foreach ($produtos as $produto): ?>
                         <tr>
                             <td>
-                                <?php if (!empty($produto['imagem'])): ?>
-                                    <img src="vendor/uploads/produtos/<?= htmlspecialchars($produto['imagem']) ?>"
+                                <?php if (!empty($produto['capa'])): ?>
+                                    <img src="vendor/uploads/produtos/<?= htmlspecialchars($produto['capa']) ?>"
                                         alt="<?= htmlspecialchars($produto['nome']) ?>"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>
@@ -57,7 +57,7 @@
                                     data-descricao="<?= htmlspecialchars($produto['descricao']) ?>"
                                     data-categoria="<?= htmlspecialchars($produto['categoria']) ?>"
                                     data-status="<?= $produto['status'] ?>"
-                                    data-imagem="<?= htmlspecialchars($produto['imagem'] ?? '') ?>"
+                                    data-capa="<?= htmlspecialchars($produto['capa'] ?? '') ?>"
                                     onclick="editProduct(this)"></i>
 
                                 <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
@@ -150,12 +150,12 @@ function editProduct(element) {
     document.getElementById("categoria").value = element.getAttribute("data-categoria");
     document.getElementById("status").value = element.getAttribute("data-status");
 
-    let imagemAtual = element.getAttribute("data-imagem");
+    let imagemAtual = element.getAttribute("data-capa");
     if (imagemAtual) {
         let imagemPreview = document.createElement("img");
         imagemPreview.src = "vendor/uploads/produtos/" + imagemAtual;
         imagemPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
-        let imagemContainer = document.getElementById("imagem").parentNode;
+        let imagemContainer = document.getElementById("capa").parentNode;
         let existingPreview = imagemContainer.querySelector("img");
         if (existingPreview) existingPreview.remove();
         imagemContainer.appendChild(imagemPreview);
@@ -167,6 +167,6 @@ function resetForm() {
     document.getElementById("formProduct").reset();
     document.getElementById("formAction").value = "create";
     document.getElementById("productId").value = "";
-    document.getElementById("imagem").parentNode.querySelector("img")?.remove();
+    document.getElementById("capa").parentNode.querySelector("img")?.remove();
 }
 </script>
