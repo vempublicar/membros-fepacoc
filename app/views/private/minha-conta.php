@@ -4,14 +4,18 @@ include_once "app/views/parts/head.php";
 include_once "app/views/parts/header.php";
 include_once "app/functions/data/busca-dados.php";
 
-print_r($_SESSION);
-if (!isset($_SESSION['user_dados'])) {
-    echo "<div class='alert alert-danger text-center'>Usuário não logado.</div>";
-    exit;
-}
+
+
 ?>
 
 <div class="container mt-5">
+    <?php 
+    if (!isset($_SESSION['user_dados'])) {
+        echo "<div class='alert alert-danger text-center'>Usuário não logado.</div>";
+        exit;
+    }
+    print_r($_SESSION);
+    ?>
     <div class="row">
         <h2 class="mb-3 mt-5">Minha Conta
             <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#companyModal">
