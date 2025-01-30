@@ -49,7 +49,7 @@ $dadosProfissionais = !empty($_SESSION['dados_profissionais']) ? json_decode($_S
                     <h4>Dados Pessoais</h4>
                     <p><strong>Nome:</strong> <?= htmlspecialchars($user['nome']); ?></p>
                     <p><strong>Email:</strong> <?= htmlspecialchars($user['email']); ?></p>
-                    <p><strong>Telefone:</strong> <?= htmlspecialchars($user['fone']); ?></p>
+                    <p><strong>Número:</strong> <?= htmlspecialchars($user['fone']); ?></p>
                     <p><strong>Conta:</strong> <?= htmlspecialchars($user['tipo']); ?></p>
                     <p><strong>Cadastro em:</strong> <?= htmlspecialchars($user['created_at']); ?></p>
                 </div>

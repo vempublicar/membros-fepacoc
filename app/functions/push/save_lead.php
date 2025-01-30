@@ -1,51 +1,18 @@
 <?php
 session_start();
-include_once "../../config/supabase/supabase_config.php";
-
-// Função para enviar requisições ao Supabase
-function sendSupabaseRequest($method, $endpoint, $data = null) {
-    $url = SUPABASE_URL . '/rest/v1/' . $endpoint;
-    $headers = [
-        "Content-Type: application/json",
-        "apikey: " . SUPABASE_KEY,
-        "Authorization: Bearer " . SUPABASE_KEY,
-    ];
-
-    $curl = curl_init();
-    curl_setopt_array($curl, [
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_CUSTOMREQUEST => $method,
-        CURLOPT_HTTPHEADER => $headers,
-    ]);
-
-    if ($data) {
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
-    }
-
-    $response = curl_exec($curl);
-    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    $error = curl_error($curl);
-    curl_close($curl);
-
-    if ($error) {
-        return ['status' => 'error', 'message' => $error];
-    }
-
-    return ['status' => 'success', 'http_code' => $httpCode, 'response' => json_decode($response, true)];
-}
+include_once "../../config/bd/connection.php"; // Conexão com o MySQL
 
 // Verifica se a requisição é POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Obtém o email do formulário
         $email = $_POST['email'] ?? null;
-//         echo 'teste';
-// print_r($email);
         if (!$email) {
             throw new Exception('E-mail não informado');
         }
+
         $tipo = $_POST['tipo'] ?? '';
+
         // Prepara os dados do formulário
         $formData = [
             'empresa' => $_POST['empresa'] ?? '',
@@ -64,26 +31,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Gera o JSON para a coluna `dados`
         $jsonDados = json_encode($formData, JSON_UNESCAPED_UNICODE);
 
-        // Atualiza o lead no Supabase com base no email
-        $updateData = [
-            'tipo' => $tipo,
-            'dados' => $jsonDados
-        ];
-        
-        $response = sendSupabaseRequest('PATCH', "leads?email=eq.$email", $updateData);
+        // Conectar ao banco de dados
+        $pdo = db_connect();
 
-        // Verifica a resposta
-        if ($response['status'] === 'success' && $response['http_code'] === 204) {
+        // Verifica se o lead já existe
+        $stmt = $pdo->prepare("SELECT id FROM leads WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            // Atualiza os dados se o lead já existe
+            $updateStmt = $pdo->prepare("
+                UPDATE leads SET tipo = :tipo, dados = :dados WHERE email = :email
+            ");
+            $updateStmt->bindParam(':tipo', $tipo);
+            $updateStmt->bindParam(':dados', $jsonDados);
+            $updateStmt->bindParam(':email', $email);
+            $updateStmt->execute();
+
             $_SESSION['message'] = 'Dados atualizados com sucesso!';
-            header("Location: " . $_SERVER['HTTP_REFERER'] . "#sucesso");
         } else {
-            throw new Exception('Erro ao atualizar os dados: ' . json_encode($response['response']));
+            // Insere um novo lead caso não exista
+            $insertStmt = $pdo->prepare("
+                INSERT INTO leads (email, tipo, dados) VALUES (:email, :tipo, :dados)
+            ");
+            $insertStmt->bindParam(':email', $email);
+            $insertStmt->bindParam(':tipo', $tipo);
+            $insertStmt->bindParam(':dados', $jsonDados);
+            $insertStmt->execute();
+
+            $_SESSION['message'] = 'Dados cadastrados com sucesso!';
         }
+
+        header("Location: " . $_SERVER['HTTP_REFERER'] . "#sucesso");
+        exit();
+
     } catch (Exception $e) {
-        $_SESSION['error'] = $e->getMessage();
+        $_SESSION['error'] = "Erro: " . $e->getMessage();
         header("Location: " . $_SERVER['HTTP_REFERER'] . "#error");
+        exit();
     }
 } else {
     $_SESSION['error'] = 'Método de requisição inválido.';
     header("Location: " . $_SERVER['HTTP_REFERER'] . "#error");
+    exit();
 }
