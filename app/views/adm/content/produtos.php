@@ -165,33 +165,9 @@ function editProduct(element) {
 
     // Remove a imagem anterior se já existir
     let existingPreview = imagemContainer.querySelector(".preview-img");
-    if (existingPreview) {
-        existingPreview.remove();
-    }
-
-    if (imagemAtual) {
-        let imagemPreview = document.createElement("img");
-        imagemPreview.src = "vendor/uploads/produtos/" + imagemAtual;
-        imagemPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
-        imagemPreview.classList.add("preview-img");
-        imagemContainer.appendChild(imagemPreview);
-    }
+    
 }
 
-// Função para resetar o formulário ao abrir para um novo produto
-document.getElementById("offcanvasAddProduct").addEventListener("hidden.bs.offcanvas", function () {
-    document.getElementById("formProduct").reset();
-    document.getElementById("offcanvasAddProductLabel").textContent = "Adicionar Produto";
-    document.getElementById("formAction").value = "create";
-    document.getElementById("productId").value = "";
-
-    // Remover imagem antiga ao resetar o formulário
-    let imagemContainer = document.getElementById("capa").parentNode;
-    let existingPreview = imagemContainer.querySelector(".preview-img");
-    if (existingPreview) {
-        existingPreview.remove();
-    }
-});
 
 
 function resetForm() {
