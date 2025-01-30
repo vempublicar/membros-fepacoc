@@ -141,37 +141,30 @@
 
 <script>
 function editProduct(element) {
+    // Alterar título e configurar ação para atualização
     document.getElementById("offcanvasAddProductLabel").textContent = "Editar Produto";
     document.getElementById("formAction").value = "update";
     document.getElementById("productId").value = element.getAttribute("data-id");
+    
+    // Preencher os campos do formulário
     document.getElementById("nome").value = element.getAttribute("data-nome");
     document.getElementById("preco").value = element.getAttribute("data-preco");
     document.getElementById("descricao").value = element.getAttribute("data-descricao");
 
     // Selecionar a categoria corretamente
     let categoriaSelecionada = element.getAttribute("data-categoria");
-    let selectCategoria = document.getElementById("categoria");
-    Array.from(selectCategoria.options).forEach(option => {
-        if (option.value === categoriaSelecionada) {
-            option.selected = true;
-        }
-    });
+    document.getElementById("categoria").value = categoriaSelecionada;
 
     // Selecionar status corretamente
     let statusSelecionado = element.getAttribute("data-status");
-    let selectStatus = document.getElementById("status");
-    Array.from(selectStatus.options).forEach(option => {
-        if (option.value === statusSelecionado) {
-            option.selected = true;
-        }
-    });
+    document.getElementById("status").value = statusSelecionado;
 
-    // Exibir pré-visualização da imagem se existir
+    // Exibir pré-visualização da imagem, se existir
     let imagemAtual = element.getAttribute("data-capa");
     let imagemContainer = document.getElementById("capa").parentNode;
-    
+
     // Remove a imagem anterior se já existir
-    let existingPreview = imagemContainer.querySelector("img");
+    let existingPreview = imagemContainer.querySelector(".preview-img");
     if (existingPreview) {
         existingPreview.remove();
     }
@@ -180,9 +173,26 @@ function editProduct(element) {
         let imagemPreview = document.createElement("img");
         imagemPreview.src = "vendor/uploads/produtos/" + imagemAtual;
         imagemPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
+        imagemPreview.classList.add("preview-img");
         imagemContainer.appendChild(imagemPreview);
     }
 }
+
+// Função para resetar o formulário ao abrir para um novo produto
+document.getElementById("offcanvasAddProduct").addEventListener("hidden.bs.offcanvas", function () {
+    document.getElementById("formProduct").reset();
+    document.getElementById("offcanvasAddProductLabel").textContent = "Adicionar Produto";
+    document.getElementById("formAction").value = "create";
+    document.getElementById("productId").value = "";
+
+    // Remover imagem antiga ao resetar o formulário
+    let imagemContainer = document.getElementById("capa").parentNode;
+    let existingPreview = imagemContainer.querySelector(".preview-img");
+    if (existingPreview) {
+        existingPreview.remove();
+    }
+});
+
 
 function resetForm() {
     document.getElementById("offcanvasAddProductLabel").textContent = "Adicionar Produto";
