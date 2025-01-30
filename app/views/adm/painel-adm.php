@@ -15,7 +15,7 @@ $ferramentas = fetchFerramentas();
 </head>
 
 <body>
-    <?php include_once "app/views/parts/header.php"; ?>
+    <?php // include_once "app/views/parts/header.php"; ?>
 
     <div class="container-fluid">
         <header class="mb-4">
