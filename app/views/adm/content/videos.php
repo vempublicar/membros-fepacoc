@@ -70,7 +70,7 @@
                                     data-formulario="<?= htmlspecialchars($video['formulario'] ?? '') ?>"
                                     data-capa="<?= htmlspecialchars($video['capa'] ?? '') ?>"
                                     data-link="<?= htmlspecialchars($video['link'] ?? '') ?>"
-                                    onclick="editVideo(this)"></i>
+                                    ></i>
 
                                 <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
                                     <input type="hidden" name="action" value="delete">
