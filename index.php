@@ -97,5 +97,3 @@ switch ($page) {
         break;
 
 }
-
-?>

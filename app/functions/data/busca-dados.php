@@ -1,7 +1,5 @@
 <?php
 include "app/config/bd/connection.php";
-
-
 function fetchVideos() {
     $pdo = db_connect();
     $stmt = $pdo->query("SELECT * FROM videos ORDER BY id DESC LIMIT 500");

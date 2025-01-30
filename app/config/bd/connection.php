@@ -25,5 +25,3 @@ function db_connect()
     }
 }
 ?>
-
-?>
