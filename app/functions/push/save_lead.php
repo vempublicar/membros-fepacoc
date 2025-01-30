@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $formData = [
             'empresa' => $_POST['empresa'] ?? '',
             'cnpj' => $_POST['cnpj'] ?? '',
-            'email_pro' => $_POST['emailPro'] ?? '',
+            'email_pro' => $_POST['email_pro'] ?? '',
             'setor' => $_POST['setor'] ?? '',
             'phone' => $_POST['phone'] ?? '',
             'cep' => $_POST['cep'] ?? '',

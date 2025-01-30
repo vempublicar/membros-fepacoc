@@ -66,9 +66,10 @@ $dadosProfissionais = !empty($_SESSION['dados_profissionais']) ? json_decode($_S
                         <p><strong>CNPJ:</strong> <?= htmlspecialchars($dadosProfissionais['cnpj'] ?? 'N/A'); ?></p>
                         <p><strong>Setor:</strong> <?= htmlspecialchars($dadosProfissionais['setor'] ?? 'N/A'); ?></p>
                         <p><strong>Cidade:</strong> <?= htmlspecialchars($dadosProfissionais['cidade'] ?? 'N/A'); ?></p>
-                        <p><strong>E-mail:</strong> <?= htmlspecialchars($dadosProfissionais['emailPro'] ?? 'N/A'); ?></p>
+                        <p><strong>E-mail:</strong> <?= htmlspecialchars($dadosProfissionais['email_pro'] ?? 'N/A'); ?></p>
                         <p><strong>Celular:</strong> <?= htmlspecialchars($dadosProfissionais['phone'] ?? 'N/A'); ?></p>
                         <p><strong>Estado:</strong> <?= htmlspecialchars($dadosProfissionais['estado'] ?? 'N/A'); ?></p>
+                        <p><strong>Prioridade:</strong> <?= htmlspecialchars($dadosProfissionais['prioridade'] ?? 'N/A'); ?></p>
                         <p><strong>Faturamento:</strong> <?= htmlspecialchars($dadosProfissionais['faturamento'] ?? 'N/A'); ?></p>
                         <p><strong>Necessidades:</strong> 
                             <?= isset($dadosProfissionais['necessidade']) && is_array($dadosProfissionais['necessidade']) 
@@ -122,7 +123,7 @@ $dadosProfissionais = !empty($_SESSION['dados_profissionais']) ? json_decode($_S
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <small class="form-label">E-mail Comercial</small>
-                                <input class="form-control" type="email" name="emailPro" required placeholder="Digite seu e-mail">
+                                <input class="form-control" type="email" name="email_pro" required placeholder="Digite seu e-mail">
                             </div>
                         </div>
                         <div class="col-md-6">
