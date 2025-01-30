@@ -85,7 +85,7 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddProduct" aria-labelledby="offcanvasAddProductLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasAddProductLabel">Adicionar Produto</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Fechar" onclick="resetForm()"></button>
     </div>
     <div class="offcanvas-body">
         <form id="formProduct" action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
@@ -132,6 +132,7 @@
             <div class="mb-3">
                 <label for="capa" class="form-label">Imagem</label>
                 <input type="file" class="form-control" id="capa" name="capa" accept="image/*">
+                <div id="imagemPreview" class="mt-2"></div>
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -161,14 +162,14 @@ function editProduct(element) {
 
     // Exibir pré-visualização da imagem, se existir
     let imagemAtual = element.getAttribute("data-capa");
-    let imagemContainer = document.getElementById("capa").parentNode;
+    let imagemPreview = document.getElementById("imagemPreview");
 
-    // Remove a imagem anterior se já existir
-    let existingPreview = imagemContainer.querySelector(".preview-img");
-    
+    if (imagemAtual) {
+        imagemPreview.innerHTML = `<img src="vendor/uploads/produtos/${imagemAtual}" alt="Imagem do Produto" style="width: 100px; height: auto; border-radius: 5px;">`;
+    } else {
+        imagemPreview.innerHTML = '';
+    }
 }
-
-
 
 function resetForm() {
     document.getElementById("offcanvasAddProductLabel").textContent = "Adicionar Produto";
@@ -177,11 +178,12 @@ function resetForm() {
     document.getElementById("productId").value = "";
     
     // Remover imagem antiga ao resetar o formulário
-    let imagemContainer = document.getElementById("capa").parentNode;
-    let existingPreview = imagemContainer.querySelector("img");
-    if (existingPreview) {
-        existingPreview.remove();
-    }
+    document.getElementById("imagemPreview").innerHTML = '';
 }
+
+// Resetar o formulário quando o offcanvas for fechado
+document.getElementById('offcanvasAddProduct').addEventListener('hidden.bs.offcanvas', function () {
+    resetForm();
+});
 </script>
 
