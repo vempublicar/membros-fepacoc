@@ -71,11 +71,8 @@ $dadosProfissionais = !empty($_SESSION['dados_profissionais']) ? json_decode($_S
                         <p><strong>Estado:</strong> <?= htmlspecialchars($dadosProfissionais['estado'] ?? 'N/A'); ?></p>
                         <p><strong>Prioridade:</strong> <?= htmlspecialchars($dadosProfissionais['prioridade'] ?? 'N/A'); ?></p>
                         <p><strong>Faturamento:</strong> <?= htmlspecialchars($dadosProfissionais['faturamento'] ?? 'N/A'); ?></p>
-                        <p><strong>Necessidades:</strong> 
-                            <?= isset($dadosProfissionais['necessidade']) && is_array($dadosProfissionais['necessidade']) 
-                                ? htmlspecialchars(implode(', ', $dadosProfissionais['necessidade'])) 
-                                : 'N/A'; ?>
-                        </p>
+                        <p><strong>Necessidades:</strong> <?= htmlspecialchars($dadosProfissionais['necessidade'] ?? 'N/A'); ?></p>
+                            
                     <?php else: ?>
                         <p>Você ainda não adicionou dados profissionais.</p>
                     <?php endif; ?>
