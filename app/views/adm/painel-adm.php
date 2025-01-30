@@ -200,77 +200,7 @@ $ferramentas = fetchFerramentas();
             </div>
         </div>
     </div>
-    <script>
-        function deleteVideo(videoId, tabelaDel) {
-            if (confirm('Tem certeza que deseja excluir este vídeo?')) {
-                const formData = new FormData();
-                formData.append('action', 'delete');
-                formData.append('id', videoId);
-                formData.append('tabela', tabelaDel);
 
-                fetch('app/functions/push/crud-video.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            alert('Vídeo excluído com sucesso!');
-                            location.reload();
-                        } else {
-                            alert('Erro ao excluir o vídeo: ' + data.message);
-                        }
-                    })
-                    .catch(error => console.error('Erro:', error));
-            }
-        }
-
-        function editVideo(video) {
-            // Preencher os campos do formulário
-            document.getElementById('formAction').value = 'update';
-            document.getElementById('videoId').value = video.id;
-            document.getElementById('videoForm').value = video.form;
-            document.getElementById('videoTitle').value = video.title;
-            document.getElementById('videoLink').value = video.link;
-            document.getElementById('videoSector').value = video.sector;
-            document.getElementById('videoCategory').value = video.category;
-            document.getElementById('videoType').value = video.type;
-            document.getElementById('videoShort').value = video.short;
-            document.getElementById('videoDesc').value = video.description;
-
-            // Preencher o valor do status
-            const statusField = document.getElementById('stauts'); // ID corrigido para 'stauts'
-            if (video.status) {
-                statusField.value = video.status.charAt(0).toUpperCase() + video.status.slice(1); // Capitaliza o valor
-            } else {
-                statusField.value = 'Inativo'; // Valor padrão caso o status esteja ausente
-            }
-
-            // Mostrar preview da capa, se houver
-            const coverPreview = document.getElementById('videoCoverPreview');
-            if (video.cover) {
-                coverPreview.src = `vendor/videos/capas/${video.cover}`;
-                coverPreview.style.display = 'block';
-            } else {
-                coverPreview.style.display = 'none';
-            }
-
-            // Abrir o offcanvas
-            const offcanvas = new bootstrap.Offcanvas(document.getElementById('videoOffcanvas'));
-            offcanvas.show();
-        }
-
-        function openOffcanvas() {
-            document.getElementById('addVideoForm').reset();
-            document.getElementById('formAction').value = 'create';
-            document.getElementById('videoId').value = '';
-            document.getElementById('videoForm').value = 'Video Curto';
-            document.getElementById('videoCoverPreview').style.display = 'none';
-
-            const offcanvas = new bootstrap.Offcanvas(document.getElementById('videoOffcanvas'));
-            offcanvas.show();
-        }
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- Bootstrap CSS -->
