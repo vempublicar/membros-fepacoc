@@ -5,17 +5,41 @@ include_once "app/views/parts/header.php";
 include_once "app/functions/data/busca-dados.php";
 
 
-
 ?>
 
 <div class="container mt-5">
     <?php 
     if (!isset($_SESSION['user_dados'])) {
         echo "<div class='alert alert-danger text-center'>Usuário não logado.</div>";
-        exit;
+    }else{
+        $userDados = json_decode($_SESSION['user_dados'], true);
+        $email = $userDados['user']['email'] ?? '';
     }
-    print_r($_SESSION);
+    $usuarios = fetchLeads();
+    $user = null;
+    foreach ($usuarios as $usuario) {
+        if ($usuario['email'] === $email) {
+            $user = $usuario;
+            break;
+        }
+    }
+    if (!$user) {
+        echo "<div class='alert alert-danger text-center'>Usuário não encontrado.</div>";
+    }
+    $dadosProfissionais = !empty($user['dados']) ? json_decode($user['dados'], true) : [];
+    //print_r($_SESSION);
     ?>
+    <?php if (isset($_SESSION['message'])): ?>
+    <div class="alert alert-success">
+        <?= htmlspecialchars($_SESSION['message']); unset($_SESSION['message']); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="alert alert-danger">
+        <?= htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?>
+    </div>
+<?php endif; ?>
     <div class="row">
         <h2 class="mb-3 mt-5">Minha Conta
             <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#companyModal">
