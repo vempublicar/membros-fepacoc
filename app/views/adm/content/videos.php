@@ -24,7 +24,6 @@
                 <?php if (!empty($videos)): ?>
                     <?php foreach ($videos as $video): ?>
                         <tr>
-                            <!-- Capa do Vídeo -->
                             <td>
                                 <?php if (!empty($video['capa'])): ?>
                                     <img src="vendor/uploads/videos/<?= htmlspecialchars($video['capa']) ?>"
@@ -37,25 +36,13 @@
                                 <?php endif; ?>
                             </td>
 
-                            <!-- Título -->
                             <td><?= htmlspecialchars($video['titulo']) ?></td>
-
-                            <!-- Resumo -->
                             <td><?= htmlspecialchars($video['resumo']) ?></td>
-
-                            <!-- Categoria -->
                             <td><?= htmlspecialchars($video['categoria']) ?></td>
-
-                            <!-- Produtor -->
                             <td><?= htmlspecialchars($video['produtor']) ?></td>
-
-                            <!-- Formato -->
                             <td><?= htmlspecialchars($video['formato']) ?></td>
-
-                            <!-- Tipo -->
                             <td><?= htmlspecialchars($video['tipo']) ?></td>
 
-                            <!-- Status -->
                             <td class="text-center">
                                 <?php if ($video['status'] === 'ativo'): ?>
                                     <i class="fa fa-check-circle text-success"></i>
@@ -64,7 +51,6 @@
                                 <?php endif; ?>
                             </td>
 
-                            <!-- Ações -->
                             <td>
                                 <i class="fa fa-edit text-primary me-2"
                                     style="cursor: pointer;"
@@ -119,51 +105,57 @@
             <input type="hidden" name="tabela" value="videos">
             <input type="hidden" name="id" id="videoId">
 
-            <!-- Título -->
-            <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" required>
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label for="titulo" class="form-label">Título</label>
+                    <input type="text" class="form-control" id="titulo" name="titulo" required>
+                </div>
+
+                <div class="col-6 mb-3">
+                    <label for="resumo" class="form-label">Resumo</label>
+                    <input type="text" class="form-control" id="resumo" name="resumo" required>
+                </div>
+
+                <div class="col-6 mb-3">
+                    <label for="categoria" class="form-label">Categoria</label>
+                    <select class="form-select" id="categoria" name="categoria" required>
+                        <option value="">Selecione</option>
+                        <?php foreach ($categorias as $categoria): ?>
+                            <option value="<?= htmlspecialchars($categoria['nome']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="col-6 mb-3">
+                    <label for="produtor" class="form-label">Produtor</label>
+                    <select class="form-select" id="produtor" name="produtor" required>
+                        <option value="">Selecione</option>
+                        <?php foreach ($produtores as $produtor): ?>
+                            <option value="<?= htmlspecialchars($produtor['nome']) ?>"><?= htmlspecialchars($produtor['nome']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="col-6 mb-3">
+                    <label for="formato" class="form-label">Formato</label>
+                    <select class="form-select" id="formato" name="formato" required>
+                        <option value="retrato">Retrato</option>
+                        <option value="paisagem">Paisagem</option>
+                    </select>
+                </div>
             </div>
 
-            <!-- Resumo -->
-            <div class="mb-3">
-                <label for="resumo" class="form-label">Resumo</label>
-                <textarea class="form-control" id="resumo" name="resumo" rows="2" required></textarea>
-            </div>
-
-            <!-- Categoria -->
-            <div class="mb-3">
-                <label for="categoria" class="form-label">Categoria</label>
-                <select class="form-select" id="categoria" name="categoria" required>
-                    <option value="">Selecione</option>
-                    <?php foreach ($categorias as $categoria): ?>
-                        <option value="<?= htmlspecialchars($categoria['nome']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <!-- Upload de Capa -->
+            <!-- Upload de arquivos -->
             <div class="mb-3">
                 <label for="capa" class="form-label">Capa</label>
                 <input type="file" class="form-control" id="capa" name="capa" accept="image/*">
             </div>
 
-            <!-- Upload do Vídeo -->
             <div class="mb-3">
                 <label for="link" class="form-label">Vídeo</label>
                 <input type="file" class="form-control" id="link" name="link" accept="video/*">
             </div>
 
-            <!-- Status -->
-            <div class="mb-3">
-                <label for="status" class="form-label">Status</label>
-                <select class="form-select" id="status" name="status" required>
-                    <option value="ativo">Ativo</option>
-                    <option value="inativo">Inativo</option>
-                </select>
-            </div>
-
-            <!-- Botão de Envio -->
             <button type="submit" class="btn btn-primary">Salvar</button>
         </form>
     </div>
