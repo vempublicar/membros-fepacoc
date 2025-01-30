@@ -113,7 +113,7 @@
 
                 <div class="col-6 mb-3">
                     <label for="resumo" class="form-label">Resumo</label>
-                    <input type="text" class="form-control" id="resumo" name="resumo" required>
+                    <textarea class="form-control" id="resumo" name="resumo" rows="2" required></textarea>
                 </div>
 
                 <div class="col-6 mb-3">
@@ -143,6 +143,11 @@
                         <option value="paisagem">Paisagem</option>
                     </select>
                 </div>
+
+                <div class="col-6 mb-3">
+                    <label for="formulario" class="form-label">Link do Formulário</label>
+                    <input type="url" class="form-control" id="formulario" name="formulario" placeholder="https://">
+                </div>
             </div>
 
             <!-- Upload de arquivos -->
@@ -152,8 +157,8 @@
             </div>
 
             <div class="mb-3">
-                <label for="link" class="form-label">Vídeo</label>
-                <input type="file" class="form-control" id="link" name="link" accept="video/*">
+                <label for="link" class="form-label">Vídeo (MP4)</label>
+                <input type="file" class="form-control" id="link" name="link" accept="video/mp4">
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>
