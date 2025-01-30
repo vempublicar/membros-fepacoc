@@ -70,7 +70,7 @@
                                     data-formulario="<?= htmlspecialchars($video['formulario'] ?? '') ?>"
                                     data-capa="<?= htmlspecialchars($video['capa'] ?? '') ?>"
                                     data-link="<?= htmlspecialchars($video['link'] ?? '') ?>"
-                                    onclick="editVideo(this)"></i>
+                                    onclick="editarVideo(this)"></i>
 
                                 <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
                                     <input type="hidden" name="action" value="delete">
@@ -200,7 +200,7 @@
 </div>
 
 <script>
-    function editVideo(element) {
+    function editarVideo(element){
         // Mudar título do Offcanvas
         document.getElementById("offcanvasAddVideoLabel").textContent = "Editar Vídeo";
 
