@@ -63,6 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['message'] = 'Dados cadastrados com sucesso!';
         }
 
+        // **Agora salvamos os dados da empresa na sessão para carregamento automático**
+        $_SESSION['dados_profissionais'] = $jsonDados;
+
         header("Location: " . $_SERVER['HTTP_REFERER'] . "#sucesso");
         exit();
 

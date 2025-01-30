@@ -1,35 +1,37 @@
 <?php
 session_start();
-include '../config/bd/connection.php';  // Ajuste o caminho conforme necessário
+include '../config/bd/connection.php';  // Conexão com o banco MySQL
 include '../config/path.php';
 
 // Verificar se os dados do formulário foram enviados
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Coletar dados do formulário
-    $email = $_POST['email'];
-    $password = $_POST['password'];  // Continuamos a receber uma variável chamada $password para manter a consistência no formulário
+    $email = $_POST['email'] ?? null;
+    $password = $_POST['password'] ?? null;
 
     // Validações básicas
     if (empty($email) || empty($password)) {
-        $errorMsg = 'Informe corretamente o login e senha.';
-        $errorMsg = base64_encode($errorMsg);
+        $errorMsg = base64_encode('Informe corretamente o login e senha.');
         header("Location: " . BASE_URL . "erro&msg=" . $errorMsg);
         exit();
     }
 
-    // Inicializar a conexão com o banco de dados
     try {
+        // Conectar ao banco de dados
         $pdo = db_connect();
-        $stmt = $pdo->prepare("SELECT id, email, acesso, created_at FROM leads WHERE email = :email");
+
+        // Busca o usuário na tabela leads
+        $stmt = $pdo->prepare("SELECT id, email, nome, fone, tipo, acesso, created_at FROM leads WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
 
-        // Verificar se encontrou o usuário
+        // Verifica se encontrou o usuário
         if ($stmt->rowCount() > 0) {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Verificar a senha (aqui usamos a coluna 'acesso' para a comparação)
+            // Verifica a senha
             if ($password === $user['acesso']) {
+                // Salva dados do usuário na sessão
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_email'] = $user['email'];
                 $_SESSION['nome'] = $user['nome'];
@@ -37,30 +39,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['tipo'] = $user['tipo'];
                 $_SESSION['created_at'] = $user['created_at'];
 
+                // Verifica se o usuário tem uma empresa vinculada
+                $stmtEmpresa = $pdo->prepare("SELECT * FROM empresa WHERE email = :email");
+                $stmtEmpresa->bindParam(':email', $email);
+                $stmtEmpresa->execute();
+
+                if ($stmtEmpresa->rowCount() > 0) {
+                    // Armazena os dados da empresa na sessão
+                    $empresa = $stmtEmpresa->fetch(PDO::FETCH_ASSOC);
+                    $_SESSION['dados_profissionais'] = json_encode($empresa, JSON_UNESCAPED_UNICODE);
+                } else {
+                    // Caso o usuário não tenha empresa vinculada
+                    $_SESSION['dados_profissionais'] = json_encode([]);
+                }
+
                 header("Location: " . BASE_URL . "painel");
                 exit();
             } else {
-                $errorMsg = 'Credenciais inválidas.';
-                $errorMsg = base64_encode($errorMsg);
+                $errorMsg = base64_encode('Credenciais inválidas.');
                 header("Location: " . BASE_URL . "login&msg=" . $errorMsg);
                 exit();
             }
         } else {
-            $errorMsg = 'Usuário não encontrado.';
-            $errorMsg = base64_encode($errorMsg);
+            $errorMsg = base64_encode('Usuário não encontrado.');
             header("Location: " . BASE_URL . "login&msg=" . $errorMsg);
             exit();
         }
     } catch (PDOException $e) {
-        $errorMsg = 'Erro ao tentar se conectar ao banco de dados: ' . $e->getMessage();
-        $errorMsg = base64_encode($errorMsg);
+        $errorMsg = base64_encode("Erro ao tentar se conectar ao banco de dados: " . $e->getMessage());
         header("Location: " . BASE_URL . "erro&msg=" . $errorMsg);
         exit();
     }
 } else {
-    $errorMsg = 'Método de requisição inválido.';
-    $errorMsg = base64_encode($errorMsg);
+    $errorMsg = base64_encode('Método de requisição inválido.');
     header("Location: " . BASE_URL . "erro&msg=" . $errorMsg);
     exit();
 }
-?>
