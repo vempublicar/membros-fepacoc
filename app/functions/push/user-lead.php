@@ -1,71 +1,66 @@
 <?php
 session_start();
-include "../../config/supabase/SupabaseClient.php";
+include "../../config/bd/connection.php"; // Conexão com o banco de dados MySQL
 include "../email/envio-email.php";
 
-// Função para enviar requisições ao Supabase
-function sendSupabaseRequest($method, $endpoint, $data = null) {
-    $url = SUPABASE_URL . '/rest/v1/' . $endpoint;
-    $headers = [
-        "Content-Type: application/json",
-        "apikey: " . SUPABASE_KEY,
-        "Authorization: Bearer " . SUPABASE_KEY,
-    ];
+// Função para salvar leads na tabela `transmite` no MySQL
+function saveToTransmite($listName, $leadData) {
+    try {
+        $pdo = db_connect();
 
-    $curl = curl_init();
-    curl_setopt_array($curl, [
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_CUSTOMREQUEST => $method,
-        CURLOPT_HTTPHEADER => $headers,
-    ]);
+        $sql = "
+            INSERT INTO transmite (nomeUsuario, emailUsuario, celUsuario, conteudo, dataEnvio, status)
+            VALUES (:nome, :email, :celular, :conteudo, NOW(), 'pendente')
+        ";
 
-    if ($data) {
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':nome', $leadData['nome'], PDO::PARAM_STR);
+        $stmt->bindValue(':email', $leadData['email'], PDO::PARAM_STR);
+        $stmt->bindValue(':celular', $leadData['fone'], PDO::PARAM_STR);
+        $stmt->bindValue(':conteudo', $listName, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return ['status' => 'success', 'message' => 'Lead adicionado à lista de transmissão no MySQL'];
+    } catch (Exception $e) {
+        return ['status' => 'error', 'message' => 'Erro ao salvar no MySQL: ' . $e->getMessage()];
     }
-
-    $response = curl_exec($curl);
-    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    $error = curl_error($curl);
-    curl_close($curl);
-
-    if ($error) {
-        return ['status' => 'error', 'message' => $error];
-    }
-
-    return ['status' => 'success', 'http_code' => $httpCode, 'response' => json_decode($response, true)];
 }
 
-// Função para manipular o banco SQLite para listas de transmissão
-function saveToBroadcastList($listName, $leadData) {
-    $dbPath = '../db/broadcast_lists.sqlite';
+// Função para atualizar o lead no MySQL
+function updateLead($id, $dados) {
+    try {
+        $pdo = db_connect();
 
-    // Conectar ao banco SQLite
-    $db = new SQLite3($dbPath);
+        $sql = "
+            UPDATE leads SET dados = :dados, tipo = :tipo WHERE id = :id
+        ";
 
-    // Criar tabela caso não exista
-    $db->exec("
-        CREATE TABLE IF NOT EXISTS broadcast_list (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            list_name TEXT NOT NULL,
-            lead_name TEXT NOT NULL,
-            lead_email TEXT NOT NULL,
-            lead_phone TEXT NOT NULL
-        )
-    ");
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':dados', $dados['dados'], PDO::PARAM_STR);
+        $stmt->bindValue(':tipo', $dados['tipo'], PDO::PARAM_STR);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
 
-    // Inserir dados na tabela
-    $stmt = $db->prepare("
-        INSERT INTO broadcast_list (list_name, lead_name, lead_email, lead_phone)
-        VALUES (:list_name, :lead_name, :lead_email, :lead_phone)
-    ");
-    $stmt->bindValue(':list_name', $listName, SQLITE3_TEXT);
-    $stmt->bindValue(':lead_name', $leadData['nome'], SQLITE3_TEXT);
-    $stmt->bindValue(':lead_email', $leadData['email'], SQLITE3_TEXT);
-    $stmt->bindValue(':lead_phone', $leadData['fone'], SQLITE3_TEXT);
-    $stmt->execute();
+        return ['status' => 'success', 'message' => 'Lead atualizado com sucesso'];
+    } catch (Exception $e) {
+        return ['status' => 'error', 'message' => 'Erro ao atualizar o lead: ' . $e->getMessage()];
+    }
+}
 
-    return ['status' => 'success', 'message' => 'Lead adicionado à lista de transmissão'];
+// Função para excluir um lead do MySQL
+function deleteLead($id) {
+    try {
+        $pdo = db_connect();
+
+        $sql = "DELETE FROM leads WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return ['status' => 'success', 'message' => 'Lead excluído com sucesso'];
+    } catch (Exception $e) {
+        return ['status' => 'error', 'message' => 'Erro ao excluir o lead: ' . $e->getMessage()];
+    }
 }
 
 // Lidar com as requisições POST
@@ -79,18 +74,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!$id) throw new Exception('ID do lead não informado');
 
             $leadData = [
-                'dados' => $_POST['dados'], // Dados complementares
-                'tipo' => $_POST['tipo'] ?? 'Gratuito', // Atualiza o tipo para "Aluno" se necessário
+                'dados' => $_POST['dados'],
+                'tipo' => $_POST['tipo'] ?? 'Gratuito',
             ];
 
-            $response = sendSupabaseRequest('PATCH', "leads?id=eq.$id", $leadData);
+            $response = updateLead($id, $leadData);
 
             if ($response['status'] === 'success') {
-                header("Location: ".$_SERVER['HTTP_REFERER']."#leads");
+                header("Location: " . $_SERVER['HTTP_REFERER'] . "#leads");
             } else {
-                header("Location: ".$_SERVER['HTTP_REFERER']."&erro=falha#leads");
+                header("Location: " . $_SERVER['HTTP_REFERER'] . "&erro=falha#leads");
             }
+
         } elseif ($action === 'sendPassword') {
+            // Enviar senha por e-mail
             $email = $_POST['email'] ?? null;
             $nome = $_POST['nome'] ?? null;
             $senha = $_POST['acesso'] ?? null;
@@ -98,15 +95,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $resultadoEmail = enviarEmailRecuperar($email, $nome, $senha);
 
             if ($resultadoEmail === '1') {
-                header("Location: ".$_SERVER['HTTP_REFERER']."#leads");
+                header("Location: " . $_SERVER['HTTP_REFERER'] . "#leads");
             } else {
-                header("Location: ".$_SERVER['HTTP_REFERER']."&erro=falha#leads");
+                header("Location: " . $_SERVER['HTTP_REFERER'] . "&erro=falha#leads");
             }
 
-            // Simular envio de e-mail (implementar lógica real posteriormente)
-            // echo json_encode(['status' => 'success', 'message' => 'Senha enviada para o e-mail do lead']);
         } elseif ($action === 'addToBroadcast') {
-            // Adicionar lead à lista de transmissão
+            // Adicionar lead à lista de transmissão (agora MySQL)
             $listName = $_POST['list'] ?? null;
             if (!$listName) throw new Exception('Nome da lista de transmissão não informado');
 
@@ -116,7 +111,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'fone' => $_POST['fone'],
             ];
 
-            $response = saveToBroadcastList($listName, $leadData);
+            $response = saveToTransmite($listName, $leadData);
+            echo json_encode($response);
+        } elseif ($action === 'deleteLead') {
+            // Excluir lead
+            $id = $_POST['id'] ?? null;
+            if (!$id) throw new Exception('ID do lead não informado');
+
+            $response = deleteLead($id);
             echo json_encode($response);
         } else {
             throw new Exception('Ação inválida');

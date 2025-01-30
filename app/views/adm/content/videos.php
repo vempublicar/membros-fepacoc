@@ -115,7 +115,7 @@
                     <select class="form-select" id="vidCat" name="vidCat" required>
                         <option value="">Selecione</option>
                         <?php foreach ($categorias as $categoria): ?>
-                            <option value="<?= htmlspecialchars($categoria['nome']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
+                            <option value="<?= htmlspecialchars($categoria['catNome']) ?>"><?= htmlspecialchars($categoria['catNome']) ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

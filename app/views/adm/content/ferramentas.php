@@ -136,7 +136,12 @@
             <!-- Categoria -->
             <div class="mb-3">
                 <label for="ferCat" class="form-label">Categoria</label>
-                <input type="text" class="form-control" id="ferCat" name="ferCat" required>
+                <select class="form-select" id="ferCat" name="ferCat" required>
+                        <option value="">Selecione</option>
+                        <?php foreach ($categorias as $categoria): ?>
+                            <option value="<?= htmlspecialchars($categoria['catNome']) ?>"><?= htmlspecialchars($categoria['catNome']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
             </div>
 
             <!-- Status -->

@@ -135,7 +135,12 @@
             <!-- Categoria -->
             <div class="mb-3">
                 <label for="matCat" class="form-label">Categoria</label>
-                <input type="text" class="form-control" id="matCat" name="matCat" required>
+                <select class="form-select" id="matCat" name="matCat" required>
+                        <option value="">Selecione</option>
+                        <?php foreach ($categorias as $categoria): ?>
+                            <option value="<?= htmlspecialchars($categoria['catNome']) ?>"><?= htmlspecialchars($categoria['catNome']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
             </div>
 
             <!-- Upload de Capa -->

@@ -105,7 +105,7 @@
                     <select class="form-select" id="proCategoria" name="proCategoria" required>
                         <option value="">Selecione</option>
                         <?php foreach ($categorias as $categoria): ?>
-                            <option value="<?= htmlspecialchars($categoria['proCat']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
+                            <option value="<?= htmlspecialchars($categoria['catNome']) ?>"><?= htmlspecialchars($categoria['catNome']) ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

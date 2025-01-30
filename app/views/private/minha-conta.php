@@ -5,38 +5,47 @@ include_once "app/views/parts/header.php";
 include_once "app/functions/data/busca-dados.php";
 
 // Verifica se os dados do usuário estão armazenados na sessão
-if (isset($_SESSION['user_dados'])) {
-    $userDados = json_decode($_SESSION['user_dados'], true);
-    $email = $userDados['user']['email']; // Acessa o email do usuário logado
-
-    // Busca os dados do usuário com base no email
-    $usuarios = fetchLeads();
-    foreach ($usuarios as $usuario) {
-        if ($usuario['email'] == $email) {
-            $user = $usuario;
-            break;
-        }
-    }
-
-    // Decodifica os dados profissionais (JSON) se existirem
-    $dadosProfissionais = isset($user['dados']) ? json_decode($user['dados'], true) : [];
-} else {
-    echo "Usuário não logado.";
+if (!isset($_SESSION['user_dados'])) {
+    echo "<div class='alert alert-danger text-center'>Usuário não logado.</div>";
     exit;
 }
 
+// Obtém os dados da sessão
+$userDados = json_decode($_SESSION['user_dados'], true);
+$email = $userDados['user']['email'] ?? '';
+
+// Busca os dados do usuário no array de leads
+$usuarios = fetchLeads();
+$user = null;
+
+foreach ($usuarios as $usuario) {
+    if ($usuario['email'] === $email) {
+        $user = $usuario;
+        break;
+    }
+}
+
+// Se não encontrar o usuário, exibir mensagem de erro
+if (!$user) {
+    echo "<div class='alert alert-danger text-center'>Usuário não encontrado.</div>";
+    exit;
+}
+
+// Decodifica os dados profissionais, se existirem
+$dadosProfissionais = !empty($user['dados']) ? json_decode($user['dados'], true) : [];
 
 ?>
 
+<!-- Mensagens de Sucesso ou Erro -->
 <?php if (isset($_SESSION['message'])): ?>
     <div class="alert alert-success">
-        <?= $_SESSION['message']; unset($_SESSION['message']); ?>
+        <?= htmlspecialchars($_SESSION['message']); unset($_SESSION['message']); ?>
     </div>
 <?php endif; ?>
 
 <?php if (isset($_SESSION['error'])): ?>
     <div class="alert alert-danger">
-        <?= $_SESSION['error']; unset($_SESSION['error']); ?>
+        <?= htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?>
     </div>
 <?php endif; ?>
 
@@ -68,14 +77,10 @@ if (isset($_SESSION['user_dados'])) {
                         <p><strong>Cidade:</strong> <?= htmlspecialchars($dadosProfissionais['cidade'] ?? 'N/A'); ?></p>
                         <p><strong>Estado:</strong> <?= htmlspecialchars($dadosProfissionais['estado'] ?? 'N/A'); ?></p>
                         <p><strong>Faturamento:</strong> <?= htmlspecialchars($dadosProfissionais['faturamento'] ?? 'N/A'); ?></p>
-                        <p><strong>Necessidades:</strong>
-                            <?php
-                            if (isset($dadosProfissionais['necessidade']) && is_array($dadosProfissionais['necessidade'])) {
-                                echo implode(', ', $dadosProfissionais['necessidade']);
-                            } else {
-                                echo 'N/A';
-                            }
-                            ?>
+                        <p><strong>Necessidades:</strong> 
+                            <?= isset($dadosProfissionais['necessidade']) && is_array($dadosProfissionais['necessidade']) 
+                                ? htmlspecialchars(implode(', ', $dadosProfissionais['necessidade'])) 
+                                : 'N/A'; ?>
                         </p>
                     <?php else: ?>
                         <p>Você ainda não adicionou dados profissionais.</p>
