@@ -137,6 +137,7 @@
                     <label for="produtor" class="form-label">Produtor</label>
                     <select class="form-select" id="produtor" name="produtor" required>
                         <option value="">Selecione</option>
+                        <option value="Não informado">Não informado</option>
                         <?php foreach ($produtores as $produtor): ?>
                             <option value="<?= htmlspecialchars($produtor['nome']) ?>"><?= htmlspecialchars($produtor['nome']) ?></option>
                         <?php endforeach; ?>
