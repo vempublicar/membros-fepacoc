@@ -33,8 +33,8 @@
                                 <?php endif; ?>
                             </td>
 
-                            <td><?= htmlspecialchars($produto['nome_produto']) ?></td>
-                            <td><?= htmlspecialchars($produto['categoria_produto']) ?></td>
+                            <td><?= htmlspecialchars($produto['nome']) ?></td>
+                            <td><?= htmlspecialchars($produto['categoria']) ?></td>
                             <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
 
                             <td class="text-center">
@@ -51,11 +51,11 @@
                                     data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasAddProduct"
                                     data-id="<?= $produto['id'] ?>"
-                                    data-nome="<?= htmlspecialchars($produto['nome_produto']) ?>"
+                                    data-nome="<?= htmlspecialchars($produto['nome']) ?>"
                                     data-pagina="<?= htmlspecialchars($produto['pagina']) ?>"
                                     data-preco="<?= htmlspecialchars($produto['preco']) ?>"
-                                    data-descricao="<?= htmlspecialchars($produto['descricao_produto']) ?>"
-                                    data-categoria="<?= htmlspecialchars($produto['categoria_produto']) ?>"
+                                    data-descricao="<?= htmlspecialchars($produto['descricao']) ?>"
+                                    data-categoria="<?= htmlspecialchars($produto['categoria']) ?>"
                                     data-status="<?= $produto['status'] ?>"
                                     data-capa="<?= htmlspecialchars($produto['capa'] ?? '') ?>"
                                     onclick="editProduct(this)"></i>
@@ -85,7 +85,7 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddProduct" aria-labelledby="offcanvasAddProductLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasAddProductLabel">Adicionar Produto</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Fechar" onclick="resetForm()"></button>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
     </div>
     <div class="offcanvas-body">
         <form id="formProduct" action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
@@ -95,13 +95,13 @@
 
             <div class="row">
                 <div class="col-12 mb-3">
-                    <label for="nome_produto" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome_produto" name="nome_produto" required>
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
                 </div>
 
                 <div class="col-6 mb-3">
-                    <label for="categoria_produto" class="form-label">Categoria</label>
-                    <select class="form-select" id="categoria_produto" name="categoria_produto" required>
+                    <label for="categoria" class="form-label">Categoria</label>
+                    <select class="form-select" id="categoria" name="categoria" required>
                         <option value="">Selecione</option>
                         <?php foreach ($categorias as $categoria): ?>
                             <option value="<?= htmlspecialchars($categoria['nome']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
@@ -115,8 +115,8 @@
                 </div>
 
                 <div class="col-12 mb-3">
-                    <label for="descricao_produto" class="form-label">Descrição</label>
-                    <textarea class="form-control" id="descricao_produto" name="descricao_produto" rows="3"></textarea>
+                    <label for="descricao" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
                 </div>
 
                 <div class="col-6 mb-3">
@@ -132,7 +132,6 @@
             <div class="mb-3">
                 <label for="capa" class="form-label">Imagem</label>
                 <input type="file" class="form-control" id="capa" name="capa" accept="image/*">
-                <div id="imagemPreview" class="mt-2"></div>
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -142,32 +141,46 @@
 
 <script>
 function editProduct(element) {
-    // Alterar título e configurar ação para atualização
     document.getElementById("offcanvasAddProductLabel").textContent = "Editar Produto";
     document.getElementById("formAction").value = "update";
     document.getElementById("productId").value = element.getAttribute("data-id");
-    
-    // Preencher os campos do formulário
-    document.getElementById("nome_produto").value = element.getAttribute("data-nome");
+    document.getElementById("nome").value = element.getAttribute("data-nome");
     document.getElementById("preco").value = element.getAttribute("data-preco");
-    document.getElementById("descricao_produto").value = element.getAttribute("data-descricao");
+    document.getElementById("descricao").value = element.getAttribute("data-descricao");
 
     // Selecionar a categoria corretamente
     let categoriaSelecionada = element.getAttribute("data-categoria");
-    document.getElementById("categoria_produto").value = categoriaSelecionada;
+    let selectCategoria = document.getElementById("categoria");
+    Array.from(selectCategoria.options).forEach(option => {
+        if (option.value === categoriaSelecionada) {
+            option.selected = true;
+        }
+    });
 
     // Selecionar status corretamente
     let statusSelecionado = element.getAttribute("data-status");
-    document.getElementById("status").value = statusSelecionado;
+    let selectStatus = document.getElementById("status");
+    Array.from(selectStatus.options).forEach(option => {
+        if (option.value === statusSelecionado) {
+            option.selected = true;
+        }
+    });
 
-    // Exibir pré-visualização da imagem, se existir
+    // Exibir pré-visualização da imagem se existir
     let imagemAtual = element.getAttribute("data-capa");
-    let imagemPreview = document.getElementById("imagemPreview");
+    let imagemContainer = document.getElementById("capa").parentNode;
+    
+    // Remove a imagem anterior se já existir
+    let existingPreview = imagemContainer.querySelector("img");
+    if (existingPreview) {
+        existingPreview.remove();
+    }
 
     if (imagemAtual) {
-        imagemPreview.innerHTML = `<img src="vendor/uploads/produtos/${imagemAtual}" alt="Imagem do Produto" style="width: 100px; height: auto; border-radius: 5px;">`;
-    } else {
-        imagemPreview.innerHTML = '';
+        let imagemPreview = document.createElement("img");
+        imagemPreview.src = "vendor/uploads/produtos/" + imagemAtual;
+        imagemPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
+        imagemContainer.appendChild(imagemPreview);
     }
 }
 
@@ -178,12 +191,11 @@ function resetForm() {
     document.getElementById("productId").value = "";
     
     // Remover imagem antiga ao resetar o formulário
-    document.getElementById("imagemPreview").innerHTML = '';
+    let imagemContainer = document.getElementById("capa").parentNode;
+    let existingPreview = imagemContainer.querySelector("img");
+    if (existingPreview) {
+        existingPreview.remove();
+    }
 }
-
-// Resetar o formulário quando o offcanvas for fechado
-document.getElementById('offcanvasAddProduct').addEventListener('hidden.bs.offcanvas', function () {
-    resetForm();
-});
 </script>
 
