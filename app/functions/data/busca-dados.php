@@ -37,3 +37,4 @@ function fetchCategorias() {
     $stmt = $pdo->query("SELECT * FROM categorias ORDER BY id DESC LIMIT 500");
     return $stmt->fetchAll();
 }
+?>
