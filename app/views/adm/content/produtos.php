@@ -147,17 +147,39 @@ function editProduct(element) {
     document.getElementById("nome").value = element.getAttribute("data-nome");
     document.getElementById("preco").value = element.getAttribute("data-preco");
     document.getElementById("descricao").value = element.getAttribute("data-descricao");
-    document.getElementById("categoria").value = element.getAttribute("data-categoria");
-    document.getElementById("status").value = element.getAttribute("data-status");
 
+    // Selecionar a categoria corretamente
+    let categoriaSelecionada = element.getAttribute("data-categoria");
+    let selectCategoria = document.getElementById("categoria");
+    Array.from(selectCategoria.options).forEach(option => {
+        if (option.value === categoriaSelecionada) {
+            option.selected = true;
+        }
+    });
+
+    // Selecionar status corretamente
+    let statusSelecionado = element.getAttribute("data-status");
+    let selectStatus = document.getElementById("status");
+    Array.from(selectStatus.options).forEach(option => {
+        if (option.value === statusSelecionado) {
+            option.selected = true;
+        }
+    });
+
+    // Exibir pré-visualização da imagem se existir
     let imagemAtual = element.getAttribute("data-capa");
+    let imagemContainer = document.getElementById("capa").parentNode;
+    
+    // Remove a imagem anterior se já existir
+    let existingPreview = imagemContainer.querySelector("img");
+    if (existingPreview) {
+        existingPreview.remove();
+    }
+
     if (imagemAtual) {
         let imagemPreview = document.createElement("img");
         imagemPreview.src = "vendor/uploads/produtos/" + imagemAtual;
         imagemPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
-        let imagemContainer = document.getElementById("capa").parentNode;
-        let existingPreview = imagemContainer.querySelector("img");
-        if (existingPreview) existingPreview.remove();
         imagemContainer.appendChild(imagemPreview);
     }
 }
@@ -167,6 +189,13 @@ function resetForm() {
     document.getElementById("formProduct").reset();
     document.getElementById("formAction").value = "create";
     document.getElementById("productId").value = "";
-    document.getElementById("capa").parentNode.querySelector("img")?.remove();
+    
+    // Remover imagem antiga ao resetar o formulário
+    let imagemContainer = document.getElementById("capa").parentNode;
+    let existingPreview = imagemContainer.querySelector("img");
+    if (existingPreview) {
+        existingPreview.remove();
+    }
 }
 </script>
+
