@@ -64,6 +64,8 @@ $dadosProfissionais = !empty($_SESSION['dados_profissionais']) ? json_decode($_S
                         <p><strong>CNPJ:</strong> <?= htmlspecialchars($dadosProfissionais['cnpj'] ?? 'N/A'); ?></p>
                         <p><strong>Setor:</strong> <?= htmlspecialchars($dadosProfissionais['setor'] ?? 'N/A'); ?></p>
                         <p><strong>Cidade:</strong> <?= htmlspecialchars($dadosProfissionais['cidade'] ?? 'N/A'); ?></p>
+                        <p><strong>E-mail:</strong> <?= htmlspecialchars($dadosProfissionais['emailPro'] ?? 'N/A'); ?></p>
+                        <p><strong>Celular:</strong> <?= htmlspecialchars($dadosProfissionais['phone'] ?? 'N/A'); ?></p>
                         <p><strong>Estado:</strong> <?= htmlspecialchars($dadosProfissionais['estado'] ?? 'N/A'); ?></p>
                         <p><strong>Faturamento:</strong> <?= htmlspecialchars($dadosProfissionais['faturamento'] ?? 'N/A'); ?></p>
                         <p><strong>Necessidades:</strong> 
@@ -85,8 +87,8 @@ $dadosProfissionais = !empty($_SESSION['dados_profissionais']) ? json_decode($_S
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form id="companyForm" method="POST" action="app/functions/push/save_lead.php">
-                <input type="hidden" name="email" value="<?php echo $user['email']; ?>">
-                <input type="hidden" name="tipo" value="Empresa">
+                <input type="text" name="email" value="<?php echo $user['email']; ?>">
+                <input type="text" name="tipo" value="Empresa">
                 <div class="modal-header">
                     <h5 class="modal-title" id="companyModalLabel">Adicionar Dados Profissionais</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
