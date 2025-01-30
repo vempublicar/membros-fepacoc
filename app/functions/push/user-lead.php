@@ -31,7 +31,7 @@ function updateLead($id, $dados) {
     try {
         $pdo = db_connect();
 
-        // Remover conversão para JSON e garantir que seja uma string
+        // Garantir que `dados` seja string normal
         $dadosTexto = is_array($dados['dados']) ? implode(", ", $dados['dados']) : $dados['dados'];
 
         $sql = "UPDATE leads SET dados = :dados, tipo = :tipo WHERE id = :id";
@@ -47,8 +47,6 @@ function updateLead($id, $dados) {
         return ['status' => 'error', 'message' => 'Erro ao atualizar o lead: ' . $e->getMessage()];
     }
 }
-
-
 
 // Função para excluir um lead do MySQL
 function deleteLead($id) {
@@ -77,7 +75,6 @@ function deleteLead($id) {
 
 // Lidar com as requisições POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    header('Content-Type: application/json');
     $action = $_POST['action'] ?? '';
 
     try {
@@ -92,8 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
 
             $response = updateLead($id, $leadData);
-            echo json_encode($response);
-            exit;
 
         } elseif ($action === 'sendPassword') {
             // Enviar senha por e-mail
@@ -120,11 +115,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $resultadoEmail = enviarEmailRecuperar($email, $nome, $senha);
 
             if ($resultadoEmail === '1') {
-                echo json_encode(['status' => 'success', 'message' => 'Senha enviada para o e-mail.']);
+                $response = ['status' => 'success', 'message' => 'Senha enviada para o e-mail.'];
             } else {
                 throw new Exception('Falha ao enviar o e-mail.');
             }
-            exit;
 
         } elseif ($action === 'addToBroadcast') {
             // Adicionar lead à lista de transmissão (agora MySQL)
@@ -138,8 +132,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
 
             $response = saveToTransmite($listName, $leadData);
-            echo json_encode($response);
-            exit;
 
         } elseif ($action === 'deleteLead') {
             // Excluir lead
@@ -147,17 +139,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!$id) throw new Exception('ID do lead não informado.');
 
             $response = deleteLead($id);
-            echo json_encode($response);
-            exit;
 
         } else {
             throw new Exception('Ação inválida.');
         }
+
+        // Se deu certo, armazena na sessão e redireciona
+        if ($response['status'] === 'success') {
+            $_SESSION['message'] = $response['message'];
+            header("Location: " . $_SERVER['HTTP_REFERER'] . "#leads");
+            exit();
+        } else {
+            throw new Exception($response['message']);
+        }
+
     } catch (Exception $e) {
-        echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
-        exit;
+        $_SESSION['error'] = $e->getMessage();
+        header("Location: " . $_SERVER['HTTP_REFERER'] . "#error");
+        exit();
     }
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Método de requisição inválido.']);
-    exit;
+    $_SESSION['error'] = 'Método de requisição inválido.';
+    header("Location: " . $_SERVER['HTTP_REFERER'] . "#error");
+    exit();
 }
