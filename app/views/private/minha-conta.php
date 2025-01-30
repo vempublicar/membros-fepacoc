@@ -4,28 +4,9 @@ include_once "app/views/parts/head.php";
 include_once "app/views/parts/header.php";
 include_once "app/functions/data/busca-dados.php";
 
-// Verifica se os dados do usuário estão armazenados na sessão
-if (!isset($_SESSION['user_dados'])) {
-    echo "<div class='alert alert-danger text-center'>Usuário não logado.</div>";
-    exit;
-}
-
 
 
 ?>
-
-<!-- Mensagens de Sucesso ou Erro -->
-<?php if (isset($_SESSION['message'])): ?>
-    <div class="alert alert-success">
-        <?= htmlspecialchars($_SESSION['message']); unset($_SESSION['message']); ?>
-    </div>
-<?php endif; ?>
-
-<?php if (isset($_SESSION['error'])): ?>
-    <div class="alert alert-danger">
-        <?= htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?>
-    </div>
-<?php endif; ?>
 
 <div class="container mt-5">
     <div class="row">
