@@ -18,6 +18,8 @@ $email = $userDados['user']['email'] ?? '';
 $usuarios = fetchLeads();
 $user = null;
 
+print_r($user);
+
 foreach ($usuarios as $usuario) {
     if ($usuario['email'] === $email) {
         $user = $usuario;
