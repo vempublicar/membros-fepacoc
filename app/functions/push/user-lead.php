@@ -155,11 +155,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     } catch (Exception $e) {
         $_SESSION['error'] = $e->getMessage();
-        header("Location: " . $_SERVER['HTTP_REFERER'] . "#error");
+        header("Location: " . $_SERVER['HTTP_REFERER'] . "#leads");
         exit();
     }
 } else {
     $_SESSION['error'] = 'Método de requisição inválido.';
-    header("Location: " . $_SERVER['HTTP_REFERER'] . "#error");
+    header("Location: " . $_SERVER['HTTP_REFERER'] . "#leads");
     exit();
 }
