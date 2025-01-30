@@ -9,12 +9,12 @@ $categorias = fetchCategorias();
 $ferramentas = fetchFerramentas();
 ?>
 <head>
-    <?php include_once "app/views/parts/head.php"; ?>
+    
     <title class="mt-6">Área Administrativa - FEPACOC</title>
 </head>
 
 <body>
-    
+    <?php echo 'teste'; // include_once "app/views/parts/header.php"; ?>
 
     <div class="container-fluid">
         <header class="mb-4">
