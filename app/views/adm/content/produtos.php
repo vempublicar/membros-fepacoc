@@ -24,7 +24,7 @@
                             <td>
                                 <?php if (!empty($produto['capa'])): ?>
                                     <img src="vendor/uploads/produtos/<?= htmlspecialchars($produto['capa']) ?>"
-                                        alt="<?= htmlspecialchars($produto['nome']) ?>"
+                                        alt="<?= htmlspecialchars($produto['produto']) ?>"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>
                                     <img src="vendor/uploads/produtos/default.jpg"
@@ -33,7 +33,7 @@
                                 <?php endif; ?>
                             </td>
 
-                            <td><?= htmlspecialchars($produto['nome']) ?></td>
+                            <td><?= htmlspecialchars($produto['produto']) ?></td>
                             <td><?= htmlspecialchars($produto['categoria']) ?></td>
                             <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
 
@@ -51,7 +51,7 @@
                                     data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasAddProduct"
                                     data-id="<?= $produto['id'] ?>"
-                                    data-nome="<?= htmlspecialchars($produto['nome']) ?>"
+                                    data-produto="<?= htmlspecialchars($produto['produto']) ?>"
                                     data-pagina="<?= htmlspecialchars($produto['pagina']) ?>"
                                     data-preco="<?= htmlspecialchars($produto['preco']) ?>"
                                     data-descricao="<?= htmlspecialchars($produto['descricao']) ?>"
@@ -95,8 +95,8 @@
 
             <div class="row">
                 <div class="col-12 mb-3">
-                    <label for="nome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" required>
+                    <label for="produto" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="produto" name="produto" required>
                 </div>
 
                 <div class="col-6 mb-3">
@@ -104,7 +104,7 @@
                     <select class="form-select" id="categoria" name="categoria" required>
                         <option value="">Selecione</option>
                         <?php foreach ($categorias as $categoria): ?>
-                            <option value="<?= htmlspecialchars($categoria['nome']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
+                            <option value="<?= htmlspecialchars($categoria['produto']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -144,7 +144,7 @@ function editarProduct(element) {
     document.getElementById("offcanvasAddProductLabel").textContent = "Editar Produto";
     document.getElementById("formAction").value = "update";
     document.getElementById("productId").value = element.getAttribute("data-id");
-    document.getElementById("nome").value = element.getAttribute("data-nome");
+    document.getElementById("produto").value = element.getAttribute("data-produto");
     document.getElementById("preco").value = element.getAttribute("data-preco");
     document.getElementById("descricao").value = element.getAttribute("data-descricao");
 
