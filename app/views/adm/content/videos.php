@@ -110,17 +110,6 @@
                     <label for="titulo" class="form-label">Título</label>
                     <input type="text" class="form-control" id="titulo" name="titulo" required>
                 </div>
-
-                <div class="col-6 mb-3">
-                    <label for="resumo" class="form-label">Resumo</label>
-                    <textarea class="form-control" id="resumo" name="resumo" rows="2" required></textarea>
-                </div>
-
-                <div class="col-6 mb-3">
-                    <label for="descricao" class="form-label">Descrição</label>
-                    <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
-                </div>
-
                 <div class="col-6 mb-3">
                     <label for="categoria" class="form-label">Categoria</label>
                     <select class="form-select" id="categoria" name="categoria" required>
@@ -130,7 +119,29 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div class="col-6 mb-3">
+                    <label for="setor" class="form-label">Setor</label>
+                    <input type="text" class="form-control" id="setor" name="setor" required>
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="resumo" class="form-label">Resumo</label>
+                    <textarea class="form-control" id="resumo" name="resumo" rows="2" required></textarea>
+                </div>
 
+                <div class="col-12 mb-3">
+                    <label for="descricao" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
+                </div>
+                
+                <div class="col-6 mb-3">
+                    <label for="produtor" class="form-label">Produtor</label>
+                    <select class="form-select" id="produtor" name="produtor" required>
+                        <option value="">Selecione</option>
+                        <?php foreach ($produtores as $produtor): ?>
+                            <option value="<?= htmlspecialchars($produtor['nome']) ?>"><?= htmlspecialchars($produtor['nome']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
                 <div class="col-6 mb-3">
                     <label for="formato" class="form-label">Formato</label>
                     <select class="form-select" id="formato" name="formato" required>
@@ -139,7 +150,7 @@
                     </select>
                 </div>
 
-                <div class="col-6 mb-3">
+                <div class="col-12 mb-3">
                     <label for="formulario" class="form-label">Link do Formulário</label>
                     <input type="url" class="form-control" id="formulario" name="formulario" placeholder="https://">
                 </div>
