@@ -42,36 +42,43 @@ if (!$tabela || !preg_match('/^[a-zA-Z0-9_]+$/', $tabela)) {
 
 try {
     $pdo = db_connect();
+    $dados = [];
 
-    if ($action === 'create') {
-        $dados = [];
-        foreach ($_POST as $chave => $valor) {
-            if (!in_array($chave, ['action', 'tabela'])) {
-                $dados[$chave] = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
+    // Detecta os novos padrões de colunas
+    foreach ($_POST as $chave => $valor) {
+        if (!in_array($chave, ['action', 'tabela', 'id'])) {
+            $dados[$chave] = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
+        }
+    }
+
+    // Campos mapeados para uploads (imagens e arquivos)
+    $camposUploads = [
+        'capa' => ["catCapa", "ferCapa", "proCapa", "matCapa", "vidCapa"],
+        'cover' => ["matCover"],
+        'link' => ["matLink", "vidLink"]
+    ];
+
+    // Processamento de arquivos enviados
+    foreach ($_FILES as $campo => $file) {
+        if (!empty($file['size'])) {
+            foreach ($camposUploads as $campoPadrao => $variacoes) {
+                if (in_array($campo, $variacoes)) {
+                    $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
+                    if ($campo === 'link') {
+                        $uploadDir .= "arquivo/"; // Diretório específico para arquivos
+                    }
+                    $dados[$campo] = handleFileUpload($file, $uploadDir);
+                }
             }
         }
+    }
 
-        // Upload de imagens (campo 'capa' ou 'cover')
-        if (!empty($_FILES['capa']['size'])) {
-            $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
-            $dados['capa'] = handleFileUpload($_FILES['capa'], $uploadDir);
-        }
-        if (!empty($_FILES['cover']['size'])) {
-            $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
-            $dados['cover'] = handleFileUpload($_FILES['cover'], $uploadDir);
-        }
-
-        // Upload de arquivos (campo 'link' → PDF, DOCX, MP4)
-        if (!empty($_FILES['link']['size'])) {
-            $uploadDir = "../../../vendor/uploads/" . $tabela . "/arquivo/";
-            $dados['link'] = handleFileUpload($_FILES['link'], $uploadDir);
-        }
-
+    if ($action === 'create') {
         // Construção da query SQL dinâmica
         $colunas = implode(", ", array_keys($dados));
         $valores = ":" . implode(", :", array_keys($dados));
         $sql = "INSERT INTO `$tabela` ($colunas) VALUES ($valores)";
-        
+
         $stmt = $pdo->prepare($sql);
         $stmt->execute($dados);
 
@@ -83,29 +90,6 @@ try {
         if (!$id || !is_numeric($id)) {
             header("Location: " . $_SERVER['HTTP_REFERER'] . "#$tabela");
             exit();
-        }
-
-        $dados = [];
-        foreach ($_POST as $chave => $valor) {
-            if (!in_array($chave, ['action', 'tabela', 'id'])) {
-                $dados[$chave] = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
-            }
-        }
-
-        // Upload de imagens (capa, cover)
-        if (!empty($_FILES['capa']['size'])) {
-            $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
-            $dados['capa'] = handleFileUpload($_FILES['capa'], $uploadDir);
-        }
-        if (!empty($_FILES['cover']['size'])) {
-            $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
-            $dados['cover'] = handleFileUpload($_FILES['cover'], $uploadDir);
-        }
-
-        // Upload de arquivos (link)
-        if (!empty($_FILES['link']['size'])) {
-            $uploadDir = "../../../vendor/uploads/" . $tabela . "/arquivo/";
-            $dados['link'] = handleFileUpload($_FILES['link'], $uploadDir);
         }
 
         // Construção da query SQL dinâmica
