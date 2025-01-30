@@ -1,5 +1,5 @@
 <?php
-include "app/functions/data/busca-dados.php";
+//include "app/functions/data/busca-dados.php";
 
 $videos = fetchVideos();
 $produtos = fetchProdutos();
@@ -9,7 +9,7 @@ $categorias = fetchCategorias();
 $ferramentas = fetchFerramentas();
 ?>
 <head>
-    
+    <?php include_once "app/views/parts/head.php"; ?>
     <title class="mt-6">Área Administrativa - FEPACOC</title>
 </head>
 
