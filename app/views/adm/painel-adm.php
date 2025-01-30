@@ -85,6 +85,7 @@ $ferramentas = fetchFerramentas();
                 </section>
             </main>
         </div>
+        <?php print_r($produtos); ?>
     </div>
 
     <!-- Offcanvas para o formulário -->
