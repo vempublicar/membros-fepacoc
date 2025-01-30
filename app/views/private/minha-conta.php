@@ -5,7 +5,10 @@ include_once "app/views/parts/header.php";
 include_once "app/functions/data/busca-dados.php";
 
 print_r($_SESSION);
-
+if (!isset($_SESSION['user_dados'])) {
+    echo "<div class='alert alert-danger text-center'>Usuário não logado.</div>";
+    exit;
+}
 ?>
 
 <div class="container mt-5">
