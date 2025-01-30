@@ -78,9 +78,10 @@
                 <?php endif; ?>
             </tbody>
         </table>
+        
     </div>
 </div>
-
+<?php print_r($produtos); ?>
 <!-- Offcanvas para adicionar/editar produto -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddProduct" aria-labelledby="offcanvasAddProductLabel">
     <div class="offcanvas-header">
