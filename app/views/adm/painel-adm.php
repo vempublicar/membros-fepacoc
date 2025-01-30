@@ -1,5 +1,5 @@
 <?php
-//include "app/functions/data/busca-dados.php";
+include "app/functions/data/busca-dados.php";
 
 $videos = fetchVideos();
 $produtos = fetchProdutos();
