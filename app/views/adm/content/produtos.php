@@ -130,8 +130,8 @@
 
             <!-- Upload de imagem -->
             <div class="mb-3">
-                <label for="imagem" class="form-label">Imagem</label>
-                <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*">
+                <label for="capa" class="form-label">Imagem</label>
+                <input type="file" class="form-control" id="capa" name="capa" accept="image/*">
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>
