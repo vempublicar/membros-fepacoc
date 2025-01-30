@@ -70,7 +70,7 @@
                                     data-formulario="<?= htmlspecialchars($video['formulario'] ?? '') ?>"
                                     data-capa="<?= htmlspecialchars($video['capa'] ?? '') ?>"
                                     data-link="<?= htmlspecialchars($video['link'] ?? '') ?>"
-                                    ></i>
+                                    onclick="editVideo(this)"></i>
 
                                 <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
                                     <input type="hidden" name="action" value="delete">
@@ -198,3 +198,66 @@
         </form>
     </div>
 </div>
+
+<script>
+    function editVideo(element) {
+        // Mudar título do Offcanvas
+        document.getElementById("offcanvasAddVideoLabel").textContent = "Editar Vídeo";
+
+        // Alterar ação do formulário para UPDATE
+        document.getElementById("formAction").value = "update";
+        document.getElementById("videoId").value = element.getAttribute("data-id");
+
+        // Preencher campos do formulário com os dados existentes
+        document.getElementById("titulo").value = element.getAttribute("data-titulo");
+        document.getElementById("resumo").value = element.getAttribute("data-resumo");
+        document.getElementById("descricao").value = element.getAttribute("data-descricao");
+        document.getElementById("setor").value = element.getAttribute("data-setor");
+        document.getElementById("formulario").value = element.getAttribute("data-formulario");
+
+        // Preencher selects
+        document.getElementById("categoria").value = element.getAttribute("data-categoria");
+        document.getElementById("produtor").value = element.getAttribute("data-produtor");
+        document.getElementById("formato").value = element.getAttribute("data-formato");
+        document.getElementById("tipo").value = element.getAttribute("data-tipo");
+        document.getElementById("situacao").value = element.getAttribute("data-situacao");
+        document.getElementById("status").value = element.getAttribute("data-status");
+
+        // Caso tenha uma capa já salva, exibir uma pré-visualização
+        let capaAtual = element.getAttribute("data-capa");
+        if (capaAtual) {
+            let capaPreview = document.createElement("img");
+            capaPreview.src = "vendor/uploads/videos/" + capaAtual;
+            capaPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
+            let capaContainer = document.getElementById("capa").parentNode;
+            let existingPreview = capaContainer.querySelector("img");
+            if (existingPreview) {
+                existingPreview.remove();
+            }
+            capaContainer.appendChild(capaPreview);
+        }
+
+        // Caso tenha um vídeo já salvo, exibir uma mensagem com o nome do arquivo
+        let videoAtual = element.getAttribute("data-link");
+        if (videoAtual) {
+            let videoMsg = document.createElement("p");
+            videoMsg.innerHTML = `<small>Vídeo atual: <strong>${videoAtual}</strong></small>`;
+            let videoContainer = document.getElementById("link").parentNode;
+            let existingMsg = videoContainer.querySelector("p");
+            if (existingMsg) {
+                existingMsg.remove();
+            }
+            videoContainer.appendChild(videoMsg);
+        }
+    }
+
+    // Reset do formulário ao abrir para novo cadastro
+    document.getElementById("offcanvasAddVideo").addEventListener("hidden.bs.offcanvas", function () {
+        document.getElementById("offcanvasAddVideoLabel").textContent = "Adicionar Vídeo";
+        document.getElementById("formVideo").reset();
+        document.getElementById("formAction").value = "create";
+        document.getElementById("videoId").value = "";
+        document.getElementById("capa").parentNode.querySelector("img")?.remove();
+        document.getElementById("link").parentNode.querySelector("p")?.remove();
+    });
+</script>
