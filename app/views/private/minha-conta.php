@@ -2,7 +2,10 @@
 session_start();
 include_once "app/views/parts/head.php";
 include_once "app/views/parts/header.php";
-
+?>
+<div class="container mt-5">
+<div class="row">
+<?php
 // Verifica se os dados do usuário estão armazenados na sessão
 if (!isset($_SESSION['user_email'])) {
     echo "<div class='alert alert-danger text-center'>Usuário não logado.</div>";
@@ -36,8 +39,7 @@ $dadosProfissionais = !empty($_SESSION['dados_profissionais']) ? json_decode($_S
     </div>
 <?php endif; ?>
 
-<div class="container mt-5">
-    <div class="row">
+
         <h2 class="mb-3 mt-5">Minha Conta
             <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#companyModal">
                 Adicionar Dados Profissionais
