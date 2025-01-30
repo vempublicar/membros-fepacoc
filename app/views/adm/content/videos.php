@@ -52,7 +52,7 @@
                             </td>
 
                             <td>
-                                <i class="fa fa-edit text-primary me-2"
+                            <i class="fa fa-edit text-primary me-2"
                                     style="cursor: pointer;"
                                     data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasAddVideo"
@@ -151,8 +151,8 @@
                     </select>
                 </div>
                 <div class="col-6 mb-3">
-                    <label for="staus" class="form-label">Status</label>
-                    <select class="form-select" id="staus" name="staus" required>
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status" name="status" required>
                         <option value="ativo">Ativo</option>
                         <option value="inativo">Inativo</option>
                     </select>
