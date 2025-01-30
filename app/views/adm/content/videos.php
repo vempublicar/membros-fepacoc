@@ -106,7 +106,7 @@
             <input type="hidden" name="id" id="videoId">
 
             <div class="row">
-                <div class="col-6 mb-3">
+                <div class="col-12 mb-3">
                     <label for="titulo" class="form-label">Título</label>
                     <input type="text" class="form-control" id="titulo" name="titulo" required>
                 </div>
