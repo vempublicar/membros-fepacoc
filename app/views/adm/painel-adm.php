@@ -8,7 +8,6 @@ $leads = fetchLeads();
 $categorias = fetchCategorias();
 $ferramentas = fetchFerramentas();
 ?>
-<?php print_r($produtos); ?>
 <head>
     <?php include_once "app/views/parts/head.php"; ?>
     <title class="mt-6">Área Administrativa - FEPACOC</title>
