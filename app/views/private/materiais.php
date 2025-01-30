@@ -5,28 +5,16 @@ include "app/functions/data/busca-dados.php";
 
 $materiais = fetchMateriais();
 $leads = fetchLeads();
-// JSON com dados dos vídeos (capa, URL do vídeo do YouTube, título, categoria e setor)
 
-
-$materiaisPorPagina = 12; // Número ajustado para considerar a lógica de 13 a 25, 26 a 38, etc.
+// Configuração de paginação
+$materiaisPorPagina = 12;
 $totalMateriais = count($materiais);
 $totalPaginas = ceil($totalMateriais / $materiaisPorPagina);
 $paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 $inicio = ($paginaAtual - 1) * $materiaisPorPagina;
 $materiaisPagina = array_slice($materiais, $inicio, $materiaisPorPagina);
-
-// print_r($videosPagina);
 ?>
-<section class="top-banner  mt-5">
-    <div class="container-fluid p-3">
-        <picture>
-            <!-- Versão para mobile -->
-            <source media="(max-width: 768px)" srcset="vendor/img/capa-mobile-membros.png">
-            <!-- Versão para desktops e tablets maiores -->
-            <img src="vendor/img/capa-membros.png" class="img-fluid rounded-4" alt="Capa do vídeo">
-        </picture>
-    </div>
-</section>
+
 <section class="portfolio py-5 mt-5">
     <div class="container">
         <div class="row">
@@ -35,7 +23,7 @@ $materiaisPagina = array_slice($materiais, $inicio, $materiaisPorPagina);
                     <h5 class="fw-bold">Filtros</h5>
                     <div class="mb-3">
                         <label for="pesquisa" class="form-label">Pesquisar</label>
-                        <input type="text" id="pesquisa" class="form-control" placeholder="Digite o título do vídeo...">
+                        <input type="text" id="pesquisa" class="form-control" placeholder="Digite o título do material...">
                     </div>
                     <div class="mb-3">
                         <label for="categoria" class="form-label">Categoria</label>
@@ -46,26 +34,24 @@ $materiaisPagina = array_slice($materiais, $inicio, $materiaisPorPagina);
                             <option value="Categoria 3">Categoria 3</option>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="setor" class="form-label">Setor</label>
-                        <select id="setor" class="form-select">
-                            <option value="">Todos</option>
-                            <option value="Setor 2">Setor 2</option>
-                            <option value="Setor 1">Setor 1</option>
-                            <option value="Setor 3">Setor 3</option>
-                        </select>
-                    </div>
                 </div>
             </div>
             <div class="col-lg-9">
                 <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" id="videoGrid" data-aos="fade-up">
-                    <?php foreach ($materiaisPagina as $materiais): ?>
-                        <div class="col mb-4 portfolio-item" data-categoria="<?= $materiais['category']; ?>" data-setor="<?= $materiais['sector']; ?>" data-titulo="<?= strtolower($materiais['title']); ?>">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="vendor/img/materiais/play/<?= $materiais['link']; ?>" onclick="trackUserAction('<?= $materiais['title']; ?>', <?= $user['email'] ?>)" >
-                                <img src="vendor/img/materiais/capas/<?= $materiais['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                    <?php foreach ($materiaisPagina as $material): ?>
+                        <div class="col mb-4 portfolio-item" 
+                            data-categoria="<?= htmlspecialchars($material['matCat']); ?>" 
+                            data-titulo="<?= strtolower(htmlspecialchars($material['matNome'])); ?>">
+
+                            <a href="#" 
+                               data-bs-toggle="modal" 
+                               data-bs-target="#videoModal" 
+                               data-video-url="vendor/img/materiais/play/<?= htmlspecialchars($material['matLink']); ?>" 
+                               onclick="trackUserAction('<?= htmlspecialchars($material['matNome']); ?>', '<?= htmlspecialchars($user['email'] ?? ''); ?>')">
+                                <img src="vendor/img/materiais/capas/<?= htmlspecialchars($material['matCover']); ?>" class="img-fluid rounded-4" alt="Capa do material">
                                 <div class="mt-2">
-                                    <h6 class="fw-bold mb-0"><?= $materiais['title']; ?></h6>
-                                    <small class="text-muted"><?= $materiais['category']; ?> - <?= $materiais['sector']; ?></small>
+                                    <h6 class="fw-bold mb-0"><?= htmlspecialchars($material['matNome']); ?></h6>
+                                    <small class="text-muted"><?= htmlspecialchars($material['matCat']); ?></small>
                                 </div>
                             </a>
                         </div>
@@ -82,11 +68,13 @@ $materiaisPagina = array_slice($materiais, $inicio, $materiaisPorPagina);
                                 </a>
                             </li>
                         <?php endif; ?>
+
                         <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
                             <li class="page-item <?= $i == $paginaAtual ? 'active' : ''; ?>">
                                 <a class="page-link" href="videos&pagina=<?= $i; ?>"><?= $i; ?></a>
                             </li>
                         <?php endfor; ?>
+
                         <?php if ($paginaAtual < $totalPaginas): ?>
                             <li class="page-item">
                                 <a class="page-link" href="videos&pagina=<?= $paginaAtual + 1; ?>" aria-label="Próximo">
@@ -101,65 +89,28 @@ $materiaisPagina = array_slice($materiais, $inicio, $materiaisPorPagina);
     </div>
 </section>
 
-<!-- Modal do Bootstrap para vídeos -->
+<!-- Modal para exibição do material -->
 <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="videoModalLabel">Vídeo</h5>
+                <h5 class="modal-title" id="videoModalLabel">Material</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="ratio ratio-16x9">
-                    <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
-
-
-
-<!-- Bootstrap JavaScript Libraries -->
-<script src="vendor/js/jquery-1.11.0.min.js"></script> 
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-    crossorigin="anonymous"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-    crossorigin="anonymous"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script> 
-<script src="vendor/js/plugins.js"></script>
-<script type="text/javascript" src="vendor/js/lightbox.min.js"></script>
-
-<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-<!-- <script src="vendor/js/script.js"></script> -->
- 
-<script>
-    // Script para atualizar o URL do vídeo quando o modal for aberto
-    var videoModal = document.getElementById('videoModal');
-    videoModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget; // Botão que disparou o modal
-        var videoUrl = button.getAttribute('data-video-url'); // Extrair o URL do vídeo do atributo data-video-url
-        var videoFrame = document.getElementById('videoFrame');
-        videoFrame.src = videoUrl; // Definir o src do iframe para o vídeo
-    });
-
-    // Script para parar o vídeo quando o modal for fechado
-    videoModal.addEventListener('hidden.bs.modal', function () {
-        var videoFrame = document.getElementById('videoFrame');
-        videoFrame.src = ''; // Limpar o src do iframe
-    });
-</script>
+<!-- Scripts -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var videoModal = document.getElementById('videoModal');
-        var videoGrid = document.getElementById('videoGrid');
+
         videoModal.addEventListener('show.bs.modal', function (event) {
             var button = event.relatedTarget;
             var videoUrl = button.getAttribute('data-video-url');
@@ -172,63 +123,33 @@ $materiaisPagina = array_slice($materiais, $inicio, $materiaisPorPagina);
             videoFrame.src = '';
         });
 
-        document.getElementById('categoria').addEventListener('change', filtrarVideos);
-        document.getElementById('setor').addEventListener('change', filtrarVideos);
-        document.getElementById('pesquisa').addEventListener('input', filtrarVideos);
+        document.getElementById('categoria').addEventListener('change', filtrarMateriais);
+        document.getElementById('pesquisa').addEventListener('input', filtrarMateriais);
 
-        function filtrarVideos() {
-            var categoria = document.getElementById('categoria').value;
-            var setor = document.getElementById('setor').value;
+        function filtrarMateriais() {
+            var categoria = document.getElementById('categoria').value.toLowerCase();
             var pesquisa = document.getElementById('pesquisa').value.toLowerCase();
-            var videos = document.querySelectorAll('#videoGrid .portfolio-item');
+            var materiais = document.querySelectorAll('#videoGrid .portfolio-item');
 
-            videos.forEach(function (video) {
-                var videoCategoria = video.getAttribute('data-categoria');
-                var videoSetor = video.getAttribute('data-setor');
-                var videoTitulo = video.getAttribute('data-titulo');
+            materiais.forEach(function (material) {
+                var materialCategoria = material.getAttribute('data-categoria').toLowerCase();
+                var materialTitulo = material.getAttribute('data-titulo').toLowerCase();
 
-                if ((categoria === '' || categoria === videoCategoria) &&
-                    (setor === '' || setor === videoSetor) &&
-                    (pesquisa === '' || videoTitulo.includes(pesquisa))) {
-                    video.style.display = 'block';
+                if ((categoria === '' || materialCategoria === categoria) &&
+                    (pesquisa === '' || materialTitulo.includes(pesquisa))) {
+                    material.style.display = 'block';
                 } else {
-                    video.style.display = 'none';
+                    material.style.display = 'none';
                 }
             });
         }
     });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const themeToggle = document.getElementById("themeToggle");
-        const body = document.body;
-
-        // Verifica o tema salvo no localStorage
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "dark") {
-            body.classList.add("dark-mode");
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        }
-
-        // Alterna o tema
-        themeToggle.addEventListener("click", function() {
-            body.classList.toggle("dark-mode");
-            const isDarkMode = body.classList.contains("dark-mode");
-            localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-            themeToggle.innerHTML = isDarkMode ?
-                '<i class="fas fa-moon"></i>' :
-                '<i class="fas fa-sun"></i>';
-        });
-    });
-
-
 
     function trackUserAction(title, email) {
         const date = new Date();
-        const formattedDate = date.toISOString().split('T')[0]; // Formato: YYYY-MM-DD
-        const formattedTime = date.toTimeString().split(' ')[0]; // Formato: HH:MM:SS
+        const formattedDate = date.toISOString().split('T')[0];
+        const formattedTime = date.toTimeString().split(' ')[0];
 
-        // Dados a serem enviados
         const data = {
             title: title,
             email: email,
@@ -236,8 +157,6 @@ $materiaisPagina = array_slice($materiais, $inicio, $materiaisPorPagina);
             time: formattedTime,
         };
 
-        
-        // Enviar via AJAX
         fetch('app/functions/push/track.php', {
                 method: 'POST',
                 headers: {
@@ -247,7 +166,7 @@ $materiaisPagina = array_slice($materiais, $inicio, $materiaisPorPagina);
             })
             .then(response => response.json())
             .then(result => {
-                console.log(result); // Log do sucesso ou erro
+                console.log(result);
             })
             .catch(error => {
                 console.error('Erro ao registrar a ação:', error);

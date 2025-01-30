@@ -22,9 +22,9 @@
                     <?php foreach ($produtos as $produto): ?>
                         <tr>
                             <td>
-                                <?php if (!empty($produto['capa'])): ?>
-                                    <img src="vendor/uploads/produtos/<?= htmlspecialchars($produto['capa']) ?>"
-                                        alt="<?= htmlspecialchars($produto['produto']) ?>"
+                                <?php if (!empty($produto['proCapa'])): ?>
+                                    <img src="vendor/uploads/produtos/<?= htmlspecialchars($produto['proCapa']) ?>"
+                                        alt="<?= htmlspecialchars($produto['proNome']) ?>"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>
                                     <img src="vendor/uploads/produtos/default.jpg"
@@ -33,12 +33,12 @@
                                 <?php endif; ?>
                             </td>
 
-                            <td><?= htmlspecialchars($produto['produto']) ?></td>
-                            <td><?= htmlspecialchars($produto['categoria']) ?></td>
-                            <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
+                            <td><?= htmlspecialchars($produto['proNome']) ?></td>
+                            <td><?= htmlspecialchars($produto['proCategoria']) ?></td>
+                            <td>R$ <?= number_format($produto['proPreco'], 2, ',', '.') ?></td>
 
                             <td class="text-center">
-                                <?php if ($produto['status'] === 'ativo'): ?>
+                                <?php if ($produto['proStatus'] === 'ativo'): ?>
                                     <i class="fa fa-check-circle text-success"></i>
                                 <?php else: ?>
                                     <i class="fa fa-times-circle text-danger"></i>
@@ -51,14 +51,14 @@
                                     data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasAddProduct"
                                     data-id="<?= $produto['id'] ?>"
-                                    data-produto="<?= htmlspecialchars($produto['produto']) ?>"
-                                    data-pagina="<?= htmlspecialchars($produto['pagina']) ?>"
-                                    data-preco="<?= htmlspecialchars($produto['preco']) ?>"
-                                    data-sobre="<?= htmlspecialchars($produto['sobre']) ?>"
-                                    data-categoria="<?= htmlspecialchars($produto['categoria']) ?>"
-                                    data-status="<?= $produto['status'] ?>"
-                                    data-capa="<?= htmlspecialchars($produto['capa'] ?? '') ?>"
-                                    onclick="editarProduct(this)"></i>
+                                    data-pronome="<?= htmlspecialchars($produto['proNome']) ?>"
+                                    data-propagina="<?= htmlspecialchars($produto['proPagina']) ?>"
+                                    data-propreco="<?= htmlspecialchars($produto['proPreco']) ?>"
+                                    data-prosobre="<?= htmlspecialchars($produto['proSobre']) ?>"
+                                    data-procategoria="<?= htmlspecialchars($produto['proCategoria']) ?>"
+                                    data-prostatus="<?= $produto['proStatus'] ?>"
+                                    data-procapa="<?= htmlspecialchars($produto['proCapa'] ?? '') ?>"
+                                    onclick="editarProduto(this)"></i>
 
                                 <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
                                     <input type="hidden" name="action" value="delete">
@@ -96,43 +96,42 @@
 
             <div class="row">
                 <div class="col-12 mb-3">
-                    <label for="produto" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="produto" name="produto" required>
+                    <label for="proNome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="proNome" name="proNome" required>
                 </div>
 
                 <div class="col-6 mb-3">
-                    <label for="categoria" class="form-label">Categoria</label>
-                    <select class="form-select" id="categoria" name="categoria" required>
+                    <label for="proCategoria" class="form-label">Categoria</label>
+                    <select class="form-select" id="proCategoria" name="proCategoria" required>
                         <option value="">Selecione</option>
                         <?php foreach ($categorias as $categoria): ?>
-                            <option value="<?= htmlspecialchars($categoria['produto']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
+                            <option value="<?= htmlspecialchars($categoria['proCat']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
 
                 <div class="col-6 mb-3">
-                    <label for="preco" class="form-label">Preço</label>
-                    <input type="text" class="form-control" id="preco" name="preco" required>
+                    <label for="proPreco" class="form-label">Preço</label>
+                    <input type="text" class="form-control" id="proPreco" name="proPreco" required>
                 </div>
 
                 <div class="col-12 mb-3">
-                    <label for="sobre" class="form-label">Descrição</label>
-                    <textarea class="form-control" id="sobre" name="sobre" rows="3"></textarea>
+                    <label for="proSobre" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="proSobre" name="proSobre" rows="3"></textarea>
                 </div>
 
                 <div class="col-6 mb-3">
-                    <label for="status" class="form-label">Status</label>
-                    <select class="form-select" id="status" name="status" required>
+                    <label for="proStatus" class="form-label">Status</label>
+                    <select class="form-select" id="proStatus" name="proStatus" required>
                         <option value="ativo">Ativo</option>
                         <option value="inativo">Inativo</option>
                     </select>
                 </div>
             </div>
 
-            <!-- Upload de imagem -->
             <div class="mb-3">
-                <label for="capa" class="form-label">Imagem</label>
-                <input type="file" class="form-control" id="capa" name="capa" accept="image/*">
+                <label for="proCapa" class="form-label">Imagem</label>
+                <input type="file" class="form-control" id="proCapa" name="proCapa" accept="image/*">
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -141,48 +140,15 @@
 </div>
 
 <script>
-function editarProduct(element) {
+function editarProduto(element) {
     document.getElementById("offcanvasAddProductLabel").textContent = "Editar Produto";
     document.getElementById("formAction").value = "update";
     document.getElementById("productId").value = element.getAttribute("data-id");
-    document.getElementById("produto").value = element.getAttribute("data-produto");
-    document.getElementById("preco").value = element.getAttribute("data-preco");
-    document.getElementById("sobre").value = element.getAttribute("data-sobre");
-
-    // Selecionar a categoria corretamente
-    let categoriaSelecionada = element.getAttribute("data-categoria");
-    let selectCategoria = document.getElementById("categoria");
-    Array.from(selectCategoria.options).forEach(option => {
-        if (option.value === categoriaSelecionada) {
-            option.selected = true;
-        }
-    });
-
-    // Selecionar status corretamente
-    let statusSelecionado = element.getAttribute("data-status");
-    let selectStatus = document.getElementById("status");
-    Array.from(selectStatus.options).forEach(option => {
-        if (option.value === statusSelecionado) {
-            option.selected = true;
-        }
-    });
-
-    // Exibir pré-visualização da imagem se existir
-    let imagemAtual = element.getAttribute("data-capa");
-    let imagemContainer = document.getElementById("capa").parentNode;
-    
-    // Remove a imagem anterior se já existir
-    let existingPreview = imagemContainer.querySelector("img");
-    if (existingPreview) {
-        existingPreview.remove();
-    }
-
-    if (imagemAtual) {
-        let imagemPreview = document.createElement("img");
-        imagemPreview.src = "vendor/uploads/produtos/" + imagemAtual;
-        imagemPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
-        imagemContainer.appendChild(imagemPreview);
-    }
+    document.getElementById("proNome").value = element.getAttribute("data-pronome");
+    document.getElementById("proPreco").value = element.getAttribute("data-propreco");
+    document.getElementById("proSobre").value = element.getAttribute("data-prosobre");
+    document.getElementById("proCategoria").value = element.getAttribute("data-procategoria");
+    document.getElementById("proStatus").value = element.getAttribute("data-prostatus");
 }
 
 function resetForm() {
@@ -190,13 +156,5 @@ function resetForm() {
     document.getElementById("formProduct").reset();
     document.getElementById("formAction").value = "create";
     document.getElementById("productId").value = "";
-    
-    // Remover imagem antiga ao resetar o formulário
-    let imagemContainer = document.getElementById("capa").parentNode;
-    let existingPreview = imagemContainer.querySelector("img");
-    if (existingPreview) {
-        existingPreview.remove();
-    }
 }
 </script>
-

@@ -25,9 +25,9 @@
                     <?php foreach ($videos as $video): ?>
                         <tr>
                             <td>
-                                <?php if (!empty($video['capa'])): ?>
-                                    <img src="vendor/uploads/videos/<?= htmlspecialchars($video['capa']) ?>"
-                                        alt="<?= htmlspecialchars($video['titulo']) ?>"
+                                <?php if (!empty($video['vidCapa'])): ?>
+                                    <img src="vendor/uploads/videos/<?= htmlspecialchars($video['vidCapa']) ?>"
+                                        alt="<?= htmlspecialchars($video['vidTitulo']) ?>"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>
                                     <img src="vendor/uploads/videos/default.jpg"
@@ -36,15 +36,15 @@
                                 <?php endif; ?>
                             </td>
 
-                            <td><?= htmlspecialchars($video['titulo']) ?></td>
-                            <td><?= htmlspecialchars($video['resumo']) ?></td>
-                            <td><?= htmlspecialchars($video['categoria']) ?></td>
-                            <td><?= htmlspecialchars($video['produtor']) ?></td>
-                            <td><?= htmlspecialchars($video['formato']) ?></td>
-                            <td><?= htmlspecialchars($video['tipo']) ?></td>
+                            <td><?= htmlspecialchars($video['vidTitulo']) ?></td>
+                            <td><?= htmlspecialchars($video['vidResumo']) ?></td>
+                            <td><?= htmlspecialchars($video['vidCat']) ?></td>
+                            <td><?= htmlspecialchars($video['vidProdutor']) ?></td>
+                            <td><?= htmlspecialchars($video['vidFormato']) ?></td>
+                            <td><?= htmlspecialchars($video['vidTipo']) ?></td>
 
                             <td class="text-center">
-                                <?php if ($video['status'] === 'ativo'): ?>
+                                <?php if ($video['vidStatus'] === 'ativo'): ?>
                                     <i class="fa fa-check-circle text-success"></i>
                                 <?php else: ?>
                                     <i class="fa fa-times-circle text-danger"></i>
@@ -52,24 +52,24 @@
                             </td>
 
                             <td>
-                            <i class="fa fa-edit text-primary me-2"
+                                <i class="fa fa-edit text-primary me-2"
                                     style="cursor: pointer;"
                                     data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasAddVideo"
                                     data-id="<?= $video['id'] ?>"
-                                    data-titulo="<?= htmlspecialchars($video['titulo']) ?>"
-                                    data-resumo="<?= htmlspecialchars($video['resumo']) ?>"
-                                    data-produtor="<?= htmlspecialchars($video['produtor']) ?>"
-                                    data-formato="<?= htmlspecialchars($video['formato']) ?>"
-                                    data-setor="<?= htmlspecialchars($video['setor']) ?>"
-                                    data-categoria="<?= htmlspecialchars($video['categoria']) ?>"
-                                    data-tipo="<?= htmlspecialchars($video['tipo']) ?>"
-                                    data-descricao="<?= htmlspecialchars($video['descricao']) ?>"
-                                    data-status="<?= $video['status'] ?>"
-                                    data-situacao="<?= htmlspecialchars($video['situacao']) ?>"
-                                    data-formulario="<?= htmlspecialchars($video['formulario'] ?? '') ?>"
-                                    data-capa="<?= htmlspecialchars($video['capa'] ?? '') ?>"
-                                    data-link="<?= htmlspecialchars($video['link'] ?? '') ?>"
+                                    data-vidtitulo="<?= htmlspecialchars($video['vidTitulo']) ?>"
+                                    data-vidresumo="<?= htmlspecialchars($video['vidResumo']) ?>"
+                                    data-vidprodutor="<?= htmlspecialchars($video['vidProdutor']) ?>"
+                                    data-vidformato="<?= htmlspecialchars($video['vidFormato']) ?>"
+                                    data-vidsetor="<?= htmlspecialchars($video['vidSetor']) ?>"
+                                    data-vidcat="<?= htmlspecialchars($video['vidCat']) ?>"
+                                    data-vidtipo="<?= htmlspecialchars($video['vidTipo']) ?>"
+                                    data-viddesc="<?= htmlspecialchars($video['vidDesc']) ?>"
+                                    data-vidstatus="<?= htmlspecialchars($video['vidStatus']) ?>"
+                                    data-vidsituacao="<?= htmlspecialchars($video['vidSituacao']) ?>"
+                                    data-vidformulario="<?= htmlspecialchars($video['vidFormulario'] ?? '') ?>"
+                                    data-vidcapa="<?= htmlspecialchars($video['vidCapa'] ?? '') ?>"
+                                    data-vidlink="<?= htmlspecialchars($video['vidLink'] ?? '') ?>"
                                     onclick="editarVideo(this)"></i>
 
                                 <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
@@ -92,7 +92,6 @@
         </table>
     </div>
 </div>
-
 <!-- Offcanvas para adicionar/editar vídeo -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddVideo" aria-labelledby="offcanvasAddVideoLabel">
     <div class="offcanvas-header">
@@ -107,35 +106,38 @@
 
             <div class="row">
                 <div class="col-12 mb-3">
-                    <label for="titulo" class="form-label">Título</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo" required>
+                    <label for="vidTitulo" class="form-label">Título</label>
+                    <input type="text" class="form-control" id="vidTitulo" name="vidTitulo" required>
                 </div>
+
                 <div class="col-6 mb-3">
-                    <label for="categoria" class="form-label">Categoria</label>
-                    <select class="form-select" id="categoria" name="categoria" required>
+                    <label for="vidCat" class="form-label">Categoria</label>
+                    <select class="form-select" id="vidCat" name="vidCat" required>
                         <option value="">Selecione</option>
                         <?php foreach ($categorias as $categoria): ?>
                             <option value="<?= htmlspecialchars($categoria['nome']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
+
                 <div class="col-6 mb-3">
-                    <label for="setor" class="form-label">Setor</label>
-                    <input type="text" class="form-control" id="setor" name="setor" required>
-                </div>
-                <div class="col-12 mb-3">
-                    <label for="resumo" class="form-label">Resumo</label>
-                    <textarea class="form-control" id="resumo" name="resumo" rows="2" required></textarea>
+                    <label for="vidSetor" class="form-label">Setor</label>
+                    <input type="text" class="form-control" id="vidSetor" name="vidSetor" required>
                 </div>
 
                 <div class="col-12 mb-3">
-                    <label for="descricao" class="form-label">Descrição</label>
-                    <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
+                    <label for="vidResumo" class="form-label">Resumo</label>
+                    <textarea class="form-control" id="vidResumo" name="vidResumo" rows="2" required></textarea>
                 </div>
-                
+
+                <div class="col-12 mb-3">
+                    <label for="vidDesc" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="vidDesc" name="vidDesc" rows="3"></textarea>
+                </div>
+
                 <div class="col-6 mb-3">
-                    <label for="produtor" class="form-label">Produtor</label>
-                    <select class="form-select" id="produtor" name="produtor" required>
+                    <label for="vidProdutor" class="form-label">Produtor</label>
+                    <select class="form-select" id="vidProdutor" name="vidProdutor" required>
                         <option value="">Selecione</option>
                         <option value="Não informado">Não informado</option>
                         <?php foreach ($produtores as $produtor): ?>
@@ -143,23 +145,26 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
+
                 <div class="col-6 mb-3">
-                    <label for="formato" class="form-label">Formato</label>
-                    <select class="form-select" id="formato" name="formato" required>
+                    <label for="vidFormato" class="form-label">Formato</label>
+                    <select class="form-select" id="vidFormato" name="vidFormato" required>
                         <option value="retrato">Retrato</option>
                         <option value="paisagem">Paisagem</option>
                     </select>
                 </div>
+
                 <div class="col-6 mb-3">
-                    <label for="status" class="form-label">Status</label>
-                    <select class="form-select" id="status" name="status" required>
+                    <label for="vidStatus" class="form-label">Status</label>
+                    <select class="form-select" id="vidStatus" name="vidStatus" required>
                         <option value="ativo">Ativo</option>
                         <option value="inativo">Inativo</option>
                     </select>
                 </div>
+
                 <div class="col-6 mb-3">
-                    <label for="tipo" class="form-label">Tipo</label>
-                    <select class="form-select" id="tipo" name="tipo" required>
+                    <label for="vidTipo" class="form-label">Tipo</label>
+                    <select class="form-select" id="vidTipo" name="vidTipo" required>
                         <option value="Aula">Aula</option>
                         <option value="Estratégia">Estratégia</option>
                         <option value="Aplicação">Aplicação</option>
@@ -167,9 +172,10 @@
                         <option value="Outros">Outros</option>
                     </select>
                 </div>
+
                 <div class="col-12 mb-3">
-                    <label for="situacao" class="form-label">Liberado ao Usuário</label>
-                    <select class="form-select" id="situacao" name="situacao" required>
+                    <label for="vidSituacao" class="form-label">Liberado ao Usuário</label>
+                    <select class="form-select" id="vidSituacao" name="vidSituacao" required>
                         <option value="Bronze">Bronze</option>
                         <option value="Prata">Prata</option>
                         <option value="Ouro">Ouro</option>
@@ -178,20 +184,20 @@
                 </div>
 
                 <div class="col-12 mb-3">
-                    <label for="formulario" class="form-label">Link do Formulário</label>
-                    <input type="url" class="form-control" id="formulario" name="formulario" placeholder="https://">
+                    <label for="vidFormulario" class="form-label">Link do Formulário</label>
+                    <input type="url" class="form-control" id="vidFormulario" name="vidFormulario" placeholder="https://">
                 </div>
             </div>
 
             <!-- Upload de arquivos -->
             <div class="mb-3">
-                <label for="capa" class="form-label">Capa</label>
-                <input type="file" class="form-control" id="capa" name="capa" accept="image/*">
+                <label for="vidCapa" class="form-label">Capa</label>
+                <input type="file" class="form-control" id="vidCapa" name="vidCapa" accept="image/*">
             </div>
 
             <div class="mb-3">
-                <label for="link" class="form-label">Vídeo (MP4)</label>
-                <input type="file" class="form-control" id="link" name="link" accept="video/mp4">
+                <label for="vidLink" class="form-label">Vídeo (MP4)</label>
+                <input type="file" class="form-control" id="vidLink" name="vidLink" accept="video/mp4">
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -204,39 +210,26 @@ function editarVideo(element) {
     document.getElementById("offcanvasAddVideoLabel").textContent = "Editar Vídeo";
     document.getElementById("formAction").value = "update";
     document.getElementById("videoId").value = element.getAttribute("data-id");
-    document.getElementById("titulo").value = element.getAttribute("data-titulo");
-    document.getElementById("resumo").value = element.getAttribute("data-resumo");
-    document.getElementById("descricao").value = element.getAttribute("data-descricao");
-    document.getElementById("setor").value = element.getAttribute("data-setor");
-    document.getElementById("formulario").value = element.getAttribute("data-formulario");
-    document.getElementById("categoria").value = element.getAttribute("data-categoria");
-    document.getElementById("produtor").value = element.getAttribute("data-produtor");
-    document.getElementById("formato").value = element.getAttribute("data-formato");
-    document.getElementById("tipo").value = element.getAttribute("data-tipo");
-    document.getElementById("situacao").value = element.getAttribute("data-situacao");
-    document.getElementById("status").value = element.getAttribute("data-status");
+    document.getElementById("vidTitulo").value = element.getAttribute("data-vidtitulo");
+    document.getElementById("vidResumo").value = element.getAttribute("data-vidresumo");
+    document.getElementById("vidDesc").value = element.getAttribute("data-viddesc");
+    document.getElementById("vidSetor").value = element.getAttribute("data-vidsetor");
+    document.getElementById("vidFormulario").value = element.getAttribute("data-vidformulario");
+    document.getElementById("vidCat").value = element.getAttribute("data-vidcat");
+    document.getElementById("vidProdutor").value = element.getAttribute("data-vidprodutor");
+    document.getElementById("vidFormato").value = element.getAttribute("data-vidformato");
+    document.getElementById("vidTipo").value = element.getAttribute("data-vidtipo");
+    document.getElementById("vidSituacao").value = element.getAttribute("data-vidsituacao");
+    document.getElementById("vidStatus").value = element.getAttribute("data-vidstatus");
 
     // Exibir pré-visualização da capa se existir
-    let capaAtual = element.getAttribute("data-capa");
+    let capaAtual = element.getAttribute("data-vidcapa");
+    document.getElementById("vidCapa").parentNode.querySelector("img")?.remove();
     if (capaAtual) {
         let capaPreview = document.createElement("img");
         capaPreview.src = "vendor/uploads/videos/" + capaAtual;
         capaPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
-        let capaContainer = document.getElementById("capa").parentNode;
-        let existingPreview = capaContainer.querySelector("img");
-        if (existingPreview) existingPreview.remove();
-        capaContainer.appendChild(capaPreview);
-    }
-
-    // Exibir nome do vídeo se existir
-    let videoAtual = element.getAttribute("data-link");
-    if (videoAtual) {
-        let videoMsg = document.createElement("p");
-        videoMsg.innerHTML = `<small>Vídeo atual: <strong>${videoAtual}</strong></small>`;
-        let videoContainer = document.getElementById("link").parentNode;
-        let existingMsg = videoContainer.querySelector("p");
-        if (existingMsg) existingMsg.remove();
-        videoContainer.appendChild(videoMsg);
+        document.getElementById("vidCapa").parentNode.appendChild(capaPreview);
     }
 }
 
@@ -245,7 +238,7 @@ function resetForm() {
     document.getElementById("formVideo").reset();
     document.getElementById("formAction").value = "create";
     document.getElementById("videoId").value = "";
-    document.getElementById("capa").parentNode.querySelector("img")?.remove();
-    document.getElementById("link").parentNode.querySelector("p")?.remove();
+    document.getElementById("vidCapa").parentNode.querySelector("img")?.remove();
 }
 </script>
+

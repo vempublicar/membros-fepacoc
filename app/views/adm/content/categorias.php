@@ -21,26 +21,26 @@
                         <tr>
                             <!-- Miniatura da Categoria -->
                             <td>
-                                <?php if (!empty($categoria['capa'])): ?>
-                                    <img src="vendor/uploads/categorias/<?= htmlspecialchars($categoria['capa']) ?>"
-                                        alt="<?= htmlspecialchars($categoria['nome']) ?>"
+                                <?php if (!empty($categoria['catCapa'])): ?>
+                                    <img src="vendor/uploads/categorias/<?= htmlspecialchars($categoria['catCapa']) ?>"
+                                        alt="<?= htmlspecialchars($categoria['catNome']) ?>"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>
-                                    <img src="vendor/uploads/ferramentas/default.png"
+                                    <img src="vendor/uploads/categorias/default.png"
                                         alt="Miniatura padrão"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php endif; ?>
                             </td>
 
                             <!-- Nome da Categoria -->
-                            <td><?= htmlspecialchars($categoria['nome']) ?></td>
+                            <td><?= htmlspecialchars($categoria['catNome']) ?></td>
 
                             <!-- Descrição da Categoria -->
-                            <td><?= htmlspecialchars($categoria['descricao']) ?></td>
+                            <td><?= htmlspecialchars($categoria['catDesc']) ?></td>
 
                             <!-- Status da Categoria -->
                             <td class="text-center">
-                                <?php if (!empty($categoria['status']) && $categoria['status'] === 'ativo'): ?>
+                                <?php if (!empty($categoria['catStatus']) && $categoria['catStatus'] === 'ativo'): ?>
                                     <i class="fa fa-eye text-primary"></i>
                                 <?php else: ?>
                                     <i class="fa fa-eye-slash text-secondary"></i>
@@ -54,10 +54,10 @@
                                     data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasAddCategory"
                                     data-id="<?= $categoria['id'] ?>"
-                                    data-nome="<?= htmlspecialchars($categoria['nome']) ?>"
-                                    data-descricao="<?= htmlspecialchars($categoria['descricao']) ?>"
-                                    data-status="<?= $categoria['status'] ?>"
-                                    data-capa="<?= htmlspecialchars($categoria['capa'] ?? '') ?>"
+                                    data-catnome="<?= htmlspecialchars($categoria['catNome']) ?>"
+                                    data-catdesc="<?= htmlspecialchars($categoria['catDesc']) ?>"
+                                    data-catstatus="<?= htmlspecialchars($categoria['catStatus']) ?>"
+                                    data-catcapa="<?= htmlspecialchars($categoria['catCapa'] ?? '') ?>"
                                     onclick="editCategory(this)"></i>
 
                                 <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
@@ -96,20 +96,20 @@
 
             <!-- Campo Nome -->
             <div class="mb-3">
-                <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome" required>
+                <label for="catNome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="catNome" name="catNome" required>
             </div>
 
             <!-- Campo Descrição -->
             <div class="mb-3">
-                <label for="descricao" class="form-label">Descrição</label>
-                <textarea class="form-control" id="descricao" name="descricao" rows="3" required></textarea>
+                <label for="catDesc" class="form-label">Descrição</label>
+                <textarea class="form-control" id="catDesc" name="catDesc" rows="3" required></textarea>
             </div>
 
             <!-- Campo Status -->
             <div class="mb-3">
-                <label for="status" class="form-label">Status</label>
-                <select class="form-select" id="status" name="status" required>
+                <label for="catStatus" class="form-label">Status</label>
+                <select class="form-select" id="catStatus" name="catStatus" required>
                     <option value="ativo">Ativo</option>
                     <option value="inativo">Inativo</option>
                 </select>
@@ -117,8 +117,8 @@
 
             <!-- Campo Capa (Upload de Imagem) -->
             <div class="mb-3">
-                <label for="capa" class="form-label">Capa</label>
-                <input type="file" class="form-control" id="capa" name="capa" accept="image/*">
+                <label for="catCapa" class="form-label">Capa</label>
+                <input type="file" class="form-control" id="catCapa" name="catCapa" accept="image/*">
             </div>
 
             <!-- Botão de Envio -->
@@ -126,20 +126,27 @@
         </form>
     </div>
 </div>
+
 <script>
 function editCategory(element) {
     document.getElementById("offcanvasAddCategoryLabel").textContent = "Editar Categoria";
     document.getElementById("formAction").value = "update";
     document.getElementById("categoryId").value = element.getAttribute("data-id");
-    document.getElementById("nome").value = element.getAttribute("data-nome");
-    document.getElementById("descricao").value = element.getAttribute("data-descricao");
-    document.getElementById("status").value = element.getAttribute("data-status");
+    document.getElementById("catNome").value = element.getAttribute("data-catnome");
+    document.getElementById("catDesc").value = element.getAttribute("data-catdesc");
+    document.getElementById("catStatus").value = element.getAttribute("data-catstatus");
 
-    // Se houver uma imagem antiga, pode-se exibir
-    let capa = element.getAttribute("data-capa");
-    if (capa) {
-        let capaInput = document.getElementById("capa");
-        capaInput.setAttribute("data-placeholder", "Imagem já cadastrada");
+    // Exibir pré-visualização da capa se existir
+    let capaAtual = element.getAttribute("data-catcapa");
+    let capaContainer = document.getElementById("catCapa").parentNode;
+    let existingPreview = capaContainer.querySelector("img");
+    if (existingPreview) existingPreview.remove();
+
+    if (capaAtual) {
+        let capaPreview = document.createElement("img");
+        capaPreview.src = "vendor/uploads/categorias/" + capaAtual;
+        capaPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
+        capaContainer.appendChild(capaPreview);
     }
 }
 
@@ -148,6 +155,6 @@ function resetForm() {
     document.getElementById("formCategory").reset();
     document.getElementById("formAction").value = "create";
     document.getElementById("categoryId").value = "";
+    document.getElementById("catCapa").parentNode.querySelector("img")?.remove();
 }
 </script>
-
