@@ -31,6 +31,11 @@ function updateLead($id, $dados) {
     try {
         $pdo = db_connect();
 
+        // Se `dados` for um array, convertê-lo para JSON antes de salvar
+        if (is_array($dados['dados'])) {
+            $dados['dados'] = json_encode($dados['dados'], JSON_UNESCAPED_UNICODE);
+        }
+
         $sql = "
             UPDATE leads SET dados = :dados, tipo = :tipo WHERE id = :id
         ";
@@ -52,6 +57,15 @@ function deleteLead($id) {
     try {
         $pdo = db_connect();
 
+        // Verifica se o lead existe antes de excluir
+        $checkStmt = $pdo->prepare("SELECT id FROM leads WHERE id = :id");
+        $checkStmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $checkStmt->execute();
+
+        if ($checkStmt->rowCount() === 0) {
+            return ['status' => 'error', 'message' => 'Lead não encontrado.'];
+        }
+
         $sql = "DELETE FROM leads WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -65,13 +79,14 @@ function deleteLead($id) {
 
 // Lidar com as requisições POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
     $action = $_POST['action'] ?? '';
 
     try {
         if ($action === 'update') {
             // Atualizar os dados do lead
             $id = $_POST['id'] ?? null;
-            if (!$id) throw new Exception('ID do lead não informado');
+            if (!$id) throw new Exception('ID do lead não informado.');
 
             $leadData = [
                 'dados' => $_POST['dados'],
@@ -79,31 +94,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
 
             $response = updateLead($id, $leadData);
-
-            if ($response['status'] === 'success') {
-                header("Location: " . $_SERVER['HTTP_REFERER'] . "#leads");
-            } else {
-                header("Location: " . $_SERVER['HTTP_REFERER'] . "&erro=falha#leads");
-            }
+            echo json_encode($response);
+            exit;
 
         } elseif ($action === 'sendPassword') {
             // Enviar senha por e-mail
             $email = $_POST['email'] ?? null;
             $nome = $_POST['nome'] ?? null;
-            $senha = $_POST['acesso'] ?? null;
+
+            if (!$email) {
+                throw new Exception('E-mail não informado.');
+            }
+
+            // Buscar a senha do lead no banco
+            $pdo = db_connect();
+            $stmt = $pdo->prepare("SELECT acesso FROM leads WHERE email = :email");
+            $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$user) {
+                throw new Exception('Usuário não encontrado.');
+            }
+
+            $senha = $user['acesso'];
 
             $resultadoEmail = enviarEmailRecuperar($email, $nome, $senha);
 
             if ($resultadoEmail === '1') {
-                header("Location: " . $_SERVER['HTTP_REFERER'] . "#leads");
+                echo json_encode(['status' => 'success', 'message' => 'Senha enviada para o e-mail.']);
             } else {
-                header("Location: " . $_SERVER['HTTP_REFERER'] . "&erro=falha#leads");
+                throw new Exception('Falha ao enviar o e-mail.');
             }
+            exit;
 
         } elseif ($action === 'addToBroadcast') {
             // Adicionar lead à lista de transmissão (agora MySQL)
             $listName = $_POST['list'] ?? null;
-            if (!$listName) throw new Exception('Nome da lista de transmissão não informado');
+            if (!$listName) throw new Exception('Nome da lista de transmissão não informado.');
 
             $leadData = [
                 'nome' => $_POST['nome'],
@@ -113,19 +141,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $response = saveToTransmite($listName, $leadData);
             echo json_encode($response);
+            exit;
+
         } elseif ($action === 'deleteLead') {
             // Excluir lead
             $id = $_POST['id'] ?? null;
-            if (!$id) throw new Exception('ID do lead não informado');
+            if (!$id) throw new Exception('ID do lead não informado.');
 
             $response = deleteLead($id);
             echo json_encode($response);
+            exit;
+
         } else {
-            throw new Exception('Ação inválida');
+            throw new Exception('Ação inválida.');
         }
     } catch (Exception $e) {
         echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+        exit;
     }
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Método de requisição inválido']);
+    echo json_encode(['status' => 'error', 'message' => 'Método de requisição inválido.']);
+    exit;
 }
