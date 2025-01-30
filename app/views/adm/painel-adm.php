@@ -8,7 +8,7 @@ $leads = fetchLeads();
 $categorias = fetchCategorias();
 $ferramentas = fetchFerramentas();
 ?>
-
+<?php print_r($produtos); ?>
 <head>
     <?php include_once "app/views/parts/head.php"; ?>
     <title class="mt-6">Área Administrativa - FEPACOC</title>
@@ -85,7 +85,7 @@ $ferramentas = fetchFerramentas();
                 </section>
             </main>
         </div>
-        <?php print_r($produtos); ?>
+        
     </div>
 
     <!-- Offcanvas para o formulário -->
