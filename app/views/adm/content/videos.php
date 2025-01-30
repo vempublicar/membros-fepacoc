@@ -131,23 +131,14 @@
                 <textarea class="form-control" id="resumo" name="resumo" rows="2" required></textarea>
             </div>
 
-            <!-- Produtor -->
+            <!-- Categoria -->
             <div class="mb-3">
-                <label for="produtor" class="form-label">Produtor</label>
-                <select class="form-select" id="produtor" name="produtor" required>
+                <label for="categoria" class="form-label">Categoria</label>
+                <select class="form-select" id="categoria" name="categoria" required>
                     <option value="">Selecione</option>
-                    <?php foreach ($produtores as $produtor): ?>
-                        <option value="<?= htmlspecialchars($produtor['nome']) ?>"><?= htmlspecialchars($produtor['nome']) ?></option>
+                    <?php foreach ($categorias as $categoria): ?>
+                        <option value="<?= htmlspecialchars($categoria['nome']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
                     <?php endforeach; ?>
-                </select>
-            </div>
-
-            <!-- Formato -->
-            <div class="mb-3">
-                <label for="formato" class="form-label">Formato</label>
-                <select class="form-select" id="formato" name="formato" required>
-                    <option value="retrato">Retrato</option>
-                    <option value="paisagem">Paisagem</option>
                 </select>
             </div>
 
