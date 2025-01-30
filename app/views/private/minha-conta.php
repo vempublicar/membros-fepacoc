@@ -2,34 +2,29 @@
 session_start();
 include_once "app/views/parts/head.php";
 include_once "app/views/parts/header.php";
-include_once "app/functions/data/busca-dados.php";
 
+// Verifica se os dados do usuário estão armazenados na sessão
+if (!isset($_SESSION['user_email'])) {
+    echo "<div class='alert alert-danger text-center'>Usuário não logado.</div>";
+    exit;
+}
+
+// Obtém os dados da sessão
+$user = [
+    'email' => $_SESSION['user_email'] ?? '',
+    'nome' => $_SESSION['nome'] ?? 'Usuário',
+    'tipo' => $_SESSION['tipo'] ?? 'N/A',
+    'fone' => $_SESSION['fone'] ?? 'N/A',
+    'created_at' => $_SESSION['created_at'] ?? 'N/A'
+];
+
+// Decodifica os dados profissionais, se existirem
+$dadosProfissionais = !empty($_SESSION['dados_profissionais']) ? json_decode($_SESSION['dados_profissionais'], true) : [];
 
 ?>
 
-<div class="container mt-5">
-    <?php 
-    if (!isset($_SESSION['user_dados'])) {
-        echo "<div class='alert alert-danger text-center'>Usuário não logado.</div>";
-    }else{
-        $userDados = json_decode($_SESSION['user_dados'], true);
-        $email = $userDados['user']['email'] ?? '';
-    }
-    $usuarios = fetchLeads();
-    $user = null;
-    foreach ($usuarios as $usuario) {
-        if ($usuario['email'] === $email) {
-            $user = $usuario;
-            break;
-        }
-    }
-    if (!$user) {
-        echo "<div class='alert alert-danger text-center'>Usuário não encontrado.</div>";
-    }
-    $dadosProfissionais = !empty($user['dados']) ? json_decode($user['dados'], true) : [];
-    //print_r($_SESSION);
-    ?>
-    <?php if (isset($_SESSION['message'])): ?>
+<!-- Mensagens de Sucesso ou Erro -->
+<?php if (isset($_SESSION['message'])): ?>
     <div class="alert alert-success">
         <?= htmlspecialchars($_SESSION['message']); unset($_SESSION['message']); ?>
     </div>
@@ -40,6 +35,8 @@ include_once "app/functions/data/busca-dados.php";
         <?= htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?>
     </div>
 <?php endif; ?>
+
+<div class="container mt-5">
     <div class="row">
         <h2 class="mb-3 mt-5">Minha Conta
             <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#companyModal">
@@ -52,7 +49,9 @@ include_once "app/functions/data/busca-dados.php";
                     <h4>Dados Pessoais</h4>
                     <p><strong>Nome:</strong> <?= htmlspecialchars($user['nome']); ?></p>
                     <p><strong>Email:</strong> <?= htmlspecialchars($user['email']); ?></p>
+                    <p><strong>Telefone:</strong> <?= htmlspecialchars($user['fone']); ?></p>
                     <p><strong>Conta:</strong> <?= htmlspecialchars($user['tipo']); ?></p>
+                    <p><strong>Cadastro em:</strong> <?= htmlspecialchars($user['created_at']); ?></p>
                 </div>
             </div>
         </div>
@@ -80,6 +79,7 @@ include_once "app/functions/data/busca-dados.php";
         </div>
     </div>
 </div>
+
 
 <div class="modal fade" id="companyModal" tabindex="-1" aria-labelledby="companyModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
