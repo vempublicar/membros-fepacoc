@@ -31,20 +31,13 @@ function updateLead($id, $dados) {
     try {
         $pdo = db_connect();
 
-        // Converter para JSON apenas se for um array
-        if (is_array($dados['dados'])) {
-            $dados['dados'] = json_encode($dados['dados'], JSON_UNESCAPED_UNICODE);
-        }
-
-        // Verificar se o JSON é válido antes de salvar
-        if (!json_decode($dados['dados'])) {
-            throw new Exception('Formato de JSON inválido para a coluna `dados`.');
-        }
+        // Remover conversão para JSON e garantir que seja uma string
+        $dadosTexto = is_array($dados['dados']) ? implode(", ", $dados['dados']) : $dados['dados'];
 
         $sql = "UPDATE leads SET dados = :dados, tipo = :tipo WHERE id = :id";
 
         $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':dados', $dados['dados'], PDO::PARAM_STR);
+        $stmt->bindValue(':dados', $dadosTexto, PDO::PARAM_STR);
         $stmt->bindValue(':tipo', $dados['tipo'], PDO::PARAM_STR);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -54,6 +47,7 @@ function updateLead($id, $dados) {
         return ['status' => 'error', 'message' => 'Erro ao atualizar o lead: ' . $e->getMessage()];
     }
 }
+
 
 
 // Função para excluir um lead do MySQL
