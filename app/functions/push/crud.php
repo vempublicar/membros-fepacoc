@@ -9,9 +9,8 @@ function checkAndCreateFolder($folderPath) {
     }
 }
 
-// Função para upload de arquivos (salvando diretamente na raiz do projeto)
-function handleFileUpload($file) {
-    $uploadDir = "../../uploads/"; // Diretório na raiz do projeto
+// Função para upload de arquivos
+function handleFileUpload($file, $uploadDir) {
     checkAndCreateFolder($uploadDir);
 
     if ($file['error'] === UPLOAD_ERR_OK) {
@@ -45,10 +44,29 @@ try {
     $pdo = db_connect();
     $dados = [];
 
+    // Definição dos diretórios corretos para cada tabela e tipo de arquivo
+    $uploadDirs = [
+        'capas' => [
+            'capaDesktop' => "../../../vendor/uploads/capas/desktop/",
+            'capaMobile' => "../../../vendor/uploads/capas/mobile/"
+        ],
+        'videos' => [
+            'vidCapa' => "../../../vendor/uploads/videos/capa/",
+            'vidLink' => "../../../vendor/uploads/videos/arquivo/"
+        ],
+        'materiais' => [
+            'matCapa' => "../../../vendor/uploads/materiais/capa/",
+            'matLink' => "../../../vendor/uploads/materiais/arquivo/"
+        ]
+    ];
+
     // Processamento de arquivos enviados
     foreach ($_FILES as $campo => $file) {
         if (!empty($file['size'])) {
-            $dados[$campo] = handleFileUpload($file);
+            if (isset($uploadDirs[$tabela][$campo])) {
+                $uploadDir = $uploadDirs[$tabela][$campo];
+                $dados[$campo] = handleFileUpload($file, $uploadDir);
+            }
         }
     }
 
@@ -114,7 +132,7 @@ try {
         // Remover arquivos associados
         foreach ($registro as $campo => $valor) {
             if (!empty($valor)) {
-                @unlink("../../uploads/" . $valor);
+                @unlink("../../../vendor/uploads/$tabela/$valor");
             }
         }
 
