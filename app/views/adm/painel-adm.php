@@ -248,6 +248,10 @@ $ferramentas = fetchFerramentas();
                         <span class="nav_name">Leads</span> 
                     </a>
                 </div>
+                <a href="painel" onclick="logout()" class="nav_link"> 
+                    <i class='bx bx-log-out nav_icon'></i> 
+                    <span class="nav_name">Sair</span> 
+                </a>
             </div>
         </nav>
     </div>
