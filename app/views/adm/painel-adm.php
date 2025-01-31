@@ -384,21 +384,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById('header-toggle'),
           nav = document.getElementById('nav-bar'),
           mainContent = document.querySelector('main'),
-          header = document.getElementById('header');
+          header = document.getElementById('header'),
+          body = document.getElementById('body-pd');
 
-    // Definir largura padrão
-    const expandedWidth = "250px";  // Largura quando o menu está expandido
-    const collapsedWidth = "68px";   // Largura quando o menu está recolhido
+    // Definir valores padrão de largura do menu lateral
+    const expandedWidth = "250px";  // Menu expandido
+    const collapsedWidth = "68px";   // Menu recolhido
 
     toggle.addEventListener('click', () => {
         nav.classList.toggle('show');
         toggle.classList.toggle('bx-x');
 
-        // Ajustar margens do conteúdo principal e do botão sanduíche
+        // Ajuste de margens do conteúdo principal e do botão sanduíche
         if (nav.classList.contains('show')) {
+            body.classList.add('body-pd');  // Adiciona padding ao body
             mainContent.style.marginLeft = expandedWidth;
             header.style.marginLeft = expandedWidth;
         } else {
+            body.classList.remove('body-pd');  // Remove padding
             mainContent.style.marginLeft = collapsedWidth;
             header.style.marginLeft = collapsedWidth;
         }
@@ -426,8 +429,18 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    window.addEventListener('hashchange', showSectionFromHash);
+    window.addEventListener('hashchange', showSectionFromHash());
+
+    // Garantir que o layout esteja correto ao carregar a página
+    if (nav.classList.contains('show')) {
+        mainContent.style.marginLeft = expandedWidth;
+        header.style.marginLeft = expandedWidth;
+    } else {
+        mainContent.style.marginLeft = collapsedWidth;
+        header.style.marginLeft = collapsedWidth;
+    }
 });
+
 
     </script>
 </body>
