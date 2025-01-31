@@ -88,7 +88,6 @@ $ferramentas = fetchFerramentas();
             background-color: var(--first-color);
             padding: .5rem 1rem 0 0;
             transition: .5s;
-            z-index: var(--z-fixed);
         }
 
         .nav {
