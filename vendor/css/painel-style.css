@@ -42,7 +42,7 @@ a {
     justify-content: space-between;
     padding: 0 1rem;
     background-color: var(--white-color);
-    z-index: var(--z-fixed);
+    z-index: 99;
     transition: .5s;
 }
 
