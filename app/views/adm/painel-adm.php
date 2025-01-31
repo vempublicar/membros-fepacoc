@@ -47,9 +47,9 @@ $ferramentas = fetchFerramentas();
 
     <div class="d-flex">
         <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light sidebar">
-            <a href="#" class="d-flex align-items-center mb-3 mb-md-0 text-dark text-decoration-none">
-                <span class="fs-4">FEPACOC</span>
-            </a>
+        <button class="btn btn-dark" id="sidebarToggle">
+                        <i class="bi bi-list"></i>
+                    </button>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
@@ -73,12 +73,7 @@ $ferramentas = fetchFerramentas();
 
         <!-- Área de Trabalho -->
         <main id="mainContent" class="container-fluid p-4">
-                <div class="container-fluid">
-                    <button class="btn btn-dark" id="sidebarToggle">
-                        <i class="bi bi-list"></i>
-                    </button>
-                    <a class="navbar-brand mx-auto" href="#">Área Administrativa</a>
-                </div>
+            
             <section id="dashboard" class="content-section">
                 <h2>Dashboard</h2>
                 <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
