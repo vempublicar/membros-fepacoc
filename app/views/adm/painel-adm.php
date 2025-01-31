@@ -12,7 +12,7 @@ $ferramentas = fetchFerramentas();
 <html lang="pt-BR">
 
 <head>
-    <?php include_once "app/views/parts/head.php"; ?>
+    <?php // include_once "app/views/parts/head.php"; ?>
     <title>Área Administrativa - FEPACOC</title>
 
     <!-- Bootstrap CSS -->
