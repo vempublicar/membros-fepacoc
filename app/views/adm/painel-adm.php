@@ -24,7 +24,7 @@ $ferramentas = fetchFerramentas();
     <div class="container-fluid">
         <div class="row">
             <!-- Menu lateral com opção de recolher -->
-            <nav id="sidebar" class="bg-dark text-white d-flex flex-column min-vh-100 position-fixed">
+            <nav id="sidebar" class="bg-dark text-white d-flex flex-column  position-fixed">
                 <div class="p-3">
                     <button id="toggleMenu" class="btn btn-outline-light w-100 mb-3">
                         <i class="bi bi-list"></i>
