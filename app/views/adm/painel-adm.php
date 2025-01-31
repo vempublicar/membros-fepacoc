@@ -383,19 +383,24 @@ $ferramentas = fetchFerramentas();
 document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById('header-toggle'),
           nav = document.getElementById('nav-bar'),
-          bodypd = document.getElementById('body-pd'),
-          headerpd = document.getElementById('header'),
-          mainContent = document.querySelector('main'); 
+          mainContent = document.querySelector('main'),
+          header = document.getElementById('header');
+
+    // Definir largura padrão
+    const expandedWidth = "250px";  // Largura quando o menu está expandido
+    const collapsedWidth = "68px";   // Largura quando o menu está recolhido
 
     toggle.addEventListener('click', () => {
         nav.classList.toggle('show');
         toggle.classList.toggle('bx-x');
 
-        // Ajuste de espaçamento do main
+        // Ajustar margens do conteúdo principal e do botão sanduíche
         if (nav.classList.contains('show')) {
-            mainContent.style.marginLeft = "250px"; // Expande
+            mainContent.style.marginLeft = expandedWidth;
+            header.style.marginLeft = expandedWidth;
         } else {
-            mainContent.style.marginLeft = "68px"; // Recolhe
+            mainContent.style.marginLeft = collapsedWidth;
+            header.style.marginLeft = collapsedWidth;
         }
     });
 
@@ -423,6 +428,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener('hashchange', showSectionFromHash);
 });
+
     </script>
 </body>
 </html>
