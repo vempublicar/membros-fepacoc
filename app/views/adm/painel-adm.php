@@ -204,7 +204,8 @@ $ferramentas = fetchFerramentas();
         }
     </script>
     <script>
-        
+        document.addEventListener("DOMContentLoaded", function () {
+   
 
     function showSectionFromHash() {
         var hash = window.location.hash || "#dashboard";
