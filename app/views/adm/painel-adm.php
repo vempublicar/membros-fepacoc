@@ -55,7 +55,7 @@ $ferramentas = fetchFerramentas();
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
                     <a href="#dashboard" class="nav-link active text-light">
-                        <i class="bi bi-bar-chart"></i> Dashboard
+                        <i class="bi bi-bar-chart me-2"></i> Dashboard
                     </a>
                 </li>
                 <li><a href="#categorias" class="nav-link text-light"><i class="bi bi-list me-2"></i> Categorias</a></li>
