@@ -56,7 +56,6 @@ $ferramentas = fetchFerramentas();
             justify-content: space-between;
             padding: 0 1rem;
             background-color: var(--white-color);
-            z-index: var(--z-fixed);
             transition: .5s;
         }
 
