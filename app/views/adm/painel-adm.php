@@ -206,22 +206,7 @@ $ferramentas = fetchFerramentas();
         }
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const sidebarDesktop = document.getElementById("sidebarDesktop");
-            const sidebarMobile = document.getElementById("sidebarMobile");
-            const mainContent = document.getElementById("mainContent");
-            const toggleButton = document.getElementById("sidebarToggle");
-            const mobileToggle = document.getElementById("mobileMenuToggle");
-
-            function toggleSidebar() {
-                sidebarDesktop.classList.toggle("d-none");
-                sidebarMobile.classList.toggle("d-none");
-                mainContent.classList.toggle("expanded");
-            }
-
-            toggleButton.addEventListener("click", toggleSidebar);
-            mobileToggle.addEventListener("click", toggleSidebar);
-        });
+       
 
     function showSectionFromHash() {
         var hash = window.location.hash || "#dashboard";
