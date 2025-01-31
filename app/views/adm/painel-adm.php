@@ -12,10 +12,10 @@ include_once "app/views/parts/head.php"; ?>
 
 
 <body>
-    <div class="container">
+<div class="container-fluid">
         <div class="row">
-            <!-- Menu lateral fixo -->
-            <nav id="sidebar" class="bg-dark text-white col-2 min-vh-100">
+            <!-- Menu lateral fixo ocupando toda a altura da tela -->
+            <nav id="sidebar" class="col-md-2 col-lg-2 bg-dark text-white d-flex flex-column min-vh-100">
                 <div class="p-3">
                     <button id="toggleMenu" class="btn btn-outline-light w-100 mb-3">
                         <i class="bi bi-list"></i>
@@ -68,7 +68,7 @@ include_once "app/views/parts/head.php"; ?>
             </nav>
 
             <!-- Conteúdo principal -->
-            <main id="main-content" class="col-md-10 offset-md-2 col-lg-10 offset-lg-2 px-4">
+            <main id="main-content" class="col-md-10 col-lg-10 px-4">
                 <header class="mb-4">
                     <h1 class="text-center">Área Administrativa - FEPACOC</h1>
                 </header>
