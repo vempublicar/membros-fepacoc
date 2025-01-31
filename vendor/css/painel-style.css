@@ -1,331 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+
 :root {
-    /* Fontes */
-    --body-font: "Work Sans", sans-serif;
-    --bs-btn-font-family: "Work Sans", sans-serif;
-
-    /* Cores padrão (modo claro) */
-    --bs-blue: #4BA1A7;
-    --bs-red: #F0756C;
-    --bs-orange: #F5E9E9;
-    --bs-yellow: #EFEAEA;
-    --bs-green: #F5F8F1;
-    --bs-teal: #EFE8EF;
-    --bs-cyan: #F3F3F3;
-    --bs-black: #111111; 
-    --bs-white: #FFFFFF;
-    --bs-gray: #777777;
-
-    /* Links */
-    --bs-link-color: #111111;
-    --bs-link-hover-color: #F0756C;
-
-    /* Destaques e fundo */
-    --bs-primary: #F0756C;
-    --bs-body-color: #111111;   
-    --bs-info: #C3C3C3;
-    --swiper-pagination-color: #F0756C;
-
-    /* Tema base */
-    --background-color: #ffffff;
-    --text-color: #000000;
-    --accent-color: #4BA1A7;
-    --secondary-bg-color: #f5f5f5;
+    --header-height: 3rem;
+    --nav-width-collapsed: 68px;
+    --nav-width-expanded: 250px;
+    --first-color: #182433;
+    --first-color-light: #AFA5D9;
+    --white-color: #F7F6FB;
+    --body-font: 'Nunito', sans-serif;
+    --normal-font-size: 1rem;
+    --z-navbar: 100; /* Menu lateral */
+    --z-modal: 1050; /* Modal */
+    --z-backdrop: 1045; /* Backdrop */
 }
 
-.dark-mode {
-    /* Ajustes para modo escuro */
-    --bs-blue: #1E3A3A;
-    --bs-red: #D14B4B;
-    --bs-orange: #2D2D2D;
-    --bs-yellow: #3E3E3E;
-    --bs-green: #2A402A;
-    --bs-teal: #333333;
-    --bs-cyan: #444444;
-    --bs-black: #FFFFFF; 
-    --bs-white: #111111;
-    --bs-gray: #CCCCCC;
-
-    --bs-link-color: #FFFFFF;
-    --bs-link-hover-color: #D14B4B;
-
-    --bs-primary: #D14B4B;
-    --bs-body-color: #FFFFFF;   
-    --bs-info: #AAAAAA;
-
-    --background-color: #121212;
-    --text-color: #ffffff;
-    --accent-color: #1E88E5;
-    --secondary-bg-color: #222222;
+*, ::before, ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* Aplicação de temas */
-body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    font-family: var(--body-font);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-.exclusive-badge {
-    top: 10px;
-    right: 10px;
-    width: 40px; /* Ajuste o tamanho da coroa conforme necessário */
-    z-index: 10;
-}
-.video-container {
+/* ===== HEADER ===== */
+.header {
     width: 100%;
-    max-width: 360px; /* Ajuste conforme necessário */
-    aspect-ratio: 9 / 16;
-    overflow: hidden;
-}
-
-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.portfolio-item {
-    position: relative;
-}
-
-.exclusive-icon {
-    top: 10px;
-    left: 10px;
-    font-size: 1.5rem;
-    color: gold;
-    z-index: 10;
-}
-.text-light-emphasis {
-    color: var(--accent-color);
-}
-
-.text-dark-emphasis {
-    color: var(--text-color);
-}
-
-/* Botões */
-.btn-primary {
-    color: var(--bs-black);
-    background-color: var(--bs-orange);
-    border-color: var(--bs-orange);
-}
-
-.btn-primary:hover {
-    color: var(--bs-white);
-    background-color: var(--bs-black);
-    border-color: var(--bs-black);
-}
-
-/* Paginação */
-.pagination {
-    --bs-pagination-color: var(--bs-link-color);
-    --bs-pagination-bg: var(--secondary-bg-color);
-    --bs-pagination-hover-color: var(--bs-link-hover-color);
-    --bs-pagination-hover-bg: var(--bs-black);
-    --bs-pagination-active-color: var(--bs-black);
-    --bs-pagination-active-bg: var(--bs-orange);
-    display: flex;
-    padding-left: 0;
-    list-style: none;
-}
-
-/* Cores de fundo adicionais */
-.bg-gray { background-color: var(--bs-gray) !important; }
-.bg-yellow { background-color: var(--bs-yellow) !important; }
-.bg-green { background-color: var(--bs-green) !important; }
-.bg-teal { background-color: var(--bs-teal) !important; }
-
-/* Navbar */
-.navbar svg {
-    color: var(--text-color);
-}
-
-/* Banner */
-.banner {
-    color: var(--text-color);
-}
-
-/* Linha e espaçamento */
-p.a { line-height: 10%; }
-.lh-small { line-height: 80%; }
-.ls-4 { letter-spacing: 0.2rem; }
-
-/* Testemunhos */
-.testimonial-card {
-    background: var(--bs-black);
-    color: var(--bs-white);
-}
-.testimonial-card .postd {
-    color: var(--bs-red);
-}
-
-/* FAQ */
-.accordion-item {
-    background: var(--bs-yellow);
-}
-.accordion-button {
-    font-family: var(--body-font);
-    background: var(--bs-yellow);
-}
-.accordion-button:focus {
-    border: none;
-    outline: 0;
-    box-shadow: none;
-}
-.accordion-button:not(.collapsed) {
-    background: none;
-    box-shadow: none;
-}
-.accordion-button::after {
-    content: '';
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='m12 13.171l4.95-4.95l1.414 1.415L12 16L5.636 9.636L7.05 8.222z'/%3E%3C/svg%3E");
-}
-.accordion-button:not(.collapsed)::after {
-    transform: rotate(180deg);
-}
-
-/* Blog */
-.page-link {
-    color: var(--bs-black);
-}
-.page-link:hover {
-    color: var(--bs-pagination-hover-color);
-    background-color: var(--bs-pagination-hover-bg);
-}
-.page-link.active {
-    color: var(--bs-pagination-active-color);
-    background-color: var(--bs-pagination-active-bg);
-}
-.video-lightbox {
+    height: var(--header-height);
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
-    justify-content: center;
-    z-index: 1050;
+    justify-content: space-between;
+    padding: 0 1rem;
+    background-color: var(--white-color);
+    z-index: 1020;
+    transition: .5s;
 }
-
-.video-lightbox .btn-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 1100;
-}
-
-.video-container {
-    max-width: 90%;
-    max-height: 80%;
-    width: auto;
-    height: auto;
-}
-
-.video-element {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    max-width: 100%;
-    max-height: 100%;
-}
-.star-rating {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    color: #ccc;
-    cursor: pointer;
-  }
-  
-  .star-rating .star.active {
-    color: #ffd700;
-  }
-  .card-header {
-    background-color: #007bff;
-    color: #fff;
-    border-bottom: none;
-}
-.card-body {
-    background-color: #f8f9fa;
-    border-bottom-left-radius: .5rem;
-    border-bottom-right-radius: .5rem;
-}
-.card-price {
-    font-size: 40px;
-    font-weight: bold;
-}
-.price-discount {
-    font-size: 14px;
-    color: #28a745;
-    font-weight: bold;
-}
-.period {
-    font-size: 16px;
-    color: #6c757d;
-}
-.card {
-    border-radius: .5rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,.1);
-    transition: transform .3s;
-}
-.card:hover {
-    transform: translateY(-5px);
-}
-.btn-primary, .btn-success, .btn-danger {
-    font-size: 16px;
-    font-weight: bold;
-    padding: 10px 20px;
-}
-.list-group-item {
-    border: none;
-    padding: 5px 20px;
-}
-.list-group-item i {
-    color: green;
-    margin-right: 10px;
-}
-.fundo-difuso {
-    background: url('../../vendor/images/fundo.jpg') no-repeat center center;
-    background-size: cover;
-    position: relative;
-    overflow: hidden;
-}
-.fundo-difuso-login {
-    background: url('../../vendor/images/login.jpg') no-repeat center center;
-    background-size: cover;
-    position: relative;
-    overflow: hidden;
-}
-
-.custom-divider {
-    width: 70%;
-    height: 5px; /* Espessura da linha */
-    background-color: #9796a0; /* Cor da linha */
-    margin: 20px auto; /* Centraliza horizontalmente */
-    border-radius: 2px; /* Bordas arredondadas (opcional) */
-}
-
-        /* Ajuste para que o menu recolhido tenha largura menor */
-        #sidebar.collapsed {
-            width: 60px;
-        }
-
-        #sidebar.collapsed .menu-text {
-            display: none;
-        }
-
-        #main-content {
-            transition: margin-left 0.3s ease;
-        }
-
-        #sidebar {
-            width: 250px;
-            transition: width 0.3s ease;
-        }
-
-        #toggleMenu {
-            cursor: pointer;
-        }
