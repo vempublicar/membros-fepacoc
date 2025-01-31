@@ -219,7 +219,7 @@ $ferramentas = fetchFerramentas();
                         <i class='bx bx-grid-alt nav_icon'></i> 
                         <span class="nav_name">Dashboard</span> 
                     </a>
-                    <a href="#videos" class="nav_link"> 
+                    <a href="#categorias" class="nav_link"> 
                         <i class='bx bx-food-menu nav_icon'></i> 
                         <span class="nav_name">Categorias</span> 
                     </a>
