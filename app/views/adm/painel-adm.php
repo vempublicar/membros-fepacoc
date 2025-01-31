@@ -381,31 +381,28 @@ $ferramentas = fetchFerramentas();
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const toggle = document.getElementById('header-toggle'),
-          nav = document.getElementById('nav-bar'),
-          mainContent = document.querySelector('main'),
-          header = document.getElementById('header'),
-          body = document.getElementById('body-pd');
+            const showNavbar = (toggleId, navId, bodyId, headerId) =>{
+const toggle = document.getElementById(toggleId),
+nav = document.getElementById(navId),
+bodypd = document.getElementById(bodyId),
+headerpd = document.getElementById(headerId)
 
-    // Definir valores padrão de largura do menu lateral
-    const expandedWidth = "250px";  // Menu expandido
-    const collapsedWidth = "68px";   // Menu recolhido
+// Validate that all variables exist
+if(toggle && nav && bodypd && headerpd){
+toggle.addEventListener('click', ()=>{
+// show navbar
+nav.classList.toggle('show')
+// change icon
+toggle.classList.toggle('bx-x')
+// add padding to body
+bodypd.classList.toggle('body-pd')
+// add padding to header
+headerpd.classList.toggle('body-pd')
+})
+}
+}
 
-    toggle.addEventListener('click', () => {
-        nav.classList.toggle('show');
-        toggle.classList.toggle('bx-x');
-
-        // Ajuste de margens do conteúdo principal e do botão sanduíche
-        if (nav.classList.contains('show')) {
-            body.classList.add('body-pd');  // Adiciona padding ao body
-            mainContent.style.marginLeft = expandedWidth;
-            header.style.marginLeft = expandedWidth;
-        } else {
-            body.classList.remove('body-pd');  // Remove padding
-            mainContent.style.marginLeft = collapsedWidth;
-            header.style.marginLeft = collapsedWidth;
-        }
-    });
+showNavbar('header-toggle','nav-bar','body-pd','header')
 
             function showSectionFromHash() {
                 var hash = window.location.hash || "#dashboard";
