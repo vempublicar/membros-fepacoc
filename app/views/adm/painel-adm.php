@@ -160,24 +160,33 @@ $ferramentas = fetchFerramentas();
         .height-100 {
             height: 100vh;
         }
-        .modal {
-            z-index: 1050; /* Mantém acima de outros elementos */
-            align-items: center;
-            justify-content: center;
-        }
+        /* Ajuste para garantir que os modais fiquem sempre acima */
+.modal {
+    z-index: 1060 !important; /* Garante que o modal fique acima do menu */
+    display: flex !important; /* Assegura que ele seja visível */
+    align-items: center;
+    justify-content: center;
+}
 
-        /* Garante que o backdrop do modal cubra tudo */
-        .modal-backdrop {
-            z-index: 1040; /* Mantém atrás do modal */
-        }
+/* Garante que o backdrop cubra tudo corretamente */
+.modal-backdrop {
+    z-index: 1055 !important; /* Mantém atrás do modal */
+}
 
-        /* Ajusta o offcanvas para aparecer corretamente no lado direito */
-        .offcanvas-end {
-            width: 400px; /* Define a largura do offcanvas */
-            right: 0;
-            left: auto !important;
-            z-index: 1050; /* Mantém acima dos demais elementos */
-        }
+/* Ajusta o Offcanvas para ser exibido corretamente */
+.offcanvas {
+    z-index: 1060 !important; /* Garante que o Offcanvas esteja acima */
+}
+
+/* Força que o modal e o backdrop não fiquem limitados pelo menu */
+.l-navbar {
+    z-index: 1030 !important; /* Garante que o menu fique abaixo dos modais */
+}
+
+/* Evita que o modal fique preso ao menu */
+body.modal-open {
+    overflow: hidden !important;
+}
         @media screen and (min-width: 768px) {
             body {
                 margin: calc(var(--header-height) + 1rem) 0 0 0;
