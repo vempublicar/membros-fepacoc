@@ -24,7 +24,7 @@ $ferramentas = fetchFerramentas();
 </head>
 
 <body id="body-pd">
-<div class="modal fade" id="accessModal" tabindex="-1" aria-labelledby="accessModalLabel" aria-hidden="true">
+    <div class="modal fade" id="accessModal" tabindex="-1" aria-labelledby="accessModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -43,91 +43,71 @@ $ferramentas = fetchFerramentas();
             </div>
         </div>
     </div>
-    <header class="header" id="header">
-        <div class="header_toggle"> 
-            <i class='bx bx-menu' id="header-toggle"></i> 
-        </div>
-        <div class="header_img"> 
-            <img src="https://i.imgur.com/hczKIze.jpg" alt=""> 
+    <header class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <button class="btn btn-dark" id="sidebarToggle">
+                <i class="bi bi-list"></i>
+            </button>
+            <a class="navbar-brand mx-auto" href="#">Área Administrativa</a>
+            <img src="https://i.imgur.com/hczKIze.jpg" alt="Perfil" class="rounded-circle" width="40" height="40">
         </div>
     </header>
 
-    <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
-            <div> 
-                <a href="#" class="nav_logo"> 
-                    <i class='bx bx-layer nav_logo-icon'></i> 
-                    <span class="nav_logo-name">FEPACOC</span> 
-                </a>
-                <div class="nav_list">
-                    <a href="#dashboard" class="nav_link active"> 
-                        <i class='bx bx-grid-alt nav_icon'></i> 
-                        <span class="nav_name">Dashboard</span> 
+    <div class="d-flex">
+        <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light sidebar">
+            <a href="#" class="d-flex align-items-center mb-3 mb-md-0 text-dark text-decoration-none">
+                <span class="fs-4">FEPACOC</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active">
+                        <i class="bi bi-house-door me-2"></i> Dashboard
                     </a>
-                    <a href="#categorias" class="nav_link"> 
-                        <i class='bx bx-food-menu nav_icon'></i> 
-                        <span class="nav_name">Categorias</span> 
-                    </a>
-                    <a href="#videos" class="nav_link"> 
-                        <i class='bx bx-film nav_icon'></i> 
-                        <span class="nav_name">Vídeos</span> 
-                    </a>
-                    <a href="#materiais" class="nav_link"> 
-                        <i class='bx bx-folder nav_icon'></i> 
-                        <span class="nav_name">Materiais</span> 
-                    </a>
-                    <a href="#produtos" class="nav_link"> 
-                        <i class='bx bx-box nav_icon'></i> 
-                        <span class="nav_name">Produtos</span> 
-                    </a>
-                    <a href="#ferramentas" class="nav_link"> 
-                        <i class='bx bx-wrench nav_icon'></i> 
-                        <span class="nav_name">Ferramentas</span> 
-                    </a>
-                    <a href="#capas" class="nav_link"> 
-                        <i class='bx bx-image nav_icon'></i> 
-                        <span class="nav_name">Capas</span> 
-                    </a>
-                    <a href="#leads" class="nav_link"> 
-                        <i class='bx bx-user nav_icon'></i> 
-                        <span class="nav_name">Leads</span> 
-                    </a>
-                </div>
-                <a href="painel" onclick="logout()" class="nav_link"> 
-                    <i class='bx bx-log-out nav_icon'></i> 
-                    <span class="nav_name">Sair</span> 
-                </a>
-            </div>
-        </nav>
-    </div>
+                </li>
+                <li><a href="#categorias" class="nav-link text-dark"><i class="bi bi-list me-2"></i> Categorias</a></li>
+                <li><a href="#videos" class="nav-link text-dark"><i class="bi bi-play-btn me-2"></i> Vídeos</a></li>
+                <li><a href="#materiais" class="nav-link text-dark"><i class="bi bi-folder me-2"></i> Materiais</a></li>
+                <li><a href="#produtos" class="nav-link text-dark"><i class="bi bi-box me-2"></i> Produtos</a></li>
+                <li><a href="#ferramentas" class="nav-link text-dark"><i class="bi bi-tools me-2"></i> Ferramentas</a></li>
+                <li><a href="#capas" class="nav-link text-dark"><i class="bi bi-image me-2"></i> Capas</a></li>
+                <li><a href="#leads" class="nav-link text-dark"><i class="bi bi-people me-2"></i> Leads</a></li>
+            </ul>
+            <hr>
+            <a href="#" class="nav-link text-dark" onclick="logout()">
+                <i class="bi bi-box-arrow-right me-2"></i> Sair
+            </a>
+        </div>
 
-    <main class="col-md-12 ml-sm-auto col-lg-12 px-4">
-        <section id="dashboard" class="content-section">
-            <h2>Dashboard</h2>
-            <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
-        </section>
-        <section id="videos" class="content-section" style="display: none;">
-            <?php include "app/views/adm/content/videos.php" ?>
-        </section>
-        <section id="materiais" class="content-section" style="display: none;">
-            <?php include "app/views/adm/content/materiais.php" ?>
-        </section>
-        <section id="produtos" class="content-section" style="display: none;">
-            <?php include "app/views/adm/content/produtos.php" ?>
-        </section>
-        <section id="leads" class="content-section" style="display: none;">
-            <?php include "app/views/adm/content/leads.php" ?>
-        </section>
-        <section id="ferramentas" class="content-section" style="display: none;">
-            <?php include "app/views/adm/content/ferramentas.php" ?>
-        </section>
-        <section id="capas" class="content-section" style="display: none;">
-            <?php include "app/views/adm/content/capas.php" ?>
-        </section>
-        <section id="categorias" class="content-section" style="display: none;">
-            <?php include "app/views/adm/content/categorias.php" ?>
-        </section>
-    </main>
+        <!-- Área de Trabalho -->
+        <main id="mainContent" class="container-fluid p-4">
+            <section id="dashboard" class="content-section">
+                <h2>Dashboard</h2>
+                <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
+            </section>
+            <section id="videos" class="content-section" style="display: none;">
+                <?php include "app/views/adm/content/videos.php" ?>
+            </section>
+            <section id="materiais" class="content-section" style="display: none;">
+                <?php include "app/views/adm/content/materiais.php" ?>
+            </section>
+            <section id="produtos" class="content-section" style="display: none;">
+                <?php include "app/views/adm/content/produtos.php" ?>
+            </section>
+            <section id="leads" class="content-section" style="display: none;">
+                <?php include "app/views/adm/content/leads.php" ?>
+            </section>
+            <section id="ferramentas" class="content-section" style="display: none;">
+                <?php include "app/views/adm/content/ferramentas.php" ?>
+            </section>
+            <section id="capas" class="content-section" style="display: none;">
+                <?php include "app/views/adm/content/capas.php" ?>
+            </section>
+            <section id="categorias" class="content-section" style="display: none;">
+                <?php include "app/views/adm/content/categorias.php" ?>
+            </section>
+        </main>
+    </div>
     
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -208,47 +188,34 @@ $ferramentas = fetchFerramentas();
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const showNavbar = (toggleId, navId, bodyId, headerId) =>{
-const toggle = document.getElementById(toggleId),
-nav = document.getElementById(navId),
-bodypd = document.getElementById(bodyId),
-headerpd = document.getElementById(headerId)
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("mainContent");
+            const toggleButton = document.getElementById("sidebarToggle");
 
-// Validate that all variables exist
-if(toggle && nav && bodypd && headerpd){
-toggle.addEventListener('click', ()=>{
-// show navbar
-nav.classList.toggle('show')
-// change icon
-toggle.classList.toggle('bx-x')
-// add padding to body
-bodypd.classList.toggle('body-pd')
-// add padding to header
-headerpd.classList.toggle('body-pd')
-})
-}
-}
-
-showNavbar('header-toggle','nav-bar','body-pd','header')
+            toggleButton.addEventListener("click", function () {
+                sidebar.classList.toggle("collapsed");
+                mainContent.classList.toggle("expanded");
+            });
 
             function showSectionFromHash() {
                 var hash = window.location.hash || "#dashboard";
-                document.querySelectorAll('.content-section').forEach(el => el.style.display = 'none');
-                document.querySelector(hash).style.display = 'block';
-                document.querySelectorAll('.nav_link').forEach(el => el.classList.remove('active'));
-                document.querySelector('a[href="' + hash + '"]').classList.add('active');
+                document.querySelectorAll(".content-section").forEach(el => el.style.display = "none");
+                document.querySelector(hash).style.display = "block";
+                document.querySelectorAll(".nav-link").forEach(el => el.classList.remove("active"));
+                document.querySelector(`a[href="${hash}"]`).classList.add("active");
             }
 
             showSectionFromHash();
-            document.querySelectorAll('.nav_link').forEach(el => {
-                el.addEventListener('click', function (e) {
+
+            document.querySelectorAll(".nav-link").forEach(el => {
+                el.addEventListener("click", function (e) {
                     e.preventDefault();
-                    window.location.hash = this.getAttribute('href');
+                    window.location.hash = this.getAttribute("href");
                     showSectionFromHash();
                 });
             });
 
-            window.addEventListener('hashchange', showSectionFromHash);
+            window.addEventListener("hashchange", showSectionFromHash);
         });
     </script>
 </body>
