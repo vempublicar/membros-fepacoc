@@ -42,13 +42,13 @@ $ferramentas = fetchFerramentas();
                             <a class="nav-link" href="#produtos">Gerenciar Produtos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#aulas">Gerenciar Aulas</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="#ferramentas">Ferramentas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#leads">Lista Leads</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#capas">Capas</a>
                         </li>
                     </ul>
                     <a href="painel" onclick="logout()" class="btn btn-danger w-100" style=" bottom: 0;">Sair</a>
@@ -70,8 +70,8 @@ $ferramentas = fetchFerramentas();
                 <section id="produtos" class="content-section" style="display: none;">
                     <?php include "app/views/adm/content/produtos.php" ?>
                 </section>
-                <section id="aulas" class="content-section" style="display: none;">
-                    <?php include "app/views/adm/content/aulas.php" ?>
+                <section id="capas" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/capas.php" ?>
                 </section>
                 <section id="leads" class="content-section" style="display: none;">
                     <?php include "app/views/adm/content/leads.php" ?>
