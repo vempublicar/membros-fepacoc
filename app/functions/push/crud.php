@@ -58,14 +58,14 @@ try {
             'matCapa' => "../../../vendor/uploads/materiais/capa/",
             'matLink' => "../../../vendor/uploads/materiais/arquivo/"
         ],
-        'produto' => [
-            'proCapa' => "../../../vendor/uploads/produto/"
+        'produtos' => [
+            'proCapa' => "../../../vendor/uploads/produtos/"
         ],
-        'ferramenta' => [
-            'ferCapa' => "../../../vendor/uploads/ferramenta/"
+        'ferramentas' => [
+            'ferCapa' => "../../../vendor/uploads/ferramentas/"
         ],
-        'categoria' => [
-            'catCapa' => "../../../vendor/uploads/categoria/"
+        'categorias' => [
+            'catCapa' => "../../../vendor/uploads/categorias/"
         ]
     ];
 
