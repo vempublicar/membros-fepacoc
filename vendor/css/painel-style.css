@@ -1,5 +1,6 @@
-/* Sidebar Desktop */
-.sidebar {
+
+/* Sidebar */
+.sidebar, .mobile-sidebar {
     width: 280px;
     height: 100vh;
     transition: width 0.3s ease-in-out;
@@ -7,17 +8,18 @@
 
 .mobile-sidebar {
     width: 4.5rem;
-    height: 100vh;
-    transition: width 0.3s ease-in-out;
 }
 
-.mobile-sidebar .nav-link {
-    padding: 12px;
-    text-align: center;
+.sidebar .nav-link, .mobile-sidebar .nav-link {
+    color: white !important;
 }
 
-.mobile-sidebar .nav-link i {
-    font-size: 24px;
+.sidebar .nav-link:hover, .mobile-sidebar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar hr, .mobile-sidebar hr {
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Ajustar área de trabalho */
