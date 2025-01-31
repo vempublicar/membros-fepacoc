@@ -271,6 +271,80 @@ $ferramentas = fetchFerramentas();
             });
         });
     </script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accessModal = new bootstrap.Modal(document.getElementById('accessModal'), {
+                backdrop: 'static',
+                keyboard: false
+            });
+            const token = localStorage.getItem('adminAccessToken');
+
+            if (token) {
+                // Verifica o token no servidor
+                validateToken(token, accessModal);
+            } else {
+                // Exibe o modal se não houver token
+                accessModal.show();
+            }
+
+            // Valida a senha e salva o token
+            document.getElementById('accessForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const password = document.getElementById('adminPassword').value;
+
+                fetch('app/functions/validate-access.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            password: password
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            // Salva o token no localStorage
+                            localStorage.setItem('adminAccessToken', data.token);
+                            accessModal.hide();
+                        } else {
+                            document.getElementById('errorFeedback').style.display = 'block';
+                        }
+                    })
+                    .catch(error => console.error('Erro:', error));
+            });
+        });
+
+        // Função para validar o token no servidor
+        function validateToken(token, accessModal) {
+            fetch('app/functions/validate-token.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: token
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status !== 'success') {
+                        // Token inválido: Exibe o modal para senha
+                        localStorage.removeItem('adminAccessToken'); // Remove token inválido
+                        accessModal.show();
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    accessModal.show();
+                });
+        }
+        function logout() {
+            localStorage.removeItem('adminAccessToken');
+            location.reload(); // Recarrega a página
+        }
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const sidebar = document.getElementById('sidebar');
@@ -313,6 +387,40 @@ $ferramentas = fetchFerramentas();
             localStorage.removeItem('adminAccessToken');
             location.reload();
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Função para mostrar a seção com base no fragmento da URL
+            function showSectionFromHash() {
+                var hash = window.location.hash; // Pega o fragmento da URL
+                if (hash) {
+                    $('.content-section').hide(); // Esconde todas as seções
+                    $(hash).show(); // Mostra a seção com o id correspondente ao fragmento
+                    $('.nav-link').removeClass('active'); // Remove a classe 'active' de todos os links
+                    $('a[href="' + hash + '"]').addClass('active'); // Adiciona a classe 'active' ao link correspondente
+                } else {
+                    // Se não houver hash, mostra a seção padrão
+                    $('.content-section').first().show();
+                    $('.nav-link').first().addClass('active');
+                }
+            }
+
+            // Chamada inicial para mostrar a seção quando a página carrega
+            showSectionFromHash();
+
+            // Evento de clique para os links do menu
+            $('.nav-link').click(function(e) {
+                e.preventDefault();
+                var targetId = $(this).attr('href');
+                window.location.hash = targetId; // Atualiza o hash na URL
+                showSectionFromHash(); // Atualiza a visibilidade da seção
+            });
+
+            // Evento para lidar com mudanças no hash (quando o usuário utiliza o botão de voltar do navegador)
+            $(window).on('hashchange', function() {
+                showSectionFromHash();
+            });
+        });
     </script>
 </body>
 </html>
