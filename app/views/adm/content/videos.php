@@ -68,6 +68,7 @@
                                     data-vidstatus="<?= htmlspecialchars($video['vidStatus']) ?>"
                                     data-vidsituacao="<?= htmlspecialchars($video['vidSituacao']) ?>"
                                     data-vidformulario="<?= htmlspecialchars($video['vidFormulario'] ?? '') ?>"
+                                    data-vidlinkexterno="<?= htmlspecialchars($video['vidLinkExterno'] ?? '') ?>"
                                     data-vidcapa="<?= htmlspecialchars($video['vidCapa'] ?? '') ?>"
                                     data-vidlink="<?= htmlspecialchars($video['vidLink'] ?? '') ?>"
                                     onclick="editarVideo(this)"></i>
@@ -194,7 +195,10 @@
                 <label for="vidCapa" class="form-label">Capa</label>
                 <input type="file" class="form-control" id="vidCapa" name="vidCapa" accept="image/*">
             </div>
-
+            <div class="col-12 mb-3">
+                    <label for="vidLinkExterno" class="form-label">Link Externo do Vídeo</label>
+                    <input type="url" class="form-control" id="vidLinkExterno" name="vidLinkExterno" placeholder="https://">
+            </div>
             <div class="mb-3">
                 <label for="vidLink" class="form-label">Vídeo (MP4)</label>
                 <input type="file" class="form-control" id="vidLink" name="vidLink" accept="video/mp4">
@@ -215,6 +219,7 @@ function editarVideo(element) {
     document.getElementById("vidDesc").value = element.getAttribute("data-viddesc");
     document.getElementById("vidSetor").value = element.getAttribute("data-vidsetor");
     document.getElementById("vidFormulario").value = element.getAttribute("data-vidformulario");
+    document.getElementById("vidLinkExterno").value = element.getAttribute("data-vidlinkexterno");
     document.getElementById("vidCat").value = element.getAttribute("data-vidcat");
     document.getElementById("vidProdutor").value = element.getAttribute("data-vidprodutor");
     document.getElementById("vidFormato").value = element.getAttribute("data-vidformato");

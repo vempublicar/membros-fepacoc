@@ -9,8 +9,15 @@ function checkAndCreateFolder($folderPath) {
     }
 }
 
-// Função para upload de arquivos em diretórios específicos
-function handleFileUpload($file, $uploadDir) {
+// Função para excluir arquivos antigos
+function deleteOldFile($oldFile, $uploadDir) {
+    if (!empty($oldFile) && file_exists($uploadDir . $oldFile)) {
+        unlink($uploadDir . $oldFile);
+    }
+}
+
+// Função para upload de arquivos
+function handleFileUpload($file, $uploadDir, $oldFile = null) {
     checkAndCreateFolder($uploadDir);
 
     if ($file['error'] === UPLOAD_ERR_OK) {
@@ -19,10 +26,12 @@ function handleFileUpload($file, $uploadDir) {
         $destination = $uploadDir . $filename;
 
         if (move_uploaded_file($file['tmp_name'], $destination)) {
-            return $filename; // Retorna o nome do arquivo salvo
+            // Exclui arquivo antigo, se existir
+            deleteOldFile($oldFile, $uploadDir);
+            return $filename;
         }
     }
-    return null;
+    return $oldFile;
 }
 
 // Processamento do CRUD
@@ -44,28 +53,47 @@ try {
     $pdo = db_connect();
     $dados = [];
 
-    // Coleta os dados do formulário
+    // Detecta os novos padrões de colunas
     foreach ($_POST as $chave => $valor) {
         if (!in_array($chave, ['action', 'tabela', 'id'])) {
             $dados[$chave] = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
         }
     }
 
-    // Diretórios específicos para imagens
-    $dirDesktop = "../../../uploads/capas/desktop/";
-    $dirMobile = "../../../uploads/capas/mobile/";
+    // Estrutura de diretórios por tabela
+    $uploadDirs = [
+        'capas' => [
+            'desktop' => "vendor/uploads/$tabela/desktop/",
+            'mobile' => "vendor/uploads/$tabela/mobile/"
+        ],
+        'videos' => [
+            'capa' => "vendor/uploads/$tabela/capa/",
+            'arquivo' => "vendor/uploads/$tabela/arquivo/"
+        ],
+        'materiais' => [
+            'capa' => "vendor/uploads/$tabela/capa/",
+            'arquivo' => "vendor/uploads/$tabela/arquivo/"
+        ]
+    ];
 
-    // Upload da imagem desktop
-    if (!empty($_FILES['imagem_desktop']['size'])) {
-        $dados['imagem_desktop'] = handleFileUpload($_FILES['imagem_desktop'], $dirDesktop);
+    // Processamento de arquivos enviados
+    foreach ($_FILES as $campo => $file) {
+        if (!empty($file['size'])) {
+            // Define a pasta correta para upload com base no campo do formulário
+            if ($tabela === 'capas' && in_array($campo, ['capaDesktop', 'capaMobile'])) {
+                $uploadDir = $uploadDirs['capas'][$campo === 'capaDesktop' ? 'desktop' : 'mobile'];
+            } elseif ($tabela === 'videos' && in_array($campo, ['vidCapa', 'vidLink'])) {
+                $uploadDir = $uploadDirs['videos'][$campo === 'vidCapa' ? 'capa' : 'arquivo'];
+            } elseif ($tabela === 'materiais' && in_array($campo, ['matCapa', 'matLink'])) {
+                $uploadDir = $uploadDirs['materiais'][$campo === 'matCapa' ? 'capa' : 'arquivo'];
+            } else {
+                continue;
+            }
+
+            $dados[$campo] = handleFileUpload($file, $uploadDir, $_POST["old_$campo"] ?? null);
+        }
     }
 
-    // Upload da imagem mobile
-    if (!empty($_FILES['imagem_mobile']['size'])) {
-        $dados['imagem_mobile'] = handleFileUpload($_FILES['imagem_mobile'], $dirMobile);
-    }
-
-    // CRUD: Criação, atualização ou exclusão
     if ($action === 'create') {
         // Construção da query SQL dinâmica
         $colunas = implode(", ", array_keys($dados));
@@ -75,7 +103,7 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($dados);
 
-        $_SESSION['message'] = "Capa adicionada com sucesso!";
+        $_SESSION['message'] = 'Registro criado com sucesso!';
         header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "#$tabela");
         exit();
 
@@ -94,7 +122,7 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($dados);
 
-        $_SESSION['message'] = "Capa atualizada com sucesso!";
+        $_SESSION['message'] = 'Registro atualizado com sucesso!';
         header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "#$tabela");
         exit();
 
@@ -105,41 +133,22 @@ try {
             exit();
         }
 
-        // Busca as imagens associadas antes de excluir
-        $stmt = $pdo->prepare("SELECT imagem_desktop, imagem_mobile FROM `$tabela` WHERE id = :id");
+        // Deletar o registro do banco
+        $sql = "DELETE FROM `$tabela` WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
-        $capa = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($capa) {
-            // Remove os arquivos físicos das imagens
-            if (!empty($capa['imagem_desktop']) && file_exists($dirDesktop . $capa['imagem_desktop'])) {
-                unlink($dirDesktop . $capa['imagem_desktop']);
-            }
-
-            if (!empty($capa['imagem_mobile']) && file_exists($dirMobile . $capa['imagem_mobile'])) {
-                unlink($dirMobile . $capa['imagem_mobile']);
-            }
-
-            // Deletar o registro do banco
-            $sql = "DELETE FROM `$tabela` WHERE id = :id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(['id' => $id]);
-
-            $_SESSION['message'] = "Capa excluída com sucesso!";
-        } else {
-            $_SESSION['error'] = "Erro ao excluir a capa.";
-        }
-
+        $_SESSION['message'] = 'Registro excluído com sucesso!';
         header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "#$tabela");
         exit();
     }
 
+    $_SESSION['message'] = 'Operação realizada com sucesso!';
     header("Location: " . $_SERVER['HTTP_REFERER'] . "#$tabela");
     exit();
 
 } catch (Exception $e) {
-    $_SESSION['error'] = "Erro ao processar a requisição: " . $e->getMessage();
+    $_SESSION['error'] = "Erro: " . $e->getMessage();
     header("Location: " . $_SERVER['HTTP_REFERER'] . "#erro");
     exit();
 }
-?>
