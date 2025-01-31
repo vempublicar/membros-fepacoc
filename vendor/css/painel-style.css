@@ -3,18 +3,47 @@
     width: 280px;
     height: 100vh;
     transition: width 0.3s ease-in-out;
+    white-space: nowrap; /* Evita que os textos quebrem */
 }
 
 .sidebar.collapsed {
     width: 80px;
 }
 
-.sidebar .nav-link i {
-    font-size: 20px;
-}
-
+/* Ocultar os textos ao recolher o menu */
 .sidebar.collapsed .nav-link span {
     display: none;
+}
+
+.sidebar.collapsed .dropdown strong {
+    display: none;
+}
+
+/* Centralizar os ícones no modo recolhido */
+.sidebar .nav-link {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .nav-link i {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.sidebar.collapsed .nav-link i {
+    margin-right: 0; /* Remover espaçamento ao recolher */
+    text-align: center;
+    width: 100%;
+}
+
+/* Ajustar dropdown ao recolher */
+.sidebar .dropdown a {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar.collapsed .dropdown a {
+    justify-content: center;
 }
 
 /* Área de Trabalho */

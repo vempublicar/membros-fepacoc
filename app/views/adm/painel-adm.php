@@ -188,35 +188,35 @@ $ferramentas = fetchFerramentas();
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const sidebar = document.getElementById("sidebar");
-            const mainContent = document.getElementById("mainContent");
-            const toggleButton = document.getElementById("sidebarToggle");
+    const sidebar = document.getElementById("sidebar");
+    const mainContent = document.getElementById("mainContent");
+    const toggleButton = document.getElementById("sidebarToggle");
 
-            toggleButton.addEventListener("click", function () {
-                sidebar.classList.toggle("collapsed");
-                mainContent.classList.toggle("expanded");
-            });
+    toggleButton.addEventListener("click", function () {
+        sidebar.classList.toggle("collapsed");
+        mainContent.classList.toggle("expanded");
+    });
 
-            function showSectionFromHash() {
-                var hash = window.location.hash || "#dashboard";
-                document.querySelectorAll(".content-section").forEach(el => el.style.display = "none");
-                document.querySelector(hash).style.display = "block";
-                document.querySelectorAll(".nav-link").forEach(el => el.classList.remove("active"));
-                document.querySelector(`a[href="${hash}"]`).classList.add("active");
-            }
+    function showSectionFromHash() {
+        var hash = window.location.hash || "#dashboard";
+        document.querySelectorAll(".content-section").forEach(el => el.style.display = "none");
+        document.querySelector(hash).style.display = "block";
+        document.querySelectorAll(".nav-link").forEach(el => el.classList.remove("active"));
+        document.querySelector(`a[href="${hash}"]`).classList.add("active");
+    }
 
+    showSectionFromHash();
+
+    document.querySelectorAll(".nav-link").forEach(el => {
+        el.addEventListener("click", function (e) {
+            e.preventDefault();
+            window.location.hash = this.getAttribute("href");
             showSectionFromHash();
-
-            document.querySelectorAll(".nav-link").forEach(el => {
-                el.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    window.location.hash = this.getAttribute("href");
-                    showSectionFromHash();
-                });
-            });
-
-            window.addEventListener("hashchange", showSectionFromHash);
         });
+    });
+
+    window.addEventListener("hashchange", showSectionFromHash);
+});
     </script>
 </body>
 </html>
