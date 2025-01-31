@@ -48,7 +48,7 @@ $ferramentas = fetchFerramentas();
     <div class="d-flex">
         <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-dark text-light sidebar d-none d-md-flex" style="height: 100vh;">
             <a href="#" class="d-flex align-items-center mb-3 mb-md-0 text-light text-decoration-none">
-                <span class="fs-4">FEPACOC</span>
+                <span class="fs-4">ADM</span>
             </a>
             <hr class="border-secondary">
             <ul class="nav nav-pills flex-column mb-auto">
