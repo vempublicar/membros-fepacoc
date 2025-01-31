@@ -247,7 +247,25 @@ $ferramentas = fetchFerramentas();
             </div>
         </nav>
     </div>
-
+    <div class="modal fade" id="accessModal" tabindex="-1" aria-labelledby="accessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accessModalLabel">Validação de Acesso</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="accessForm" method="POST">
+                        <div class="mb-3">
+                            <label for="adminPassword" class="form-label">Digite a senha para acessar</label>
+                            <input type="password" class="form-control" id="adminPassword" name="adminPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Validar</button>
+                    </form>
+                    <div id="errorFeedback" class="text-danger mt-2" style="display: none;">Senha inválida. Tente novamente.</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <main class="col-md-10 ml-sm-auto col-lg-10 px-4">
         <section id="dashboard" class="content-section">
             <h2>Dashboard</h2>
@@ -272,6 +290,10 @@ $ferramentas = fetchFerramentas();
             <?php include "app/views/adm/content/capas.php" ?>
         </section>
     </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const accessModal = new bootstrap.Modal(document.getElementById('accessModal'), {
