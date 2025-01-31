@@ -45,7 +45,7 @@ $ferramentas = fetchFerramentas();
     </div>
     
 
-    <div class="d-flex">
+    <div class="d-flex bg-dark" style="height: 100%;">
         <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light sidebar d-none d-md-flex">
             <a href="#" class="d-flex align-items-center mb-3 mb-md-0 text-dark text-decoration-none">
                 <span class="fs-4">FEPACOC</span>
