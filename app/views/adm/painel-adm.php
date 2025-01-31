@@ -194,6 +194,25 @@ $ferramentas = fetchFerramentas();
                 padding-left: calc(var(--nav-width) + 188px);
             }
         }
+        .modal {
+            z-index: 1050; /* Mantém acima de outros elementos */
+            display: flex !important; /* Garante que ele sempre seja visível */
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Garante que o backdrop do modal cubra tudo */
+        .modal-backdrop {
+            z-index: 1040; /* Mantém atrás do modal */
+        }
+
+        /* Ajusta o offcanvas para aparecer corretamente no lado direito */
+        .offcanvas-end {
+            width: 400px; /* Define a largura do offcanvas */
+            right: 0;
+            left: auto !important;
+            z-index: 1050; /* Mantém acima dos demais elementos */
+        }
     </style>
 </head>
 
@@ -282,7 +301,8 @@ $ferramentas = fetchFerramentas();
         <section id="categorias" class="content-section" style="display: none;">
             <?php include "app/views/adm/content/categorias.php" ?>
         </section>
-        <div class="modal fade" id="accessModal" tabindex="-1" aria-labelledby="accessModalLabel" aria-hidden="true">
+    </main>
+    <div class="modal fade" id="accessModal" tabindex="-1" aria-labelledby="accessModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -301,8 +321,6 @@ $ferramentas = fetchFerramentas();
             </div>
         </div>
     </div>
-    </main>
-    
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
