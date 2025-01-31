@@ -160,6 +160,7 @@ a {
 }
 
 .modal-backdrop {
+    width: 1500px;
     z-index: 1000 !important;
 }
 
