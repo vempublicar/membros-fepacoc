@@ -17,42 +17,58 @@ $ferramentas = fetchFerramentas();
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
-    <?php include_once "app/views/parts/header.php"; ?>
-
     <div class="container-fluid">
         <div class="row">
-            <!-- Menu lateral -->
-            <nav class="col-md-2 col-lg-2 d-md-block bg-dark text-white sidebar">
+            <!-- Menu lateral com opção de recolher -->
+            <nav id="sidebar" class="bg-dark text-white d-flex flex-column min-vh-100 position-fixed">
                 <div class="p-3">
-                    <h4 class="text-center">FEPACOC</h4>
-                    <hr>
+                    <button id="toggleMenu" class="btn btn-outline-light w-100 mb-3">
+                        <i class="bi bi-list"></i>
+                    </button>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active text-white" href="#dashboard">Dashboard</a>
+                            <a class="nav-link text-white d-flex align-items-center" href="#dashboard">
+                                <i class="bi bi-speedometer2 me-2"></i> <span class="menu-text">Dashboard</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#categorias">Categorias</a>
+                            <a class="nav-link text-white d-flex align-items-center" href="#categorias">
+                                <i class="bi bi-card-list me-2"></i> <span class="menu-text">Categorias</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#videos">Gerenciar Vídeos</a>
+                            <a class="nav-link text-white d-flex align-items-center" href="#videos">
+                                <i class="bi bi-film me-2"></i> <span class="menu-text">Vídeos</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#materiais">Gerenciar Materiais</a>
+                            <a class="nav-link text-white d-flex align-items-center" href="#materiais">
+                                <i class="bi bi-folder me-2"></i> <span class="menu-text">Materiais</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#produtos">Gerenciar Produtos</a>
+                            <a class="nav-link text-white d-flex align-items-center" href="#produtos">
+                                <i class="bi bi-box-seam me-2"></i> <span class="menu-text">Produtos</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#ferramentas">Ferramentas</a>
+                            <a class="nav-link text-white d-flex align-items-center" href="#ferramentas">
+                                <i class="bi bi-wrench me-2"></i> <span class="menu-text">Ferramentas</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#leads">Lista Leads</a>
+                            <a class="nav-link text-white d-flex align-items-center" href="#leads">
+                                <i class="bi bi-people me-2"></i> <span class="menu-text">Leads</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#capas">Capas</a>
+                            <a class="nav-link text-white d-flex align-items-center" href="#capas">
+                                <i class="bi bi-image me-2"></i> <span class="menu-text">Capas</span>
+                            </a>
                         </li>
                     </ul>
                     <hr>
@@ -61,7 +77,7 @@ $ferramentas = fetchFerramentas();
             </nav>
 
             <!-- Conteúdo principal -->
-            <main class="col-md-10 ms-sm-auto col-lg-10 px-4">
+            <main id="main-content" class="col-md-10 offset-md-2 col-lg-10 offset-lg-2 px-4">
                 <header class="mb-4">
                     <h1 class="text-center">Área Administrativa - FEPACOC</h1>
                 </header>
@@ -100,6 +116,26 @@ $ferramentas = fetchFerramentas();
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            const toggleMenu = document.getElementById('toggleMenu');
+            const menuTextElements = document.querySelectorAll('.menu-text');
+
+            let menuExpanded = true;
+
+            toggleMenu.addEventListener('click', function () {
+                if (menuExpanded) {
+                    sidebar.classList.add('collapsed');
+                    mainContent.classList.remove('offset-md-2', 'offset-lg-2');
+                    menuTextElements.forEach(el => el.style.display = 'none');
+                } else {
+                    sidebar.classList.remove('collapsed');
+                    mainContent.classList.add('offset-md-2', 'offset-lg-2');
+                    menuTextElements.forEach(el => el.style.display = 'inline');
+                }
+                menuExpanded = !menuExpanded;
+            });
+
             function showSectionFromHash() {
                 var hash = window.location.hash;
                 if (hash) {
