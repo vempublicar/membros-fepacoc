@@ -43,15 +43,7 @@ $ferramentas = fetchFerramentas();
             </div>
         </div>
     </div>
-    <header class="navbar navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-            <button class="btn btn-dark" id="sidebarToggle">
-                <i class="bi bi-list"></i>
-            </button>
-            <a class="navbar-brand mx-auto" href="#">Área Administrativa</a>
-            <img src="https://i.imgur.com/hczKIze.jpg" alt="Perfil" class="rounded-circle" width="40" height="40">
-        </div>
-    </header>
+    
 
     <div class="d-flex">
         <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light sidebar">
@@ -81,6 +73,14 @@ $ferramentas = fetchFerramentas();
 
         <!-- Área de Trabalho -->
         <main id="mainContent" class="container-fluid p-4">
+            <header class="navbar navbar-dark bg-dark fixed-top">
+                <div class="container-fluid">
+                    <button class="btn btn-dark" id="sidebarToggle">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <a class="navbar-brand mx-auto" href="#">Área Administrativa</a>
+                </div>
+            </header>
             <section id="dashboard" class="content-section">
                 <h2>Dashboard</h2>
                 <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
