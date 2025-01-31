@@ -12,7 +12,7 @@ $ferramentas = fetchFerramentas();
 <html lang="pt-BR">
 
 <head>
-    <?php //include_once "app/views/parts/head.php"; ?>
+    <?php include_once "app/views/parts/head.php"; ?>
     <title>Área Administrativa - FEPACOC</title>
 
     <!-- Bootstrap CSS -->
@@ -208,7 +208,7 @@ $ferramentas = fetchFerramentas();
     </header>
 
     <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
+    <nav class="nav">
             <div> 
                 <a href="#" class="nav_logo"> 
                     <i class='bx bx-layer nav_logo-icon'></i> 
@@ -230,6 +230,14 @@ $ferramentas = fetchFerramentas();
                     <a href="#produtos" class="nav_link"> 
                         <i class='bx bx-box nav_icon'></i> 
                         <span class="nav_name">Produtos</span> 
+                    </a>
+                    <a href="#ferramentas" class="nav_link"> 
+                        <i class='bx bx-wrench nav_icon'></i> 
+                        <span class="nav_name">Ferramentas</span> 
+                    </a>
+                    <a href="#capas" class="nav_link"> 
+                        <i class='bx bx-image nav_icon'></i> 
+                        <span class="nav_name">Capas</span> 
                     </a>
                     <a href="#leads" class="nav_link"> 
                         <i class='bx bx-user nav_icon'></i> 
@@ -262,6 +270,49 @@ $ferramentas = fetchFerramentas();
                 headerpd.classList.toggle('body-pd');
             });
         });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            const toggleMenu = document.getElementById('toggleMenu');
+
+            let menuExpanded = true;
+
+            toggleMenu.addEventListener('click', function () {
+                sidebar.classList.toggle('collapsed');
+                menuExpanded = !menuExpanded;
+            });
+
+            function showSectionFromHash() {
+                var hash = window.location.hash;
+                if (hash) {
+                    document.querySelectorAll('.content-section').forEach(el => el.style.display = 'none');
+                    document.querySelector(hash).style.display = 'block';
+                    document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+                    document.querySelector('a[href="' + hash + '"]').classList.add('active');
+                } else {
+                    document.querySelector('.content-section').style.display = 'block';
+                    document.querySelector('.nav-link').classList.add('active');
+                }
+            }
+
+            showSectionFromHash();
+            document.querySelectorAll('.nav-link').forEach(el => {
+                el.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    window.location.hash = this.getAttribute('href');
+                    showSectionFromHash();
+                });
+            });
+
+            window.addEventListener('hashchange', showSectionFromHash);
+        });
+
+        function logout() {
+            localStorage.removeItem('adminAccessToken');
+            location.reload();
+        }
     </script>
 </body>
 </html>
