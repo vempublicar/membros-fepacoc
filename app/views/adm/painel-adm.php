@@ -22,6 +22,8 @@ $ferramentas = fetchFerramentas();
     <link rel="stylesheet" href="vendor/css/painel-style.css">
 
 </head>
+
+<body id="body-pd">
 <div class="modal fade" id="accessModal" tabindex="-1" aria-labelledby="accessModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -41,7 +43,6 @@ $ferramentas = fetchFerramentas();
             </div>
         </div>
     </div>
-<body id="body-pd">
     <header class="header" id="header">
         <div class="header_toggle"> 
             <i class='bx bx-menu' id="header-toggle"></i> 
