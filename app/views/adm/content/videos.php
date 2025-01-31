@@ -26,11 +26,11 @@
                         <tr>
                             <td>
                                 <?php if (!empty($video['vidCapa'])): ?>
-                                    <img src="vendor/uploads/videos/<?= htmlspecialchars($video['vidCapa']) ?>"
+                                    <img src="vendor/uploads/videos/capa/<?= htmlspecialchars($video['vidCapa']) ?>"
                                         alt="<?= htmlspecialchars($video['vidTitulo']) ?>"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>
-                                    <img src="vendor/uploads/videos/default.jpg"
+                                    <img src="vendor/uploads/videos/capa/default.png"
                                         alt="Capa padrão"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php endif; ?>
