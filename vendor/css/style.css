@@ -308,3 +308,24 @@ p.a { line-height: 10%; }
     border-radius: 2px; /* Bordas arredondadas (opcional) */
 }
 
+        /* Ajuste para que o menu recolhido tenha largura menor */
+        #sidebar.collapsed {
+            width: 60px;
+        }
+
+        #sidebar.collapsed .menu-text {
+            display: none;
+        }
+
+        #main-content {
+            transition: margin-left 0.3s ease;
+        }
+
+        #sidebar {
+            width: 250px;
+            transition: width 0.3s ease;
+        }
+
+        #toggleMenu {
+            cursor: pointer;
+        }

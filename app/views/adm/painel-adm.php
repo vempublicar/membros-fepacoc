@@ -7,24 +7,15 @@ $materiais = fetchMateriais();
 $leads = fetchLeads();
 $categorias = fetchCategorias();
 $ferramentas = fetchFerramentas();
-?>
-<!DOCTYPE html>
-<html lang="pt-BR">
 
-<head>
-    <?php include_once "app/views/parts/head.php"; ?>
-    <title>Área Administrativa - FEPACOC</title>
+include_once "app/views/parts/head.php"; ?>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-</head>
 
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Menu lateral com opção de recolher -->
-            <nav id="sidebar" class="bg-dark text-white d-flex flex-column  position-fixed">
+            <!-- Menu lateral fixo -->
+            <nav id="sidebar" class="bg-dark text-white d-flex flex-column min-vh-100">
                 <div class="p-3">
                     <button id="toggleMenu" class="btn btn-outline-light w-100 mb-3">
                         <i class="bi bi-list"></i>
@@ -119,20 +110,11 @@ $ferramentas = fetchFerramentas();
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('main-content');
             const toggleMenu = document.getElementById('toggleMenu');
-            const menuTextElements = document.querySelectorAll('.menu-text');
 
             let menuExpanded = true;
 
             toggleMenu.addEventListener('click', function () {
-                if (menuExpanded) {
-                    sidebar.classList.add('collapsed');
-                    mainContent.classList.remove('offset-md-2', 'offset-lg-2');
-                    menuTextElements.forEach(el => el.style.display = 'none');
-                } else {
-                    sidebar.classList.remove('collapsed');
-                    mainContent.classList.add('offset-md-2', 'offset-lg-2');
-                    menuTextElements.forEach(el => el.style.display = 'inline');
-                }
+                sidebar.classList.toggle('collapsed');
                 menuExpanded = !menuExpanded;
             });
 
