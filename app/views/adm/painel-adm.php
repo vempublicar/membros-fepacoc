@@ -12,7 +12,7 @@ include_once "app/views/parts/head.php"; ?>
 
 
 <body>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <!-- Menu lateral fixo -->
             <nav id="sidebar" class="bg-dark text-white col min-vh-100">
