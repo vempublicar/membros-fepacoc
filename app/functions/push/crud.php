@@ -9,15 +9,8 @@ function checkAndCreateFolder($folderPath) {
     }
 }
 
-// Função para excluir arquivos antigos
-function deleteOldFile($oldFile, $uploadDir) {
-    if (!empty($oldFile) && file_exists($uploadDir . $oldFile)) {
-        unlink($uploadDir . $oldFile);
-    }
-}
-
 // Função para upload de arquivos
-function handleFileUpload($file, $uploadDir, $oldFile = null) {
+function handleFileUpload($file, $uploadDir) {
     checkAndCreateFolder($uploadDir);
 
     if ($file['error'] === UPLOAD_ERR_OK) {
@@ -26,12 +19,10 @@ function handleFileUpload($file, $uploadDir, $oldFile = null) {
         $destination = $uploadDir . $filename;
 
         if (move_uploaded_file($file['tmp_name'], $destination)) {
-            // Exclui arquivo antigo, se existir
-            deleteOldFile($oldFile, $uploadDir);
-            return $filename;
+            return $filename; // Retorna o nome do arquivo salvo
         }
     }
-    return $oldFile;
+    return null;
 }
 
 // Processamento do CRUD
@@ -53,33 +44,25 @@ try {
     $pdo = db_connect();
     $dados = [];
 
-    // Detecta os novos padrões de colunas
-    foreach ($_POST as $chave => $valor) {
-        if (!in_array($chave, ['action', 'tabela', 'id'])) {
-            $dados[$chave] = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
-        }
-    }
-
     // Estrutura de diretórios por tabela
     $uploadDirs = [
         'capas' => [
-            'desktop' => "vendor/uploads/$tabela/desktop/",
-            'mobile' => "vendor/uploads/$tabela/mobile/"
+            'desktop' => "../../vendor/uploads/capas/desktop/",
+            'mobile' => "../../vendor/uploads/capas/mobile/"
         ],
         'videos' => [
-            'capa' => "vendor/uploads/$tabela/capa/",
-            'arquivo' => "vendor/uploads/$tabela/arquivo/"
+            'capa' => "../../vendor/uploads/videos/capa/",
+            'arquivo' => "../../vendor/uploads/videos/arquivo/"
         ],
         'materiais' => [
-            'capa' => "vendor/uploads/$tabela/capa/",
-            'arquivo' => "vendor/uploads/$tabela/arquivo/"
+            'capa' => "../../vendor/uploads/materiais/capa/",
+            'arquivo' => "../../vendor/uploads/materiais/arquivo/"
         ]
     ];
 
     // Processamento de arquivos enviados
     foreach ($_FILES as $campo => $file) {
         if (!empty($file['size'])) {
-            // Define a pasta correta para upload com base no campo do formulário
             if ($tabela === 'capas' && in_array($campo, ['capaDesktop', 'capaMobile'])) {
                 $uploadDir = $uploadDirs['capas'][$campo === 'capaDesktop' ? 'desktop' : 'mobile'];
             } elseif ($tabela === 'videos' && in_array($campo, ['vidCapa', 'vidLink'])) {
@@ -87,10 +70,17 @@ try {
             } elseif ($tabela === 'materiais' && in_array($campo, ['matCapa', 'matLink'])) {
                 $uploadDir = $uploadDirs['materiais'][$campo === 'matCapa' ? 'capa' : 'arquivo'];
             } else {
-                continue;
+                continue; // Se não pertence a nenhuma das tabelas, ignora
             }
 
-            $dados[$campo] = handleFileUpload($file, $uploadDir, $_POST["old_$campo"] ?? null);
+            $dados[$campo] = handleFileUpload($file, $uploadDir);
+        }
+    }
+
+    // Processa os dados do formulário
+    foreach ($_POST as $chave => $valor) {
+        if (!in_array($chave, ['action', 'tabela', 'id'])) {
+            $dados[$chave] = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
         }
     }
 
@@ -110,7 +100,8 @@ try {
     } elseif ($action === 'update') {
         $id = $_POST['id'] ?? null;
         if (!$id || !is_numeric($id)) {
-            header("Location: " . $_SERVER['HTTP_REFERER'] . "#$tabela");
+            $_SESSION['error'] = "ID inválido para atualização.";
+            header("Location: " . $_SERVER['HTTP_REFERER']);
             exit();
         }
 
@@ -129,8 +120,33 @@ try {
     } elseif ($action === 'delete') {
         $id = $_POST['id'] ?? null;
         if (!$id || !is_numeric($id)) {
-            header("Location: " . $_SERVER['HTTP_REFERER'] . "#$tabela");
+            $_SESSION['error'] = "ID inválido para exclusão.";
+            header("Location: " . $_SERVER['HTTP_REFERER']);
             exit();
+        }
+
+        // Buscar os arquivos do registro antes de excluir
+        $stmt = $pdo->prepare("SELECT * FROM `$tabela` WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        $registro = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$registro) {
+            $_SESSION['error'] = "Registro não encontrado.";
+            header("Location: " . $_SERVER['HTTP_REFERER']);
+            exit();
+        }
+
+        // Remover arquivos associados
+        foreach ($registro as $campo => $valor) {
+            if (!empty($valor)) {
+                if ($tabela === 'capas' && in_array($campo, ['capaDesktop', 'capaMobile'])) {
+                    @unlink($uploadDirs['capas'][$campo === 'capaDesktop' ? 'desktop' : 'mobile'] . $valor);
+                } elseif ($tabela === 'videos' && in_array($campo, ['vidCapa', 'vidLink'])) {
+                    @unlink($uploadDirs['videos'][$campo === 'vidCapa' ? 'capa' : 'arquivo'] . $valor);
+                } elseif ($tabela === 'materiais' && in_array($campo, ['matCapa', 'matLink'])) {
+                    @unlink($uploadDirs['materiais'][$campo === 'matCapa' ? 'capa' : 'arquivo'] . $valor);
+                }
+            }
         }
 
         // Deletar o registro do banco
@@ -142,10 +158,6 @@ try {
         header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "#$tabela");
         exit();
     }
-
-    $_SESSION['message'] = 'Operação realizada com sucesso!';
-    header("Location: " . $_SERVER['HTTP_REFERER'] . "#$tabela");
-    exit();
 
 } catch (Exception $e) {
     $_SESSION['error'] = "Erro: " . $e->getMessage();
