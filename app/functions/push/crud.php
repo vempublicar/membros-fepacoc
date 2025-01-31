@@ -44,7 +44,7 @@ try {
     $pdo = db_connect();
     $dados = [];
 
-    // Definição dos diretórios corretos para cada tabela e tipo de arquivo
+    // **Diretórios para upload**
     $uploadDirs = [
         'capas' => [
             'capaDesktop' => "../../../vendor/uploads/capas/desktop/",
@@ -57,20 +57,31 @@ try {
         'materiais' => [
             'matCapa' => "../../../vendor/uploads/materiais/capa/",
             'matLink' => "../../../vendor/uploads/materiais/arquivo/"
+        ],
+        'produto' => [
+            'proCapa' => "../../../vendor/uploads/produto/",
+            'proCat' => "../../../vendor/uploads/produto/"
+        ],
+        'ferramenta' => [
+            'ferCapa' => "../../../vendor/uploads/ferramenta/"
+        ],
+        'categoria' => [
+            'catCapa' => "../../../vendor/uploads/categoria/"
         ]
     ];
 
     // Processamento de arquivos enviados
     foreach ($_FILES as $campo => $file) {
-        if (!empty($file['size'])) {
-            if (isset($uploadDirs[$tabela][$campo])) {
-                $uploadDir = $uploadDirs[$tabela][$campo];
-                $dados[$campo] = handleFileUpload($file, $uploadDir);
+        if (!empty($file['size']) && isset($uploadDirs[$tabela][$campo])) {
+            $uploadDir = $uploadDirs[$tabela][$campo];
+            $arquivoSalvo = handleFileUpload($file, $uploadDir);
+            if ($arquivoSalvo) {
+                $dados[$campo] = $arquivoSalvo;
             }
         }
     }
 
-    // Processa os dados do formulário
+    // Processa os dados do formulário (exceto ID, action e tabela)
     foreach ($_POST as $chave => $valor) {
         if (!in_array($chave, ['action', 'tabela', 'id'])) {
             $dados[$chave] = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
@@ -131,8 +142,8 @@ try {
 
         // Remover arquivos associados
         foreach ($registro as $campo => $valor) {
-            if (!empty($valor)) {
-                @unlink("../../../vendor/uploads/$tabela/$valor");
+            if (!empty($valor) && isset($uploadDirs[$tabela][$campo])) {
+                @unlink($uploadDirs[$tabela][$campo] . $valor);
             }
         }
 

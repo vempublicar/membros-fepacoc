@@ -107,13 +107,13 @@
                 </div>
 
                 <div class="col-6 mb-3">
-                    <label for="imagemDesktop" class="form-label">Imagem Desktop</label>
-                    <input type="file" class="form-control" id="imagemDesktop" name="imagem_desktop" accept="image/*">
+                    <label for="capaDesktop" class="form-label">Imagem Desktop</label>
+                    <input type="file" class="form-control" id="capaDesktop" name="capaDesktop" accept="image/*">
                 </div>
 
                 <div class="col-6 mb-3">
-                    <label for="imagemMobile" class="form-label">Imagem Mobile</label>
-                    <input type="file" class="form-control" id="imagemMobile" name="imagem_mobile" accept="image/*">
+                    <label for="capaMobile" class="form-label">Imagem Mobile</label>
+                    <input type="file" class="form-control" id="capaMobile" name="capaMobile" accept="image/*">
                 </div>
 
                 <div class="col-12 mb-3">
