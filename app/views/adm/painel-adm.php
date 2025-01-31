@@ -160,7 +160,25 @@ $ferramentas = fetchFerramentas();
         .height-100 {
             height: 100vh;
         }
+        .modal {
+            z-index: 1050; /* Mantém acima de outros elementos */
+            display: flex !important; /* Garante que ele sempre seja visível */
+            align-items: center;
+            justify-content: center;
+        }
 
+        /* Garante que o backdrop do modal cubra tudo */
+        .modal-backdrop {
+            z-index: 1040; /* Mantém atrás do modal */
+        }
+
+        /* Ajusta o offcanvas para aparecer corretamente no lado direito */
+        .offcanvas-end {
+            width: 400px; /* Define a largura do offcanvas */
+            right: 0;
+            left: auto !important;
+            z-index: 1050; /* Mantém acima dos demais elementos */
+        }
         @media screen and (min-width: 768px) {
             body {
                 margin: calc(var(--header-height) + 1rem) 0 0 0;
@@ -194,25 +212,7 @@ $ferramentas = fetchFerramentas();
                 padding-left: calc(var(--nav-width) + 188px);
             }
         }
-        .modal {
-            z-index: 1050; /* Mantém acima de outros elementos */
-            display: flex !important; /* Garante que ele sempre seja visível */
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Garante que o backdrop do modal cubra tudo */
-        .modal-backdrop {
-            z-index: 1040; /* Mantém atrás do modal */
-        }
-
-        /* Ajusta o offcanvas para aparecer corretamente no lado direito */
-        .offcanvas-end {
-            width: 400px; /* Define a largura do offcanvas */
-            right: 0;
-            left: auto !important;
-            z-index: 1050; /* Mantém acima dos demais elementos */
-        }
+        
     </style>
 </head>
 
