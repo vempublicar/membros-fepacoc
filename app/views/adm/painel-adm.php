@@ -254,6 +254,33 @@ $ferramentas = fetchFerramentas();
 
     <div class="height-100 bg-light">
         <h4>Área Administrativa - FEPACOC</h4>
+        <main class="col-md-10 ml-sm-auto col-lg-10 px-4">
+                <section id="dashboard" class="content-section">
+                    <h2>Dashboard</h2>
+                    <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
+                </section>
+                <section id="videos" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/videos.php" ?>
+                </section>
+                <section id="materiais" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/materiais.php" ?>
+                </section>
+                <section id="produtos" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/produtos.php" ?>
+                </section>
+                <section id="aulas" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/aulas.php" ?>
+                </section>
+                <section id="leads" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/leads.php" ?>
+                </section>
+                <section id="categorias" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/categorias.php" ?>
+                </section>
+                <section id="ferramentas" class="content-section" style="display: none;">
+                    <?php include "app/views/adm/content/ferramentas.php" ?>
+                </section>
+            </main>
     </div>
 
     <script>
