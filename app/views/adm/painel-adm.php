@@ -46,7 +46,7 @@ $ferramentas = fetchFerramentas();
     
 
     <div class="d-flex">
-    <div id="sidebarDesktop" class="d-flex flex-column flex-shrink-0 p-3 bg-light sidebar d-none d-md-flex">
+        <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light sidebar d-none d-md-flex">
             <a href="#" class="d-flex align-items-center mb-3 mb-md-0 text-dark text-decoration-none">
                 <span class="fs-4">FEPACOC</span>
             </a>
@@ -70,9 +70,25 @@ $ferramentas = fetchFerramentas();
                 <i class="bi bi-box-arrow-right me-2"></i> Sair
             </a>
         </div>
-
-        <!-- Sidebar Mobile -->
-        
+        <div id="sidebarMobile" class="d-flex flex-column flex-shrink-0 bg-light mobile-sidebar d-md-none">
+            <a href="#" class="d-block p-3 link-dark text-decoration-none" title="Menu">
+                <i class="bi bi-list" id="mobileMenuToggle"></i>
+            </a>
+            <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active py-3 border-bottom" title="Dashboard">
+                        <i class="bi bi-house-door"></i>
+                    </a>
+                </li>
+                <li><a href="#categorias" class="nav-link py-3 border-bottom" title="Categorias"><i class="bi bi-list"></i></a></li>
+                <li><a href="#videos" class="nav-link py-3 border-bottom" title="Vídeos"><i class="bi bi-play-btn"></i></a></li>
+                <li><a href="#materiais" class="nav-link py-3 border-bottom" title="Materiais"><i class="bi bi-folder"></i></a></li>
+                <li><a href="#produtos" class="nav-link py-3 border-bottom" title="Produtos"><i class="bi bi-box"></i></a></li>
+                <li><a href="#ferramentas" class="nav-link py-3 border-bottom" title="Ferramentas"><i class="bi bi-tools"></i></a></li>
+                <li><a href="#capas" class="nav-link py-3 border-bottom" title="Capas"><i class="bi bi-image"></i></a></li>
+                <li><a href="#leads" class="nav-link py-3 border-bottom" title="Leads"><i class="bi bi-people"></i></a></li>
+            </ul>
+        </div>
 
         <!-- Área de Trabalho -->
         <main id="mainContent" class="container-fluid p-4">
@@ -188,7 +204,7 @@ $ferramentas = fetchFerramentas();
         }
     </script>
     <script>
-       
+        
 
     function showSectionFromHash() {
         var hash = window.location.hash || "#dashboard";
