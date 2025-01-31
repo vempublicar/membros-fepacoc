@@ -21,179 +21,209 @@ $ferramentas = fetchFerramentas();
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     
     <style>
-        :root {
-            --header-height: 3rem;
-            --nav-width: 68px;
-            --first-color: #182433;
-            --first-color-light: #AFA5D9;
-            --white-color: #F7F6FB;
-            --body-font: 'Nunito', sans-serif;
-            --normal-font-size: 1rem;
-            --z-fixed: 100;
-        }
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
-        *,::before,::after {
-            box-sizing: border-box;
-        }
+:root {
+    --header-height: 3rem;
+    --nav-width-collapsed: 68px;
+    --nav-width-expanded: 250px;
+    --first-color: #4723D9;
+    --first-color-light: #AFA5D9;
+    --white-color: #F7F6FB;
+    --body-font: 'Nunito', sans-serif;
+    --normal-font-size: 1rem;
+    --z-fixed: 100;
+}
 
-        body {
-            position: relative;
-            margin: var(--header-height) 0 0 0;
-            padding: 0 1rem;
-            font-family: var(--body-font);
-            font-size: var(--normal-font-size);
-            transition: .5s;
-        }
+*, ::before, ::after {
+    box-sizing: border-box;
+}
 
-        .header {
-            width: 100%;
-            height: var(--header-height);
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 1rem;
-            background-color: var(--white-color);
-            z-index: var(--z-fixed);
-            transition: .5s;
-        }
+body {
+    position: relative;
+    margin: var(--header-height) 0 0 0;
+    padding: 0 1rem;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    transition: .5s;
+}
 
-        .header_toggle {
-            color: var(--first-color);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
+a {
+    text-decoration: none;
+}
 
-        .header_img {
-            width: 35px;
-            height: 35px;
-            display: flex;
-            justify-content: center;
-            border-radius: 50%;
-            overflow: hidden;
-        }
+.header {
+    width: 100%;
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    background-color: var(--white-color);
+    z-index: var(--z-fixed);
+    transition: .5s;
+}
 
-        .header_img img {
-            width: 40px;
-        }
+.header_toggle {
+    color: var(--first-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
 
-        .l-navbar {
-            position: fixed;
-            top: 0;
-            left: -30%;
-            width: var(--nav-width);
-            height: 100vh;
-            background-color: var(--first-color);
-            padding: .5rem 1rem 0 0;
-            transition: .5s;
-            z-index: var(--z-fixed);
-        }
+.header_img {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+}
 
-        .nav {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
-        }
+.header_img img {
+    width: 40px;
+}
 
-        .nav_logo, .nav_link {
-            display: grid;
-            grid-template-columns: max-content max-content;
-            align-items: center;
-            column-gap: 1rem;
-            padding: .5rem 0 .5rem 1.5rem;
-        }
+.l-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--nav-width-collapsed);
+    height: 100vh;
+    background-color: var(--first-color);
+    padding: .5rem 1rem 0 0;
+    transition: .5s;
+    z-index: var(--z-fixed);
+}
 
-        .nav_logo {
-            margin-bottom: 2rem;
-        }
+.l-navbar.show {
+    width: var(--nav-width-expanded);
+}
 
-        .nav_logo-icon {
-            font-size: 1.25rem;
-            color: var(--white-color);
-        }
+.nav {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
 
-        .nav_logo-name {
-            color: var(--white-color);
-            font-weight: 700;
-        }
+.nav_logo,
+.nav_link {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: 1rem;
+    padding: .5rem 0 .5rem 1.5rem;
+}
 
-        .nav_link {
-            position: relative;
-            color: var(--first-color-light);
-            margin-bottom: 1.5rem;
-            transition: .3s;
-        }
+.nav_logo {
+    margin-bottom: 2rem;
+}
 
-        .nav_link:hover {
-            color: var(--white-color);
-        }
+.nav_logo-icon {
+    font-size: 1.25rem;
+    color: var(--white-color);
+}
 
-        .nav_icon {
-            font-size: 1.25rem;
-        }
+.nav_logo-name {
+    color: var(--white-color);
+    font-weight: 700;
+}
 
-        .show {
-            left: 0;
-        }
+.nav_link {
+    position: relative;
+    color: var(--first-color-light);
+    margin-bottom: 1.5rem;
+    transition: .3s;
+}
 
-        .body-pd {
-            padding-left: calc(var(--nav-width) + 1rem);
-        }
+.nav_link:hover {
+    color: var(--white-color);
+}
 
-        .active {
-            color: var(--white-color);
-        }
+.nav_icon {
+    font-size: 1.25rem;
+}
 
-        .active::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            width: 2px;
-            height: 32px;
-            background-color: var(--white-color);
-        }
+.show {
+    left: 0;
+}
 
-        .height-100 {
-            height: 100vh;
-        }
+.body-pd {
+    padding-left: var(--nav-width-expanded);
+}
 
-        @media screen and (min-width: 768px) {
-            body {
-                margin: calc(var(--header-height) + 1rem) 0 0 0;
-                padding-left: calc(var(--nav-width) + 2rem);
-            }
+/* Ajusta a posição do conteúdo principal */
+#main-content {
+    margin-left: var(--nav-width-collapsed);
+    transition: margin-left 0.3s ease-in-out;
+}
 
-            .header {
-                height: calc(var(--header-height) + 1rem);
-                padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
-            }
+#main-content.main-expanded {
+    margin-left: var(--nav-width-expanded);
+}
 
-            .header_img {
-                width: 40px;
-                height: 40px;
-            }
+.header {
+    transition: margin-left 0.3s ease-in-out;
+}
 
-            .header_img img {
-                width: 45px;
-            }
+.header.body-pd {
+    margin-left: var(--nav-width-expanded);
+}
 
-            .l-navbar {
-                left: 0;
-                padding: 1rem 1rem 0 0;
-            }
+.active {
+    color: var(--white-color);
+}
 
-            .show {
-                width: calc(var(--nav-width) + 156px);
-            }
+.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 2px;
+    height: 32px;
+    background-color: var(--white-color);
+}
 
-            .body-pd {
-                padding-left: calc(var(--nav-width) + 188px);
-            }
-        }
+.height-100 {
+    height: 100vh;
+}
+
+@media screen and (min-width: 768px) {
+    body {
+        margin: calc(var(--header-height) + 1rem) 0 0 0;
+        padding-left: var(--nav-width-collapsed);
+    }
+
+    .header {
+        height: calc(var(--header-height) + 1rem);
+        padding: 0 2rem;
+    }
+
+    .header_img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .header_img img {
+        width: 45px;
+    }
+
+    .l-navbar {
+        left: 0;
+    }
+
+    .l-navbar.show {
+        width: var(--nav-width-expanded);
+    }
+
+    .body-pd {
+        padding-left: var(--nav-width-expanded);
+    }
+}
+
     </style>
 </head>
 
@@ -381,38 +411,56 @@ $ferramentas = fetchFerramentas();
     </script>
     <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const toggle = document.getElementById('header-toggle'),
-          nav = document.getElementById('nav-bar'),
-          mainContent = document.querySelector('main'),
-          header = document.getElementById('header'),
-          body = document.getElementById('body-pd');
+    const showNavbar = (toggleId, navId, bodyId, headerId, mainId) => {
+        const toggle = document.getElementById(toggleId),
+              nav = document.getElementById(navId),
+              bodypd = document.getElementById(bodyId),
+              headerpd = document.getElementById(headerId),
+              mainContent = document.getElementById(mainId);
 
-    // Definir valores padrão de largura do menu lateral
-    const expandedWidth = "250px";  // Menu expandido
-    const collapsedWidth = "68px";   // Menu recolhido
+        // Validar se todas as variáveis existem
+        if (toggle && nav && bodypd && headerpd && mainContent) {
+            toggle.addEventListener('click', () => {
+                // Alternar visibilidade do menu
+                nav.classList.toggle('show');
+                // Alternar ícone do botão sanduíche
+                toggle.classList.toggle('bx-x');
+                // Adicionar/remover padding do body e header
+                bodypd.classList.toggle('body-pd');
+                headerpd.classList.toggle('body-pd');
+                // Ajustar margem do conteúdo principal
+                mainContent.classList.toggle('main-expanded');
+            });
 
-    toggle.addEventListener('click', () => {
-        nav.classList.toggle('show');
-        toggle.classList.toggle('bx-x');
-
-        // Ajuste de margens do conteúdo principal e do botão sanduíche
-        if (nav.classList.contains('show')) {
-            body.classList.add('body-pd');  // Adiciona padding ao body
-            mainContent.style.marginLeft = expandedWidth;
-            header.style.marginLeft = expandedWidth;
-        } else {
-            body.classList.remove('body-pd');  // Remove padding
-            mainContent.style.marginLeft = collapsedWidth;
-            header.style.marginLeft = collapsedWidth;
+            // Garantir que o layout esteja correto ao carregar a página
+            if (nav.classList.contains('show')) {
+                mainContent.classList.add('main-expanded');
+            }
         }
-    });
+    }
 
+    showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header', 'main-content');
+
+    /*===== LINK ACTIVE =====*/
+    const linkColor = document.querySelectorAll('.nav_link');
+
+    function colorLink() {
+        linkColor.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+    }
+    linkColor.forEach(l => l.addEventListener('click', colorLink));
+
+    /*===== FUNÇÃO PARA MOSTRAR A SEÇÃO CORRETA PELO HASH =====*/
     function showSectionFromHash() {
-        var hash = window.location.hash || "#dashboard";
+        let hash = window.location.hash || "#dashboard";
+        
         document.querySelectorAll('.content-section').forEach(el => el.style.display = 'none');
-        if (document.querySelector(hash)) {
-            document.querySelector(hash).style.display = 'block';
+        const targetSection = document.querySelector(hash);
+
+        if (targetSection) {
+            targetSection.style.display = 'block';
         }
+
         document.querySelectorAll('.nav_link').forEach(el => el.classList.remove('active'));
         const activeLink = document.querySelector(`a[href="${hash}"]`);
         if (activeLink) {
@@ -421,6 +469,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     showSectionFromHash();
+
     document.querySelectorAll('.nav_link').forEach(el => {
         el.addEventListener('click', function (e) {
             e.preventDefault();
@@ -429,18 +478,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    window.addEventListener('hashchange', showSectionFromHash());
-
-    // Garantir que o layout esteja correto ao carregar a página
-    if (nav.classList.contains('show')) {
-        mainContent.style.marginLeft = expandedWidth;
-        header.style.marginLeft = expandedWidth;
-    } else {
-        mainContent.style.marginLeft = collapsedWidth;
-        header.style.marginLeft = collapsedWidth;
-    }
+    window.addEventListener('hashchange', showSectionFromHash);
 });
-
 
     </script>
 </body>
