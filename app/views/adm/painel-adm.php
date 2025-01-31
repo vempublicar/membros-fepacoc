@@ -208,7 +208,7 @@ $ferramentas = fetchFerramentas();
     </header>
 
     <div class="l-navbar" id="nav-bar">
-    <nav class="nav">
+        <nav class="nav">
             <div> 
                 <a href="#" class="nav_logo"> 
                     <i class='bx bx-layer nav_logo-icon'></i> 
@@ -245,60 +245,34 @@ $ferramentas = fetchFerramentas();
                     </a>
                 </div>
             </div>
-            <a href="painel" onclick="logout()" class="nav_link"> 
-                <i class='bx bx-log-out nav_icon'></i> 
-                <span class="nav_name">Sair</span> 
-            </a>
         </nav>
     </div>
 
-    <div class="height-100 bg-light">
-        <h4>Área Administrativa - FEPACOC</h4>
-        <main class="col-md-10 ml-sm-auto col-lg-10 px-4">
-                <section id="dashboard" class="content-section">
-                    <h2>Dashboard</h2>
-                    <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
-                </section>
-                <section id="videos" class="content-section" style="display: none;">
-                    <?php include "app/views/adm/content/videos.php" ?>
-                </section>
-                <section id="materiais" class="content-section" style="display: none;">
-                    <?php include "app/views/adm/content/materiais.php" ?>
-                </section>
-                <section id="produtos" class="content-section" style="display: none;">
-                    <?php include "app/views/adm/content/produtos.php" ?>
-                </section>
-                <section id="aulas" class="content-section" style="display: none;">
-                    <?php include "app/views/adm/content/aulas.php" ?>
-                </section>
-                <section id="leads" class="content-section" style="display: none;">
-                    <?php include "app/views/adm/content/leads.php" ?>
-                </section>
-                <section id="categorias" class="content-section" style="display: none;">
-                    <?php include "app/views/adm/content/categorias.php" ?>
-                </section>
-                <section id="ferramentas" class="content-section" style="display: none;">
-                    <?php include "app/views/adm/content/ferramentas.php" ?>
-                </section>
-            </main>
-    </div>
-
+    <main class="col-md-10 ml-sm-auto col-lg-10 px-4">
+        <section id="dashboard" class="content-section">
+            <h2>Dashboard</h2>
+            <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
+        </section>
+        <section id="videos" class="content-section" style="display: none;">
+            <?php include "app/views/adm/content/videos.php" ?>
+        </section>
+        <section id="materiais" class="content-section" style="display: none;">
+            <?php include "app/views/adm/content/materiais.php" ?>
+        </section>
+        <section id="produtos" class="content-section" style="display: none;">
+            <?php include "app/views/adm/content/produtos.php" ?>
+        </section>
+        <section id="leads" class="content-section" style="display: none;">
+            <?php include "app/views/adm/content/leads.php" ?>
+        </section>
+        <section id="ferramentas" class="content-section" style="display: none;">
+            <?php include "app/views/adm/content/ferramentas.php" ?>
+        </section>
+        <section id="capas" class="content-section" style="display: none;">
+            <?php include "app/views/adm/content/capas.php" ?>
+        </section>
+    </main>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const toggle = document.getElementById('header-toggle'),
-                  nav = document.getElementById('nav-bar'),
-                  bodypd = document.getElementById('body-pd'),
-                  headerpd = document.getElementById('header');
-
-            toggle.addEventListener('click', () => {
-                nav.classList.toggle('show');
-                toggle.classList.toggle('bx-x');
-                bodypd.classList.toggle('body-pd');
-                headerpd.classList.toggle('body-pd');
-            });
-        });
-    </script>
-        <script>
         document.addEventListener('DOMContentLoaded', function() {
             const accessModal = new bootstrap.Modal(document.getElementById('accessModal'), {
                 backdrop: 'static',
@@ -373,33 +347,25 @@ $ferramentas = fetchFerramentas();
         }
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('main-content');
-            const toggleMenu = document.getElementById('toggleMenu');
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById('header-toggle'),
+                  nav = document.getElementById('nav-bar');
 
-            let menuExpanded = true;
-
-            toggleMenu.addEventListener('click', function () {
-                sidebar.classList.toggle('collapsed');
-                menuExpanded = !menuExpanded;
+            toggle.addEventListener('click', () => {
+                nav.classList.toggle('show');
+                toggle.classList.toggle('bx-x');
             });
 
             function showSectionFromHash() {
-                var hash = window.location.hash;
-                if (hash) {
-                    document.querySelectorAll('.content-section').forEach(el => el.style.display = 'none');
-                    document.querySelector(hash).style.display = 'block';
-                    document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-                    document.querySelector('a[href="' + hash + '"]').classList.add('active');
-                } else {
-                    document.querySelector('.content-section').style.display = 'block';
-                    document.querySelector('.nav-link').classList.add('active');
-                }
+                var hash = window.location.hash || "#dashboard";
+                document.querySelectorAll('.content-section').forEach(el => el.style.display = 'none');
+                document.querySelector(hash).style.display = 'block';
+                document.querySelectorAll('.nav_link').forEach(el => el.classList.remove('active'));
+                document.querySelector('a[href="' + hash + '"]').classList.add('active');
             }
 
             showSectionFromHash();
-            document.querySelectorAll('.nav-link').forEach(el => {
+            document.querySelectorAll('.nav_link').forEach(el => {
                 el.addEventListener('click', function (e) {
                     e.preventDefault();
                     window.location.hash = this.getAttribute('href');
@@ -408,45 +374,6 @@ $ferramentas = fetchFerramentas();
             });
 
             window.addEventListener('hashchange', showSectionFromHash);
-        });
-
-        function logout() {
-            localStorage.removeItem('adminAccessToken');
-            location.reload();
-        }
-    </script>
-    <script>
-        $(document).ready(function() {
-            // Função para mostrar a seção com base no fragmento da URL
-            function showSectionFromHash() {
-                var hash = window.location.hash; // Pega o fragmento da URL
-                if (hash) {
-                    $('.content-section').hide(); // Esconde todas as seções
-                    $(hash).show(); // Mostra a seção com o id correspondente ao fragmento
-                    $('.nav-link').removeClass('active'); // Remove a classe 'active' de todos os links
-                    $('a[href="' + hash + '"]').addClass('active'); // Adiciona a classe 'active' ao link correspondente
-                } else {
-                    // Se não houver hash, mostra a seção padrão
-                    $('.content-section').first().show();
-                    $('.nav-link').first().addClass('active');
-                }
-            }
-
-            // Chamada inicial para mostrar a seção quando a página carrega
-            showSectionFromHash();
-
-            // Evento de clique para os links do menu
-            $('.nav-link').click(function(e) {
-                e.preventDefault();
-                var targetId = $(this).attr('href');
-                window.location.hash = targetId; // Atualiza o hash na URL
-                showSectionFromHash(); // Atualiza a visibilidade da seção
-            });
-
-            // Evento para lidar com mudanças no hash (quando o usuário utiliza o botão de voltar do navegador)
-            $(window).on('hashchange', function() {
-                showSectionFromHash();
-            });
         });
     </script>
 </body>
