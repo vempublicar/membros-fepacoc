@@ -4,7 +4,7 @@
 :root {
     --header-height: 3rem;
     --nav-width: 68px;
-    --first-color: #060624;
+    --first-color: #4723D9;
     --first-color-light: #AFA5D9;
     --white-color: #F7F6FB;
     --body-font: 'Nunito', sans-serif;
@@ -42,7 +42,7 @@ a {
     justify-content: space-between;
     padding: 0 1rem;
     background-color: var(--white-color);
-    z-index: 100;
+    z-index: var(--z-fixed);
     transition: .5s;
 }
 
@@ -75,7 +75,7 @@ a {
     background-color: var(--first-color);
     padding: .5rem 1rem 0 0;
     transition: .5s;
-    z-index: 100;
+    z-index: var(--z-fixed);
 }
 
 .nav {
