@@ -229,7 +229,7 @@ a {
 
 <body id="body-pd">
     <header class="header" id="header">
-        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+        <div class="header_toggle"> botão </div>
         <div class="header_img"> 
             <img src="https://i.imgur.com/hczKIze.jpg" alt=""> 
         </div>
@@ -284,7 +284,8 @@ a {
         </nav>
     </div>
 
-    <div class="height-100 bg-light">
+    
+    <div class="height-100 bg-light ps-2 px-4">
         <section id="dashboard" class="content-section">
             <h2>Dashboard</h2>
             <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
