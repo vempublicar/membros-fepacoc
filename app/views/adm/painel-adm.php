@@ -49,13 +49,13 @@ $ferramentas = fetchFerramentas();
     <div class="d-flex">
         <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-dark text-light sidebar d-none d-md-flex" style="height: 100vh;">
             <a href="painel" class="d-flex align-items-center mb-3 mb-md-0 text-light text-decoration-none">
-                <span class="fs-6">Painel Principal</span>
+                <span class="fs-6"><i class="bi bi-house-door me-2"></i>Painel Principal</span>
             </a>
             <hr class="border-secondary">
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
                     <a href="#dashboard" class="nav-link active text-light">
-                        <i class="bi bi-house-door me-2"></i> Dashboard
+                        <i class="bi bi-bar-chart"></i> Dashboard
                     </a>
                 </li>
                 <li><a href="#categorias" class="nav-link text-light"><i class="bi bi-list me-2"></i> Categorias</a></li>
