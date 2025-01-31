@@ -21,215 +21,187 @@ $ferramentas = fetchFerramentas();
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     
     <style>
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+        :root {
+            --header-height: 3rem;
+            --nav-width: 68px;
+            --first-color: #182433;
+            --first-color-light: #AFA5D9;
+            --white-color: #F7F6FB;
+            --body-font: 'Nunito', sans-serif;
+            --normal-font-size: 1rem;
+            --z-fixed: 100;
+        }
 
-:root {
-    --header-height: 3rem;
-    --nav-width-collapsed: 68px;
-    --nav-width-expanded: 250px;
-    --first-color: #4723D9;
-    --first-color-light: #AFA5D9;
-    --white-color: #F7F6FB;
-    --body-font: 'Nunito', sans-serif;
-    --normal-font-size: 1rem;
-    --z-fixed: 100;
-}
+        *,::before,::after {
+            box-sizing: border-box;
+        }
 
-*, ::before, ::after {
-    box-sizing: border-box;
-}
+        body {
+            position: relative;
+            margin: var(--header-height) 0 0 0;
+            padding: 0 1rem;
+            font-family: var(--body-font);
+            font-size: var(--normal-font-size);
+            transition: .5s;
+        }
 
-body {
-    position: relative;
-    margin: var(--header-height) 0 0 0;
-    padding: 0 1rem;
-    font-family: var(--body-font);
-    font-size: var(--normal-font-size);
-    transition: .5s;
-}
+        .header {
+            width: 100%;
+            height: var(--header-height);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            background-color: var(--white-color);
+            z-index: var(--z-fixed);
+            transition: .5s;
+        }
 
-a {
-    text-decoration: none;
-}
+        .header_toggle {
+            color: var(--first-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
 
-.header {
-    width: 100%;
-    height: var(--header-height);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1rem;
-    background-color: var(--white-color);
-    z-index: var(--z-fixed);
-    transition: .5s;
-}
+        .header_img {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            border-radius: 50%;
+            overflow: hidden;
+        }
 
-.header_toggle {
-    color: var(--first-color);
-    font-size: 1.5rem;
-    cursor: pointer;
-}
+        .header_img img {
+            width: 40px;
+        }
 
-.header_img {
-    width: 35px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    border-radius: 50%;
-    overflow: hidden;
-}
+        .l-navbar {
+            position: fixed;
+            top: 0;
+            left: -30%;
+            width: var(--nav-width);
+            height: 100vh;
+            background-color: var(--first-color);
+            padding: .5rem 1rem 0 0;
+            transition: .5s;
+            z-index: var(--z-fixed);
+        }
 
-.header_img img {
-    width: 40px;
-}
+        .nav {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
 
-.l-navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: var(--nav-width-collapsed);
-    height: 100vh;
-    background-color: var(--first-color);
-    padding: .5rem 1rem 0 0;
-    transition: .5s;
-    z-index: var(--z-fixed);
-}
+        .nav_logo, .nav_link {
+            display: grid;
+            grid-template-columns: max-content max-content;
+            align-items: center;
+            column-gap: 1rem;
+            padding: .5rem 0 .5rem 1.5rem;
+        }
 
-.l-navbar.show {
-    width: var(--nav-width-expanded);
-}
+        .nav_logo {
+            margin-bottom: 2rem;
+        }
 
-.nav {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-}
+        .nav_logo-icon {
+            font-size: 1.25rem;
+            color: var(--white-color);
+        }
 
-.nav_logo,
-.nav_link {
-    display: grid;
-    grid-template-columns: max-content max-content;
-    align-items: center;
-    column-gap: 1rem;
-    padding: .5rem 0 .5rem 1.5rem;
-}
+        .nav_logo-name {
+            color: var(--white-color);
+            font-weight: 700;
+        }
 
-.nav_logo {
-    margin-bottom: 2rem;
-}
+        .nav_link {
+            position: relative;
+            color: var(--first-color-light);
+            margin-bottom: 1.5rem;
+            transition: .3s;
+        }
 
-.nav_logo-icon {
-    font-size: 1.25rem;
-    color: var(--white-color);
-}
+        .nav_link:hover {
+            color: var(--white-color);
+        }
 
-.nav_logo-name {
-    color: var(--white-color);
-    font-weight: 700;
-}
+        .nav_icon {
+            font-size: 1.25rem;
+        }
 
-.nav_link {
-    position: relative;
-    color: var(--first-color-light);
-    margin-bottom: 1.5rem;
-    transition: .3s;
-}
+        .show {
+            left: 0;
+        }
 
-.nav_link:hover {
-    color: var(--white-color);
-}
+        .body-pd {
+            padding-left: calc(var(--nav-width) + 1rem);
+        }
 
-.nav_icon {
-    font-size: 1.25rem;
-}
+        .active {
+            color: var(--white-color);
+        }
 
-.show {
-    left: 0;
-}
+        .active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 2px;
+            height: 32px;
+            background-color: var(--white-color);
+        }
 
-.body-pd {
-    padding-left: var(--nav-width-expanded);
-}
+        .height-100 {
+            height: 100vh;
+        }
 
-/* Ajusta a posição do conteúdo principal */
-#main-content {
-    margin-left: var(--nav-width-collapsed);
-    transition: margin-left 0.3s ease-in-out;
-}
+        @media screen and (min-width: 768px) {
+            body {
+                margin: calc(var(--header-height) + 1rem) 0 0 0;
+                padding-left: calc(var(--nav-width) + 2rem);
+            }
 
-#main-content.main-expanded {
-    margin-left: var(--nav-width-expanded);
-}
+            .header {
+                height: calc(var(--header-height) + 1rem);
+                padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
+            }
 
-.header {
-    transition: margin-left 0.3s ease-in-out;
-}
+            .header_img {
+                width: 40px;
+                height: 40px;
+            }
 
-.header.body-pd {
-    margin-left: var(--nav-width-expanded);
-}
+            .header_img img {
+                width: 45px;
+            }
 
-.active {
-    color: var(--white-color);
-}
+            .l-navbar {
+                left: 0;
+                padding: 1rem 1rem 0 0;
+            }
 
-.active::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 2px;
-    height: 32px;
-    background-color: var(--white-color);
-}
+            .show {
+                width: calc(var(--nav-width) + 156px);
+            }
 
-.height-100 {
-    height: 100vh;
-}
-
-@media screen and (min-width: 768px) {
-    body {
-        margin: calc(var(--header-height) + 1rem) 0 0 0;
-        padding-left: var(--nav-width-collapsed);
-    }
-
-    .header {
-        height: calc(var(--header-height) + 1rem);
-        padding: 0 2rem;
-    }
-
-    .header_img {
-        width: 40px;
-        height: 40px;
-    }
-
-    .header_img img {
-        width: 45px;
-    }
-
-    .l-navbar {
-        left: 0;
-    }
-
-    .l-navbar.show {
-        width: var(--nav-width-expanded);
-    }
-
-    .body-pd {
-        padding-left: var(--nav-width-expanded);
-    }
-}
-
+            .body-pd {
+                padding-left: calc(var(--nav-width) + 188px);
+            }
+        }
     </style>
 </head>
 
 <body id="body-pd">
     <header class="header" id="header">
-        <div class="header_toggle"> botão </div>
+        <div class="header_toggle"> 
+            <i class='bx bx-menu' id="header-toggle"></i> 
+        </div>
         <div class="header_img"> 
             <img src="https://i.imgur.com/hczKIze.jpg" alt=""> 
         </div>
@@ -284,8 +256,7 @@ a {
         </nav>
     </div>
 
-    
-    <div class="height-100 bg-light ps-2 px-4">
+    <main class="col-md-10 ml-sm-auto col-lg-10 px-4">
         <section id="dashboard" class="content-section">
             <h2>Dashboard</h2>
             <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
@@ -311,7 +282,7 @@ a {
         <section id="categorias" class="content-section" style="display: none;">
             <?php include "app/views/adm/content/categorias.php" ?>
         </section>
-</div>
+    </main>
     <div class="modal fade" id="accessModal" tabindex="-1" aria-labelledby="accessModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -410,65 +381,23 @@ a {
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const showNavbar = (toggleId, navId, bodyId, headerId, mainId) => {
-                const toggle = document.getElementById(toggleId),
-                    nav = document.getElementById(navId),
-                    bodypd = document.getElementById(bodyId),
-                    headerpd = document.getElementById(headerId),
-                    mainContent = document.getElementById(mainId);
+            const toggle = document.getElementById('header-toggle'),
+                  nav = document.getElementById('nav-bar');
 
-                // Validar se todas as variáveis existem
-                if (toggle && nav && bodypd && headerpd && mainContent) {
-                    toggle.addEventListener('click', () => {
-                        // Alternar visibilidade do menu
-                        nav.classList.toggle('show');
-                        // Alternar ícone do botão sanduíche
-                        toggle.classList.toggle('bx-x');
-                        // Adicionar/remover padding do body e header
-                        bodypd.classList.toggle('body-pd');
-                        headerpd.classList.toggle('body-pd');
-                        // Ajustar margem do conteúdo principal
-                        mainContent.classList.toggle('main-expanded');
-                    });
+            toggle.addEventListener('click', () => {
+                nav.classList.toggle('show');
+                toggle.classList.toggle('bx-x');
+            });
 
-                    // Garantir que o layout esteja correto ao carregar a página
-                    if (nav.classList.contains('show')) {
-                        mainContent.classList.add('main-expanded');
-                    }
-                }
-            }
-
-            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header', 'main-content');
-
-            /*===== LINK ACTIVE =====*/
-            const linkColor = document.querySelectorAll('.nav_link');
-
-            function colorLink() {
-                linkColor.forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-            }
-            linkColor.forEach(l => l.addEventListener('click', colorLink));
-
-            /*===== FUNÇÃO PARA MOSTRAR A SEÇÃO CORRETA PELO HASH =====*/
             function showSectionFromHash() {
-                let hash = window.location.hash || "#dashboard";
-                
+                var hash = window.location.hash || "#dashboard";
                 document.querySelectorAll('.content-section').forEach(el => el.style.display = 'none');
-                const targetSection = document.querySelector(hash);
-
-                if (targetSection) {
-                    targetSection.style.display = 'block';
-                }
-
+                document.querySelector(hash).style.display = 'block';
                 document.querySelectorAll('.nav_link').forEach(el => el.classList.remove('active'));
-                const activeLink = document.querySelector(`a[href="${hash}"]`);
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                }
+                document.querySelector('a[href="' + hash + '"]').classList.add('active');
             }
 
             showSectionFromHash();
-
             document.querySelectorAll('.nav_link').forEach(el => {
                 el.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -479,7 +408,6 @@ a {
 
             window.addEventListener('hashchange', showSectionFromHash);
         });
-
     </script>
 </body>
 </html>
