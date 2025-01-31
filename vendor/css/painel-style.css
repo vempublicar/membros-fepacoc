@@ -29,20 +29,6 @@ body {
 }
 
 /* Header */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--header-height);
-    background: var(--first-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    z-index: var(--z-fixed);
-    color: white;
-}
 
 
 
