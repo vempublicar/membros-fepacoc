@@ -1,52 +1,26 @@
-/* Sidebar */
+/* Sidebar Desktop */
 .sidebar {
     width: 280px;
     height: 100vh;
     transition: width 0.3s ease-in-out;
-    white-space: nowrap; /* Evita que os textos quebrem */
 }
 
-.sidebar.collapsed {
-    width: 80px;
+.mobile-sidebar {
+    width: 4.5rem;
+    height: 100vh;
+    transition: width 0.3s ease-in-out;
 }
 
-/* Ocultar os textos ao recolher o menu */
-.sidebar.collapsed .nav-link span {
-    display: none;
-}
-
-.sidebar.collapsed .dropdown strong {
-    display: none;
-}
-
-/* Centralizar os ícones no modo recolhido */
-.sidebar .nav-link {
-    display: flex;
-    align-items: center;
-}
-
-.sidebar .nav-link i {
-    font-size: 20px;
-    margin-right: 10px;
-}
-
-.sidebar.collapsed .nav-link i {
-    margin-right: 0; /* Remover espaçamento ao recolher */
+.mobile-sidebar .nav-link {
+    padding: 12px;
     text-align: center;
-    width: 100%;
 }
 
-/* Ajustar dropdown ao recolher */
-.sidebar .dropdown a {
-    display: flex;
-    align-items: center;
+.mobile-sidebar .nav-link i {
+    font-size: 24px;
 }
 
-.sidebar.collapsed .dropdown a {
-    justify-content: center;
-}
-
-/* Área de Trabalho */
+/* Ajustar área de trabalho */
 #mainContent {
     transition: margin-left 0.3s ease-in-out;
     margin-left: 280px;
