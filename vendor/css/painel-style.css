@@ -79,3 +79,20 @@
     justify-content: space-between;
     overflow: hidden;
 }
+
+.nav_logo, .nav_link {
+    display: flex;
+    align-items: center;
+    padding: .75rem 1rem;
+    color: var(--first-color-light);
+    transition: .3s;
+}
+
+.nav_logo:hover, .nav_link:hover {
+    color: var(--white-color);
+}
+
+.nav_icon {
+    font-size: 1.25rem;
+    margin-right: .5rem;
+}
