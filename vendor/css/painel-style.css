@@ -12,6 +12,7 @@
     --z-navbar: 100; /* Menu lateral */
     --z-modal: 1050; /* Modal */
     --z-backdrop: 1045; /* Backdrop */
+    --z-fixed: 100;
 }
 
 *, ::before, ::after {
@@ -46,7 +47,7 @@ a {
     justify-content: space-between;
     padding: 0 1rem;
     background-color: var(--white-color);
-    z-index: 1020;
+    z-index: var(--z-fixed);
     transition: .5s;
 }
 
@@ -73,13 +74,13 @@ a {
 .l-navbar {
     position: fixed;
     top: 0;
-    left: 0;
-    width: var(--nav-width-collapsed);
+    left: -30%;
+    width: var(--nav-width);
     height: 100vh;
     background-color: var(--first-color);
     padding: .5rem 1rem 0 0;
     transition: .5s;
-    z-index: var(--z-navbar);
+    z-index: var(--z-fixed);
 }
 
 .l-navbar.show {
