@@ -229,9 +229,7 @@ a {
 
 <body id="body-pd">
     <header class="header" id="header">
-        <div class="header_toggle"> 
-            <i class='bx bx-menu' id="header-toggle"></i> 
-        </div>
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_img"> 
             <img src="https://i.imgur.com/hczKIze.jpg" alt=""> 
         </div>
@@ -410,76 +408,76 @@ a {
         }
     </script>
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const showNavbar = (toggleId, navId, bodyId, headerId, mainId) => {
-        const toggle = document.getElementById(toggleId),
-              nav = document.getElementById(navId),
-              bodypd = document.getElementById(bodyId),
-              headerpd = document.getElementById(headerId),
-              mainContent = document.getElementById(mainId);
+        document.addEventListener("DOMContentLoaded", function () {
+            const showNavbar = (toggleId, navId, bodyId, headerId, mainId) => {
+                const toggle = document.getElementById(toggleId),
+                    nav = document.getElementById(navId),
+                    bodypd = document.getElementById(bodyId),
+                    headerpd = document.getElementById(headerId),
+                    mainContent = document.getElementById(mainId);
 
-        // Validar se todas as variáveis existem
-        if (toggle && nav && bodypd && headerpd && mainContent) {
-            toggle.addEventListener('click', () => {
-                // Alternar visibilidade do menu
-                nav.classList.toggle('show');
-                // Alternar ícone do botão sanduíche
-                toggle.classList.toggle('bx-x');
-                // Adicionar/remover padding do body e header
-                bodypd.classList.toggle('body-pd');
-                headerpd.classList.toggle('body-pd');
-                // Ajustar margem do conteúdo principal
-                mainContent.classList.toggle('main-expanded');
+                // Validar se todas as variáveis existem
+                if (toggle && nav && bodypd && headerpd && mainContent) {
+                    toggle.addEventListener('click', () => {
+                        // Alternar visibilidade do menu
+                        nav.classList.toggle('show');
+                        // Alternar ícone do botão sanduíche
+                        toggle.classList.toggle('bx-x');
+                        // Adicionar/remover padding do body e header
+                        bodypd.classList.toggle('body-pd');
+                        headerpd.classList.toggle('body-pd');
+                        // Ajustar margem do conteúdo principal
+                        mainContent.classList.toggle('main-expanded');
+                    });
+
+                    // Garantir que o layout esteja correto ao carregar a página
+                    if (nav.classList.contains('show')) {
+                        mainContent.classList.add('main-expanded');
+                    }
+                }
+            }
+
+            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header', 'main-content');
+
+            /*===== LINK ACTIVE =====*/
+            const linkColor = document.querySelectorAll('.nav_link');
+
+            function colorLink() {
+                linkColor.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            }
+            linkColor.forEach(l => l.addEventListener('click', colorLink));
+
+            /*===== FUNÇÃO PARA MOSTRAR A SEÇÃO CORRETA PELO HASH =====*/
+            function showSectionFromHash() {
+                let hash = window.location.hash || "#dashboard";
+                
+                document.querySelectorAll('.content-section').forEach(el => el.style.display = 'none');
+                const targetSection = document.querySelector(hash);
+
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                }
+
+                document.querySelectorAll('.nav_link').forEach(el => el.classList.remove('active'));
+                const activeLink = document.querySelector(`a[href="${hash}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+
+            showSectionFromHash();
+
+            document.querySelectorAll('.nav_link').forEach(el => {
+                el.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    window.location.hash = this.getAttribute('href');
+                    showSectionFromHash();
+                });
             });
 
-            // Garantir que o layout esteja correto ao carregar a página
-            if (nav.classList.contains('show')) {
-                mainContent.classList.add('main-expanded');
-            }
-        }
-    }
-
-    showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header', 'main-content');
-
-    /*===== LINK ACTIVE =====*/
-    const linkColor = document.querySelectorAll('.nav_link');
-
-    function colorLink() {
-        linkColor.forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-    }
-    linkColor.forEach(l => l.addEventListener('click', colorLink));
-
-    /*===== FUNÇÃO PARA MOSTRAR A SEÇÃO CORRETA PELO HASH =====*/
-    function showSectionFromHash() {
-        let hash = window.location.hash || "#dashboard";
-        
-        document.querySelectorAll('.content-section').forEach(el => el.style.display = 'none');
-        const targetSection = document.querySelector(hash);
-
-        if (targetSection) {
-            targetSection.style.display = 'block';
-        }
-
-        document.querySelectorAll('.nav_link').forEach(el => el.classList.remove('active'));
-        const activeLink = document.querySelector(`a[href="${hash}"]`);
-        if (activeLink) {
-            activeLink.classList.add('active');
-        }
-    }
-
-    showSectionFromHash();
-
-    document.querySelectorAll('.nav_link').forEach(el => {
-        el.addEventListener('click', function (e) {
-            e.preventDefault();
-            window.location.hash = this.getAttribute('href');
-            showSectionFromHash();
+            window.addEventListener('hashchange', showSectionFromHash);
         });
-    });
-
-    window.addEventListener('hashchange', showSectionFromHash);
-});
 
     </script>
 </body>
