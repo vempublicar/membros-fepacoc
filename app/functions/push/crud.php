@@ -59,8 +59,7 @@ try {
             'matLink' => "../../../vendor/uploads/materiais/arquivo/"
         ],
         'produto' => [
-            'proCapa' => "../../../vendor/uploads/produto/",
-            'proCat' => "../../../vendor/uploads/produto/"
+            'proCapa' => "../../../vendor/uploads/produto/"
         ],
         'ferramenta' => [
             'ferCapa' => "../../../vendor/uploads/ferramenta/"
