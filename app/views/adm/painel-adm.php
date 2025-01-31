@@ -162,7 +162,6 @@ $ferramentas = fetchFerramentas();
         }
         .modal {
             z-index: 1050; /* Mantém acima de outros elementos */
-            display: flex !important; /* Garante que ele sempre seja visível */
             align-items: center;
             justify-content: center;
         }
