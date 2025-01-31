@@ -92,12 +92,6 @@ $ferramentas = fetchFerramentas();
 
         <!-- Área de Trabalho -->
         <main id="mainContent" class="container-fluid p-4">
-                <div class="container-fluid">
-                    <button class="btn btn-dark" id="sidebarToggle">
-                        <i class="bi bi-list"></i>
-                    </button>
-                    <a class="navbar-brand mx-auto" href="#">Área Administrativa</a>
-                </div>
             <section id="dashboard" class="content-section">
                 <h2>Dashboard</h2>
                 <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
