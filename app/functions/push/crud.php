@@ -9,8 +9,9 @@ function checkAndCreateFolder($folderPath) {
     }
 }
 
-// Função para upload de arquivos
-function handleFileUpload($file, $uploadDir) {
+// Função para upload de arquivos (salvando diretamente na raiz do projeto)
+function handleFileUpload($file) {
+    $uploadDir = "../../uploads/"; // Diretório na raiz do projeto
     checkAndCreateFolder($uploadDir);
 
     if ($file['error'] === UPLOAD_ERR_OK) {
@@ -44,36 +45,10 @@ try {
     $pdo = db_connect();
     $dados = [];
 
-    // Estrutura de diretórios por tabela
-    $uploadDirs = [
-        'capas' => [
-            'desktop' => "../../vendor/uploads/capas/desktop/",
-            'mobile' => "../../vendor/uploads/capas/mobile/"
-        ],
-        'videos' => [
-            'capa' => "../../vendor/uploads/videos/capa/",
-            'arquivo' => "../../vendor/uploads/videos/arquivo/"
-        ],
-        'materiais' => [
-            'capa' => "../../vendor/uploads/materiais/capa/",
-            'arquivo' => "../../vendor/uploads/materiais/arquivo/"
-        ]
-    ];
-
     // Processamento de arquivos enviados
     foreach ($_FILES as $campo => $file) {
         if (!empty($file['size'])) {
-            if ($tabela === 'capas' && in_array($campo, ['capaDesktop', 'capaMobile'])) {
-                $uploadDir = $uploadDirs['capas'][$campo === 'capaDesktop' ? 'desktop' : 'mobile'];
-            } elseif ($tabela === 'videos' && in_array($campo, ['vidCapa', 'vidLink'])) {
-                $uploadDir = $uploadDirs['videos'][$campo === 'vidCapa' ? 'capa' : 'arquivo'];
-            } elseif ($tabela === 'materiais' && in_array($campo, ['matCapa', 'matLink'])) {
-                $uploadDir = $uploadDirs['materiais'][$campo === 'matCapa' ? 'capa' : 'arquivo'];
-            } else {
-                continue; // Se não pertence a nenhuma das tabelas, ignora
-            }
-
-            $dados[$campo] = handleFileUpload($file, $uploadDir);
+            $dados[$campo] = handleFileUpload($file);
         }
     }
 
@@ -139,13 +114,7 @@ try {
         // Remover arquivos associados
         foreach ($registro as $campo => $valor) {
             if (!empty($valor)) {
-                if ($tabela === 'capas' && in_array($campo, ['capaDesktop', 'capaMobile'])) {
-                    @unlink($uploadDirs['capas'][$campo === 'capaDesktop' ? 'desktop' : 'mobile'] . $valor);
-                } elseif ($tabela === 'videos' && in_array($campo, ['vidCapa', 'vidLink'])) {
-                    @unlink($uploadDirs['videos'][$campo === 'vidCapa' ? 'capa' : 'arquivo'] . $valor);
-                } elseif ($tabela === 'materiais' && in_array($campo, ['matCapa', 'matLink'])) {
-                    @unlink($uploadDirs['materiais'][$campo === 'matCapa' ? 'capa' : 'arquivo'] . $valor);
-                }
+                @unlink("../../uploads/" . $valor);
             }
         }
 
