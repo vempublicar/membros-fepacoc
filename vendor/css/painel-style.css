@@ -44,11 +44,7 @@ body {
     color: white;
 }
 
-.header_toggle {
-    font-size: 25px;
-    cursor: pointer;
-    color: white;
-}
+
 
 .header_img img {
     width: 40px;
