@@ -9,7 +9,7 @@ function checkAndCreateFolder($folderPath) {
     }
 }
 
-// Função para upload de arquivos
+// Função para upload de arquivos em diretórios específicos
 function handleFileUpload($file, $uploadDir) {
     checkAndCreateFolder($uploadDir);
 
@@ -44,35 +44,28 @@ try {
     $pdo = db_connect();
     $dados = [];
 
-    // Detecta os novos padrões de colunas
+    // Coleta os dados do formulário
     foreach ($_POST as $chave => $valor) {
         if (!in_array($chave, ['action', 'tabela', 'id'])) {
             $dados[$chave] = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
         }
     }
 
-    // Campos mapeados para uploads (imagens e arquivos)
-    $camposUploads = [
-        'capa' => ["catCapa", "ferCapa", "proCapa", "matCapa", "vidCapa"],
-        'cover' => ["matCover"],
-        'link' => ["matLink", "vidLink"]
-    ];
+    // Diretórios específicos para imagens
+    $dirDesktop = "../../../uploads/capas/desktop/";
+    $dirMobile = "../../../uploads/capas/mobile/";
 
-    // Processamento de arquivos enviados
-    foreach ($_FILES as $campo => $file) {
-        if (!empty($file['size'])) {
-            foreach ($camposUploads as $campoPadrao => $variacoes) {
-                if (in_array($campo, $variacoes)) {
-                    $uploadDir = "../../../vendor/uploads/" . $tabela . "/";
-                    if ($campo === 'link') {
-                        $uploadDir .= "arquivo/"; // Diretório específico para arquivos
-                    }
-                    $dados[$campo] = handleFileUpload($file, $uploadDir);
-                }
-            }
-        }
+    // Upload da imagem desktop
+    if (!empty($_FILES['imagem_desktop']['size'])) {
+        $dados['imagem_desktop'] = handleFileUpload($_FILES['imagem_desktop'], $dirDesktop);
     }
 
+    // Upload da imagem mobile
+    if (!empty($_FILES['imagem_mobile']['size'])) {
+        $dados['imagem_mobile'] = handleFileUpload($_FILES['imagem_mobile'], $dirMobile);
+    }
+
+    // CRUD: Criação, atualização ou exclusão
     if ($action === 'create') {
         // Construção da query SQL dinâmica
         $colunas = implode(", ", array_keys($dados));
@@ -82,6 +75,7 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($dados);
 
+        $_SESSION['message'] = "Capa adicionada com sucesso!";
         header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "#$tabela");
         exit();
 
@@ -100,6 +94,7 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($dados);
 
+        $_SESSION['message'] = "Capa atualizada com sucesso!";
         header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "#$tabela");
         exit();
 
@@ -110,10 +105,30 @@ try {
             exit();
         }
 
-        // Deletar o registro do banco
-        $sql = "DELETE FROM `$tabela` WHERE id = :id";
-        $stmt = $pdo->prepare($sql);
+        // Busca as imagens associadas antes de excluir
+        $stmt = $pdo->prepare("SELECT imagem_desktop, imagem_mobile FROM `$tabela` WHERE id = :id");
         $stmt->execute(['id' => $id]);
+        $capa = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($capa) {
+            // Remove os arquivos físicos das imagens
+            if (!empty($capa['imagem_desktop']) && file_exists($dirDesktop . $capa['imagem_desktop'])) {
+                unlink($dirDesktop . $capa['imagem_desktop']);
+            }
+
+            if (!empty($capa['imagem_mobile']) && file_exists($dirMobile . $capa['imagem_mobile'])) {
+                unlink($dirMobile . $capa['imagem_mobile']);
+            }
+
+            // Deletar o registro do banco
+            $sql = "DELETE FROM `$tabela` WHERE id = :id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['id' => $id]);
+
+            $_SESSION['message'] = "Capa excluída com sucesso!";
+        } else {
+            $_SESSION['error'] = "Erro ao excluir a capa.";
+        }
 
         header("Location: " . strtok($_SERVER['HTTP_REFERER'], '?') . "#$tabela");
         exit();
@@ -123,6 +138,7 @@ try {
     exit();
 
 } catch (Exception $e) {
+    $_SESSION['error'] = "Erro ao processar a requisição: " . $e->getMessage();
     header("Location: " . $_SERVER['HTTP_REFERER'] . "#erro");
     exit();
 }
