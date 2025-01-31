@@ -1,30 +1,46 @@
-/* Reset Padrão */
+/* Importação de fontes */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+
+/* Variáveis Globais */
+:root {
+    --header-height: 60px;
+    --nav-width: 250px;
+    --nav-collapsed-width: 80px;
+    --first-color: #182433;
+    --first-color-light: #AFA5D9;
+    --white-color: #F7F6FB;
+    --body-font: 'Nunito', sans-serif;
+    --normal-font-size: 1rem;
+    --z-fixed: 100;
+}
+
+/* Reset e Estilos Básicos */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
 }
 
-/* Body */
 body {
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
     background-color: #f4f4f4;
-    transition: padding-left 0.3s ease;
+    transition: margin-left 0.3s ease-in-out;
 }
 
 /* Header */
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 60px;
-    background: #182433;
+    height: var(--header-height);
+    background: var(--first-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
+    z-index: var(--z-fixed);
     color: white;
 }
 
@@ -45,13 +61,16 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 250px;
+    width: var(--nav-width);
     height: 100%;
-    background: #222e3c;
-    padding-top: 60px;
-    transition: width 0.3s ease;
+    background: var(--first-color);
+    transition: width 0.3s ease-in-out;
+    padding-top: var(--header-height);
+    overflow: hidden;
+    z-index: var(--z-fixed);
 }
 
+/* Menu Expandido */
 .nav {
     height: 100%;
     display: flex;
@@ -64,13 +83,12 @@ body {
     align-items: center;
     padding: 15px;
     color: white;
-    text-decoration: none;
     font-size: 20px;
     font-weight: bold;
 }
 
-.nav_logo-icon {
-    font-size: 30px;
+.nav_logo i {
+    font-size: 25px;
     margin-right: 10px;
 }
 
@@ -88,41 +106,46 @@ body {
     transition: background 0.3s;
 }
 
-.nav_link:hover, .nav_link.active {
-    background: #1a456b;
-}
-
-.nav_icon {
+.nav_link i {
     font-size: 22px;
     margin-right: 15px;
 }
 
-.nav_link:last-child {
-    margin-top: auto;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+.nav_link:hover, .nav_link.active {
+    background: #1a456b;
 }
 
-/* Classe para mostrar/ocultar navbar */
-.show {
-    width: 80px;
+/* Menu Recolhido */
+.nav_collapsed {
+    width: var(--nav-collapsed-width);
 }
 
-.show .nav_logo-name,
-.show .nav_name {
+.nav_collapsed .nav_logo-name,
+.nav_collapsed .nav_name {
     display: none;
 }
 
-/* Main Content */
+.nav_collapsed .nav_link {
+    justify-content: center;
+    padding: 12px;
+}
+
+.nav_collapsed .nav_link i {
+    margin: 0;
+}
+
+/* Conteúdo Principal */
 main {
-    margin-left: 250px;
+    margin-left: var(--nav-width);
     padding: 20px;
-    transition: margin-left 0.3s ease;
+    transition: margin-left 0.3s ease-in-out;
 }
 
-.body-pd {
-    padding-left: 80px;
+.body-collapsed {
+    margin-left: var(--nav-collapsed-width);
 }
 
+/* Seções do conteúdo */
 .content-section {
     background: white;
     padding: 20px;
@@ -135,45 +158,16 @@ main {
     margin-bottom: 15px;
 }
 
-/* Modal de Acesso */
-.modal-content {
-    border-radius: 10px;
-}
-
-.modal-header {
-    background: #182433;
-    color: white;
-    border-radius: 10px 10px 0 0;
-}
-
-.modal-body {
-    padding: 20px;
-}
-
-#accessForm input {
-    border-radius: 5px;
-}
-
-.btn-primary {
-    background: #1a456b;
-    border: none;
-    transition: background 0.3s;
-}
-
-.btn-primary:hover {
-    background: #143a56;
-}
-
 /* Responsividade */
 @media screen and (max-width: 768px) {
     .l-navbar {
-        width: 80px;
+        width: var(--nav-collapsed-width);
     }
     .nav_logo-name,
     .nav_name {
         display: none;
     }
     main {
-        margin-left: 80px;
+        margin-left: var(--nav-collapsed-width);
     }
 }
