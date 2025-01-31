@@ -284,7 +284,7 @@ a {
         </nav>
     </div>
 
-    <main class="col-md-10 ml-sm-auto col-lg-10 px-4">
+    <div class="height-100 bg-light">
         <section id="dashboard" class="content-section">
             <h2>Dashboard</h2>
             <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
@@ -310,7 +310,7 @@ a {
         <section id="categorias" class="content-section" style="display: none;">
             <?php include "app/views/adm/content/categorias.php" ?>
         </section>
-    </main>
+</div>
     <div class="modal fade" id="accessModal" tabindex="-1" aria-labelledby="accessModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
