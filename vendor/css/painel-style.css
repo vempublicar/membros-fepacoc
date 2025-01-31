@@ -1,28 +1,33 @@
-
-/* Sidebar */
+/* Sidebar Padrão */
 .sidebar, .mobile-sidebar {
     width: 280px;
     height: 100vh;
     transition: width 0.3s ease-in-out;
+    background-color: #212529 !important; /* Mantém a sidebar escura */
+    color: white !important;
 }
 
+/* Sidebar Mobile */
 .mobile-sidebar {
     width: 4.5rem;
 }
 
+/* Links do menu */
 .sidebar .nav-link, .mobile-sidebar .nav-link {
     color: white !important;
+    font-weight: 500;
 }
 
 .sidebar .nav-link:hover, .mobile-sidebar .nav-link:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
+/* Separador */
 .sidebar hr, .mobile-sidebar hr {
     border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Ajustar área de trabalho */
+/* Ajuste do conteúdo */
 #mainContent {
     transition: margin-left 0.3s ease-in-out;
     margin-left: 280px;

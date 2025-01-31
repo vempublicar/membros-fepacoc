@@ -46,51 +46,52 @@ $ferramentas = fetchFerramentas();
     
 
     <div class="d-flex">
-    <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-dark text-light sidebar d-none d-md-flex" style="height: 100vh;">
-    <a href="#" class="d-flex align-items-center mb-3 mb-md-0 text-light text-decoration-none">
-        <span class="fs-4">FEPACOC</span>
-    </a>
-    <hr class="border-secondary">
-    <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-            <a href="#dashboard" class="nav-link active text-light">
-                <i class="bi bi-house-door me-2"></i> Dashboard
+        <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-dark text-light sidebar d-none d-md-flex" style="height: 100vh;">
+            <a href="#" class="d-flex align-items-center mb-3 mb-md-0 text-light text-decoration-none">
+                <span class="fs-4">FEPACOC</span>
             </a>
-        </li>
-        <li><a href="#categorias" class="nav-link text-light"><i class="bi bi-list me-2"></i> Categorias</a></li>
-        <li><a href="#videos" class="nav-link text-light"><i class="bi bi-play-btn me-2"></i> Vídeos</a></li>
-        <li><a href="#materiais" class="nav-link text-light"><i class="bi bi-folder me-2"></i> Materiais</a></li>
-        <li><a href="#produtos" class="nav-link text-light"><i class="bi bi-box me-2"></i> Produtos</a></li>
-        <li><a href="#ferramentas" class="nav-link text-light"><i class="bi bi-tools me-2"></i> Ferramentas</a></li>
-        <li><a href="#capas" class="nav-link text-light"><i class="bi bi-image me-2"></i> Capas</a></li>
-        <li><a href="#leads" class="nav-link text-light"><i class="bi bi-people me-2"></i> Leads</a></li>
-    </ul>
-    <hr class="border-secondary">
-    <a href="#" class="nav-link text-light" onclick="logout()">
-        <i class="bi bi-box-arrow-right me-2"></i> Sair
-    </a>
-</div>
+            <hr class="border-secondary">
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active text-light">
+                        <i class="bi bi-house-door me-2"></i> Dashboard
+                    </a>
+                </li>
+                <li><a href="#categorias" class="nav-link text-light"><i class="bi bi-list me-2"></i> Categorias</a></li>
+                <li><a href="#videos" class="nav-link text-light"><i class="bi bi-play-btn me-2"></i> Vídeos</a></li>
+                <li><a href="#materiais" class="nav-link text-light"><i class="bi bi-folder me-2"></i> Materiais</a></li>
+                <li><a href="#produtos" class="nav-link text-light"><i class="bi bi-box me-2"></i> Produtos</a></li>
+                <li><a href="#ferramentas" class="nav-link text-light"><i class="bi bi-tools me-2"></i> Ferramentas</a></li>
+                <li><a href="#capas" class="nav-link text-light"><i class="bi bi-image me-2"></i> Capas</a></li>
+                <li><a href="#leads" class="nav-link text-light"><i class="bi bi-people me-2"></i> Leads</a></li>
+            </ul>
+            <hr class="border-secondary">
+            <a href="#" class="nav-link text-light" onclick="logout()">
+                <i class="bi bi-box-arrow-right me-2"></i> Sair
+            </a>
+        </div>
 
-<!-- Sidebar Mobile -->
-<div id="sidebarMobile" class="d-flex flex-column flex-shrink-0 bg-dark text-light mobile-sidebar d-md-none" style="height: 100vh;">
-    <a href="#" class="d-block p-3 text-light text-decoration-none" title="Menu">
-        <i class="bi bi-list" id="mobileMenuToggle"></i>
-    </a>
-    <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
-        <li class="nav-item">
-            <a href="#dashboard" class="nav-link active py-3 border-bottom text-light" title="Dashboard">
-                <i class="bi bi-house-door"></i>
+        <!-- Sidebar Mobile -->
+        <div id="sidebarMobile" class="d-flex flex-column flex-shrink-0 bg-dark text-light mobile-sidebar d-md-none" style="height: 100vh;">
+            <a href="#" class="d-block p-3 text-light text-decoration-none" title="Menu">
+                <i class="bi bi-list" id="mobileMenuToggle"></i>
             </a>
-        </li>
-        <li><a href="#categorias" class="nav-link py-3 border-bottom text-light" title="Categorias"><i class="bi bi-list"></i></a></li>
-        <li><a href="#videos" class="nav-link py-3 border-bottom text-light" title="Vídeos"><i class="bi bi-play-btn"></i></a></li>
-        <li><a href="#materiais" class="nav-link py-3 border-bottom text-light" title="Materiais"><i class="bi bi-folder"></i></a></li>
-        <li><a href="#produtos" class="nav-link py-3 border-bottom text-light" title="Produtos"><i class="bi bi-box"></i></a></li>
-        <li><a href="#ferramentas" class="nav-link py-3 border-bottom text-light" title="Ferramentas"><i class="bi bi-tools"></i></a></li>
-        <li><a href="#capas" class="nav-link py-3 border-bottom text-light" title="Capas"><i class="bi bi-image"></i></a></li>
-        <li><a href="#leads" class="nav-link py-3 border-bottom text-light" title="Leads"><i class="bi bi-people"></i></a></li>
-    </ul>
-</div>
+            <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active py-3 border-bottom text-light" title="Dashboard">
+                        <i class="bi bi-house-door"></i>
+                    </a>
+                </li>
+                <li><a href="#categorias" class="nav-link py-3 border-bottom text-light" title="Categorias"><i class="bi bi-list"></i></a></li>
+                <li><a href="#videos" class="nav-link py-3 border-bottom text-light" title="Vídeos"><i class="bi bi-play-btn"></i></a></li>
+                <li><a href="#materiais" class="nav-link py-3 border-bottom text-light" title="Materiais"><i class="bi bi-folder"></i></a></li>
+                <li><a href="#produtos" class="nav-link py-3 border-bottom text-light" title="Produtos"><i class="bi bi-box"></i></a></li>
+                <li><a href="#ferramentas" class="nav-link py-3 border-bottom text-light" title="Ferramentas"><i class="bi bi-tools"></i></a></li>
+                <li><a href="#capas" class="nav-link py-3 border-bottom text-light" title="Capas"><i class="bi bi-image"></i></a></li>
+                <li><a href="#leads" class="nav-link py-3 border-bottom text-light" title="Leads"><i class="bi bi-people"></i></a></li>
+            </ul>
+        </div>
+
 
         <!-- Área de Trabalho -->
         <main id="mainContent" class="container-fluid p-4">
