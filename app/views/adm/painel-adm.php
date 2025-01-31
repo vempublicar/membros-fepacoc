@@ -15,7 +15,7 @@ include_once "app/views/parts/head.php"; ?>
     <div class="container-fluid">
         <div class="row">
             <!-- Menu lateral fixo -->
-            <nav id="sidebar" class="bg-dark text-white d-flex flex-column min-vh-100">
+            <nav id="sidebar" class="bg-dark text-white col min-vh-100">
                 <div class="p-3">
                     <button id="toggleMenu" class="btn btn-outline-light w-100 mb-3">
                         <i class="bi bi-list"></i>
