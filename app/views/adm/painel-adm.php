@@ -256,7 +256,7 @@ $ferramentas = fetchFerramentas();
         </nav>
     </div>
 
-    <main class="col-md-10 ml-sm-auto col-lg-10 px-4">
+    <main class="col-md-12 ml-sm-auto col-lg-12 px-4">
         <section id="dashboard" class="content-section">
             <h2>Dashboard</h2>
             <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
