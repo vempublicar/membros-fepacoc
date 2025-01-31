@@ -380,34 +380,49 @@ $ferramentas = fetchFerramentas();
         }
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const toggle = document.getElementById('header-toggle'),
-                  nav = document.getElementById('nav-bar');
+document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById('header-toggle'),
+          nav = document.getElementById('nav-bar'),
+          bodypd = document.getElementById('body-pd'),
+          headerpd = document.getElementById('header'),
+          mainContent = document.querySelector('main'); 
 
-            toggle.addEventListener('click', () => {
-                nav.classList.toggle('show');
-                toggle.classList.toggle('bx-x');
-            });
+    toggle.addEventListener('click', () => {
+        nav.classList.toggle('show');
+        toggle.classList.toggle('bx-x');
 
-            function showSectionFromHash() {
-                var hash = window.location.hash || "#dashboard";
-                document.querySelectorAll('.content-section').forEach(el => el.style.display = 'none');
-                document.querySelector(hash).style.display = 'block';
-                document.querySelectorAll('.nav_link').forEach(el => el.classList.remove('active'));
-                document.querySelector('a[href="' + hash + '"]').classList.add('active');
-            }
+        // Ajuste de espaçamento do main
+        if (nav.classList.contains('show')) {
+            mainContent.style.marginLeft = "250px"; // Expande
+        } else {
+            mainContent.style.marginLeft = "68px"; // Recolhe
+        }
+    });
 
+    function showSectionFromHash() {
+        var hash = window.location.hash || "#dashboard";
+        document.querySelectorAll('.content-section').forEach(el => el.style.display = 'none');
+        if (document.querySelector(hash)) {
+            document.querySelector(hash).style.display = 'block';
+        }
+        document.querySelectorAll('.nav_link').forEach(el => el.classList.remove('active'));
+        const activeLink = document.querySelector(`a[href="${hash}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    }
+
+    showSectionFromHash();
+    document.querySelectorAll('.nav_link').forEach(el => {
+        el.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.hash = this.getAttribute('href');
             showSectionFromHash();
-            document.querySelectorAll('.nav_link').forEach(el => {
-                el.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    window.location.hash = this.getAttribute('href');
-                    showSectionFromHash();
-                });
-            });
-
-            window.addEventListener('hashchange', showSectionFromHash);
         });
+    });
+
+    window.addEventListener('hashchange', showSectionFromHash);
+});
     </script>
 </body>
 </html>
