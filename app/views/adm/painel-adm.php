@@ -85,6 +85,7 @@ $capas = fetchCapas();
                     </a>
                 </li>
                 <li><a href="#categorias" class="nav-link py-3 border-bottom text-light" title="Categorias"><i class="bi bi-list"></i></a></li>
+                <li><a href="#assunto" class="nav-link py-3 border-bottom text-light" title="Assunto"><i class="bi bi-list"></i></a></li>
                 <li><a href="#videos" class="nav-link py-3 border-bottom text-light" title="Vídeos"><i class="bi bi-play-btn"></i></a></li>
                 <li><a href="#materiais" class="nav-link py-3 border-bottom text-light" title="Materiais"><i class="bi bi-folder"></i></a></li>
                 <li><a href="#produtos" class="nav-link py-3 border-bottom text-light" title="Produtos"><i class="bi bi-box"></i></a></li>
@@ -121,6 +122,9 @@ $capas = fetchCapas();
             </section>
             <section id="categorias" class="content-section" style="display: none;">
                 <?php include "app/views/adm/content/categorias.php" ?>
+            </section>
+            <section id="assunto" class="content-section" style="display: none;">
+                <?php include "app/views/adm/content/assunto.php" ?>
             </section>
         </main>
     </div>
