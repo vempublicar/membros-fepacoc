@@ -7,6 +7,7 @@ $materiais = fetchMateriais();
 $leads = fetchLeads();
 $categorias = fetchCategorias();
 $ferramentas = fetchFerramentas();
+$capas = fetchCapas();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
