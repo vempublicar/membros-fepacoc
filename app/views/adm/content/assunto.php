@@ -97,6 +97,10 @@ function editAssunto(element) {
     document.getElementById("assuntoId").value = element.getAttribute("data-id");
     document.getElementById("categoria").value = element.getAttribute("data-categoria");
     document.getElementById("assunto").value = element.getAttribute("data-assunto");
+
+    // **Abrindo o Offcanvas via JavaScript**
+    var offcanvasElement = new bootstrap.Offcanvas(document.getElementById('offcanvasAddAssunto'));
+    offcanvasElement.show();
 }
 
 function resetForm() {
