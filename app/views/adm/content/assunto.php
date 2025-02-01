@@ -21,30 +21,27 @@
                             <td><?= htmlspecialchars($assunto['categoria']) ?></td>
                             <td><?= htmlspecialchars($assunto['assunto']) ?></td>
                             <td>
+                                <?php if (!empty($assunto['assCapa'])): ?>
+                                    <img src="vendor/uploads/assuntos/<?= htmlspecialchars($assunto['assCapa']) ?>"
+                                        alt="<?= htmlspecialchars($assunto['assunto']) ?>"
+                                        style="width: 50px; height: auto; border-radius: 5px;">
+                                <?php else: ?>
+                                    <img src="vendor/uploads/assuntos/default.png"
+                                        alt="Capa padrão"
+                                        style="width: 50px; height: auto; border-radius: 5px;">
+                                <?php endif; ?>
+                            </td>
+                            <td>
                                 <i class="fa fa-edit text-primary me-2"
-                                    style="cursor: pointer;"
-                                    data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasAddAssunto"
-                                    data-id="<?= $assunto['id'] ?>"
-                                    data-categoria="<?= htmlspecialchars($assunto['categoria']) ?>"
-                                    data-assunto="<?= htmlspecialchars($assunto['assunto']) ?>"
-                                    onclick="editAssunto(this)"></i>
-
-                                <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
-                                    <input type="hidden" name="action" value="delete">
-                                    <input type="hidden" name="tabela" value="assunto">
-                                    <input type="hidden" name="id" value="<?= $assunto['id'] ?>">
-                                    <button type="submit" class="btn btn-link text-danger p-0 border-0" onclick="return confirm('Tem certeza que deseja excluir este assunto?');">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </form>
+                                data-id="<?= $assunto['id'] ?>"
+                                data-categoria="<?= htmlspecialchars($assunto['categoria']) ?>"
+                                data-assunto="<?= htmlspecialchars($assunto['assunto']) ?>"
+                                onclick="editAssunto(this)"></i>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <tr>
-                        <td colspan="3" class="text-center">Nenhum assunto cadastrado</td>
-                    </tr>
+                    <tr><td colspan="4" class="text-center">Nenhum assunto cadastrado</td></tr>
                 <?php endif; ?>
             </tbody>
         </table>
@@ -58,7 +55,7 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
     </div>
     <div class="offcanvas-body">
-        <form id="formAssunto" action="app/functions/push/crud.php" method="POST">
+        <form id="formAssunto" action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
             <!-- Campos Ocultos -->
             <input type="hidden" name="action" value="create" id="formAction">
             <input type="hidden" name="tabela" value="assunto">
@@ -79,6 +76,12 @@
             <div class="mb-3">
                 <label for="assunto" class="form-label">Assunto</label>
                 <input type="text" class="form-control" id="assunto" name="assunto" required>
+            </div>
+
+            <!-- Upload de Imagem -->
+            <div class="mb-3">
+                <label for="assCapa" class="form-label">Capa do Assunto</label>
+                <input type="file" class="form-control" id="assCapa" name="assCapa" accept="image/*">
             </div>
 
             <!-- Botão de Envio -->

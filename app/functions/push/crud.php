@@ -66,6 +66,9 @@ try {
         ],
         'categorias' => [
             'catCapa' => "../../../vendor/uploads/categorias/"
+        ],
+        'assunto' => [
+            'assCapa' => "../../../vendor/uploads/assunto/"
         ]
     ];
 
