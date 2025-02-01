@@ -6,7 +6,6 @@ switch ($page) {
     case 'webhook':
         require 'app/views/public/webhook.php';
         break;
-
         
     case 'log-webhook':
         require 'app/views/public/log-webhook.php';
@@ -40,36 +39,41 @@ switch ($page) {
         require 'app/views/private/minha-assinatura.php';
         break;
 
-        case 'area-exclusiva':
-            require 'app/views/private/area-exclusiva.php';
-            break;
+    case 'area-exclusiva':
+        require 'app/views/private/area-exclusiva.php';
+        break;
 
-            case 'produtos':
-                require 'app/views/private/produtos.php';
-                break;
+    case 'produtos':
+        require 'app/views/private/produtos.php';
+        break;
 
-                case 'material':
-                    require 'app/views/private/materiais.php';
-                    break;
+    case 'material':
+        require 'app/views/private/materiais.php';
+        break;
                     
-                case 'aulas':
-                    require 'app/views/private/aulas.php';
-                    break;
-                    case 'doc':
-                        require 'app/views/private/docs.php';
-                        break;
+    case 'aulas':
+        require 'app/views/private/aulas.php';
+        break;
+
+    case 'doc':
+        require 'app/views/private/docs.php';
+        break;
 
     case 'sobre':
         require 'app/views/private/sobre.php';
+        break;
+
+    case 'categoria':
+        require 'app/views/private/categorias.php';
         break;
 
     case 'entregaveis':
         require 'app/views/private/entregaveis.php';
         break;
 
-        case 'ferramentas':
-            require 'app/views/private/ferramentas.php';
-            break;
+    case 'ferramentas':
+        require 'app/views/private/ferramentas.php';
+        break;
 
     case 'planos':
         require 'app/views/private/planos.php';
