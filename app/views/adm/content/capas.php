@@ -21,8 +21,8 @@
                     <?php foreach ($capas as $capa): ?>
                         <tr>
                             <td>
-                                <?php if (!empty($capa['imagem_desktop'])): ?>
-                                    <img src="uploads/capas/<?= htmlspecialchars($capa['imagem_desktop']) ?>"
+                                <?php if (!empty($capa['capaMobile'])): ?>
+                                    <img src="uploads/capas/<?= htmlspecialchars($capa['capaMobile']) ?>"
                                         alt="<?= htmlspecialchars($capa['nome']) ?>"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>
