@@ -128,7 +128,7 @@
 <script>
 function editarCategoria(element) {
     document.getElementById("offcanvasAddCategoryLabel").textContent = "Editar Categoria";
-    document.getElementById("formAction").value = "update"; // Corrigido para o ID correto
+    document.getElementById("formActionCat").value = "update"; // Corrigido para o ID correto
     document.getElementById("categoryId").value = element.getAttribute("data-id");
     document.getElementById("catNome").value = element.getAttribute("data-catnome");
     document.getElementById("catDesc").value = element.getAttribute("data-catdesc");
@@ -157,7 +157,7 @@ function editarCategoria(element) {
 function resetCategoriaForm() {
     document.getElementById("offcanvasAddCategoryLabel").textContent = "Adicionar Nova Categoria";
     document.getElementById("formCategory").reset();
-    document.getElementById("formAction").value = "create"; // Corrigido para o ID correto
+    document.getElementById("formActionCat").value = "create"; // Corrigido para o ID correto
     document.getElementById("categoryId").value = "";
     document.getElementById("catCapa").parentNode.querySelector("img")?.remove();
 }

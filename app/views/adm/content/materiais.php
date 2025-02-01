@@ -25,7 +25,7 @@
                             <!-- Capa do Material -->
                             <td>
                                 <?php if (!empty($material['matCapa'])): ?>
-                                    <img src="vendor/uploads/materiais/<?= htmlspecialchars($material['matCapa']) ?>"
+                                    <img src="vendor/uploads/materiais/capa/<?= htmlspecialchars($material['matCapa']) ?>"
                                         alt="<?= htmlspecialchars($material['matNome']) ?>"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>

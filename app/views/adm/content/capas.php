@@ -91,7 +91,7 @@
     </div>
     <div class="offcanvas-body">
         <form id="formCapa" action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
-            <input type="text" name="action" value="create" id="formActionCap">
+            <input type="hidden" name="action" value="create" id="formActionCap">
             <input type="hidden" name="tabela" value="capas">
             <input type="hidden" name="id" id="capaId">
 
