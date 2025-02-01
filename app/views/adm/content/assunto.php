@@ -33,10 +33,10 @@
                             </td>
                             <td>
                                 <i class="fa fa-edit text-primary me-2"
-                                data-id="<?= $assunto['id'] ?>"
-                                data-categoria="<?= htmlspecialchars($assunto['categoria']) ?>"
-                                data-assunto="<?= htmlspecialchars($assunto['assunto']) ?>"
-                                onclick="editAssunto(this)"></i>
+                                    data-id="<?= $assunto['id'] ?>"
+                                    data-categoria="<?= htmlspecialchars($assunto['categoria']) ?>"
+                                    data-assunto="<?= htmlentities($assunto['assunto'], ENT_QUOTES, 'UTF-8') ?>"
+                                    onclick="editAssunto(this)"></i>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -97,16 +97,22 @@ function editAssunto(element) {
     document.getElementById("assuntoId").value = element.getAttribute("data-id");
     document.getElementById("categoria").value = element.getAttribute("data-categoria");
 
-    // **Verifica se o atributo data-assunto existe**
+    // Pegando o valor do atributo data-assunto corretamente
     let assuntoValor = element.getAttribute("data-assunto") || "";
-    console.log("Assunto carregado:", assuntoValor); // Debugging no console
 
-    // **Preenche o campo Assunto corretamente**
-    document.getElementById("assunto").value = assuntoValor;
+    // Corrigindo a atribuição do valor no input
+    document.getElementById("assunto").value = decodeEntities(assuntoValor);
 
-    // **Abrindo o Offcanvas via JavaScript**
+    // Abrindo o Offcanvas via JavaScript
     var offcanvasElement = new bootstrap.Offcanvas(document.getElementById('offcanvasAddAssunto'));
     offcanvasElement.show();
+}
+
+// Função para corrigir caracteres especiais ao atribuir no input
+function decodeEntities(encodedString) {
+    var textarea = document.createElement("textarea");
+    textarea.innerHTML = encodedString;
+    return textarea.value;
 }
 
 function resetForm() {
