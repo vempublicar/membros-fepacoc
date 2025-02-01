@@ -63,6 +63,7 @@
                                     data-vidformato="<?= htmlspecialchars($video['vidFormato']) ?>"
                                     data-vidsetor="<?= htmlspecialchars($video['vidSetor']) ?>"
                                     data-vidcat="<?= htmlspecialchars($video['vidCat']) ?>"
+                                    data-vidAssunto="<?= htmlspecialchars($video['vidAssunto']) ?>"
                                     data-vidtipo="<?= htmlspecialchars($video['vidTipo']) ?>"
                                     data-viddesc="<?= htmlspecialchars($video['vidDesc']) ?>"
                                     data-vidstatus="<?= htmlspecialchars($video['vidStatus']) ?>"
@@ -117,6 +118,16 @@
                         <option value="">Selecione</option>
                         <?php foreach ($categorias as $categoria): ?>
                             <option value="<?= htmlspecialchars($categoria['catNome']) ?>"><?= htmlspecialchars($categoria['catNome']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="col-6 mb-3">
+                    <label for="vidAssunto" class="form-label">Assunto</label>
+                    <select class="form-select" id="vidAssunto" name="vidAssunto" required>
+                        <option value="">Selecione</option>
+                        <?php foreach ($assuntos as $assunto): ?>
+                            <option value="<?= htmlspecialchars($assunto['assunto']) ?>"><?= htmlspecialchars($assunto['assunto']) ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -221,6 +232,7 @@ function editarVideo(element) {
     document.getElementById("vidFormulario").value = element.getAttribute("data-vidformulario");
     document.getElementById("vidLinkExterno").value = element.getAttribute("data-vidlinkexterno");
     document.getElementById("vidCat").value = element.getAttribute("data-vidcat");
+    document.getElementById("vidAssunto").value = element.getAttribute("data-vidAssunto");
     document.getElementById("vidProdutor").value = element.getAttribute("data-vidprodutor");
     document.getElementById("vidFormato").value = element.getAttribute("data-vidformato");
     document.getElementById("vidTipo").value = element.getAttribute("data-vidtipo");
