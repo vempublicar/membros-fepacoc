@@ -98,7 +98,7 @@
             <!-- Campo Assunto -->
             <div class="mb-3">
                 <label for="assunto" class="form-label">Assunto</label>
-                <input type="text" class="form-control" id="assunto" name="assunto" required>
+                <input type="text" class="form-control" id="assuntosss" name="assunto" required>
             </div>
 
             <!-- Upload de Imagem -->
@@ -119,7 +119,7 @@ function editarAssunto(element) {
     document.getElementById("formAction").value = "update";
     document.getElementById("assuntoId").value = element.getAttribute("data-id");
     document.getElementById("categoria").value = element.getAttribute("data-categoria");
-    document.getElementById("assunto").value = element.getAttribute("data-assunto");
+    document.getElementById("assuntosss").value = element.getAttribute("data-assunto");
 
     // Exibir pré-visualização da capa, se existir
     let capaAtual = element.getAttribute("data-asscapa");
