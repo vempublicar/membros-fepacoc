@@ -56,7 +56,7 @@
                                     data-catdesc="<?= htmlspecialchars($categoria['catDesc']) ?>"
                                     data-catstatus="<?= htmlspecialchars($categoria['catStatus']) ?>"
                                     data-catcapa="<?= htmlspecialchars($categoria['catCapa'] ?? '') ?>"
-                                    onclick="editCategory(this)"></i>
+                                    onclick="editarCategoria(this)"></i>
 
                                 <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
                                     <input type="hidden" name="action" value="delete">
@@ -126,33 +126,27 @@
 </div>
 
 <script>
-function editCategory(element) {
+function editarCategoria(element) {
     document.getElementById("offcanvasAddCategoryLabel").textContent = "Editar Categoria";
-    document.getElementById("formAction").value = "update"; // Agora será update!
+    document.getElementById("formAction").value = "update";
     document.getElementById("categoryId").value = element.getAttribute("data-id");
     document.getElementById("catNome").value = element.getAttribute("data-catnome");
     document.getElementById("catDesc").value = element.getAttribute("data-catdesc");
     document.getElementById("catStatus").value = element.getAttribute("data-catstatus");
 
-    // Exibir pré-visualização da capa se existir
+    // Exibir pré-visualização da capa, se existir
     let capaAtual = element.getAttribute("data-catcapa");
-    let capaContainer = document.getElementById("catCapa").parentNode;
-    let existingPreview = capaContainer.querySelector("img");
-    if (existingPreview) existingPreview.remove();
-
+    document.getElementById("catCapa").parentNode.querySelector("img")?.remove();
     if (capaAtual) {
         let capaPreview = document.createElement("img");
         capaPreview.src = "vendor/uploads/categorias/" + capaAtual;
         capaPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
-        capaContainer.appendChild(capaPreview);
+        document.getElementById("catCapa").parentNode.appendChild(capaPreview);
     }
-
-    // Abrir Offcanvas via JS
-    var offcanvasElement = new bootstrap.Offcanvas(document.getElementById('offcanvasAddCategory'));
-    offcanvasElement.show();
 }
 
-function resetForm() {
+// Função para resetar o formulário de Categoria
+function resetCategoriaForm() {
     document.getElementById("offcanvasAddCategoryLabel").textContent = "Adicionar Nova Categoria";
     document.getElementById("formCategory").reset();
     document.getElementById("formAction").value = "create";

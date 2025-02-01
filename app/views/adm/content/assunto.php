@@ -48,7 +48,7 @@
                                     data-categoria="<?= htmlspecialchars($assunto['categoria']) ?>"
                                     data-assunto="<?= htmlspecialchars($assunto['assunto']) ?>"
                                     data-asscapa="<?= htmlspecialchars($assunto['assCapa'] ?? '') ?>"
-                                    onclick="editAssunto(this)"></i>
+                                    onclick="editarAssunto(this)"></i>
 
                                 <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
                                     <input type="hidden" name="action" value="delete">
@@ -114,36 +114,31 @@
 </div>
 
 <script>
-function editAssunto(element) {
+function editarAssunto(element) {
     document.getElementById("offcanvasAddAssuntoLabel").textContent = "Editar Assunto";
-    document.getElementById("formAction").value = "update"; // Alterado para update
+    document.getElementById("formAction").value = "update";
     document.getElementById("assuntoId").value = element.getAttribute("data-id");
     document.getElementById("categoria").value = element.getAttribute("data-categoria");
     document.getElementById("assunto").value = element.getAttribute("data-assunto");
 
-    // Exibir pré-visualização da capa se existir
+    // Exibir pré-visualização da capa, se existir
     let capaAtual = element.getAttribute("data-asscapa");
-    let capaContainer = document.getElementById("assCapa").parentNode;
-    let existingPreview = capaContainer.querySelector("img");
-    if (existingPreview) existingPreview.remove();
-
+    document.getElementById("assCapa").parentNode.querySelector("img")?.remove();
     if (capaAtual) {
         let capaPreview = document.createElement("img");
         capaPreview.src = "vendor/uploads/assuntos/" + capaAtual;
         capaPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
-        capaContainer.appendChild(capaPreview);
+        document.getElementById("assCapa").parentNode.appendChild(capaPreview);
     }
-
-    // Abrir Offcanvas via JS
-    var offcanvasElement = new bootstrap.Offcanvas(document.getElementById('offcanvasAddAssunto'));
-    offcanvasElement.show();
 }
 
-function resetForm() {
+// Função para resetar o formulário de Assunto
+function resetAssuntoForm() {
     document.getElementById("offcanvasAddAssuntoLabel").textContent = "Adicionar Novo Assunto";
     document.getElementById("formAssunto").reset();
     document.getElementById("formAction").value = "create";
     document.getElementById("assuntoId").value = "";
     document.getElementById("assCapa").parentNode.querySelector("img")?.remove();
 }
+
 </script>
