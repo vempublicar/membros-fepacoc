@@ -19,84 +19,84 @@
                 </tr>
             </thead>
             <tbody>
-    <?php if (!empty($materiais)): ?>
-        <?php foreach ($materiais as $material): ?>
-            <tr>
-                <!-- Capa do Material -->
-                <td>
-                    <?php if (!empty($material['matCapa'])): ?>
-                        <img src="vendor/uploads/materiais/<?= htmlspecialchars($material['matCapa']) ?>"
-                            alt="<?= htmlspecialchars($material['matNome']) ?>"
-                            style="width: 50px; height: auto; border-radius: 5px;">
-                    <?php else: ?>
-                        <img src="vendor/uploads/materiais/default.jpg"
-                            alt="Capa padrão"
-                            style="width: 50px; height: auto; border-radius: 5px;">
-                    <?php endif; ?>
-                </td>
+                <?php if (!empty($materiais)): ?>
+                    <?php foreach ($materiais as $material): ?>
+                        <tr>
+                            <!-- Capa do Material -->
+                            <td>
+                                <?php if (!empty($material['matCapa'])): ?>
+                                    <img src="vendor/uploads/materiais/<?= htmlspecialchars($material['matCapa']) ?>"
+                                        alt="<?= htmlspecialchars($material['matNome']) ?>"
+                                        style="width: 50px; height: auto; border-radius: 5px;">
+                                <?php else: ?>
+                                    <img src="vendor/uploads/materiais/default.jpg"
+                                        alt="Capa padrão"
+                                        style="width: 50px; height: auto; border-radius: 5px;">
+                                <?php endif; ?>
+                            </td>
 
-                <!-- Nome -->
-                <td><?= htmlspecialchars($material['matNome']) ?></td>
+                            <!-- Nome -->
+                            <td><?= htmlspecialchars($material['matNome']) ?></td>
 
-                <!-- Tipo -->
-                <td><?= htmlspecialchars($material['matTipo']) ?></td>
+                            <!-- Tipo -->
+                            <td><?= htmlspecialchars($material['matTipo']) ?></td>
 
-                <!-- Arquivo -->
-                <td>
-                    <?php if (!empty($material['matLink'])): ?>
-                        <a href="vendor/uploads/materiais/arquivo/<?= htmlspecialchars($material['matLink']) ?>" target="_blank">
-                            <i class="fa fa-file-alt"></i> Download
-                        </a>
-                    <?php else: ?>
-                        <span class="text-muted">Sem arquivo</span>
-                    <?php endif; ?>
-                </td>
+                            <!-- Arquivo -->
+                            <td>
+                                <?php if (!empty($material['matLink'])): ?>
+                                    <a href="vendor/uploads/materiais/arquivo/<?= htmlspecialchars($material['matLink']) ?>" target="_blank">
+                                        <i class="fa fa-file-alt"></i> Download
+                                    </a>
+                                <?php else: ?>
+                                    <span class="text-muted">Sem arquivo</span>
+                                <?php endif; ?>
+                            </td>
 
-                <!-- Categoria -->
-                <td><?= htmlspecialchars($material['matCat']) ?></td>
+                            <!-- Categoria -->
+                            <td><?= htmlspecialchars($material['matCat']) ?></td>
 
-                <!-- Status -->
-                <td class="text-center">
-                    <?php if ($material['matStatus'] === 'ativo'): ?>
-                        <i class="fa fa-check-circle text-success"></i>
-                    <?php else: ?>
-                        <i class="fa fa-times-circle text-danger"></i>
-                    <?php endif; ?>
-                </td>
+                            <!-- Status -->
+                            <td class="text-center">
+                                <?php if ($material['matStatus'] === 'ativo'): ?>
+                                    <i class="fa fa-check-circle text-success"></i>
+                                <?php else: ?>
+                                    <i class="fa fa-times-circle text-danger"></i>
+                                <?php endif; ?>
+                            </td>
 
-                <!-- Ações -->
-                <td>
-                    <i class="fa fa-edit text-primary me-2"
-                        style="cursor: pointer;"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasAddMaterial"
-                        data-id="<?= $material['id'] ?>"
-                        data-matnome="<?= htmlspecialchars($material['matNome']) ?>"
-                        data-mattipo="<?= htmlspecialchars($material['matTipo']) ?>"
-                        data-matlink="<?= htmlspecialchars($material['matLink']) ?>"
-                        data-matdesc="<?= htmlspecialchars($material['matDesc']) ?>"
-                        data-matcat="<?= htmlspecialchars($material['matCat']) ?>"
-                        data-matstatus="<?= htmlspecialchars($material['matStatus']) ?>"
-                        data-matcapa="<?= htmlspecialchars($material['matCapa'] ?? '') ?>"
-                        onclick="editMaterial(this)"></i>
+                            <!-- Ações -->
+                            <td>
+                            <i class="fa fa-edit text-primary me-2"
+                                style="cursor: pointer;"
+                                data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasAddMaterial"
+                                data-id="<?= $material['id'] ?>"
+                                data-matnome="<?= htmlspecialchars($material['matNome']) ?>"
+                                data-mattipo="<?= htmlspecialchars($material['matTipo']) ?>"
+                                data-matdesc="<?= htmlspecialchars($material['matDesc']) ?>"
+                                data-matcat="<?= htmlspecialchars($material['matCat']) ?>"
+                                data-matstatus="<?= htmlspecialchars($material['matStatus']) ?>"
+                                data-matcapa="<?= htmlspecialchars($material['matCapa'] ?? '') ?>"
+                                data-matlink="<?= htmlspecialchars($material['matLink'] ?? '') ?>"
+                                onclick="editMaterial(this)"></i>
 
-                    <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
-                        <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="tabela" value="materiais">
-                        <input type="hidden" name="id" value="<?= $material['id'] ?>">
-                        <button type="submit" class="btn btn-link text-danger p-0 border-0" onclick="return confirm('Tem certeza que deseja excluir este material?');">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <tr>
-            <td colspan="7" class="text-center">Nenhum material cadastrado</td>
-        </tr>
-    <?php endif; ?>
-</tbody>
+                                <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
+                                    <input type="hidden" name="action" value="delete">
+                                    <input type="hidden" name="tabela" value="materiais">
+                                    <input type="hidden" name="id" value="<?= $material['id'] ?>">
+                                    <button type="submit" class="btn btn-link text-danger p-0 border-0" onclick="return confirm('Tem certeza que deseja excluir este material?');">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="7" class="text-center">Nenhum material cadastrado</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
         </table>
     </div>
 </div>
@@ -175,27 +175,27 @@ function editMaterial(element) {
     document.getElementById("offcanvasAddMaterialLabel").textContent = "Editar Material";
     document.getElementById("formActionMat").value = "update";
     document.getElementById("materialId").value = element.getAttribute("data-id");
-    document.getElementById("matNome").value = element.getAttribute("data-nome");
-    document.getElementById("matTipo").value = element.getAttribute("data-tipo");
-    document.getElementById("matDesc").value = element.getAttribute("data-descricao");
-    document.getElementById("matCat").value = element.getAttribute("data-categoria");
-    document.getElementById("matStatus").value = element.getAttribute("data-status");
+    document.getElementById("matNome").value = element.getAttribute("data-matnome");
+    document.getElementById("matTipo").value = element.getAttribute("data-mattipo");
+    document.getElementById("matDesc").value = element.getAttribute("data-matdesc");
+    document.getElementById("matCat").value = element.getAttribute("data-matcat");
+    document.getElementById("matStatus").value = element.getAttribute("data-matstatus");
 
     // Exibir pré-visualização da capa se existir
-    let capaAtual = element.getAttribute("data-capa");
+    let capaAtual = element.getAttribute("data-matcapa");
     let capaContainer = document.getElementById("matCapa").parentNode;
     let existingPreview = capaContainer.querySelector("img");
     if (existingPreview) existingPreview.remove();
 
     if (capaAtual) {
         let capaPreview = document.createElement("img");
-        capaPreview.src = "vendor/uploads/materiais/" + capaAtual;
+        capaPreview.src = "vendor/uploads/materiais/capa/" + capaAtual;
         capaPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
         capaContainer.appendChild(capaPreview);
     }
 
     // Exibir nome do arquivo se existir
-    let arquivoAtual = element.getAttribute("data-link");
+    let arquivoAtual = element.getAttribute("data-matlink");
     let arquivoContainer = document.getElementById("matLink").parentNode;
     let existingMsg = arquivoContainer.querySelector("p");
     if (existingMsg) existingMsg.remove();
@@ -205,6 +205,10 @@ function editMaterial(element) {
         arquivoMsg.innerHTML = `<small>Arquivo atual: <strong>${arquivoAtual}</strong></small>`;
         arquivoContainer.appendChild(arquivoMsg);
     }
+
+    // Abrir o Offcanvas
+    var offcanvasElement = new bootstrap.Offcanvas(document.getElementById('offcanvasAddMaterial'));
+    offcanvasElement.show();
 }
 
 function resetForm() {
