@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-12">
         <!-- Botão para adicionar nova categoria -->
-        <button class="btn btn-primary mb-3" style="float: left;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddCategory">
+        <button class="btn btn-primary mb-3" style="float: left;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddCategory" onclick="resetForm()">
             <i class="fa fa-plus"></i> Adicionar Categoria
         </button>
         <h3 class="text-center">Categorias</h3>
@@ -51,8 +51,6 @@
                             <td>
                                 <i class="fa fa-edit text-primary me-2"
                                     style="cursor: pointer;"
-                                    data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasAddCategory"
                                     data-id="<?= $categoria['id'] ?>"
                                     data-catnome="<?= htmlspecialchars($categoria['catNome']) ?>"
                                     data-catdesc="<?= htmlspecialchars($categoria['catDesc']) ?>"
@@ -130,7 +128,7 @@
 <script>
 function editCategory(element) {
     document.getElementById("offcanvasAddCategoryLabel").textContent = "Editar Categoria";
-    document.getElementById("formAction").value = "update";
+    document.getElementById("formAction").value = "update"; // Agora será update!
     document.getElementById("categoryId").value = element.getAttribute("data-id");
     document.getElementById("catNome").value = element.getAttribute("data-catnome");
     document.getElementById("catDesc").value = element.getAttribute("data-catdesc");
@@ -148,6 +146,10 @@ function editCategory(element) {
         capaPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
         capaContainer.appendChild(capaPreview);
     }
+
+    // Abrir Offcanvas via JS
+    var offcanvasElement = new bootstrap.Offcanvas(document.getElementById('offcanvasAddCategory'));
+    offcanvasElement.show();
 }
 
 function resetForm() {

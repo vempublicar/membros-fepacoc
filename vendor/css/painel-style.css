@@ -30,7 +30,7 @@
 /* Ajuste do conteúdo */
 #mainContent {
     transition: margin-left 0.3s ease-in-out;
-    margin-left: 280px;
+    margin-left: 10px;
 }
 
 #mainContent.expanded {

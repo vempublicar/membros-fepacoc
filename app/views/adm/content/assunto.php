@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-12">
         <!-- Botão para adicionar novo assunto -->
-        <button class="btn btn-primary mb-3" style="float: left;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddAssunto">
+        <button class="btn btn-primary mb-3" style="float: left;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddAssunto" onclick="resetForm()">
             <i class="fa fa-plus"></i> Adicionar Assunto
         </button>
         <h3 class="text-center">Assuntos</h3>
@@ -9,6 +9,7 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
+                    <th>Miniatura</th>
                     <th>Categoria</th>
                     <th>Assunto</th>
                     <th>Ações</th>
@@ -18,8 +19,7 @@
                 <?php if (!empty($assuntos)): ?>
                     <?php foreach ($assuntos as $assunto): ?>
                         <tr>
-                            <td><?= htmlspecialchars($assunto['categoria']) ?></td>
-                            <td><?= htmlspecialchars($assunto['assunto']) ?></td>
+                            <!-- Miniatura do Assunto -->
                             <td>
                                 <?php if (!empty($assunto['assCapa'])): ?>
                                     <img src="vendor/uploads/assuntos/<?= htmlspecialchars($assunto['assCapa']) ?>"
@@ -27,21 +27,44 @@
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>
                                     <img src="vendor/uploads/assuntos/default.png"
-                                        alt="Capa padrão"
+                                        alt="Miniatura padrão"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php endif; ?>
                             </td>
+
+                            <!-- Categoria do Assunto -->
+                            <td><?= htmlspecialchars($assunto['categoria']) ?></td>
+
+                            <!-- Nome do Assunto -->
+                            <td><?= htmlspecialchars($assunto['assunto']) ?></td>
+
+                            <!-- Ações -->
                             <td>
                                 <i class="fa fa-edit text-primary me-2"
+                                    style="cursor: pointer;"
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvasAddAssunto"
                                     data-id="<?= $assunto['id'] ?>"
                                     data-categoria="<?= htmlspecialchars($assunto['categoria']) ?>"
-                                    data-assunto="<?= htmlentities($assunto['assunto'], ENT_QUOTES, 'UTF-8') ?>"
+                                    data-assunto="<?= htmlspecialchars($assunto['assunto']) ?>"
+                                    data-asscapa="<?= htmlspecialchars($assunto['assCapa'] ?? '') ?>"
                                     onclick="editAssunto(this)"></i>
+
+                                <form action="app/functions/push/crud.php" method="POST" style="display: inline;">
+                                    <input type="hidden" name="action" value="delete">
+                                    <input type="hidden" name="tabela" value="assunto">
+                                    <input type="hidden" name="id" value="<?= $assunto['id'] ?>">
+                                    <button type="submit" class="btn btn-link text-danger p-0 border-0" onclick="return confirm('Tem certeza que deseja excluir este assunto?');">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <tr><td colspan="4" class="text-center">Nenhum assunto cadastrado</td></tr>
+                    <tr>
+                        <td colspan="4" class="text-center">Nenhum assunto cadastrado</td>
+                    </tr>
                 <?php endif; ?>
             </tbody>
         </table>
@@ -93,26 +116,27 @@
 <script>
 function editAssunto(element) {
     document.getElementById("offcanvasAddAssuntoLabel").textContent = "Editar Assunto";
-    document.getElementById("formAction").value = "update";
+    document.getElementById("formAction").value = "update"; // Alterado para update
     document.getElementById("assuntoId").value = element.getAttribute("data-id");
     document.getElementById("categoria").value = element.getAttribute("data-categoria");
+    document.getElementById("assunto").value = element.getAttribute("data-assunto");
 
-    // Pegando o valor do atributo data-assunto corretamente
-    let assuntoValor = element.getAttribute("data-assunto") || "";
+    // Exibir pré-visualização da capa se existir
+    let capaAtual = element.getAttribute("data-asscapa");
+    let capaContainer = document.getElementById("assCapa").parentNode;
+    let existingPreview = capaContainer.querySelector("img");
+    if (existingPreview) existingPreview.remove();
 
-    // Corrigindo a atribuição do valor no input
-    document.getElementById("assunto").value = decodeEntities(assuntoValor);
+    if (capaAtual) {
+        let capaPreview = document.createElement("img");
+        capaPreview.src = "vendor/uploads/assuntos/" + capaAtual;
+        capaPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
+        capaContainer.appendChild(capaPreview);
+    }
 
-    // Abrindo o Offcanvas via JavaScript
+    // Abrir Offcanvas via JS
     var offcanvasElement = new bootstrap.Offcanvas(document.getElementById('offcanvasAddAssunto'));
     offcanvasElement.show();
-}
-
-// Função para corrigir caracteres especiais ao atribuir no input
-function decodeEntities(encodedString) {
-    var textarea = document.createElement("textarea");
-    textarea.innerHTML = encodedString;
-    return textarea.value;
 }
 
 function resetForm() {
@@ -120,5 +144,6 @@ function resetForm() {
     document.getElementById("formAssunto").reset();
     document.getElementById("formAction").value = "create";
     document.getElementById("assuntoId").value = "";
+    document.getElementById("assCapa").parentNode.querySelector("img")?.remove();
 }
 </script>
