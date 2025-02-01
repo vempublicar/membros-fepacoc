@@ -96,7 +96,13 @@ function editAssunto(element) {
     document.getElementById("formAction").value = "update";
     document.getElementById("assuntoId").value = element.getAttribute("data-id");
     document.getElementById("categoria").value = element.getAttribute("data-categoria");
-    document.getElementById("assunto").value = element.getAttribute("data-assunto");
+
+    // **Verifica se o atributo data-assunto existe**
+    let assuntoValor = element.getAttribute("data-assunto") || "";
+    console.log("Assunto carregado:", assuntoValor); // Debugging no console
+
+    // **Preenche o campo Assunto corretamente**
+    document.getElementById("assunto").value = assuntoValor;
 
     // **Abrindo o Offcanvas via JavaScript**
     var offcanvasElement = new bootstrap.Offcanvas(document.getElementById('offcanvasAddAssunto'));
