@@ -26,7 +26,7 @@
                                         alt="<?= htmlspecialchars($capa['nome']) ?>"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>
-                                    <img src="uploads/capas/default.jpg"
+                                    <img src="uploads/capas/mobile/default.png"
                                         alt="Capa padrão"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php endif; ?>
