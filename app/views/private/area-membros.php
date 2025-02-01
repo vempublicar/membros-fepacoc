@@ -23,6 +23,9 @@ if (isset($_SESSION['user_dados'])) {
 $videos = fetchVideos();
 $produtos = fetchProdutos();
 $materiais = fetchMateriais();
+$leads = fetchLeads();
+$categorias = fetchCategorias();
+$ferramentas = fetchFerramentas();
 $capas = fetchCapas();
 // print_r($materiais);
 ?>
@@ -68,18 +71,13 @@ $capas = fetchCapas();
                 </h3>
             </div>
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
-                <?php foreach ($videos as $video): ?>
-                    <?php if ($video['form'] === 'Video Curto'): ?>
+                <?php foreach ($categorias as $categoria): ?>
+                    <?php if ($categoria['catStatus'] === 'ativo'): ?>
                         <div class="col mb-4 portfolio-item photography">
-                            <?php if ($video['type'] === 'Pago'): ?>
-                                <i class="fas fa-crown exclusive-icon position-absolute ms-2" title="Conteúdo Exclusivo"></i>
-                            <?php endif; ?>
-                            <a href="#" class="video-link" data-video-url="vendor/videos/play/<?= $video['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)">
-                                <img src="vendor/img/videos/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                            
+                            <a href="https://members.fepacoc.com.br/categoria&a=<?= $categoria['catNome']; ?>" onclick="trackUserAction('<?= $categoria['catNome']; ?>', <?= $user['email'] ?>)">
+                                <img src="vendor/uploads/categorias/<?= $categoria['catCapa']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                             </a>
-                            <button class="btn btn-icon float-end" onclick="openModal('<?= $video['id']; ?>')">
-                                <i class="fas fa-star"></i>
-                            </button>
                         </div>
 
                     <?php endif; ?>
@@ -94,6 +92,15 @@ $capas = fetchCapas();
         </div>
     </div>
 </section>
+<!--
+
+                            <button class="btn btn-icon float-end" onclick="openModal('<?= $video['id']; ?>')">
+                                <i class="fas fa-star"></i>
+                            </button>
+                            <?php if ($video['type'] === 'Pago'): ?>
+                                <i class="fas fa-crown exclusive-icon position-absolute ms-2" title="Conteúdo Exclusivo"></i>
+                            <?php endif; ?>
+                            -->
 <?php // print_r($_SESSION['user_dados']); 
 ?>
 <section class="p-5 ">
