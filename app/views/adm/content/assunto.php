@@ -22,7 +22,7 @@
                             <!-- Miniatura do Assunto -->
                             <td>
                                 <?php if (!empty($assunto['assCapa'])): ?>
-                                    <img src="vendor/uploads/assuntos/<?= htmlspecialchars($assunto['assCapa']) ?>"
+                                    <img src="vendor/uploads/assunto/<?= htmlspecialchars($assunto['assCapa']) ?>"
                                         alt="<?= htmlspecialchars($assunto['assunto']) ?>"
                                         style="width: 50px; height: auto; border-radius: 5px;">
                                 <?php else: ?>
