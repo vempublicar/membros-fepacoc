@@ -8,7 +8,7 @@ $leads = fetchLeads();
 $categorias = fetchCategorias();
 $ferramentas = fetchFerramentas();
 $capas = fetchCapas();
-$assunto = fetchAssunto();
+$assuntos = fetchAssunto();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
