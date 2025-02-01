@@ -35,7 +35,10 @@ $capas = fetchCapas();
                         <!-- Versão para mobile -->
                         <source media="(max-width: 768px)" srcset="vendor/uploads/capas/mobile/<?= htmlspecialchars($banner['capaMobile']) ?>">
                         <!-- Versão para desktops e tablets maiores -->
-                        <img src="vendor/uploads/capas/desktop/<?= htmlspecialchars($banner['capaDesktop']) ?>" class="d-block w-100 vh-100 object-fit-cover" alt="Capa do vídeo">
+                        <img src="vendor/uploads/capas/desktop/<?= htmlspecialchars($banner['capaDesktop']) ?>" 
+                            class="d-block w-100 object-fit-cover" 
+                            alt="Capa do vídeo"
+                            style="max-height: 450px; height: 100%; object-fit: cover;">
                     </picture>
                 </div>
             <?php endforeach; ?>
@@ -52,6 +55,7 @@ $capas = fetchCapas();
         </button>
     </div>
 </section>
+
 
 
 <section class="portfolio py-5">
