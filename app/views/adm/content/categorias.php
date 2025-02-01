@@ -128,7 +128,7 @@
 <script>
 function editarCategoria(element) {
     document.getElementById("offcanvasAddCategoryLabel").textContent = "Editar Categoria";
-    document.getElementById("formActionCat").value = "update";
+    document.getElementById("formAction").value = "update"; // Corrigido para o ID correto
     document.getElementById("categoryId").value = element.getAttribute("data-id");
     document.getElementById("catNome").value = element.getAttribute("data-catnome");
     document.getElementById("catDesc").value = element.getAttribute("data-catdesc");
@@ -136,21 +136,30 @@ function editarCategoria(element) {
 
     // Exibir pré-visualização da capa, se existir
     let capaAtual = element.getAttribute("data-catcapa");
-    document.getElementById("catCapa").parentNode.querySelector("img")?.remove();
+    let capaContainer = document.getElementById("catCapa").parentNode;
+
+    // Remove imagem antiga, se houver
+    capaContainer.querySelector("img")?.remove();
+
     if (capaAtual) {
         let capaPreview = document.createElement("img");
         capaPreview.src = "vendor/uploads/categorias/" + capaAtual;
         capaPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
-        document.getElementById("catCapa").parentNode.appendChild(capaPreview);
+        capaContainer.appendChild(capaPreview);
     }
+
+    // **ABRINDO O OFFCANVAS VIA JAVASCRIPT**
+    let offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasAddCategory'));
+    offcanvas.show();
 }
 
 // Função para resetar o formulário de Categoria
 function resetCategoriaForm() {
     document.getElementById("offcanvasAddCategoryLabel").textContent = "Adicionar Nova Categoria";
     document.getElementById("formCategory").reset();
-    document.getElementById("formActionCat").value = "create";
+    document.getElementById("formAction").value = "create"; // Corrigido para o ID correto
     document.getElementById("categoryId").value = "";
     document.getElementById("catCapa").parentNode.querySelector("img")?.remove();
 }
 </script>
+
