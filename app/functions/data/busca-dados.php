@@ -41,4 +41,10 @@ function fetchCapas() {
     $stmt = $pdo->query("SELECT * FROM capas ORDER BY id DESC LIMIT 500");
     return $stmt->fetchAll();
 }
+
+function fetchAssunto() {
+    $pdo = db_connect();
+    $stmt = $pdo->query("SELECT * FROM assunto ORDER BY id DESC LIMIT 500");
+    return $stmt->fetchAll();
+}
 ?>
