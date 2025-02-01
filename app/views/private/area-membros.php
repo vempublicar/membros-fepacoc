@@ -23,18 +23,37 @@ if (isset($_SESSION['user_dados'])) {
 $videos = fetchVideos();
 $produtos = fetchProdutos();
 $materiais = fetchMateriais();
+$capas = fetchCapas();
 // print_r($materiais);
 ?>
-<section class="top-banner  mt-5">
-    <div class="container-fluid p-3">
-        <picture>
-            <!-- Versão para mobile -->
-            <source media="(max-width: 768px)" srcset="vendor/img/capa-mobile-membros.png">
-            <!-- Versão para desktops e tablets maiores -->
-            <img src="vendor/img/capa-membros.png" class="img-fluid rounded-4" alt="Capa do vídeo">
-        </picture>
+<section class="top-banner mt-5">
+    <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-inner">
+            <?php foreach ($capa as $index => $banner): ?>
+                <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                    <picture>
+                        <!-- Versão para mobile -->
+                        <source media="(max-width: 768px)" srcset="vendor/uploads/capas/mobile/<?= htmlspecialchars($banner['capaMobile']) ?>">
+                        <!-- Versão para desktops e tablets maiores -->
+                        <img src="vendor/uploads/capas/desktop/<?= htmlspecialchars($banner['capaDesktop']) ?>" class="d-block w-100 vh-100 object-fit-cover" alt="Capa do vídeo">
+                    </picture>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <!-- Controles do carrossel -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Próximo</span>
+        </button>
     </div>
 </section>
+
+
 <section class="portfolio py-5">
     <div class="container">
         <div class="justify-content-center">
