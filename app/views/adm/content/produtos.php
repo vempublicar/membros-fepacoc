@@ -90,7 +90,7 @@
     </div>
     <div class="offcanvas-body">
         <form id="formProduct" action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="action" value="create" id="formAction">
+            <input type="hidden" name="action" value="create" id="formActionPro">
             <input type="hidden" name="tabela" value="produtos">
             <input type="hidden" name="id" id="productId">
 
@@ -142,7 +142,7 @@
 <script>
 function editarProduto(element) {
     document.getElementById("offcanvasAddProductLabel").textContent = "Editar Produto";
-    document.getElementById("formAction").value = "update";
+    document.getElementById("formActionPro").value = "update";
     document.getElementById("productId").value = element.getAttribute("data-id");
     document.getElementById("proNome").value = element.getAttribute("data-pronome");
     document.getElementById("proPreco").value = element.getAttribute("data-propreco");
@@ -154,7 +154,7 @@ function editarProduto(element) {
 function resetForm() {
     document.getElementById("offcanvasAddProductLabel").textContent = "Adicionar Produto";
     document.getElementById("formProduct").reset();
-    document.getElementById("formAction").value = "create";
+    document.getElementById("formActionPro").value = "create";
     document.getElementById("productId").value = "";
 }
 </script>

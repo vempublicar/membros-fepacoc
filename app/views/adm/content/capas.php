@@ -91,7 +91,7 @@
     </div>
     <div class="offcanvas-body">
         <form id="formCapa" action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="action" value="create" id="formAction">
+            <input type="hidden" name="action" value="create" id="formActionCap">
             <input type="hidden" name="tabela" value="capas">
             <input type="hidden" name="id" id="capaId">
 
@@ -133,7 +133,7 @@
 <script>
 function editarCapa(element) {
     document.getElementById("offcanvasAddCapaLabel").textContent = "Editar Capa";
-    document.getElementById("formAction").value = "update";
+    document.getElementById("formActionCap").value = "update";
     document.getElementById("capaId").value = element.getAttribute("data-id");
     document.getElementById("nome").value = element.getAttribute("data-nome");
     document.getElementById("link").value = element.getAttribute("data-link");
@@ -163,7 +163,7 @@ function editarCapa(element) {
 function resetForm() {
     document.getElementById("offcanvasAddCapaLabel").textContent = "Adicionar Capa";
     document.getElementById("formCapa").reset();
-    document.getElementById("formAction").value = "create";
+    document.getElementById("formActionCap").value = "create";
     document.getElementById("capaId").value = "";
     document.getElementById("imagemDesktop").parentNode.querySelector("img")?.remove();
     document.getElementById("imagemMobile").parentNode.querySelector("img")?.remove();

@@ -110,7 +110,7 @@
     <div class="offcanvas-body">
         <form id="formMaterial" action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
             <!-- Ação e Tabela (Campos Ocultos) -->
-            <input type="hidden" name="action" value="create" id="formAction">
+            <input type="hidden" name="action" value="create" id="formActionMat">
             <input type="hidden" name="tabela" value="materiais">
             <input type="hidden" name="id" id="materialId">
 
@@ -173,7 +173,7 @@
 <script>
 function editMaterial(element) {
     document.getElementById("offcanvasAddMaterialLabel").textContent = "Editar Material";
-    document.getElementById("formAction").value = "update";
+    document.getElementById("formActionMat").value = "update";
     document.getElementById("materialId").value = element.getAttribute("data-id");
     document.getElementById("matNome").value = element.getAttribute("data-nome");
     document.getElementById("matTipo").value = element.getAttribute("data-tipo");
@@ -210,7 +210,7 @@ function editMaterial(element) {
 function resetForm() {
     document.getElementById("offcanvasAddMaterialLabel").textContent = "Adicionar Material";
     document.getElementById("formMaterial").reset();
-    document.getElementById("formAction").value = "create";
+    document.getElementById("formActionMat").value = "create";
     document.getElementById("materialId").value = "";
 
     document.getElementById("matCapa").parentNode.querySelector("img")?.remove();

@@ -105,7 +105,7 @@
     <div class="offcanvas-body">
         <form id="formFerramenta" action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
             <!-- Ação e Tabela (Campos Ocultos) -->
-            <input type="hidden" name="action" value="create" id="formAction">
+            <input type="hidden" name="action" value="create" id="formActionFer">
             <input type="hidden" name="tabela" value="ferramentas">
             <input type="hidden" name="id" id="ferramentaId">
 
@@ -162,7 +162,7 @@
 <script>
 function editFerramenta(element) {
     document.getElementById("offcanvasAddFerramentaLabel").textContent = "Editar Ferramenta";
-    document.getElementById("formAction").value = "update";
+    document.getElementById("formActionFer").value = "update";
     document.getElementById("ferramentaId").value = element.getAttribute("data-id");
     document.getElementById("ferNome").value = element.getAttribute("data-fernome");
     document.getElementById("ferDesc").value = element.getAttribute("data-ferdesc");
@@ -174,7 +174,7 @@ function editFerramenta(element) {
 function resetForm() {
     document.getElementById("offcanvasAddFerramentaLabel").textContent = "Adicionar Ferramenta";
     document.getElementById("formFerramenta").reset();
-    document.getElementById("formAction").value = "create";
+    document.getElementById("formActionFer").value = "create";
     document.getElementById("ferramentaId").value = "";
 }
 </script>

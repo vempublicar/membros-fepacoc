@@ -80,7 +80,7 @@
     <div class="offcanvas-body">
         <form id="formAssunto" action="app/functions/push/crud.php" method="POST" enctype="multipart/form-data">
             <!-- Campos Ocultos -->
-            <input type="hidden" name="action" value="create" id="formAction">
+            <input type="hidden" name="action" value="create" id="formActionAss">
             <input type="hidden" name="tabela" value="assunto">
             <input type="hidden" name="id" id="assuntoId">
 
@@ -116,7 +116,7 @@
 <script>
 function editarAssunto(element) {
     document.getElementById("offcanvasAddAssuntoLabel").textContent = "Editar Assunto";
-    document.getElementById("formAction").value = "update";
+    document.getElementById("formActionAss").value = "update";
     document.getElementById("assuntoId").value = element.getAttribute("data-id");
     document.getElementById("categoria").value = element.getAttribute("data-categoria");
     document.getElementById("assuntosss").value = element.getAttribute("data-assunto");
@@ -136,7 +136,7 @@ function editarAssunto(element) {
 function resetAssuntoForm() {
     document.getElementById("offcanvasAddAssuntoLabel").textContent = "Adicionar Novo Assunto";
     document.getElementById("formAssunto").reset();
-    document.getElementById("formAction").value = "create";
+    document.getElementById("formActionAss").value = "create";
     document.getElementById("assuntoId").value = "";
     document.getElementById("assCapa").parentNode.querySelector("img")?.remove();
 }
