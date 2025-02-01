@@ -29,7 +29,7 @@ $capas = fetchCapas();
 <section class="top-banner mt-5">
     <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-inner">
-            <?php foreach ($capa as $index => $banner): ?>
+            <?php foreach ($capas as $index => $banner): ?>
                 <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                     <picture>
                         <!-- Versão para mobile -->
