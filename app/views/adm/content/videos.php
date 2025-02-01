@@ -244,7 +244,7 @@ function editarVideo(element) {
     document.getElementById("vidCapa").parentNode.querySelector("img")?.remove();
     if (capaAtual) {
         let capaPreview = document.createElement("img");
-        capaPreview.src = "vendor/uploads/videos/" + capaAtual;
+        capaPreview.src = "vendor/uploads/videos/capa/" + capaAtual;
         capaPreview.style = "width: 100px; height: auto; margin-top: 10px; border-radius: 5px;";
         document.getElementById("vidCapa").parentNode.appendChild(capaPreview);
     }
