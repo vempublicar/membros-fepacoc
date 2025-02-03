@@ -217,30 +217,6 @@ function abrirVideo(element) {
         }
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        const themeToggle = document.getElementById("themeToggle");
-        const body = document.body;
-
-        // Verifica o tema salvo no localStorage
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "dark") {
-            body.classList.add("dark-mode");
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        }
-
-        // Alterna o tema
-        themeToggle.addEventListener("click", function() {
-            body.classList.toggle("dark-mode");
-            const isDarkMode = body.classList.contains("dark-mode");
-            localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-            themeToggle.innerHTML = isDarkMode ?
-                '<i class="fas fa-moon"></i>' :
-                '<i class="fas fa-sun"></i>';
-
-            // Atualizar tema no offcanvas
-            aplicarTemaOffcanvas();
-        });
-    });
 
         // Função para rastrear a ação do usuário
         function trackUserAction(title, email) {
