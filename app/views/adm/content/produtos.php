@@ -109,6 +109,10 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div class="col-12 mb-3">
+                    <label for="proPagina" class="form-label">Link do Landing Page</label>
+                    <input type="url" class="form-control" id="proPagina" name="proPagina" placeholder="https://">
+                </div>
 
                 <div class="col-6 mb-3">
                     <label for="proPreco" class="form-label">Preço</label>
@@ -145,6 +149,7 @@ function editarProduto(element) {
     document.getElementById("formActionPro").value = "update";
     document.getElementById("productId").value = element.getAttribute("data-id");
     document.getElementById("proNome").value = element.getAttribute("data-pronome");
+    document.getElementById("proPagina").value = element.getAttribute("data-propagina");
     document.getElementById("proPreco").value = element.getAttribute("data-propreco");
     document.getElementById("proSobre").value = element.getAttribute("data-prosobre");
     document.getElementById("proCategoria").value = element.getAttribute("data-procategoria");
