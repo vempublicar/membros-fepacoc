@@ -1,5 +1,5 @@
 <header id="top" class="position-sticky top-0 start-0" style="z-index: 999;">
-    <nav class="navbar navbar-expand-lg bg-dark fixed-top shadow-sm">
+    <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-sm">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <!-- Logo -->
             <div class="d-flex align-items-center">
@@ -9,7 +9,7 @@
             </div>
 
             <!-- Botão de Toggle para Mobile -->
-            <button class="navbar-toggler btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon "></span>
             </button>
 
