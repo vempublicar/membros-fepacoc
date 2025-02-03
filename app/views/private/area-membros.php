@@ -60,6 +60,7 @@ $assuntos = fetchAssunto();
     </div>
 </section>
 
+<!-- CATEGORIAS -->
 <section class="portfolio">
     <div class="container">
         <div class="justify-content-center">
@@ -104,6 +105,56 @@ $assuntos = fetchAssunto();
         </div>
     </div>
 </section>
+
+<!-- ASSUNTO -->
+<section class="portfolio">
+    <div class="container">
+        <div class="justify-content-center">
+
+            <div class="text-center">
+                <h4 class="display-6">Assuntos</h4>
+            </div>
+
+            <!-- Carrossel Swiper para Assuntos -->
+            <div class="swiper mySwiperAssunto" data-aos="fade-up">
+                <div class="swiper-wrapper">
+                    <?php 
+                        $count = 0;
+                        foreach ($assunto as $item): 
+                            if ($count < 8): 
+                                $count++;
+                    ?>
+                    <div class="swiper-slide">
+                        <a href="https://members.fepacoc.com.br/assunto&a=<?= urlencode($item['assunto']); ?>" 
+                            onclick="trackUserAction('<?= $item['assunto']; ?>', '<?= $user['email'] ?>')">
+                            <img src="vendor/uploads/assuntos/<?= $item['assCapa']; ?>" class="img-fluid rounded-4" alt="<?= $item['assunto']; ?>">
+                        </a>
+                        <div class="text-center mt-2">
+                            <strong><?= htmlspecialchars($item['assunto']); ?></strong>
+                        </div>
+                    </div>
+                    <?php 
+                            endif;
+                        endforeach;  
+                    ?>
+                </div>
+
+                <!-- Controles do Carrossel -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+            <div class="text-center p-3">
+                <a href="assuntos" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
+                    Ver todos
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 
 <?php print_r($assuntos); ?>
 <section class="p-5 ">
@@ -454,6 +505,24 @@ $assuntos = fetchAssunto();
     }
 </script>
 <script>
+    var swiperAssunto = new Swiper(".mySwiperAssunto", {
+        slidesPerView: 2, // Para mobile
+        spaceBetween: 20,
+        loop: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        breakpoints: {
+            768: { slidesPerView: 3 }, // Tablets
+            1024: { slidesPerView: 4 }, // Desktop
+        }
+    });
+    
     var swiper = new Swiper(".mySwiper", {
         slidesPerView: 2, // Para mobile
         spaceBetween: 20,
