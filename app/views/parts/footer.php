@@ -3,42 +3,7 @@
       <div class="row g-md-5 my-5">
         <div class="col-md-4">
           <div class="info-box">
-            <img src="vendor/img/logo-branco.png" class="img-fluid">
-            <!--<p class="py-4">
-              Subscribe to newsletter to get some updates related with branding, designs and more.
-            </p>-->
-            <div class="social-links">
-              <svg class="skype" width="24" height="24">
-                <use xlink:href="#skype"></use>
-              </svg>
-              <svg class="snapchat" width="24" height="24">
-                <use xlink:href="#snapchat"></use>
-              </svg>
-              <svg class="telegram" width="24" height="24">
-                <use xlink:href="#telegram"></use>
-              </svg>
-              <svg class="tumblr" width="24" height="24">
-                <use xlink:href="#tumblr"></use>
-              </svg>
-              <svg class="twitter" width="24" height="24">
-                <use xlink:href="#twitter"></use>
-              </svg>
-              <svg class="whatsapp" width="24" height="24">
-                <use xlink:href="#whatsapp"></use>
-              </svg>
-              <svg class="github" width="24" height="24">
-                <use xlink:href="#github"></use>
-              </svg>
-              <svg class="facebook" width="24" height="24">
-                <use xlink:href="#facebook"></use>
-              </svg>
-              <svg class="messenger" width="24" height="24">
-                <use xlink:href="#messenger"></use>
-              </svg>
-              <svg class="behance" width="24" height="24">
-                <use xlink:href="#behance"></use>
-              </svg>
-            </div>
+            <img src="vendor/img/logo-branco.png" style="height:30px" class="img-fluid">            
           </div>
         </div>
         <div class="col-md-3">
@@ -48,38 +13,29 @@
                 <li>
                   <a href="https://fepacoc.com/" class="text-decoration-none text-white" target="_blank">Fepacoc</a>
                 </li>
-                <!--<li>
-                  <a class="text-decoration-none text-white" href="#">Sobre</a>
-                </li>
-                <li>
-                  <a class="text-decoration-none text-white" href="index.html">Team</a>
-                </li>
-                <li>
-                  <a class="text-decoration-none text-white" href="index.html">Portfolio</a>
-                </li>-->
               </ul>
             </div>
             <div class="col-6">
               <h6>
-                <a class="text-decoration-none text-white" href="index.html">Blog</a>
+                <a class="text-decoration-none text-white" href="https://fepacoc.com.br/blog">Blog</a>
               </h6>
               <h6>
-                <a class="text-decoration-none text-white" href="index.html">Contact</a>
+                <a class="text-decoration-none text-white" href="https://fepacoc.com.br/suporte">Suporte</a>
               </h6>
             </div>
           </div>
         </div>
         <div class="col-md-5">
-          <p>
+          <small>
             Metodologia exclusiva, construída para facilitar sua gestão e melhorar a performance da sua empresa.
-          </p>
-          <h3>
+          </small>
+          <h5>
             <a href="mailto:suporte@fepacoc.com.br" class="text-white text-decoration-none">suporte@fepacoc.com.br</a>
-          </h3>
+          </h5>
         </div>
       </div>
       <div class="row">
-        <p>Área de Membros - Fepacoc. Criado pelo time <a href="https://vempublicar.com/" class="text-white" target="_blank">Vempublicar</a>. Versão Beta 1.0.02 </p>
+        <span>Área de Membros - Fepacoc. Criado pelo time <a href="https://vempublicar.com/" class="text-white" target="_blank">Vempublicar</a>. Versão Beta 1.0.02 </span>
       </div>
     </div>
   </footer>

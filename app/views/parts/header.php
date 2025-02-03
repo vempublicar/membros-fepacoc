@@ -1,4 +1,4 @@
-<header id="top" class="position-sticky top-0 start-0" style="z-index: 999;">
+<header id="top" class="position-sticky top-0 start-0 " style="z-index: 999;">
     <nav class="navbar navbar-expand-lg bg-white fixed-top shadow-sm">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <!-- Logo -->
