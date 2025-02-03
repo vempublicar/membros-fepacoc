@@ -26,7 +26,7 @@
                 <!-- Menu como Dropdown no Mobile -->
                 <div class="dropdown d-lg-none">
                     <a href="#" class="d-flex align-items-center text-decoration-none" id="menuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="vendor/img/menu_icon.png" alt="Menu" width="36" height="36">
+                        <img src="vendor/images/menu.png" alt="Menu" width="36" height="36">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuDropdown">
                         <li><a class="dropdown-item text-black" href="painel">Painel</a></li>
