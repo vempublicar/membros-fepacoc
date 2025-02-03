@@ -95,7 +95,7 @@ $capas = fetchCapas();
             </div>
 
             <div class="text-center p-3">
-                <a href="videos" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
+                <a href="videos" class="btn btn-link btn-lg mt-3 text-uppercase text-decoration-none">
                     Ver todas
                 </a>
             </div>
