@@ -65,11 +65,13 @@ $assuntos = fetchAssunto();
     <div class="container">
 
             <div class="text-center">
-                <h5>Categorias
-                <a href="videos" class="btn btn-link btn-lg mt-3 text-uppercase text-decoration-none">
+                <div class="row">
+                    <div class="text-start"><h5 class="display-4" >Categorias</h5></div>
+                    <div class="text-end"><a href="videos" class="btn btn-link btn-lg mt-3 text-uppercase text-decoration-none">
                     Mais categorias
-                </a>
-                </h5>
+                </a></div>
+                </div>
+                
             </div>
 
             <!-- Carrossel Swiper -->
