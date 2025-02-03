@@ -62,17 +62,13 @@ $assuntos = fetchAssunto();
 
 <!-- CATEGORIAS -->
 <section class="portfolio p-3">
-            <div class="text-center">
-                <div class="row">
-                    <div class="col text-start"><p class="text-uppercase">Categorias</p></div>
-                    <div class="col text-end"><a href="videos" class="text-uppercase text-decoration-none">
+            <div class="row">
+                <div class="col text-start"><p class="text-uppercase">Categorias</p></div>
+                <div class="col text-end"><a href="videos" class="text-uppercase text-info text-decoration-none">
                         Mais categorias
-                        </a>
-                    </div>
+                    </a>
                 </div>
-                
-            </div>
-
+            </div>     
             <!-- Carrossel Swiper -->
             <div class="swiper mySwiper" data-aos="fade-up">
                 <div class="swiper-wrapper">
@@ -103,11 +99,13 @@ $assuntos = fetchAssunto();
 
 <!-- PRODUTOS -->
 <section class="portfolio">
-    <div class="container">
-        <div class="text-center">
-            <h3 class="display-6 mb-5">Produtos para sua empresa</h3>
-        </div>
-        <div class="justify-content-center">
+        <div class="row">
+            <div class="col text-start"><p class="text-uppercase">Produtos</p></div>
+                <div class="col text-end"><a href="produtos" class="text-uppercase text-info text-decoration-none">
+                        Mais produtos
+                    </a>
+                </div>
+            </div> 
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-4" data-aos="fade-up">
                 <?php 
                     $count = 0;
@@ -139,9 +137,6 @@ $assuntos = fetchAssunto();
                     Ver Produtos
                 </a>
             </div>
-
-        </div>
-    </div>
 </section>
 
 <!-- ASSUNTO -->
