@@ -30,9 +30,9 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
                             <div class="col mb-4">
                                 <div class="card h-100 shadow-sm">
                                     <?php if (!empty($assunto['assCapa'])): ?>
-                                        <img src="vendor/uploads/assuntos/<?= htmlspecialchars($assunto['assCapa']) ?>" class="card-img-top" alt="Capa do Assunto">
+                                        <img src="vendor/uploads/assunto/<?= htmlspecialchars($assunto['assCapa']) ?>" class="card-img-top" alt="Capa do Assunto">
                                     <?php else: ?>
-                                        <img src="vendor/uploads/assuntos/default.png" class="card-img-top" alt="Capa Padrão">
+                                        <img src="vendor/uploads/assunto/default.png" class="card-img-top" alt="Capa Padrão">
                                     <?php endif; ?>
                                     <div class="card-body">
                                         <h5 class="card-title"> <?= htmlspecialchars($assunto['assunto']) ?> </h5>
