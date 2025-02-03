@@ -32,7 +32,7 @@
                         <a class="nav-link" href="servicos">Serviços</a>
                     </li>
                 </ul>
-                <div class="d-flex align-items-center gap-3">
+                <div class="d-flex float-end gap-3">
                     <div class="dropdown">
                         <a href="#" id="profileDropdown" class="d-flex float-end text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="vendor/images/post-thumb-1.jpg" alt="User Profile" class="rounded-circle" width="40" height="40">
