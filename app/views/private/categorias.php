@@ -14,12 +14,6 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
 });
 ?>
 
-<section class="top-banner mt-5">
-    <div class="container-fluid p-3">
-        <h2 class="text-center">Assuntos em: <?= htmlspecialchars($categoriaSelecionada) ?></h2>
-    </div>
-</section>
-
 <section class="portfolio py-5 mt-5">
     <div class="container">
         <div class="row">
@@ -34,10 +28,6 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
                                     <?php else: ?>
                                         <img src="vendor/uploads/assunto/default.png" class="card-img-top" alt="Capa Padrão">
                                     <?php endif; ?>
-                                    <div class="card-body">
-                                        <h5 class="card-title"> <?= htmlspecialchars($assunto['assunto']) ?> </h5>
-                                        <p class="card-text"> Categoria: <?= htmlspecialchars($assunto['categoria']) ?> </p>
-                                    </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
