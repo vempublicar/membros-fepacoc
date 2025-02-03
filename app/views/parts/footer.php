@@ -3,18 +3,12 @@
       <div class="row g-md-5 my-5">
         <div class="col-md-4">
           <div class="info-box">
-            <img src="vendor/img/logo-branco.png" style="height:30px" class="img-fluid">            
+            <a href="https://fepacoc.com/" class="text-decoration-none text-white" target="_blank">
+            <img src="vendor/img/logo-branco.png" style="height:30px" class="img-fluid"></a>        
           </div>
         </div>
         <div class="col-md-3">
           <div class="row">
-            <div class="col-6">
-              <ul class="list-unstyled">
-                <li>
-                  <a href="https://fepacoc.com/" class="text-decoration-none text-white" target="_blank">Fepacoc</a>
-                </li>
-              </ul>
-            </div>
             <div class="col-6">
               <h6>
                 <a class="text-decoration-none text-white" href="https://fepacoc.com.br/blog">Blog</a>
