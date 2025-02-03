@@ -33,22 +33,22 @@
                     </li>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
-                <div class="dropdown">
-                    <a href="#" id="profileDropdown" class="d-flex align-items-center text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="vendor/images/post-thumb-1.jpg" alt="User Profile" class="rounded-circle" width="40" height="40">
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        <li><a class="dropdown-item text-black" href="painel">Início</a></li>
-                        <li><a class="dropdown-item text-black" href="minha-conta">Conta</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item text-black" href="#" id="themeToggle">Tema: <span id="themeLabel">Light</span></a>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-black" href="logout">Logout</a></li>
-                    </ul>
+                    <div class="dropdown">
+                        <a href="#" id="profileDropdown" class="d-flex float-end text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="vendor/images/post-thumb-1.jpg" alt="User Profile" class="rounded-circle" width="40" height="40">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item text-black" href="painel">Início</a></li>
+                            <li><a class="dropdown-item text-black" href="minha-conta">Conta</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-black" href="#" id="themeToggle">Tema: <span id="themeLabel">Light</span></a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-black" href="logout">Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
             </div>
 
             <!-- Perfil e Configurações -->
