@@ -106,6 +106,51 @@ $assuntos = fetchAssunto();
     </div>
 </section>
 
+<!-- PRODUTOS -->
+<section class="p-5 bg-yellow py-5">
+    <div class="container">
+        <div class="text-center">
+            <h3 class="display-6 mb-5">Produtos para sua empresa</h3>
+        </div>
+        <div class="justify-content-center">
+            <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-4" data-aos="fade-up">
+                <?php 
+                    $count = 0;
+                    foreach ($produtos as $produto): 
+                        if ($produto['proStatus'] === 'ativo' && $count < 4): 
+                            $count++;
+                ?>
+                        <div class="col mb-4">
+                            <div class="card shadow-sm rounded-4 border-0">
+                                <a href="#" onclick="openOffcanvas(
+                                    '<?= htmlspecialchars($produto['proNome']); ?>', 
+                                    '<?= $produto['proCapa']; ?>',
+                                    '<?= number_format($produto['proPreco'], 2, ',', '.'); ?>',
+                                    '<?= htmlspecialchars($produto['proSobre']); ?>',
+                                    '<?= $produto['proPagina']; ?>'
+                                    )">
+                                    <img src="vendor/uploads/produtos/<?= $produto['proCapa']; ?>" 
+                                         class="card-img-top rounded-top-4" 
+                                         alt="<?= htmlspecialchars($produto['proNome']); ?>">
+                                </a>
+                            </div>
+                        </div>
+                <?php 
+                        endif;
+                    endforeach;  
+                ?>
+            </div>
+
+            <div class="text-center p-3">
+                <a href="produtos" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
+                    Ver Produtos
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 <!-- ASSUNTO -->
 <section class="portfolio">
     <div class="container">
@@ -152,50 +197,7 @@ $assuntos = fetchAssunto();
     </div>
 </section>
 
-<!-- PRODUTOS -->
-<section class="p-5 bg-yellow py-5">
-    <div class="container">
-        <div class="text-center">
-            <h3 class="display-6 mb-5">Produtos para sua empresa</h3>
-        </div>
-        <div class="justify-content-center">
-            <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-4" data-aos="fade-up">
-                <?php 
-                    $count = 0;
-                    foreach ($produtos as $produto): 
-                        if ($produto['proStatus'] === 'ativo' && $count < 4): 
-                            $count++;
-                ?>
-                        <div class="col mb-4">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <a href="#" onclick="openOffcanvas(
-                                    '<?= htmlspecialchars($produto['proNome']); ?>', 
-                                    '<?= $produto['proCapa']; ?>',
-                                    '<?= number_format($produto['proPreco'], 2, ',', '.'); ?>',
-                                    '<?= htmlspecialchars($produto['proSobre']); ?>',
-                                    '<?= $produto['proPagina']; ?>'
-                                    )">
-                                    <img src="vendor/uploads/produtos/<?= $produto['proCapa']; ?>" 
-                                         class="card-img-top rounded-top-4" 
-                                         alt="<?= htmlspecialchars($produto['proNome']); ?>">
-                                </a>
-                            </div>
-                        </div>
-                <?php 
-                        endif;
-                    endforeach;  
-                ?>
-            </div>
 
-            <div class="text-center p-3">
-                <a href="produtos" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
-                    Ver Produtos
-                </a>
-            </div>
-
-        </div>
-    </div>
-</section>
 
 <?php // print_r($ferramentas); ?>
 <section class="portfolio py-5">
