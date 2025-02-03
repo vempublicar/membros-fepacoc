@@ -62,11 +62,9 @@ $assuntos = fetchAssunto();
 
 <!-- CATEGORIAS -->
 <section class="portfolio">
-    <div class="container">
-
             <div class="text-center">
                 <div class="row">
-                    <div class="text-start"><h5 class="display-4" >Categorias</h5></div>
+                    <div class="text-start"><h5 class="display-6" >Categorias</h5></div>
                     <div class="text-end"><a href="videos" class="btn btn-link btn-lg mt-3 text-uppercase text-decoration-none">
                     Mais categorias
                 </a></div>
@@ -100,8 +98,6 @@ $assuntos = fetchAssunto();
                 <div class="swiper-button-next"></div>
                 <div class="swiper-pagination"></div>
             </div>
-
-    </div>
 </section>
 
 <!-- PRODUTOS -->
