@@ -78,37 +78,6 @@ body {
     overflow: hidden;
 }
 
-/* Tema Claro (Padrão) */
-.offcanvas {
-    background-color: #182433;
-    color: #fff;
-}
-
-/* Tema Escuro */
-.dark-mode .offcanvas {
-    background-color: #182433; /* Fundo escuro */
-    color: #ffffff; /* Texto branco */
-}
-
-/* Ajuste para os botões e elementos */
-.dark-mode .offcanvas .offcanvas-header {
-    background-color: #121a26; /* Cabeçalho um pouco mais escuro */
-    border-bottom: 1px solid #2a3a4f;
-}
-
-.dark-mode .offcanvas .offcanvas-body {
-    background-color: #182433; /* Fundo do conteúdo */
-}
-
-/* Botão de fechar no tema escuro */
-.dark-mode .offcanvas .btn-close {
-    filter: invert(1); /* Deixa o botão de fechar visível no fundo escuro */
-}
-
-/* Ajusta a borda do offcanvas para um efeito melhor no dark mode */
-.dark-mode .offcanvas-end {
-    border-left: 1px solid #2a3a4f;
-}
 
 
 video {
