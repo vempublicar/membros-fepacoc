@@ -104,7 +104,7 @@ $assuntos = fetchAssunto();
             <div class="col text-start">
                 <p class="text-uppercase text-secondary">Produtos</p>
             </div>
-            <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-4" data-aos="fade-up">
+            <div class="grid p-1 clearfix row row-cols-2 row-cols-lg-4" data-aos="fade-up">
                 <?php 
                     $count = 0;
                     foreach ($produtos as $produto): 
