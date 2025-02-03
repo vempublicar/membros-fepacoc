@@ -195,9 +195,7 @@ $assuntos = fetchAssunto();
     </div>
 </section>
 
-
-
-<?php  print_r($materiais); ?>
+<!-- MATERIAIS -->
 <section class="portfolio py-5">
     <div class="container">
         <div class="justify-content-center ">
@@ -228,6 +226,9 @@ $assuntos = fetchAssunto();
         </div>
     </div>
 </section>
+
+<?php  print_r($ferramentas); ?>
+
 <!-- Rodapé -->
  <?php include "app/views/parts/footer.php" ?>
 
