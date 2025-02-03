@@ -130,11 +130,6 @@ $assuntos = fetchAssunto();
                 ?>
             </div>
 
-            <div class="text-center p-3">
-                <a href="produtos" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
-                    Ver Produtos
-                </a>
-            </div>
 </section>
 
 <!-- ASSUNTO -->
@@ -142,8 +137,6 @@ $assuntos = fetchAssunto();
             <div class="row">
                 <div class="col text-start"><p class="text-uppercase text-secondary">Favoritos</p></div>                
             </div>
-
-            <!-- Carrossel Swiper para Assuntos -->
             <div class="swiper mySwiperAssunto" data-aos="fade-up">
                 <div class="swiper-wrapper">
                     <?php 
@@ -169,7 +162,6 @@ $assuntos = fetchAssunto();
                 <div class="swiper-button-next"></div>
                 <div class="swiper-pagination"></div>
             </div>
-
 </section>
 
 <!-- MATERIAIS -->
@@ -195,7 +187,6 @@ $assuntos = fetchAssunto();
                         </div>
                 <?php endforeach; ?>
             </div>
-
 </section>
 
 <!-- FERRAMENTAS -->
