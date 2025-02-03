@@ -89,12 +89,12 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
 </section>
 <?php include_once "app/views/parts/footer.php"; ?>
 <!-- Modal para exibição do vídeo -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="videoOffcanvas" aria-labelledby="videoOffcanvasLabel">
+<div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="videoOffcanvas" aria-labelledby="videoOffcanvasLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title fw-bold" id="videoOffcanvasLabel">Detalhes do Vídeo</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body text-dark">
         <!-- Player do vídeo -->
         <div class="ratio ratio-16x9 mb-3" id="videoContainer">
             <iframe id="videoPlayerIframe" class="d-none" src="" frameborder="0" allowfullscreen></iframe>
@@ -202,20 +202,9 @@ function abrirVideo(element) {
             document.getElementById('videoPlayerLocal').src = '';
         });
 
-        // Aplicar tema ao carregar a página
-        aplicarTemaOffcanvas();
+
     });
 
-    function aplicarTemaOffcanvas() {
-        var offcanvas = document.getElementById('videoOffcanvas');
-        var savedTheme = localStorage.getItem("theme");
-        
-        if (savedTheme === "dark") {
-            offcanvas.classList.add("dark-mode");
-        } else {
-            offcanvas.classList.remove("dark-mode");
-        }
-    }
 
 
         // Função para rastrear a ação do usuário
