@@ -25,21 +25,16 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
 });
 ?>
 <style>
-    /* Remove fundo preto ao fechar */
     .modal-backdrop {
         background-color: rgba(0, 0, 0, 0.8) !important;
     }
-
-    /* Remove bordas e sombra do modal */
     .modal-content {
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
     }
-
-    /* Ajuste no botão de fechar */
     .btn-close {
-        filter: invert(1); /* Deixa o botão branco */
+        filter: invert(1);
         font-size: 1.5rem;
     }
 </style>
@@ -84,9 +79,10 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
 <?php include_once "app/views/parts/footer.php"; ?>
 <!-- Modal para exibição do vídeo -->
 <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl"> <!-- Modal maior e centralizado -->
-        <div class="modal-content border-0 bg-transparent"> <!-- Remove bordas e fundo padrão -->
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content border-0 bg-transparent">
             <div class="modal-body p-0">
+                <button type="button" class="btn-close position-absolute top-0 end-0 p-3" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 <div class="ratio ratio-16x9">
                     <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
                 </div>
@@ -110,17 +106,24 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var videoModal = document.getElementById('videoModal');
+        var videoFrame = document.getElementById('videoFrame');
 
         videoModal.addEventListener('show.bs.modal', function (event) {
             var button = event.relatedTarget;
             var videoUrl = button.getAttribute('data-video-url');
-            var videoFrame = document.getElementById('videoFrame');
-            videoFrame.src = videoUrl;
+            var videoType = button.getAttribute('data-video-type');
+
+            if (videoType === 'externo') {
+                // Se for link do YouTube/Vimeo, abrimos diretamente no iframe
+                videoFrame.src = videoUrl;
+            } else {
+                // Se for vídeo local, carregamos do servidor
+                videoFrame.src = "vendor/uploads/videos/arquivo/" + videoUrl;
+            }
         });
 
         videoModal.addEventListener('hidden.bs.modal', function () {
-            var videoFrame = document.getElementById('videoFrame');
-            videoFrame.src = '';
+            videoFrame.src = ''; // Para o vídeo ao fechar o modal
         });
     });
 
