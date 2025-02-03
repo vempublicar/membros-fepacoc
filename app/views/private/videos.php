@@ -1,82 +1,87 @@
+<?php
+include_once "app/views/parts/head.php";
+include_once "app/views/parts/header.php";
+include "app/functions/data/busca-dados.php";
+
+$videos = fetchVideos(); 
+$assuntos = fetchAssunto(); 
+
+// Pegando o assunto da URL
+$assuntoSelecionado = isset($_GET['a']) ? urldecode($_GET['a']) : '';
+
+// Filtrando os vídeos pelo assunto da URL
+$videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecionado) {
+    return isset($video['vidAssunto']) && $video['vidAssunto'] === $assuntoSelecionado;
+});
+
+// Definição da paginação
+$videosPorPagina = 12;
+$totalVideos = count($videosFiltrados);
+$totalPaginas = ceil($totalVideos / $videosPorPagina);
+$paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+$inicio = ($paginaAtual - 1) * $videosPorPagina;
+
+// Paginar os vídeos filtrados
+$videosPagina = array_slice($videosFiltrados, $inicio, $videosPorPagina);
+?>
+
 <section class="portfolio py-5 mt-5">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="filters mb-4">
-                    <h5 class="fw-bold">Filtros</h5>
-                    <div class="mb-3">
-                        <label for="pesquisa" class="form-label">Pesquisar</label>
-                        <input type="text" id="pesquisa" class="form-control" placeholder="Digite o título do vídeo...">
-                    </div>
-                    <div class="mb-3">
-                        <label for="categoria" class="form-label">Categoria</label>
-                        <select id="categoria" class="form-select">
-                            <option value="">Todas</option>
-                            <option value="Categoria 1">Categoria 1</option>
-                            <option value="Categoria 2">Categoria 2</option>
-                            <option value="Categoria 3">Categoria 3</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="setor" class="form-label">Setor</label>
-                        <select id="setor" class="form-select">
-                            <option value="">Todos</option>
-                            <option value="Setor 2">Setor 2</option>
-                            <option value="Setor 1">Setor 1</option>
-                            <option value="Setor 3">Setor 3</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-9">
-                <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" id="videoGrid" data-aos="fade-up">
-                    <?php foreach ($videosPagina as $video): ?>
-                        <div class="col mb-4 portfolio-item" 
-                            data-categoria="<?= htmlspecialchars($video['vidCat']); ?>" 
-                            data-setor="<?= htmlspecialchars($video['vidSetor']); ?>" 
-                            data-titulo="<?= strtolower(htmlspecialchars($video['vidTitulo'])); ?>">
+        <h3 class="fw-bold text-center mb-4"><?= htmlspecialchars($assuntoSelecionado) ?></h3>
 
-                            <a href="#" 
-                               data-bs-toggle="modal" 
-                               data-bs-target="#videoModal" 
-                               data-video-url="vendor/videos/play/<?= htmlspecialchars($video['vidLink']); ?>" 
-                               onclick="trackUserAction('<?= htmlspecialchars($video['vidTitulo']); ?>', '<?= htmlspecialchars($user['email'] ?? ''); ?>')">
-                                <img src="vendor/videos/capas/<?= htmlspecialchars($video['vidCapa']); ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
-                                <div class="mt-2">
-                                    <h6 class="fw-bold mb-0"><?= htmlspecialchars($video['vidTitulo']); ?></h6>
-                                    <small class="text-muted"><?= htmlspecialchars($video['vidCat']); ?> - <?= htmlspecialchars($video['vidSetor']); ?></small>
-                                </div>
-                            </a>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" id="videoGrid">
+                    <?php if (!empty($videosPagina)): ?>
+                        <?php foreach ($videosPagina as $video): ?>
+                            <div class="col mb-4 portfolio-item">
+                                <a href="#" data-bs-toggle="modal" 
+                                   data-bs-target="#videoModal" 
+                                   data-video-url="vendor/videos/play/<?= htmlspecialchars($video['vidLink']); ?>" 
+                                   onclick="trackUserAction('<?= htmlspecialchars($video['vidTitulo']); ?>', '<?= htmlspecialchars($user['email'] ?? ''); ?>')">
+                                    <img src="vendor/videos/capas/<?= htmlspecialchars($video['vidCapa']); ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                                    <div class="mt-2">
+                                        <h6 class="fw-bold mb-0"><?= htmlspecialchars($video['vidTitulo']); ?></h6>
+                                        <small class="text-muted"><?= htmlspecialchars($video['vidCat']); ?> - <?= htmlspecialchars($video['vidSetor']); ?></small>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="col-12 text-center">
+                            <p class="text-muted">Nenhum vídeo encontrado para este assunto.</p>
                         </div>
-                    <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
 
                 <!-- Paginação -->
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center mt-4">
-                        <?php if ($paginaAtual > 1): ?>
-                            <li class="page-item">
-                                <a class="page-link" href="videos&pagina=<?= $paginaAtual - 1; ?>" aria-label="Anterior">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                        <?php endif; ?>
+                <?php if ($totalPaginas > 1): ?>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center mt-4">
+                            <?php if ($paginaAtual > 1): ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="videos&a=<?= urlencode($assuntoSelecionado) ?>&pagina=<?= $paginaAtual - 1; ?>" aria-label="Anterior">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
 
-                        <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-                            <li class="page-item <?= $i == $paginaAtual ? 'active' : ''; ?>">
-                                <a class="page-link" href="videos&pagina=<?= $i; ?>"><?= $i; ?></a>
-                            </li>
-                        <?php endfor; ?>
+                            <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                                <li class="page-item <?= $i == $paginaAtual ? 'active' : ''; ?>">
+                                    <a class="page-link" href="videos&a=<?= urlencode($assuntoSelecionado) ?>&pagina=<?= $i; ?>"><?= $i; ?></a>
+                                </li>
+                            <?php endfor; ?>
 
-                        <?php if ($paginaAtual < $totalPaginas): ?>
-                            <li class="page-item">
-                                <a class="page-link" href="videos&pagina=<?= $paginaAtual + 1; ?>" aria-label="Próximo">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
-                </nav>
+                            <?php if ($paginaAtual < $totalPaginas): ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="videos&a=<?= urlencode($assuntoSelecionado) ?>&pagina=<?= $paginaAtual + 1; ?>" aria-label="Próximo">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </nav>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -115,31 +120,6 @@
             var videoFrame = document.getElementById('videoFrame');
             videoFrame.src = '';
         });
-
-        document.getElementById('categoria').addEventListener('change', filtrarVideos);
-        document.getElementById('setor').addEventListener('change', filtrarVideos);
-        document.getElementById('pesquisa').addEventListener('input', filtrarVideos);
-
-        function filtrarVideos() {
-            var categoria = document.getElementById('categoria').value.toLowerCase();
-            var setor = document.getElementById('setor').value.toLowerCase();
-            var pesquisa = document.getElementById('pesquisa').value.toLowerCase();
-            var videos = document.querySelectorAll('#videoGrid .portfolio-item');
-
-            videos.forEach(function (video) {
-                var videoCategoria = video.getAttribute('data-categoria').toLowerCase();
-                var videoSetor = video.getAttribute('data-setor').toLowerCase();
-                var videoTitulo = video.getAttribute('data-titulo').toLowerCase();
-
-                if ((categoria === '' || videoCategoria === categoria) &&
-                    (setor === '' || videoSetor === setor) &&
-                    (pesquisa === '' || videoTitulo.includes(pesquisa))) {
-                    video.style.display = 'block';
-                } else {
-                    video.style.display = 'none';
-                }
-            });
-        }
     });
 
     function trackUserAction(title, email) {
