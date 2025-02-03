@@ -120,7 +120,7 @@ $assuntos = fetchAssunto();
                 <div class="swiper-wrapper">
                     <?php 
                         $count = 0;
-                        foreach ($assunto as $item): 
+                        foreach ($assuntos as $item): 
                             if ($count < 8): 
                                 $count++;
                     ?>
