@@ -11,12 +11,12 @@
     --bs-green: #F5F8F1;
     --bs-teal: #EFE8EF;
     --bs-cyan: #F3F3F3;
-    --bs-black: #111111; 
+    --bs-black: #1b1b1b; 
     --bs-white: #FFFFFF;
     --bs-gray: #777777;
 
     /* Links */
-    --bs-link-color: #111111;
+    --bs-link-color: #1b1b1b;
     --bs-link-hover-color: #F0756C;
 
     /* Destaques e fundo */
@@ -204,7 +204,7 @@ p.a { line-height: 10%; }
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(19, 19, 19, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
