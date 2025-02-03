@@ -199,7 +199,7 @@ $assuntos = fetchAssunto();
 
 
 
-<?php  print_r($ferramentas); ?>
+<?php  print_r($materiais); ?>
 <section class="portfolio py-5">
     <div class="container">
         <div class="justify-content-center ">
