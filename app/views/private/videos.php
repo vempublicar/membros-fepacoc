@@ -70,7 +70,7 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
                                 </div>
                             </div>
 
-                        <?php endforeach; ?>
+                        <?php print_r($video); endforeach;  $ ?>
                     <?php else: ?>
                         <div class="col-12 text-center">
                             <p class="text-muted">Nenhum vídeo encontrado para este assunto.</p>
