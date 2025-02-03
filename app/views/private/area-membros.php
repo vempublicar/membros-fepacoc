@@ -166,7 +166,7 @@ $assuntos = fetchAssunto();
                 <?php 
                     $count = 0;
                     foreach ($produtos as $produto): 
-                        if ($produto['type'] === 'Destaque' && $count < 4): 
+                        if ($produto['proStatus'] === 'ativo' && $count < 4): 
                             $count++;
                 ?>
                         <div class="col mb-4">
