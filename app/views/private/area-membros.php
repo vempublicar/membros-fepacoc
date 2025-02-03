@@ -120,7 +120,7 @@ $assuntos = fetchAssunto();
                         if ($produto['proStatus'] === 'ativo' && $count < 4): 
                             $count++;
                 ?>
-                        <div class="col mb-4">
+                        <div class="col mb-4 portfolio-item photography">
                                 <a href="#" onclick="openOffcanvas(
                                     '<?= htmlspecialchars($produto['proNome']); ?>', 
                                     '<?= $produto['proCapa']; ?>',
