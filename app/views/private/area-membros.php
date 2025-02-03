@@ -64,7 +64,8 @@ $assuntos = fetchAssunto();
 <section class="portfolio p-3">
             <div class="row">
                 <div class="col text-start"><p class="text-uppercase">Categorias</p></div>
-                <div class="col text-end"><a href="videos" class="text-uppercase text-info text-decoration-none">
+                <div class="col text-end">
+                    <a href="videos" class="text-uppercase text-info text-decoration-none">
                         Mais categorias
                     </a>
                 </div>
@@ -98,14 +99,11 @@ $assuntos = fetchAssunto();
 </section>
 
 <!-- PRODUTOS -->
-<section class="portfolio">
+<section class="portfolio p-3">
         <div class="row">
-            <div class="col text-start"><p class="text-uppercase">Produtos</p></div>
-                <div class="col text-end"><a href="produtos" class="text-uppercase text-info text-decoration-none">
-                        Mais produtos
-                    </a>
-                </div>
-            </div> 
+            <div class="col text-start">
+                <p class="text-uppercase">Produtos</p>
+            </div>
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-4" data-aos="fade-up">
                 <?php 
                     $count = 0;
