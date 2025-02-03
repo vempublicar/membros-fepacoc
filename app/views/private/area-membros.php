@@ -63,7 +63,6 @@ $assuntos = fetchAssunto();
 <!-- CATEGORIAS -->
 <section class="portfolio">
     <div class="container">
-        <div class="justify-content-center">
 
             <div class="text-center">
                 <h5>Categorias
@@ -100,7 +99,6 @@ $assuntos = fetchAssunto();
                 <div class="swiper-pagination"></div>
             </div>
 
-        </div>
     </div>
 </section>
 
