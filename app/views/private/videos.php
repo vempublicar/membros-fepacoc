@@ -68,10 +68,6 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
                                     
                                     <img src="vendor/uploads/videos/capa/<?= htmlspecialchars($video['vidCapa']); ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                                     
-                                    <div class="mt-2">
-                                        <h6 class="fw-bold mb-0"><?= htmlspecialchars($video['vidTitulo']); ?></h6>
-                                        <small class="text-muted"><?= $videoUrl; ?> - <?= htmlspecialchars($video['vidSetor']); ?></small>
-                                    </div>
                                 </a>
                             </div>
                         <?php endforeach; ?>
@@ -85,7 +81,7 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
         </div>
     </div>
 </section>
-
+<?php include_once "app/views/parts/footer.php"; ?>
 <!-- Modal para exibição do vídeo -->
 <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl"> <!-- Modal maior e centralizado -->
