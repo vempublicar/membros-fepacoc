@@ -9,20 +9,6 @@
                 </a>
             </div>
 
-            <!-- Menu como Dropdown no Mobile -->
-            <div class="dropdown d-lg-none">
-                <a href="#" class="d-flex align-items-center text-decoration-none" id="menuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="vendor/img/menu_icon.png" alt="Menu" width="36" height="36">
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuDropdown">
-                    <li><a class="dropdown-item text-black" href="painel">Painel</a></li>
-                    <li><a class="dropdown-item text-black" href="sobre">Sobre</a></li>
-                    <li><a class="dropdown-item text-black" href="entregaveis">Entregáveis</a></li>
-                    <li><a class="dropdown-item text-black" href="ferramentas">Ferramentas</a></li>
-                    <li><a class="dropdown-item text-black" href="servicos">Serviços</a></li>
-                </ul>
-            </div>
-
             <!-- Menu Centralizado no Desktop -->
             <div class="d-none d-lg-block">
                 <ul class="navbar-nav text-center d-flex flex-row gap-3">
@@ -34,8 +20,24 @@
                 </ul>
             </div>
 
-            <!-- Perfil do Usuário -->
-            <div class="d-flex align-items-center gap-3">
+            <!-- Wrapper para alinhar Menu e Perfil no mobile -->
+            <div class="d-flex align-items-center gap-3 ms-auto">
+
+                <!-- Menu como Dropdown no Mobile -->
+                <div class="dropdown d-lg-none">
+                    <a href="#" class="d-flex align-items-center text-decoration-none" id="menuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="vendor/img/menu_icon.png" alt="Menu" width="36" height="36">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuDropdown">
+                        <li><a class="dropdown-item text-black" href="painel">Painel</a></li>
+                        <li><a class="dropdown-item text-black" href="sobre">Sobre</a></li>
+                        <li><a class="dropdown-item text-black" href="entregaveis">Entregáveis</a></li>
+                        <li><a class="dropdown-item text-black" href="ferramentas">Ferramentas</a></li>
+                        <li><a class="dropdown-item text-black" href="servicos">Serviços</a></li>
+                    </ul>
+                </div>
+
+                <!-- Perfil do Usuário -->
                 <div class="dropdown">
                     <a href="#" id="profileDropdown" class="d-flex align-items-center text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="vendor/images/post-thumb-1.jpg" alt="User Profile" class="rounded-circle" width="40" height="40">
@@ -49,6 +51,7 @@
                         <li><a class="dropdown-item text-black" href="logout">Logout</a></li>
                     </ul>
                 </div>
+
             </div>
 
         </div>
