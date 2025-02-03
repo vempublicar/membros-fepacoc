@@ -89,12 +89,12 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
 </section>
 <?php include_once "app/views/parts/footer.php"; ?>
 <!-- Modal para exibição do vídeo -->
-<div class="offcanvas offcanvas-end dark-mode" tabindex="-1" id="videoOffcanvas" aria-labelledby="videoOffcanvasLabel">
+<div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="videoOffcanvas" aria-labelledby="videoOffcanvasLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title fw-bold" id="videoOffcanvasLabel">Detalhes do Vídeo</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
     </div>
-    <div class="offcanvas-body dark-mode">
+    <div class="offcanvas-body text-dark">
         <!-- Player do vídeo -->
         <div class="ratio ratio-16x9 mb-3" id="videoContainer">
             <iframe id="videoPlayerIframe" class="d-none" src="" frameborder="0" allowfullscreen></iframe>
