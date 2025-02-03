@@ -27,6 +27,7 @@ $leads = fetchLeads();
 $categorias = fetchCategorias();
 $ferramentas = fetchFerramentas();
 $capas = fetchCapas();
+$assuntos = fetchAssunto();
 // print_r($materiais);
 ?>
 <section class="top-banner mt-5">
@@ -104,7 +105,7 @@ $capas = fetchCapas();
     </div>
 </section>
 
-
+<?php print_r($assuntos); ?>
 <section class="p-5 ">
     <div class="container">
         <div class="row justify-content-center">
@@ -162,6 +163,8 @@ $capas = fetchCapas();
         </div>
     </div>
 </section>
+
+
 <section class="portfolio py-5">
     <div class="container">
         <div class="justify-content-center ">
