@@ -59,29 +59,39 @@ $capas = fetchCapas();
     </div>
 </section>
 
-
-
-<section class="portfolio ">
+<section class="portfolio">
     <div class="container">
         <div class="justify-content-center">
 
             <div class="text-center">
-                <h3 class="display-6 ">
-                    categorias
-                </h3>
+                <h4 class="display-6">Categorias</h4>
             </div>
-            <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
-                <?php foreach ($categorias as $categoria): ?>
-                    <?php if ($categoria['catStatus'] === 'ativo'): ?>
-                        <div class="col mb-4 portfolio-item photography">
-                            
-                            <a href="https://members.fepacoc.com.br/categoria&a=<?= $categoria['catNome']; ?>" onclick="trackUserAction('<?= $categoria['catNome']; ?>', <?= $user['email'] ?>)">
-                                <img src="vendor/uploads/categorias/<?= $categoria['catCapa']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
-                            </a>
-                        </div>
 
-                    <?php endif; ?>
-                <?php endforeach;  ?>
+            <!-- Carrossel Swiper -->
+            <div class="swiper mySwiper" data-aos="fade-up">
+                <div class="swiper-wrapper">
+                    <?php 
+                        $count = 0;
+                        foreach ($categorias as $categoria): 
+                            if ($categoria['catStatus'] === 'ativo' && $count < 8): 
+                                $count++;
+                    ?>
+                    <div class="swiper-slide">
+                        <a href="https://members.fepacoc.com.br/categoria&a=<?= $categoria['catNome']; ?>" 
+                            onclick="trackUserAction('<?= $categoria['catNome']; ?>', '<?= $user['email'] ?>')">
+                            <img src="vendor/uploads/categorias/<?= $categoria['catCapa']; ?>" class="img-fluid rounded-4" alt="Capa da categoria">
+                        </a>
+                    </div>
+                    <?php 
+                            endif;
+                        endforeach;  
+                    ?>
+                </div>
+
+                <!-- Controles do Carrossel -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
             </div>
 
             <div class="text-center p-3">
@@ -89,20 +99,12 @@ $capas = fetchCapas();
                     Ver todas
                 </a>
             </div>
+
         </div>
     </div>
 </section>
-<!--
 
-                            <button class="btn btn-icon float-end" onclick="openModal('<?= $video['id']; ?>')">
-                                <i class="fas fa-star"></i>
-                            </button>
-                            <?php if ($video['type'] === 'Pago'): ?>
-                                <i class="fas fa-crown exclusive-icon position-absolute ms-2" title="Conteúdo Exclusivo"></i>
-                            <?php endif; ?>
-                            -->
-<?php // print_r($_SESSION['user_dados']); 
-?>
+
 <section class="p-5 ">
     <div class="container">
         <div class="row justify-content-center">
@@ -447,6 +449,25 @@ $capas = fetchCapas();
                 console.error('Erro ao registrar a ação:', error);
             });
     }
+</script>
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 2, // Para mobile
+        spaceBetween: 20,
+        loop: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        breakpoints: {
+            768: { slidesPerView: 3 }, // Tablets
+            1024: { slidesPerView: 4 }, // Desktop
+        }
+    });
 </script>
 </body>
 
