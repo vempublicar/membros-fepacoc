@@ -92,7 +92,7 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
 <div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="videoOffcanvas" aria-labelledby="videoOffcanvasLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title fw-bold" id="videoOffcanvasLabel">Detalhes do Vídeo</h5>
-        <button type="button" class="btn-close text-dark" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
+        <button type="button" class="btn-close text-dark" data-bs-dismiss="offcanvas" aria-label="Fechar">X</button>
     </div>
     <div class="offcanvas-body text-dark">
         <!-- Player do vídeo -->
