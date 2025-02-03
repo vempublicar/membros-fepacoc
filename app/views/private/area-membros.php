@@ -259,8 +259,6 @@ $assuntos = fetchAssunto();
 </section>
 
 
-<?php  print_r($ferramentas); ?>
-
 <!-- Rodapé -->
  <?php include "app/views/parts/footer.php" ?>
 
