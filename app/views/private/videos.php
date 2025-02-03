@@ -24,7 +24,25 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
     return normalizarTexto($video['vidAssunto']) === $assuntoSelecionado;
 });
 ?>
+<style>
+    /* Remove fundo preto ao fechar */
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.8) !important;
+    }
 
+    /* Remove bordas e sombra do modal */
+    .modal-content {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Ajuste no botão de fechar */
+    .btn-close {
+        filter: invert(1); /* Deixa o botão branco */
+        font-size: 1.5rem;
+    }
+</style>
 <section class="portfolio py-5 mt-5">
     <div class="container">
         <h3 class="fw-bold text-center mb-4">Vídeos sobre <?= htmlspecialchars(ucwords($assuntoSelecionado)) ?></h3>
@@ -70,15 +88,12 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
 
 <!-- Modal para exibição do vídeo -->
 <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="videoModalLabel">Vídeo</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
+    <div class="modal-dialog modal-dialog-centered modal-xl"> <!-- Modal maior e centralizado -->
+        <div class="modal-content border-0 bg-transparent"> <!-- Remove bordas e fundo padrão -->
+            <div class="modal-body p-0">
+                <button type="button" class="btn-close position-absolute top-0 end-0 p-3" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 <div class="ratio ratio-16x9">
-                    <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
+                    <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
