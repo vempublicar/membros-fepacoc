@@ -22,12 +22,15 @@
 
             <!-- Perfil e Configurações -->
             <div class="d-flex align-items-center gap-3">
-                <!-- Botão de Toggle para Mobile (Movido para a Direita no Mobile) -->
-                <button class="navbar-toggler d-lg-none order-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
+                <!-- Novo Botão de Toggle Estilizado -->
+                <div class="dropdown d-lg-none">
+                    <a href="#" class="d-flex align-items-center text-decoration-none" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <img src="vendor/img/menu_icon.png" alt="Menu" width="36" height="36">
+                    </a>
+                </div>
+
+                <!-- Perfil do Usuário -->
                 <div class="dropdown">
                     <a href="#" id="profileDropdown" class="d-flex align-items-center text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="vendor/images/post-thumb-1.jpg" alt="User Profile" class="rounded-circle" width="40" height="40">
@@ -41,6 +44,7 @@
                         <li><a class="dropdown-item text-black" href="logout">Logout</a></li>
                     </ul>
                 </div>
+
             </div>
 
         </div>
