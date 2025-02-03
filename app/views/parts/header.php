@@ -1,5 +1,5 @@
-<header id="top" class="position-sticky top-0 start-0 bg-dark" style="z-index: 999;">
-    <nav class="navbar navbar-expand-lg bg-white fixed-top shadow-sm">
+<header id="top" class="position-sticky top-0 start-0" style="z-index: 999;">
+    <nav class="navbar navbar-expand-lg bg-dark fixed-top shadow-sm">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <!-- Logo -->
             <div class="d-flex align-items-center">
