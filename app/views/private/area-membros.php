@@ -155,97 +155,9 @@ $assuntos = fetchAssunto();
     </div>
 </section>
 
+<?php print_r($produtos); ?>
+<!-- PRODUTOS -->
 
-<section class="p-5 ">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-4">
-                <div class="d-flex gap-2 align-items-start">
-                    <div class="icon">
-                        <svg class="text-primary monitor" width="50" height="50">
-                            <use xlink:href="#monitor"></use>
-                        </svg>
-                    </div>
-                    <div class="text-md-start">
-                        <h5>
-                            UI/UX Design
-                        </h5>
-                        <p class="postf">
-                            At in proin consequat ut cursus venenatis sapien.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="d-flex gap-2 align-items-start">
-                    <div class="icon">
-                        <svg class="text-primary notes" width="50" height="50">
-                            <use xlink:href="#notes"></use>
-                        </svg>
-                    </div>
-                    <div class="text-md-start">
-                        <h5>
-                            Illustration
-                        </h5>
-                        <p class="postf">
-                            At in proin consequat ut cursus venenatis sapien.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="d-flex gap-2 align-items-start">
-                    <div class="icon">
-                        <svg class="text-primary laptop" width="50" height="50">
-                            <use xlink:href="#laptop"></use>
-                        </svg>
-                    </div>
-                    <div class="text-md-start">
-                        <h5>
-                            Graphic Design
-                        </h5>
-                        <p class="postf">
-                            At in proin consequat ut cursus venenatis sapien.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="portfolio py-5">
-    <div class="container">
-        <div class="justify-content-center ">
-            <div class="text-center">
-                <h3 class="display-6 mb-5">
-                    Últimas Aulas
-                </h3>
-            </div>
-            <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
-                <?php foreach ($videos as $video): ?>
-                    <?php if ($video['form'] === 'Aula'): ?>
-                        <div class="col mb-4 portfolio-item photography">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $video['link']; ?>">
-                                <img src="vendor/img/aulas/capas/<?= $video['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
-                            </a>
-                            <button class="btn btn-icon float-end" onclick="openModal('<?= $video['id']; ?>')">
-                                <i class="fas fa-star"></i>
-                            </button>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
-
-            <div class="text-center p-3">
-                <a href="aulas" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
-                    Ver mais
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
 
 <section class="p-5 bg-yellow py-5">
     <div class="container">
