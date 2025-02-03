@@ -211,7 +211,6 @@ $assuntos = fetchAssunto();
 
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
                 <?php foreach ($materiais as $material): ?>
-                    <?php if ($material['type'] === 'Gratuito'): ?>
                         <div class="col mb-4 portfolio-item photography">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $material['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
                                 <img src="vendor/uploads/materiais/capa/<?= $material['matCapa']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
@@ -220,7 +219,6 @@ $assuntos = fetchAssunto();
                                 <i class="fas fa-star"></i>
                             </button>
                         </div>
-                    <?php endif; ?>
                 <?php endforeach; ?>
             </div>
 
