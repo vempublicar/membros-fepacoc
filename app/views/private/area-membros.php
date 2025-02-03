@@ -159,32 +159,39 @@ $assuntos = fetchAssunto();
 <section class="p-5 bg-yellow py-5">
     <div class="container">
         <div class="text-center">
-            <h3 class="display-6 mb-5">
-                Produtos para sua empresa
-            </h3>
+            <h3 class="display-6 mb-5">Produtos para sua empresa</h3>
         </div>
         <div class="justify-content-center">
-
-            <div class="grid p-0 clearfix row row-cols-1 row-cols-lg-4" data-aos="fade-up">
+            <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-4" data-aos="fade-up">
                 <?php 
                     $count = 0;
                     foreach ($produtos as $produto): 
-                        if ($produto['proStatus'] === 'ativo' && $count < 4): 
+                        if ($produto['type'] === 'Destaque' && $count < 4): 
                             $count++;
                 ?>
                         <div class="col mb-4">
                             <div class="card shadow-sm rounded-4 border-0">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" 
-                                    data-video-url="<?= $produto['link']; ?>" 
-                                    onclick="trackUserAction('<?= $produto['proNome']; ?>', '<?= $user['email'] ?>')">
-                                    <img src="vendor/uploads/produtos/<?= $produto['proCapa']; ?>" 
+                                <a href="#" onclick="openOffcanvas(
+                                    '<?= htmlspecialchars($produto['proNome']); ?>', 
+                                    '<?= $produto['proCapa']; ?>',
+                                    '<?= number_format($produto['proPreco'], 2, ',', '.'); ?>',
+                                    '<?= htmlspecialchars($produto['proSobre']); ?>',
+                                    '<?= $produto['proPagina']; ?>'
+                                    )">
+                                    <img src="vendor/img/produtos/capas/<?= $produto['proCapa']; ?>" 
                                          class="card-img-top rounded-top-4" 
-                                         alt="Capa do Produto">
+                                         alt="<?= htmlspecialchars($produto['proNome']); ?>">
                                 </a>
                                 <div class="card-body text-center">
                                     <h5 class="card-title"><?= htmlspecialchars($produto['proNome']); ?></h5>
                                     <p class="card-text fw-bold text-primary">R$ <?= number_format($produto['proPreco'], 2, ',', '.'); ?></p>
-                                    <button class="btn btn-outline-secondary btn-sm" onclick="openModal('<?= $produto['id']; ?>')">
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="openOffcanvas(
+                                        '<?= htmlspecialchars($produto['proNome']); ?>', 
+                                        '<?= $produto['proCapa']; ?>',
+                                        '<?= number_format($produto['proPreco'], 2, ',', '.'); ?>',
+                                        '<?= htmlspecialchars($produto['proSobre']); ?>',
+                                        '<?= $produto['proPagina']; ?>'
+                                    )">
                                         <i class="fas fa-info-circle"></i> Detalhes
                                     </button>
                                 </div>
@@ -241,68 +248,22 @@ $assuntos = fetchAssunto();
 </section>
 <!-- Rodapé -->
  <?php include "app/views/parts/footer.php" ?>
-<!-- Modal do Bootstrap para vídeos -->
-<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="videoModalLabel">Vídeo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="ratio ratio-16x9">
-                    <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal para Avaliação -->
-<div class="modal" id="ratingModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Avaliar Vídeo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
-            </div>
-            <div class="modal-body">
-                <form id="ratingForm" action="app/functions/push/avalia-aula.php" method="POST">
-                    <div class="mb-3">
-                        <label for="reviewText" class="form-label">Seu Comentário</label>
-                        <textarea class="form-control" id="reviewText" name="reviewText" rows="5" required></textarea>
-                    </div>
-                    <label for="reviewText" class="form-label">Avalie o conteúdo</label>
-                    <div class="star-rating">
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="5">&#9733;</span>
-                    </div>
-                    <input type="hidden" name="rating" id="rating-input" value="">
-                    <p id="rating-value" class="mt-2"></p>
-                    <input type="hidden" id="videoId" name="videoId">
-                    <!-- Campo oculto para o email do usuário -->
-                    <input type="hidden" name="userEmail" value="<?php echo $user['email']; ?>">
-                    <!-- Campo oculto para a data atual no formato brasileiro -->
-                    <input type="hidden" name="currentDate" value="<?php echo date('d/m/Y'); ?>">
-                    <button type="submit" class="btn btn-primary float-end">Enviar Avaliação</button>
-                </form>
-            </div>
-        </div>
+
+ <div class="offcanvas offcanvas-end" tabindex="-1" id="productOffcanvas" aria-labelledby="offcanvasTitle">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasTitle"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <img id="offcanvasImage" src="" class="img-fluid rounded-4 mb-3" alt="">
+        <p class="text-primary fw-bold" id="offcanvasPrice"></p>
+        <p id="offcanvasDescription"></p>
+        <a id="offcanvasLink" href="#" class="btn btn-primary w-100" target="_blank">Abrir Página</a>
     </div>
 </div>
 
-<div id="videoLightbox" class="video-lightbox d-none">
-    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" id="closeLightbox" aria-label="Close"></button>
-    <div class="video-container">
-        <video id="videoPlayer" controls class="rounded-4 video-element">
-            <source src="" type="video/mp4">
-            Seu navegador não suporta o elemento de vídeo.
-        </video>
-    </div>
-</div>
+
 <script>
     // Script para atualizar o URL do vídeo quando o modal for aberto
     var videoModal = document.getElementById('videoModal');
