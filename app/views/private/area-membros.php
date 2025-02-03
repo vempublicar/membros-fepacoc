@@ -156,7 +156,6 @@ $assuntos = fetchAssunto();
 </section>
 
 
-<?php print_r($assuntos); ?>
 <section class="p-5 ">
     <div class="container">
         <div class="row justify-content-center">
@@ -522,7 +521,7 @@ $assuntos = fetchAssunto();
             1024: { slidesPerView: 4 }, // Desktop
         }
     });
-    
+
     var swiper = new Swiper(".mySwiper", {
         slidesPerView: 2, // Para mobile
         spaceBetween: 20,
