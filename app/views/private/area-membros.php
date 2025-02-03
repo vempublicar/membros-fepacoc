@@ -264,25 +264,8 @@ $assuntos = fetchAssunto();
 </div>
 
 
-<script>
-    // Script para atualizar o URL do vídeo quando o modal for aberto
-    var videoModal = document.getElementById('videoModal');
-    videoModal.addEventListener('show.bs.modal', function(event) {
-        var button = event.relatedTarget; // Botão que disparou o modal
-        var videoUrl = button.getAttribute('data-video-url'); // Extrair o URL do vídeo do atributo data-video-url
-        var videoFrame = document.getElementById('videoFrame');
-        videoFrame.src = videoUrl; // Definir o src do iframe para o vídeo
-    });
-
-    // Script para parar o vídeo quando o modal for fechado
-    videoModal.addEventListener('hidden.bs.modal', function() {
-        var videoFrame = document.getElementById('videoFrame');
-        videoFrame.src = ''; // Limpar o src do iframe
-    });
-</script>
 <!-- Bootstrap JavaScript Libraries -->
-<script src="vendor/js/jquery-1.11.0.min.js"></script> <!-- jquery file-->
-
+<script src="vendor/js/jquery-1.11.0.min.js"></script> 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
     crossorigin="anonymous"></script>
@@ -291,106 +274,13 @@ $assuntos = fetchAssunto();
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
     crossorigin="anonymous"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script> <!--cdn link-->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script> 
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 <script src="vendor/js/plugins.js"></script>
+<script src="vendor/js/script.js"></script>
 <script type="text/javascript" src="vendor/js/lightbox.min.js"></script>
 
-<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-<script src="vendor/js/script.js"></script>
-<script>
-    function openModal(videoId) {
-        // Define o valor do id do vídeo no campo oculto
-        document.getElementById('videoId').value = videoId;
 
-        // Abre o modal
-        $('#ratingModal').modal('show');
-    }
-    document.addEventListener("DOMContentLoaded", function() {
-        const stars = document.querySelectorAll(".star-rating .star");
-        const ratingInput = document.getElementById("rating-input");
-
-        stars.forEach((star, index) => {
-            star.addEventListener("click", function() {
-                // Define o valor no input oculto
-                ratingInput.value = index + 1;
-
-                // Atualiza as classes das estrelas
-                stars.forEach((s, i) => {
-                    s.classList.toggle("active", i <= index);
-                });
-            });
-        });
-    });
-
-    // Adicione um ouvinte de evento para o formulário de envio, se necessário
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const videoLinks = document.querySelectorAll('.video-link');
-        const videoLightbox = document.getElementById('videoLightbox');
-        const videoPlayer = document.getElementById('videoPlayer');
-        const closeLightbox = document.getElementById('closeLightbox');
-
-        // Abrir o lightbox do vídeo
-        videoLinks.forEach(link => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault();
-                const videoUrl = link.getAttribute('data-video-url');
-                videoPlayer.querySelector('source').setAttribute('src', videoUrl);
-                videoPlayer.load();
-                videoLightbox.classList.remove('d-none');
-            });
-        });
-
-        // Fechar o lightbox do vídeo
-        closeLightbox.addEventListener('click', function() {
-            videoLightbox.classList.add('d-none');
-            videoPlayer.pause();
-            videoPlayer.currentTime = 0;
-        });
-
-        // Fechar lightbox ao clicar fora do vídeo
-        videoLightbox.addEventListener('click', function(event) {
-            if (event.target === videoLightbox) {
-                videoLightbox.classList.add('d-none');
-                videoPlayer.pause();
-                videoPlayer.currentTime = 0;
-            }
-        });
-    });
-
-    function trackUserAction(title, email) {
-        const date = new Date();
-        const formattedDate = date.toISOString().split('T')[0]; // Formato: YYYY-MM-DD
-        const formattedTime = date.toTimeString().split(' ')[0]; // Formato: HH:MM:SS
-
-        // Dados a serem enviados
-        const data = {
-            title: title,
-            email: email,
-            date: formattedDate,
-            time: formattedTime,
-        };
-
-        
-        // Enviar via AJAX
-        fetch('app/functions/push/track.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log(result); // Log do sucesso ou erro
-            })
-            .catch(error => {
-                console.error('Erro ao registrar a ação:', error);
-            });
-    }
-</script>
 <script>
     var swiperAssunto = new Swiper(".mySwiperAssunto", {
         slidesPerView: 2, // Para mobile
@@ -440,6 +330,6 @@ $assuntos = fetchAssunto();
         offcanvas.show();
     }
 </script>
-</body>
 
+</body>
 </html>
