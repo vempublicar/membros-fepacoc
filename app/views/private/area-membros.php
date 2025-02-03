@@ -66,7 +66,7 @@ $assuntos = fetchAssunto();
         <div class="justify-content-center">
 
             <div class="text-center">
-                <h5 class="display-6">Categorias
+                <h5>Categorias
                 <a href="videos" class="btn btn-link btn-lg mt-3 text-uppercase text-decoration-none">
                     Mais categorias
                 </a>
