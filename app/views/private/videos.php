@@ -40,7 +40,7 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
 </style>
 <section class="portfolio py-5 mt-5">
     <div class="container">
-        <h3 class="fw-bold text-center mb-4">Vídeos sobre <?= $_GET['assunto'] ?></h3>
+        <h3 class="fw-bold text-center mb-4">Vídeos sobre <?= htmlspecialchars($_GET['assunto'], ENT_QUOTES, 'UTF-8') ?></h3>
 
         <div class="row">
             <div class="col-lg-12">
