@@ -4,7 +4,7 @@
             <!-- Logo -->
             <div class="d-flex align-items-center">
                 <a class="navbar-brand d-flex align-items-center" href="painel">
-                    <img src="vendor/img/logo_escuro.png" class="img-fluid" style="height: 22px;" id="logo" alt="Logo">
+                    <img src="vendor/img/logo-branco.png" class="img-fluid" style="height: 22px;" id="logo" alt="Logo">
                 </a>
             </div>
 
