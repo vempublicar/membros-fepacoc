@@ -428,6 +428,18 @@ $assuntos = fetchAssunto();
         }
     });
 </script>
+<script>
+    function openOffcanvas(title, image, price, description, link) {
+        document.getElementById('offcanvasTitle').innerText = title;
+        document.getElementById('offcanvasImage').src = 'vendor/img/produtos/capas/' + image;
+        document.getElementById('offcanvasPrice').innerText = 'R$ ' + price;
+        document.getElementById('offcanvasDescription').innerText = description;
+        document.getElementById('offcanvasLink').href = link;
+
+        var offcanvas = new bootstrap.Offcanvas(document.getElementById('productOffcanvas'));
+        offcanvas.show();
+    }
+</script>
 </body>
 
 </html>
