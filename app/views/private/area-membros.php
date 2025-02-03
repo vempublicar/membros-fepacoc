@@ -66,7 +66,11 @@ $assuntos = fetchAssunto();
         <div class="justify-content-center">
 
             <div class="text-center">
-                <h4 class="display-6">Categorias</h4>
+                <h5 class="display-6">Categorias
+                <a href="videos" class="btn btn-link btn-lg mt-3 text-uppercase text-decoration-none">
+                    Mais categorias
+                </a>
+                </h5>
             </div>
 
             <!-- Carrossel Swiper -->
@@ -94,12 +98,6 @@ $assuntos = fetchAssunto();
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-pagination"></div>
-            </div>
-
-            <div class="text-center p-1">
-                <a href="videos" class="btn btn-link btn-lg mt-3 text-uppercase text-decoration-none">
-                    Mais categorias
-                </a>
             </div>
 
         </div>
@@ -196,7 +194,7 @@ $assuntos = fetchAssunto();
 </section>
 
 <!-- MATERIAIS -->
-<section class="portfolio py-5">
+<section class="portfolio">
     <div class="container">
         <div class="justify-content-center ">
             <div class="text-center">
@@ -228,7 +226,7 @@ $assuntos = fetchAssunto();
 </section>
 
 <!-- FERRAMENTAS -->
-<section class="portfolio py-5">
+<section class="portfolio">
     <div class="container">
         <div class="justify-content-center">
             <div class="text-center">

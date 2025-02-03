@@ -4,7 +4,7 @@
         <div class="col-md-4">
           <div class="info-box">
             <a href="https://fepacoc.com/" class="text-decoration-none text-white" target="_blank">
-            <img src="vendor/img/logo-branco.png" style="height:30px" class="img-fluid"></a>        
+            <img src="vendor/img/logo-branco.png" style="height:35px" class="img-fluid"></a>        
           </div>
         </div>
         <div class="col-md-3">
