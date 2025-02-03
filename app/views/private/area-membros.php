@@ -227,6 +227,47 @@ $assuntos = fetchAssunto();
     </div>
 </section>
 
+<!-- FERRAMENTAS -->
+<section class="portfolio py-5">
+    <div class="container">
+        <div class="justify-content-center">
+            <div class="text-center">
+                <h3 class="display-6 mb-5">Ferramentas</h3>
+            </div>
+
+            <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
+                <?php foreach ($ferramentas as $ferramenta): ?>
+                    <?php if ($ferramenta['ferStatus'] === 'ativo'): ?>
+                        <div class="col mb-4">
+                            <div class="card shadow-sm rounded-4 border-0">
+                                <a href="<?= $ferramenta['ferLink']; ?>" target="_blank">
+                                    <img src="vendor/uploads/ferramentas/<?= $ferramenta['ferCapa']; ?>" 
+                                         class="card-img-top rounded-top-4" 
+                                         alt="<?= htmlspecialchars($ferramenta['ferNome']); ?>">
+                                </a>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title"><?= htmlspecialchars($ferramenta['ferNome']); ?></h5>
+                                    <p class="card-text text-muted"><?= htmlspecialchars($ferramenta['ferDesc']); ?></p>
+                                    <a href="<?= $ferramenta['ferLink']; ?>" class="btn btn-primary w-100" target="_blank">
+                                        Acessar Ferramenta
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="text-center p-3">
+                <a href="ferramentas" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
+                    Ver mais
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 <?php  print_r($ferramentas); ?>
 
 <!-- Rodapé -->
