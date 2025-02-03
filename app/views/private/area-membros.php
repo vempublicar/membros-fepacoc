@@ -170,16 +170,10 @@ $assuntos = fetchAssunto();
                 <div class="swiper-pagination"></div>
             </div>
 
-            <div class="text-center p-3">
-                <a href="assuntos" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
-                    Ver todos
-                </a>
-            </div>
-
 </section>
 
 <!-- MATERIAIS -->
-<section class="portfolio">
+<section class="portfolio p-3">
             <div class="row">
                 <div class="col text-start"><p class="text-uppercase text-secondary">Materiais</p></div>
                 <div class="col text-end">
@@ -205,7 +199,7 @@ $assuntos = fetchAssunto();
 </section>
 
 <!-- FERRAMENTAS -->
-<section class="portfolio">
+<section class="portfolio p-3">
             <div class="row">
                 <div class="col text-start"><p class="text-uppercase text-secondary">Ferramentas</p></div>
                 <div class="col text-end">
