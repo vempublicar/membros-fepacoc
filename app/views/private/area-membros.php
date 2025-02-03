@@ -96,9 +96,9 @@ $assuntos = fetchAssunto();
                 <div class="swiper-pagination"></div>
             </div>
 
-            <div class="text-center p-3">
+            <div class="text-center p-1">
                 <a href="videos" class="btn btn-link btn-lg mt-3 text-uppercase text-decoration-none">
-                    Ver todas
+                    Mais categorias
                 </a>
             </div>
 
@@ -127,7 +127,7 @@ $assuntos = fetchAssunto();
                     <div class="swiper-slide">
                         <a href="https://members.fepacoc.com.br/assunto&a=<?= urlencode($item['assunto']); ?>" 
                             onclick="trackUserAction('<?= $item['assunto']; ?>', '<?= $user['email'] ?>')">
-                            <img src="vendor/uploads/assuntos/<?= $item['assCapa']; ?>" class="img-fluid rounded-4" alt="<?= $item['assunto']; ?>">
+                            <img src="vendor/uploads/assunto/<?= $item['assCapa']; ?>" class="img-fluid rounded-4" alt="<?= $item['assunto']; ?>">
                         </a>
                         <div class="text-center mt-2">
                             <strong><?= htmlspecialchars($item['assunto']); ?></strong>
