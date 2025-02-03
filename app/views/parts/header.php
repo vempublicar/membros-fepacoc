@@ -17,19 +17,19 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav text-center ">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="painel">Painel</a>
+                        <a class="nav-link" href="painel">Painel</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="sobre">Sobre</a>
+                        <a class="nav-link" href="sobre">Sobre</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="entregaveis">Entregáveis</a>
+                        <a class="nav-link" href="entregaveis">Entregáveis</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="ferramentas">Ferramentas</a>
+                        <a class="nav-link" href="ferramentas">Ferramentas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="servicos">Serviços</a>
+                        <a class="nav-link" href="servicos">Serviços</a>
                     </li>
                 </ul>
             </div>
