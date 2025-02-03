@@ -138,12 +138,9 @@ $assuntos = fetchAssunto();
 </section>
 
 <!-- ASSUNTO -->
-<section class="portfolio">
-    <div class="container">
-        <div class="justify-content-center">
-
-            <div class="text-center">
-                <h4 class="display-6">Assuntos</h4>
+<section class="portfolio p-3">
+            <div class="row">
+                <div class="col text-start"><p class="text-uppercase text-secondary">Favoritos</p></div>                
             </div>
 
             <!-- Carrossel Swiper para Assuntos -->
@@ -179,8 +176,6 @@ $assuntos = fetchAssunto();
                 </a>
             </div>
 
-        </div>
-    </div>
 </section>
 
 <!-- MATERIAIS -->
