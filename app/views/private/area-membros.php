@@ -61,10 +61,10 @@ $assuntos = fetchAssunto();
 </section>
 
 <!-- CATEGORIAS -->
-<section class="portfolio">
+<section class="portfolio p-2">
             <div class="text-center">
                 <div class="row">
-                    <div class="text-start"><p >Categorias</p></div>
+                    <div class="text-start"><p class="text-uppercase">Categorias</p></div>
                     <div class="text-end"><a href="videos" class="btn btn-link btn-lg text-uppercase text-decoration-none">
                     Mais categorias
                 </a></div>
