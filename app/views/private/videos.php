@@ -23,6 +23,8 @@ $inicio = ($paginaAtual - 1) * $videosPorPagina;
 
 // Paginar os vídeos filtrados
 $videosPagina = array_slice($videosFiltrados, $inicio, $videosPorPagina);
+
+print_r($videos);
 ?>
 
 <section class="portfolio py-5 mt-5">
