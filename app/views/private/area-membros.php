@@ -129,9 +129,6 @@ $assuntos = fetchAssunto();
                             onclick="trackUserAction('<?= $item['assunto']; ?>', '<?= $user['email'] ?>')">
                             <img src="vendor/uploads/assunto/<?= $item['assCapa']; ?>" class="img-fluid rounded-4" alt="<?= $item['assunto']; ?>">
                         </a>
-                        <div class="text-center mt-2">
-                            <strong><?= htmlspecialchars($item['assunto']); ?></strong>
-                        </div>
                     </div>
                     <?php 
                             endif;
@@ -200,7 +197,7 @@ $assuntos = fetchAssunto();
     </div>
 </section>
 
-<?php print_r($ferramentas); ?>
+<?php // print_r($ferramentas); ?>
 <section class="portfolio py-5">
     <div class="container">
         <div class="justify-content-center ">
