@@ -23,16 +23,6 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
     if (!isset($video['vidAssunto'])) return false;
     return normalizarTexto($video['vidAssunto']) === $assuntoSelecionado;
 });
-
-// Definição da paginação
-$videosPorPagina = 12;
-$totalVideos = count($videosFiltrados);
-$totalPaginas = ceil($totalVideos / $videosPorPagina);
-$paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-$inicio = ($paginaAtual - 1) * $videosPorPagina;
-
-// Paginar os vídeos filtrados
-$videosPagina = array_slice($videosFiltrados, $inicio, $videosPorPagina);
 ?>
 
 <section class="portfolio py-5 mt-5">
@@ -42,13 +32,20 @@ $videosPagina = array_slice($videosFiltrados, $inicio, $videosPorPagina);
         <div class="row">
             <div class="col-lg-12">
                 <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" id="videoGrid">
-                    <?php if (!empty($videosPagina)): ?>
-                        <?php foreach ($videosPagina as $video): ?>
+                    <?php if (!empty($videosFiltrados)): ?>
+                        <?php foreach ($videosFiltrados as $video): ?>
+                            <?php
+                                // Definir a URL do vídeo (externo ou local)
+                                $videoUrl = !empty($video['vidLinkExterno']) 
+                                    ? htmlspecialchars($video['vidLinkExterno']) 
+                                    : "vendor/uploads/videos/arquivo/" . htmlspecialchars($video['vidLink']);
+                            ?>
                             <div class="col mb-4 portfolio-item">
                                 <a href="#" 
                                    data-bs-toggle="modal" 
                                    data-bs-target="#videoModal" 
-                                   data-video-url="vendor/videos/play/<?= htmlspecialchars($video['vidLink']); ?>" 
+                                   data-video-url="<?= $videoUrl ?>" 
+                                   data-video-type="<?= empty($video['vidLinkExterno']) ? 'local' : 'externo' ?>"
                                    onclick="trackUserAction('<?= htmlspecialchars($video['vidTitulo']); ?>', '<?= htmlspecialchars($user['email'] ?? ''); ?>')">
                                     
                                     <img src="vendor/uploads/videos/capa/<?= htmlspecialchars($video['vidCapa']); ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
@@ -66,33 +63,6 @@ $videosPagina = array_slice($videosFiltrados, $inicio, $videosPorPagina);
                         </div>
                     <?php endif; ?>
                 </div>
-
-                <!-- Paginação -->
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center mt-4">
-                        <?php if ($paginaAtual > 1): ?>
-                            <li class="page-item">
-                                <a class="page-link" href="videos&assunto=<?= urlencode($assuntoSelecionado) ?>&pagina=<?= $paginaAtual - 1; ?>" aria-label="Anterior">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                        <?php endif; ?>
-
-                        <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-                            <li class="page-item <?= $i == $paginaAtual ? 'active' : ''; ?>">
-                                <a class="page-link" href="videos&assunto=<?= urlencode($assuntoSelecionado) ?>&pagina=<?= $i; ?>"><?= $i; ?></a>
-                            </li>
-                        <?php endfor; ?>
-
-                        <?php if ($paginaAtual < $totalPaginas): ?>
-                            <li class="page-item">
-                                <a class="page-link" href="videos&assunto=<?= urlencode($assuntoSelecionado) ?>&pagina=<?= $paginaAtual + 1; ?>" aria-label="Próximo">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
-                </nav>
             </div>
         </div>
     </div>
