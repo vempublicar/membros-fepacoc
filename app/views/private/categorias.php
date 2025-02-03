@@ -22,13 +22,18 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
                     <?php if (!empty($assuntosFiltrados)): ?>
                         <?php foreach ($assuntosFiltrados as $assunto): ?>
                             <div class="col mb-4">
-                                <div class="card h-100 shadow-sm">
-                                    <?php if (!empty($assunto['assCapa'])): ?>
-                                        <img src="vendor/uploads/assunto/<?= htmlspecialchars($assunto['assCapa']) ?>" class="card-img-top" alt="Capa do Assunto">
-                                    <?php else: ?>
-                                        <img src="vendor/uploads/assunto/default.png" class="card-img-top" alt="Capa Padrão">
-                                    <?php endif; ?>
-                                </div>
+                                <a href="video&assunto=<?= urlencode($assunto['assunto']) ?>" class="text-decoration-none">
+                                    <div class="card h-100 shadow-sm">
+                                        <?php if (!empty($assunto['assCapa'])): ?>
+                                            <img src="vendor/uploads/assunto/<?= htmlspecialchars($assunto['assCapa']) ?>" class="card-img-top" alt="Capa do Assunto">
+                                        <?php else: ?>
+                                            <img src="vendor/uploads/assunto/default.png" class="card-img-top" alt="Capa Padrão">
+                                        <?php endif; ?>
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title"><?= htmlspecialchars($assunto['assunto']) ?></h5>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
