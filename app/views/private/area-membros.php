@@ -64,8 +64,8 @@ $assuntos = fetchAssunto();
 <section class="portfolio">
             <div class="text-center">
                 <div class="row">
-                    <div class="text-start"><h5 class="display-6" >Categorias</h5></div>
-                    <div class="text-end"><a href="videos" class="btn btn-link btn-lg mt-3 text-uppercase text-decoration-none">
+                    <div class="text-start"><p >Categorias</p></div>
+                    <div class="text-end"><a href="videos" class="btn btn-link btn-lg text-uppercase text-decoration-none">
                     Mais categorias
                 </a></div>
                 </div>
