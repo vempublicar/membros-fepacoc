@@ -54,12 +54,22 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
                                     : "vendor/uploads/videos/arquivo/" . htmlspecialchars($video['vidLink']);
                             ?>
                             <div class="col mb-4 portfolio-item">
-                                <div class="video-thumbnail" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#videoModal" 
-                                    data-video-url="<?= !empty($video['vidLinkExterno']) ? htmlspecialchars($video['vidLinkExterno']) : "vendor/uploads/videos/arquivo/" . htmlspecialchars($video['vidLink']); ?>"
-                                    data-video-type="<?= !empty($video['vidLinkExterno']) ? 'externo' : 'local'; ?>"
-                                    onclick="abrirVideo(this)">
+                                <a href="#" 
+                                data-bs-toggle="offcanvas" 
+                                data-bs-target="#videoOffcanvas" 
+                                data-video-url="<?= $videoUrl ?>" 
+                                data-video-type="<?= empty($video['vidLinkExterno']) ? 'local' : 'externo' ?>"
+                                data-video-titulo="<?= htmlspecialchars($video['vidTitulo']); ?>"
+                                data-video-resumo="<?= htmlspecialchars($video['vidResumo']); ?>"
+                                data-video-descricao="<?= htmlspecialchars($video['vidDesc']); ?>"
+                                data-video-produtor="<?= htmlspecialchars($video['vidProdutor']); ?>"
+                                data-video-formato="<?= htmlspecialchars($video['vidFormato']); ?>"
+                                data-video-setor="<?= htmlspecialchars($video['vidSetor']); ?>"
+                                data-video-categoria="<?= htmlspecialchars($video['vidCat']); ?>"
+                                data-video-assunto="<?= htmlspecialchars($video['vidAssunto']); ?>"
+                                data-video-tipo="<?= htmlspecialchars($video['vidTipo']); ?>"
+                                data-video-situacao="<?= htmlspecialchars($video['vidSituacao']); ?>"
+                                onclick="abrirVideo(this)">
                                     
                                     <img src="vendor/uploads/videos/capa/<?= htmlspecialchars($video['vidCapa']); ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                                     
@@ -67,10 +77,9 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
                                         <h6 class="fw-bold mb-0"><?= htmlspecialchars($video['vidTitulo']); ?></h6>
                                         <small class="text-muted"><?= htmlspecialchars($video['vidCat']); ?> - <?= htmlspecialchars($video['vidSetor']); ?></small>
                                     </div>
-                                </div>
+                                </a>
                             </div>
-
-                        <?php print_r($video); endforeach;  ?>
+                        <?php endforeach; ?>
                     <?php else: ?>
                         <div class="col-12 text-center">
                             <p class="text-muted">Nenhum vídeo encontrado para este assunto.</p>
@@ -83,15 +92,42 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
 </section>
 <?php include_once "app/views/parts/footer.php"; ?>
 <!-- Modal para exibição do vídeo -->
-<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content border-0 bg-transparent">
-            <div class="modal-body p-0">
-                <button type="button" class="btn-close position-absolute top-0 end-0 p-3" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                <div class="ratio ratio-16x9">
-                    <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
-                </div>
-            </div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="videoOffcanvas" aria-labelledby="videoOffcanvasLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title fw-bold" id="videoOffcanvasLabel">Detalhes do Vídeo</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- Player do vídeo -->
+        <div class="ratio ratio-16x9 mb-3">
+            <iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Informações do vídeo -->
+        <h4 id="videoTitulo" class="fw-bold mb-2"></h4>
+        <p id="videoResumo" class="text-muted mb-2"></p>
+        <p id="videoDescricao"></p>
+
+        <div class="mb-3">
+            <strong>Produtor:</strong> <span id="videoProdutor"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Formato:</strong> <span id="videoFormato"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Setor:</strong> <span id="videoSetor"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Categoria:</strong> <span id="videoCategoria"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Assunto:</strong> <span id="videoAssunto"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Tipo:</strong> <span id="videoTipo"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Situação:</strong> <span id="videoSituacao"></span>
         </div>
     </div>
 </div>
@@ -109,29 +145,42 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 <script src="vendor/js/script.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var videoModal = document.getElementById('videoModal');
-        var videoFrame = document.getElementById('videoFrame');
+    function abrirVideo(element) {
+        var videoUrl = element.getAttribute('data-video-url');
+        var videoType = element.getAttribute('data-video-type');
+        var videoPlayer = document.getElementById('videoPlayer');
 
-        // Função para abrir o vídeo no modal
-        function abrirVideo(element) {
-            var videoUrl = element.getAttribute('data-video-url');
-            var videoType = element.getAttribute('data-video-type');
-
-            if (videoType === 'externo') {
-                videoFrame.src = videoUrl; // Link externo (YouTube/Vimeo)
-            } else {
-                videoFrame.src = "vendor/uploads/videos/arquivo/" + videoUrl; // Vídeo local
-            }
-
-            var modalInstance = new bootstrap.Modal(videoModal);
-            modalInstance.show();
+        // Ajusta o player conforme o tipo de vídeo
+        if (videoType === 'externo') {
+            videoPlayer.src = videoUrl; // Link externo (YouTube/Vimeo)
+        } else {
+            videoPlayer.src = "vendor/uploads/videos/arquivo/" + videoUrl; // Vídeo local
         }
 
-        // Adicionando evento para limpar o vídeo ao fechar o modal
-        videoModal.addEventListener('hidden.bs.modal', function () {
-            videoFrame.src = ''; // Para o vídeo ao fechar o modal
+        // Define os detalhes do vídeo no offcanvas
+        document.getElementById('videoTitulo').textContent = element.getAttribute('data-video-titulo');
+        document.getElementById('videoResumo').textContent = element.getAttribute('data-video-resumo');
+        document.getElementById('videoDescricao').textContent = element.getAttribute('data-video-descricao');
+        document.getElementById('videoProdutor').textContent = element.getAttribute('data-video-produtor');
+        document.getElementById('videoFormato').textContent = element.getAttribute('data-video-formato');
+        document.getElementById('videoSetor').textContent = element.getAttribute('data-video-setor');
+        document.getElementById('videoCategoria').textContent = element.getAttribute('data-video-categoria');
+        document.getElementById('videoAssunto').textContent = element.getAttribute('data-video-assunto');
+        document.getElementById('videoTipo').textContent = element.getAttribute('data-video-tipo');
+        document.getElementById('videoSituacao').textContent = element.getAttribute('data-video-situacao');
+
+        var offcanvas = new bootstrap.Offcanvas(document.getElementById('videoOffcanvas'));
+        offcanvas.show();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var videoOffcanvas = document.getElementById('videoOffcanvas');
+        var videoPlayer = document.getElementById('videoPlayer');
+
+        videoOffcanvas.addEventListener('hidden.bs.offcanvas', function () {
+            videoPlayer.src = ''; // Para o vídeo ao fechar o offcanvas
         });
+    });
 
         // Função para rastrear a ação do usuário
         function trackUserAction(title, email) {
@@ -161,10 +210,5 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
                 console.error('Erro ao registrar a ação:', error);
             });
         }
-
-        // Tornar a função global para ser chamada no HTML
-        window.abrirVideo = abrirVideo;
-        window.trackUserAction = trackUserAction;
-    });
 </script>
 
