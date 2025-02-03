@@ -91,7 +91,6 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
     <div class="modal-dialog modal-dialog-centered modal-xl"> <!-- Modal maior e centralizado -->
         <div class="modal-content border-0 bg-transparent"> <!-- Remove bordas e fundo padrão -->
             <div class="modal-body p-0">
-                <button type="button" class="btn-close position-absolute top-0 end-0 p-3" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 <div class="ratio ratio-16x9">
                     <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
                 </div>
