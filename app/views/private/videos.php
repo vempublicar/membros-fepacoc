@@ -51,7 +51,7 @@ $videosPagina = array_slice($videosFiltrados, $inicio, $videosPorPagina);
                                    data-video-url="vendor/videos/play/<?= htmlspecialchars($video['vidLink']); ?>" 
                                    onclick="trackUserAction('<?= htmlspecialchars($video['vidTitulo']); ?>', '<?= htmlspecialchars($user['email'] ?? ''); ?>')">
                                     
-                                    <img src="vendor/videos/capas/<?= htmlspecialchars($video['vidCapa']); ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                                    <img src="vendor/uploads/videos/capa/<?= htmlspecialchars($video['vidCapa']); ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                                     
                                     <div class="mt-2">
                                         <h6 class="fw-bold mb-0"><?= htmlspecialchars($video['vidTitulo']); ?></h6>
