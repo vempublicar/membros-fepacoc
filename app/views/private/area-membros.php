@@ -214,7 +214,7 @@ $assuntos = fetchAssunto();
                     <?php if ($material['type'] === 'Gratuito'): ?>
                         <div class="col mb-4 portfolio-item photography">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $material['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
-                                <img src="vendor/img/materiais/capas/<?= $material['cover']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                                <img src="vendor/uploads/materiais/capa/<?= $material['matCapa']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                             </a>
                             <button class="btn btn-icon float-end" onclick="openModal('<?= $material['id']; ?>')">
                                 <i class="fas fa-star"></i>
