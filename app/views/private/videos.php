@@ -99,8 +99,12 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
     </div>
     <div class="offcanvas-body">
         <!-- Player do vídeo -->
-        <div class="ratio ratio-16x9 mb-3">
-            <iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
+        <div class="ratio ratio-16x9 mb-3" id="videoContainer">
+            <iframe id="videoPlayerIframe" class="d-none" src="" frameborder="0" allowfullscreen></iframe>
+            <video id="videoPlayerLocal" class="d-none" controls>
+                <source id="videoSourceLocal" src="" type="video/mp4">
+                Seu navegador não suporta vídeos.
+            </video>
         </div>
 
         <!-- Informações do vídeo -->
@@ -108,27 +112,13 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
         <p id="videoResumo" class="text-muted mb-2"></p>
         <p id="videoDescricao"></p>
 
-        <div class="mb-3">
-            <strong>Produtor:</strong> <span id="videoProdutor"></span>
-        </div>
-        <div class="mb-3">
-            <strong>Formato:</strong> <span id="videoFormato"></span>
-        </div>
-        <div class="mb-3">
-            <strong>Setor:</strong> <span id="videoSetor"></span>
-        </div>
-        <div class="mb-3">
-            <strong>Categoria:</strong> <span id="videoCategoria"></span>
-        </div>
-        <div class="mb-3">
-            <strong>Assunto:</strong> <span id="videoAssunto"></span>
-        </div>
-        <div class="mb-3">
-            <strong>Tipo:</strong> <span id="videoTipo"></span>
-        </div>
-        <div class="mb-3">
-            <strong>Situação:</strong> <span id="videoSituacao"></span>
-        </div>
+        <div class="mb-3"><strong>Produtor:</strong> <span id="videoProdutor"></span></div>
+        <div class="mb-3"><strong>Formato:</strong> <span id="videoFormato"></span></div>
+        <div class="mb-3"><strong>Setor:</strong> <span id="videoSetor"></span></div>
+        <div class="mb-3"><strong>Categoria:</strong> <span id="videoCategoria"></span></div>
+        <div class="mb-3"><strong>Assunto:</strong> <span id="videoAssunto"></span></div>
+        <div class="mb-3"><strong>Tipo:</strong> <span id="videoTipo"></span></div>
+        <div class="mb-3"><strong>Situação:</strong> <span id="videoSituacao"></span></div>
     </div>
 </div>
 
@@ -148,13 +138,28 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
     function abrirVideo(element) {
         var videoUrl = element.getAttribute('data-video-url');
         var videoType = element.getAttribute('data-video-type');
-        var videoPlayer = document.getElementById('videoPlayer');
 
-        // Ajusta o player conforme o tipo de vídeo
+        var videoIframe = document.getElementById('videoPlayerIframe');
+        var videoLocal = document.getElementById('videoPlayerLocal');
+        var videoSourceLocal = document.getElementById('videoSourceLocal');
+
+        // Esconder todos os players antes de exibir o correto
+        videoIframe.classList.add('d-none');
+        videoLocal.classList.add('d-none');
+
         if (videoType === 'externo') {
-            videoPlayer.src = videoUrl; // Link externo (YouTube/Vimeo)
+            if (videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be")) {
+                videoUrl = transformarParaEmbedYouTube(videoUrl);
+            } else if (videoUrl.includes("vimeo.com")) {
+                videoUrl = transformarParaEmbedVimeo(videoUrl);
+            }
+
+            videoIframe.src = videoUrl;
+            videoIframe.classList.remove('d-none');
         } else {
-            videoPlayer.src = "vendor/uploads/videos/arquivo/" + videoUrl; // Vídeo local
+            videoSourceLocal.src = videoUrl;
+            videoLocal.load(); // Atualiza o vídeo
+            videoLocal.classList.remove('d-none');
         }
 
         // Define os detalhes do vídeo no offcanvas
@@ -173,12 +178,28 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
         offcanvas.show();
     }
 
+    function transformarParaEmbedYouTube(url) {
+        let videoID = "";
+        if (url.includes("youtube.com/watch?v=")) {
+            videoID = url.split("v=")[1].split("&")[0];
+        } else if (url.includes("youtu.be/")) {
+            videoID = url.split("youtu.be/")[1].split("?")[0];
+        }
+        return "https://www.youtube.com/embed/" + videoID + "?rel=0&showinfo=0&autoplay=1";
+    }
+
+    function transformarParaEmbedVimeo(url) {
+        let videoID = url.split("vimeo.com/")[1].split("?")[0];
+        return "https://player.vimeo.com/video/" + videoID + "?autoplay=1";
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         var videoOffcanvas = document.getElementById('videoOffcanvas');
-        var videoPlayer = document.getElementById('videoPlayer');
 
         videoOffcanvas.addEventListener('hidden.bs.offcanvas', function () {
-            videoPlayer.src = ''; // Para o vídeo ao fechar o offcanvas
+            document.getElementById('videoPlayerIframe').src = ''; // Para o vídeo ao fechar
+            document.getElementById('videoPlayerLocal').pause();
+            document.getElementById('videoPlayerLocal').src = '';
         });
     });
 
