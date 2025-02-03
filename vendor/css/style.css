@@ -185,7 +185,14 @@ p.a { line-height: 10%; }
 .accordion-button:not(.collapsed)::after {
     transform: rotate(180deg);
 }
-
+#logo {
+    height: 29px;
+}
+@media (min-width: 992px) {
+    #logo {
+        height: 38px;
+    }
+}
 /* Blog */
 .page-link {
     color: var(--bs-black);
