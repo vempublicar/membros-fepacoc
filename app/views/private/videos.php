@@ -52,7 +52,7 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
                                     
                                     <div class="mt-2">
                                         <h6 class="fw-bold mb-0"><?= htmlspecialchars($video['vidTitulo']); ?></h6>
-                                        <small class="text-muted"><?= htmlspecialchars($video['vidCat']); ?> - <?= htmlspecialchars($video['vidSetor']); ?></small>
+                                        <small class="text-muted"><?= $videoUrl; ?> - <?= htmlspecialchars($video['vidSetor']); ?></small>
                                     </div>
                                 </a>
                             </div>
