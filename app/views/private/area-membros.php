@@ -180,13 +180,14 @@ $assuntos = fetchAssunto();
 
 <!-- MATERIAIS -->
 <section class="portfolio">
-    <div class="container">
-        <div class="justify-content-center ">
-            <div class="text-center">
-                <h3 class="display-6 mb-5">
-                    Materiais de Apoio
-                </h3>
-            </div>
+            <div class="row">
+                <div class="col text-start"><p class="text-uppercase text-secondary">Materiais</p></div>
+                <div class="col text-end">
+                    <a href="materiais" class="text-uppercase text-info text-decoration-none">
+                        mais materiais
+                    </a>
+                </div>
+            </div> 
 
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
                 <?php foreach ($materiais as $material): ?>
@@ -201,22 +202,18 @@ $assuntos = fetchAssunto();
                 <?php endforeach; ?>
             </div>
 
-            <div class="text-center p-3">
-                <a href="material" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
-                    Ver mais
-                </a>
-            </div>
-        </div>
-    </div>
 </section>
 
 <!-- FERRAMENTAS -->
 <section class="portfolio">
-    <div class="container">
-        <div class="justify-content-center">
-            <div class="text-center">
-                <h3 class="display-6 mb-5">Ferramentas</h3>
-            </div>
+            <div class="row">
+                <div class="col text-start"><p class="text-uppercase text-secondary">Ferramentas</p></div>
+                <div class="col text-end">
+                    <a href="ferramentas" class="text-uppercase text-info text-decoration-none">
+                        mais ferramentas
+                    </a>
+                </div>
+            </div> 
 
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
                 <?php foreach ($ferramentas as $ferramenta): ?>
@@ -231,14 +228,6 @@ $assuntos = fetchAssunto();
                     <?php endif; ?>
                 <?php endforeach; ?>
             </div>
-
-            <div class="text-center p-3">
-                <a href="ferramentas" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
-                    Ver mais
-                </a>
-            </div>
-        </div>
-    </div>
 </section>
 
 
