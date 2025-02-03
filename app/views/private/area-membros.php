@@ -99,7 +99,7 @@ $assuntos = fetchAssunto();
 </section>
 
 <!-- PRODUTOS -->
-<section class="portfolio p-3">
+<section class="produto p-3">
         <div class="row">
             <div class="col text-start">
                 <p class="text-uppercase text-secondary">Produtos</p>

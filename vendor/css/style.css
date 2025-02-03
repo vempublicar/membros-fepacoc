@@ -309,6 +309,9 @@ p.a { line-height: 10%; }
     overflow: hidden;
 }
 
+.produto {
+    background-color: #19181b; /* Cor da linha */
+}
 .custom-divider {
     width: 70%;
     height: 5px; /* Espessura da linha */
