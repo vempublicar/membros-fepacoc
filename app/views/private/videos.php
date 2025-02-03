@@ -54,17 +54,22 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
                                     : "vendor/uploads/videos/arquivo/" . htmlspecialchars($video['vidLink']);
                             ?>
                             <div class="col mb-4 portfolio-item">
-                                <a href="#" 
-                                   data-bs-toggle="modal" 
-                                   data-bs-target="#videoModal" 
-                                   data-video-url="<?= $videoUrl ?>" 
-                                   data-video-type="<?= empty($video['vidLinkExterno']) ? 'local' : 'externo' ?>"
-                                   onclick="trackUserAction('<?= htmlspecialchars($video['vidTitulo']); ?>', '<?= htmlspecialchars($user['email'] ?? ''); ?>')">
+                                <div class="video-thumbnail" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#videoModal" 
+                                    data-video-url="<?= !empty($video['vidLinkExterno']) ? htmlspecialchars($video['vidLinkExterno']) : "vendor/uploads/videos/arquivo/" . htmlspecialchars($video['vidLink']); ?>"
+                                    data-video-type="<?= !empty($video['vidLinkExterno']) ? 'externo' : 'local'; ?>"
+                                    onclick="abrirVideo(this)">
                                     
                                     <img src="vendor/uploads/videos/capa/<?= htmlspecialchars($video['vidCapa']); ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                                     
-                                </a>
+                                    <div class="mt-2">
+                                        <h6 class="fw-bold mb-0"><?= htmlspecialchars($video['vidTitulo']); ?></h6>
+                                        <small class="text-muted"><?= htmlspecialchars($video['vidCat']); ?> - <?= htmlspecialchars($video['vidSetor']); ?></small>
+                                    </div>
+                                </div>
                             </div>
+
                         <?php endforeach; ?>
                     <?php else: ?>
                         <div class="col-12 text-center">
@@ -108,38 +113,40 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
         var videoModal = document.getElementById('videoModal');
         var videoFrame = document.getElementById('videoFrame');
 
-        videoModal.addEventListener('show.bs.modal', function (event) {
-            var button = event.relatedTarget;
-            var videoUrl = button.getAttribute('data-video-url');
-            var videoType = button.getAttribute('data-video-type');
+        // Função para abrir o vídeo no modal
+        function abrirVideo(element) {
+            var videoUrl = element.getAttribute('data-video-url');
+            var videoType = element.getAttribute('data-video-type');
 
             if (videoType === 'externo') {
-                // Se for link do YouTube/Vimeo, abrimos diretamente no iframe
-                videoFrame.src = videoUrl;
+                videoFrame.src = videoUrl; // Link externo (YouTube/Vimeo)
             } else {
-                // Se for vídeo local, carregamos do servidor
-                videoFrame.src = "vendor/uploads/videos/arquivo/" + videoUrl;
+                videoFrame.src = "vendor/uploads/videos/arquivo/" + videoUrl; // Vídeo local
             }
-        });
 
+            var modalInstance = new bootstrap.Modal(videoModal);
+            modalInstance.show();
+        }
+
+        // Adicionando evento para limpar o vídeo ao fechar o modal
         videoModal.addEventListener('hidden.bs.modal', function () {
             videoFrame.src = ''; // Para o vídeo ao fechar o modal
         });
-    });
 
-    function trackUserAction(title, email) {
-        const date = new Date();
-        const formattedDate = date.toISOString().split('T')[0];
-        const formattedTime = date.toTimeString().split(' ')[0];
+        // Função para rastrear a ação do usuário
+        function trackUserAction(title, email) {
+            const date = new Date();
+            const formattedDate = date.toISOString().split('T')[0];
+            const formattedTime = date.toTimeString().split(' ')[0];
 
-        const data = {
-            title: title,
-            email: email,
-            date: formattedDate,
-            time: formattedTime,
-        };
+            const data = {
+                title: title,
+                email: email,
+                date: formattedDate,
+                time: formattedTime,
+            };
 
-        fetch('app/functions/push/track.php', {
+            fetch('app/functions/push/track.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -153,5 +160,11 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
             .catch(error => {
                 console.error('Erro ao registrar a ação:', error);
             });
-    }
+        }
+
+        // Tornar a função global para ser chamada no HTML
+        window.abrirVideo = abrirVideo;
+        window.trackUserAction = trackUserAction;
+    });
 </script>
+
