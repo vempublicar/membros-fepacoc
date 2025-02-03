@@ -155,10 +155,7 @@ $assuntos = fetchAssunto();
     </div>
 </section>
 
-<?php print_r($produtos); ?>
 <!-- PRODUTOS -->
-
-
 <section class="p-5 bg-yellow py-5">
     <div class="container">
         <div class="text-center">
@@ -168,19 +165,35 @@ $assuntos = fetchAssunto();
         </div>
         <div class="justify-content-center">
 
-            <div class="grid p-0 clearfix row row-cols-1 row-cols-lg-3 " data-aos="fade-up">
-                <?php foreach ($produtos as $produto): ?>
-                    <?php if ($produto['type'] === 'Destaque'): ?>
-                        <div class="col mb-4 portfolio-item photography">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $produto['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
-                                <img src="vendor/img/produtos/capas/<?= $produto['cover']; ?>" class="img-fluid rounded-4" alt="Capa do Produto">
-                            </a>
-                            <button class="btn btn-icon float-end" onclick="openModal('<?= $produto['id']; ?>')">
-                                <i class="fas fa-star"></i>
-                            </button>
+            <div class="grid p-0 clearfix row row-cols-1 row-cols-lg-4" data-aos="fade-up">
+                <?php 
+                    $count = 0;
+                    foreach ($produtos as $produto): 
+                        if ($produto['type'] === 'Destaque' && $count < 4): 
+                            $count++;
+                ?>
+                        <div class="col mb-4">
+                            <div class="card shadow-sm rounded-4 border-0">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" 
+                                    data-video-url="<?= $produto['link']; ?>" 
+                                    onclick="trackUserAction('<?= $produto['proNome']; ?>', '<?= $user['email'] ?>')">
+                                    <img src="vendor/img/produtos/capas/<?= $produto['proCapa']; ?>" 
+                                         class="card-img-top rounded-top-4" 
+                                         alt="Capa do Produto">
+                                </a>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title"><?= htmlspecialchars($produto['proNome']); ?></h5>
+                                    <p class="card-text fw-bold text-primary">R$ <?= number_format($produto['proPreco'], 2, ',', '.'); ?></p>
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="openModal('<?= $produto['id']; ?>')">
+                                        <i class="fas fa-info-circle"></i> Detalhes
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+                <?php 
+                        endif;
+                    endforeach;  
+                ?>
             </div>
 
             <div class="text-center p-3">
@@ -188,10 +201,12 @@ $assuntos = fetchAssunto();
                     Ver Produtos
                 </a>
             </div>
+
         </div>
     </div>
 </section>
 
+<?php print_r($ferramentas); ?>
 <section class="portfolio py-5">
     <div class="container">
         <div class="justify-content-center ">
