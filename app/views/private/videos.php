@@ -73,10 +73,7 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
                                     
                                     <img src="vendor/uploads/videos/capa/<?= htmlspecialchars($video['vidCapa']); ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
                                     
-                                    <div class="mt-2">
-                                        <h6 class="fw-bold mb-0"><?= htmlspecialchars($video['vidTitulo']); ?></h6>
-                                        <small class="text-muted"><?= htmlspecialchars($video['vidCat']); ?> - <?= htmlspecialchars($video['vidSetor']); ?></small>
-                                    </div>
+                               
                                 </a>
                             </div>
                         <?php endforeach; ?>
@@ -135,7 +132,7 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 <script src="vendor/js/script.js"></script>
 <script>
-    function abrirVideo(element) {
+function abrirVideo(element) {
         var videoUrl = element.getAttribute('data-video-url');
         var videoType = element.getAttribute('data-video-type');
 
@@ -174,6 +171,9 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
         document.getElementById('videoTipo').textContent = element.getAttribute('data-video-tipo');
         document.getElementById('videoSituacao').textContent = element.getAttribute('data-video-situacao');
 
+        // Aplica o tema no offcanvas
+        aplicarTemaOffcanvas();
+
         var offcanvas = new bootstrap.Offcanvas(document.getElementById('videoOffcanvas'));
         offcanvas.show();
     }
@@ -200,6 +200,45 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
             document.getElementById('videoPlayerIframe').src = ''; // Para o vídeo ao fechar
             document.getElementById('videoPlayerLocal').pause();
             document.getElementById('videoPlayerLocal').src = '';
+        });
+
+        // Aplicar tema ao carregar a página
+        aplicarTemaOffcanvas();
+    });
+
+    function aplicarTemaOffcanvas() {
+        var offcanvas = document.getElementById('videoOffcanvas');
+        var savedTheme = localStorage.getItem("theme");
+        
+        if (savedTheme === "dark") {
+            offcanvas.classList.add("dark-mode");
+        } else {
+            offcanvas.classList.remove("dark-mode");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const themeToggle = document.getElementById("themeToggle");
+        const body = document.body;
+
+        // Verifica o tema salvo no localStorage
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+            body.classList.add("dark-mode");
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+
+        // Alterna o tema
+        themeToggle.addEventListener("click", function() {
+            body.classList.toggle("dark-mode");
+            const isDarkMode = body.classList.contains("dark-mode");
+            localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+            themeToggle.innerHTML = isDarkMode ?
+                '<i class="fas fa-moon"></i>' :
+                '<i class="fas fa-sun"></i>';
+
+            // Atualizar tema no offcanvas
+            aplicarTemaOffcanvas();
         });
     });
 
