@@ -61,13 +61,13 @@ $capas = fetchCapas();
 
 
 
-<section class="portfolio py-5">
+<section class="portfolio ">
     <div class="container">
         <div class="justify-content-center">
 
             <div class="text-center">
-                <h3 class="display-6 mb-5">
-                    Vídeos Curtos
+                <h3 class="display-6 ">
+                    categorias
                 </h3>
             </div>
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
@@ -86,7 +86,7 @@ $capas = fetchCapas();
 
             <div class="text-center p-3">
                 <a href="videos" class="btn btn-outline-secondary btn-lg mt-3 text-uppercase text-decoration-none">
-                    Ver todos vídeos
+                    Ver todas
                 </a>
             </div>
         </div>
