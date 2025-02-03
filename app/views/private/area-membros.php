@@ -107,7 +107,7 @@ $assuntos = fetchAssunto();
 </section>
 
 <!-- PRODUTOS -->
-<section class="p-5 bg-yellow py-5">
+<section class="portfolio">
     <div class="container">
         <div class="text-center">
             <h3 class="display-6 mb-5">Produtos para sua empresa</h3>
