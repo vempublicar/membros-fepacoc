@@ -182,19 +182,6 @@ $assuntos = fetchAssunto();
                                          class="card-img-top rounded-top-4" 
                                          alt="<?= htmlspecialchars($produto['proNome']); ?>">
                                 </a>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title"><?= htmlspecialchars($produto['proNome']); ?></h5>
-                                    <p class="card-text fw-bold text-primary">R$ <?= number_format($produto['proPreco'], 2, ',', '.'); ?></p>
-                                    <button class="btn btn-outline-secondary btn-sm" onclick="openOffcanvas(
-                                        '<?= htmlspecialchars($produto['proNome']); ?>', 
-                                        '<?= $produto['proCapa']; ?>',
-                                        '<?= number_format($produto['proPreco'], 2, ',', '.'); ?>',
-                                        '<?= htmlspecialchars($produto['proSobre']); ?>',
-                                        '<?= $produto['proPagina']; ?>'
-                                    )">
-                                        <i class="fas fa-info-circle"></i> Detalhes
-                                    </button>
-                                </div>
                             </div>
                         </div>
                 <?php 
