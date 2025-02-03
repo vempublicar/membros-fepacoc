@@ -121,7 +121,6 @@ $assuntos = fetchAssunto();
                             $count++;
                 ?>
                         <div class="col mb-4">
-                            <div class="card shadow-sm rounded-4 border-0">
                                 <a href="#" onclick="openOffcanvas(
                                     '<?= htmlspecialchars($produto['proNome']); ?>', 
                                     '<?= $produto['proCapa']; ?>',
@@ -133,7 +132,6 @@ $assuntos = fetchAssunto();
                                          class="card-img-top rounded-top-4" 
                                          alt="<?= htmlspecialchars($produto['proNome']); ?>">
                                 </a>
-                            </div>
                         </div>
                 <?php 
                         endif;
