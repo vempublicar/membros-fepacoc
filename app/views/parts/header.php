@@ -15,7 +15,7 @@
 
             <!-- Links do Menu Centralizados -->
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav text-center">
+                <ul class="navbar-nav text-center text-white">
                     <li class="nav-item">
                         <a class="nav-link" href="painel">Painel</a>
                     </li>
