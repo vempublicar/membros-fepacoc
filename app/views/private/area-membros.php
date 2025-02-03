@@ -177,7 +177,7 @@ $assuntos = fetchAssunto();
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" 
                                     data-video-url="<?= $produto['link']; ?>" 
                                     onclick="trackUserAction('<?= $produto['proNome']; ?>', '<?= $user['email'] ?>')">
-                                    <img src="vendor/uploads/produtos<?= $produto['proCapa']; ?>" 
+                                    <img src="vendor/uploads/produtos/<?= $produto['proCapa']; ?>" 
                                          class="card-img-top rounded-top-4" 
                                          alt="Capa do Produto">
                                 </a>
