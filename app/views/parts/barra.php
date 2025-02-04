@@ -11,7 +11,7 @@ $favorito = '';
 if(isset($materialDownload) && $materialDownload > ""){
   $material = 'vendor/uploads/videos/material/'.$materialDownload; 
 }
-echo $matrial;
+echo $material;
 $busca    = '/buscar'; 
 $idvideo  = ''; 
 ?>
