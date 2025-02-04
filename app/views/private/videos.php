@@ -65,7 +65,7 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
                             ?>
                             <div class="col mb-4 portfolio-item">
                                 <!-- O link redireciona para /visualizar&video=$idvideo -->
-                                <a href="/visualizar&video=<?= $idvideo ?>&assunto=<?= $_GET['assunto'] ?>">
+                                <a href="/visualizar&video=<?= $idvideo ?>&assunto=<?= $_GET['assunto'] ?>&categoria=<?= $_GET['categoria'] ?>">
                                     <img src="vendor/uploads/videos/capa/<?= htmlspecialchars($video['vidCapa']); ?>" 
                                          class="img-fluid rounded-4" alt="Capa do vídeo">
                                 </a>
