@@ -47,7 +47,7 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
         setTimeout(function() {
             document.getElementById("assuntoContainer").style.display = "block";
             document.getElementById("footer").style.display = "block";
-        }, 2500);
+        }, 1500);
     });
 </script>
 

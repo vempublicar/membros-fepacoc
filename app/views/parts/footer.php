@@ -53,7 +53,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         setTimeout(function() {
             document.getElementById("footer").style.display = "block";
-        }, 1000); // Espera 1 segundo (1000ms) antes de exibir o footer
+        }, 3000); // Espera 1 segundo (1000ms) antes de exibir o footer
     });
 </script>
 
