@@ -29,14 +29,7 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
     <div class="container">
         <h3 class="fw-bold text-center mb-4">Produtos <?= !empty($_GET['categoria']) ? 'em ' . htmlspecialchars($_GET['categoria'], ENT_QUOTES, 'UTF-8') : '' ?></h3>
 
-        <!-- Filtros -->
-        <div class="text-center mb-4">
-            <a href="produtos" class="btn btn-outline-primary mx-2">Todos</a>
-            <a href="produtos?categoria=Financeiro" class="btn btn-outline-primary mx-2">Financeiro</a>
-            <a href="produtos?categoria=Marketing" class="btn btn-outline-primary mx-2">Marketing</a>
-            <a href="produtos?categoria=Vendas" class="btn btn-outline-primary mx-2">Vendas</a>
-        </div>
-
+    
         <div class="row" data-aos="fade-up">
             <?php if (!empty($produtosFiltrados)): ?>
                 <?php foreach ($produtosFiltrados as $produto): ?>
@@ -84,7 +77,7 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
         <h5 class="offcanvas-title fw-bold" id="productOffcanvasLabel">Detalhes do Produto</h5>
         <button type="button" class="btn-close text-dark" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body text-dark">
         <img id="productOffcanvasImage" src="" class="img-fluid rounded-4 mb-3" alt="">
         <p class="text-primary fw-bold" id="productOffcanvasPrice"></p>
         <p id="productOffcanvasDescription"></p>
