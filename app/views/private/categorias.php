@@ -69,14 +69,12 @@ if (isset($_GET['a'])) {
                     </p>
                 </div>
             </div>     
-            <!-- Carrossel Swiper -->
-            <div class="swiper mySwiper" data-aos="fade-up">
-                <div class="swiper-wrapper">
+                <div class="grid p-0 clearfix row row-cols-1 row-cols-lg-2 row-cols-xl-3" >
                     <?php 
                         foreach ($categorias as $categoria): 
                             if ($categoria['catStatus'] === 'ativo'): 
                     ?>
-                    <div class="swiper-slide">
+                    <div class="col mb-4">
                         <a href="https://members.fepacoc.com.br/categoria&a=<?= $categoria['catNome']; ?>" 
                             onclick="trackUserAction('<?= $categoria['catNome']; ?>', '<?= $user['email'] ?>')">
                             <img src="vendor/uploads/categorias/<?= $categoria['catCapa']; ?>" class="img-fluid rounded-4" alt="Capa da categoria">
@@ -88,11 +86,6 @@ if (isset($_GET['a'])) {
                     ?>
                 </div>
 
-                <!-- Controles do Carrossel -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-pagination"></div>
-            </div>
 </section>
 <?php 
     
