@@ -59,28 +59,15 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
                                 $videoUrl = !empty($video['vidLinkExterno']) 
                                     ? htmlspecialchars($video['vidLinkExterno']) 
                                     : "vendor/uploads/videos/arquivo/" . htmlspecialchars($video['vidLink']);
+                                
+                                // Definir o ID do vídeo para a URL de visualização
+                                $idvideo = htmlspecialchars($video['idvideo']); // ou o nome do campo que contenha o ID
                             ?>
                             <div class="col mb-4 portfolio-item">
-                                <a href="#" 
-                                data-bs-toggle="offcanvas" 
-                                data-bs-target="#videoOffcanvas" 
-                                data-video-url="<?= $videoUrl ?>" 
-                                data-video-type="<?= empty($video['vidLinkExterno']) ? 'local' : 'externo' ?>"
-                                data-video-titulo="<?= htmlspecialchars($video['vidTitulo']); ?>"
-                                data-video-resumo="<?= htmlspecialchars($video['vidResumo']); ?>"
-                                data-video-descricao="<?= htmlspecialchars($video['vidDesc']); ?>"
-                                data-video-produtor="<?= htmlspecialchars($video['vidProdutor']); ?>"
-                                data-video-formato="<?= htmlspecialchars($video['vidFormato']); ?>"
-                                data-video-setor="<?= htmlspecialchars($video['vidSetor']); ?>"
-                                data-video-categoria="<?= htmlspecialchars($video['vidCat']); ?>"
-                                data-video-assunto="<?= htmlspecialchars($video['vidAssunto']); ?>"
-                                data-video-tipo="<?= htmlspecialchars($video['vidTipo']); ?>"
-                                data-video-situacao="<?= htmlspecialchars($video['vidSituacao']); ?>"
-                                onclick="abrirVideo(this)">
-                                    
-                                    <img src="vendor/uploads/videos/capa/<?= htmlspecialchars($video['vidCapa']); ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
-                                    
-                               
+                                <!-- O link redireciona para /visualizar&video=$idvideo -->
+                                <a href="/visualizar&video=<?= $idvideo ?>">
+                                    <img src="vendor/uploads/videos/capa/<?= htmlspecialchars($video['vidCapa']); ?>" 
+                                         class="img-fluid rounded-4" alt="Capa do vídeo">
                                 </a>
                             </div>
                         <?php endforeach; ?>
@@ -94,37 +81,8 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
         </div>
     </div>
 </section>
-<!-- Modal para exibição do vídeo -->
-<div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="videoOffcanvas" aria-labelledby="videoOffcanvasLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title fw-bold" id="videoOffcanvasLabel">Detalhes do Vídeo</h5>
-        <button type="button" class="btn-close text-dark" data-bs-dismiss="offcanvas" aria-label="Fechar"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="offcanvas-body text-dark">
-        <!-- Player do vídeo -->
-        <div class="ratio ratio-16x9 mb-3" id="videoContainer">
-            <iframe id="videoPlayerIframe" class="d-none" src="" frameborder="0" allowfullscreen></iframe>
-            <video id="videoPlayerLocal" class="d-none" controls>
-                <source id="videoSourceLocal" src="" type="video/mp4">
-                Seu navegador não suporta vídeos.
-            </video>
-        </div>
-
-        <!-- Informações do vídeo -->
-        <h4 id="videoTitulo" class="fw-bold mb-2"></h4>
-        <p id="videoResumo" class="text-muted mb-2"></p>
-        <p id="videoDescricao"></p>
-
-        <div class="mb-3"><strong>Produtor:</strong> <span id="videoProdutor"></span></div>
-        <div class="mb-3"><strong>Formato:</strong> <span id="videoFormato"></span></div>
-        <div class="mb-3"><strong>Setor:</strong> <span id="videoSetor"></span></div>
-        <div class="mb-3"><strong>Categoria:</strong> <span id="videoCategoria"></span></div>
-        <div class="mb-3"><strong>Assunto:</strong> <span id="videoAssunto"></span></div>
-        <div class="mb-3"><strong>Tipo:</strong> <span id="videoTipo"></span></div>
-        <div class="mb-3"><strong>Situação:</strong> <span id="videoSituacao"></span></div>
-    </div>
-</div>
-
+<?php include 'app/views/parts/barra.php'; ?>
+<!-- Removido o offcanvas, pois agora o vídeo será exibido em uma nova página -->
 <script src="vendor/js/jquery-1.11.0.min.js"></script> <!-- jquery file-->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -161,108 +119,32 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
     });
 </script>
 <script>
-function abrirVideo(element) {
-        var videoUrl = element.getAttribute('data-video-url');
-        var videoType = element.getAttribute('data-video-type');
+    // Função para rastrear a ação do usuário
+    function trackUserAction(title, email) {
+        const date = new Date();
+        const formattedDate = date.toISOString().split('T')[0];
+        const formattedTime = date.toTimeString().split(' ')[0];
 
-        var videoIframe = document.getElementById('videoPlayerIframe');
-        var videoLocal = document.getElementById('videoPlayerLocal');
-        var videoSourceLocal = document.getElementById('videoSourceLocal');
+        const data = {
+            title: title,
+            email: email,
+            date: formattedDate,
+            time: formattedTime,
+        };
 
-        // Esconder todos os players antes de exibir o correto
-        videoIframe.classList.add('d-none');
-        videoLocal.classList.add('d-none');
-
-        if (videoType === 'externo') {
-            if (videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be")) {
-                videoUrl = transformarParaEmbedYouTube(videoUrl);
-            } else if (videoUrl.includes("vimeo.com")) {
-                videoUrl = transformarParaEmbedVimeo(videoUrl);
-            }
-
-            videoIframe.src = videoUrl;
-            videoIframe.classList.remove('d-none');
-        } else {
-            videoSourceLocal.src = videoUrl;
-            videoLocal.load(); // Atualiza o vídeo
-            videoLocal.classList.remove('d-none');
-        }
-
-        // Define os detalhes do vídeo no offcanvas
-        document.getElementById('videoTitulo').textContent = element.getAttribute('data-video-titulo');
-        document.getElementById('videoResumo').textContent = element.getAttribute('data-video-resumo');
-        document.getElementById('videoDescricao').textContent = element.getAttribute('data-video-descricao');
-        document.getElementById('videoProdutor').textContent = element.getAttribute('data-video-produtor');
-        document.getElementById('videoFormato').textContent = element.getAttribute('data-video-formato');
-        document.getElementById('videoSetor').textContent = element.getAttribute('data-video-setor');
-        document.getElementById('videoCategoria').textContent = element.getAttribute('data-video-categoria');
-        document.getElementById('videoAssunto').textContent = element.getAttribute('data-video-assunto');
-        document.getElementById('videoTipo').textContent = element.getAttribute('data-video-tipo');
-        document.getElementById('videoSituacao').textContent = element.getAttribute('data-video-situacao');
-
-        // Aplica o tema no offcanvas
-        aplicarTemaOffcanvas();
-
-        var offcanvas = new bootstrap.Offcanvas(document.getElementById('videoOffcanvas'));
-        offcanvas.show();
-    }
-
-    function transformarParaEmbedYouTube(url) {
-        let videoID = "";
-        if (url.includes("youtube.com/watch?v=")) {
-            videoID = url.split("v=")[1].split("&")[0];
-        } else if (url.includes("youtu.be/")) {
-            videoID = url.split("youtu.be/")[1].split("?")[0];
-        }
-        return "https://www.youtube.com/embed/" + videoID + "?rel=0&showinfo=0&autoplay=1";
-    }
-
-    function transformarParaEmbedVimeo(url) {
-        let videoID = url.split("vimeo.com/")[1].split("?")[0];
-        return "https://player.vimeo.com/video/" + videoID + "?autoplay=1";
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var videoOffcanvas = document.getElementById('videoOffcanvas');
-
-        videoOffcanvas.addEventListener('hidden.bs.offcanvas', function () {
-            document.getElementById('videoPlayerIframe').src = ''; // Para o vídeo ao fechar
-            document.getElementById('videoPlayerLocal').pause();
-            document.getElementById('videoPlayerLocal').src = '';
+        fetch('app/functions/push/track.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+        })
+        .catch(error => {
+            console.error('Erro ao registrar a ação:', error);
         });
-
-
-    });
-
-
-
-        // Função para rastrear a ação do usuário
-        function trackUserAction(title, email) {
-            const date = new Date();
-            const formattedDate = date.toISOString().split('T')[0];
-            const formattedTime = date.toTimeString().split(' ')[0];
-
-            const data = {
-                title: title,
-                email: email,
-                date: formattedDate,
-                time: formattedTime,
-            };
-
-            fetch('app/functions/push/track.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log(result);
-            })
-            .catch(error => {
-                console.error('Erro ao registrar a ação:', error);
-            });
-        }
+    }
 </script>
-
