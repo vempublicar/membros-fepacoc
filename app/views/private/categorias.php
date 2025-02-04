@@ -101,27 +101,23 @@ $idvideo  = 123;
       <!-- Botão Home -->
       <a href="<?= !empty($home) ? $home : '#' ?>" class="nav-link text-center <?= !empty($home) ? 'active' : '' ?>">
         <i class="fas fa-home fa-lg <?= !empty($home) ? 'text-primary' : 'text-secondary' ?>"></i>
-        <small class="d-block <?= !empty($home) ? 'text-primary' : 'text-secondary' ?>">Home</small>
       </a>
       
       <!-- Botão Favoritar -->
       <a href="#" class="nav-link text-center <?= !empty($favorito) ? 'active' : '' ?>"
          <?= !empty($favorito) ? "onclick=\"addfavorito('{$favorito}', '{$idvideo}')\"" : "" ?>>
         <i class="fas fa-star fa-lg <?= !empty($favorito) ? 'text-primary' : 'text-secondary' ?>"></i>
-        <small class="d-block <?= !empty($favorito) ? 'text-primary' : 'text-secondary' ?>">Favoritar</small>
       </a>
       
       <!-- Botão Material Apoio -->
       <a href="#" class="nav-link text-center <?= !empty($material) ? 'active' : '' ?>"
          <?= !empty($material) ? "onclick=\"baixarconteudo('{$material}')\"" : "" ?>>
         <i class="fas fa-book fa-lg <?= !empty($material) ? 'text-primary' : 'text-secondary' ?>"></i>
-        <small class="d-block <?= !empty($material) ? 'text-primary' : 'text-secondary' ?>">Material Apoio</small>
       </a>
       
       <!-- Botão Pesquisa (sempre ativo) -->
       <a href="<?= $busca ?>" class="nav-link text-center active">
         <i class="fas fa-search fa-lg text-primary"></i>
-        <small class="d-block text-primary">Pesquisa</small>
       </a>
     </div>
   </nav>
