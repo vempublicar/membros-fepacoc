@@ -59,34 +59,36 @@ if (isset($_GET['a'])) {
 } else {
     
 ?>
-<section class="portfolio p-3">
-            <div class="row">
-                <div class="col text-start">
-                    <p class="text-uppercase text-secondary">Categorias | 
-                        <a href="categoria" class="text-uppercase text-info text-decoration-none">
-                            Todos
-                        </a>
-                    </p>
-                </div>
-            </div>     
-                <div class="grid p-0 clearfix row row-cols-1 row-cols-lg-2 row-cols-xl-3" >
-                    <?php 
-                        foreach ($categorias as $categoria): 
-                            if ($categoria['catStatus'] === 'ativo'): 
-                    ?>
-                    <div class="col mb-4">
-                        <a href="https://members.fepacoc.com.br/categoria&a=<?= $categoria['catNome']; ?>" 
-                            onclick="trackUserAction('<?= $categoria['catNome']; ?>', '<?= $user['email'] ?>')">
-                            <img src="vendor/uploads/categorias/<?= $categoria['catCapa']; ?>" class="img-fluid rounded-4" alt="Capa da categoria">
-                        </a>
+<div id="categoriaContainer" class="container mb-6">
+    <section class="portfolio p-3">
+                <div class="row">
+                    <div class="col text-start">
+                        <p class="text-uppercase text-secondary">Categorias | 
+                            <a href="categoria" class="text-uppercase text-info text-decoration-none">
+                                Todos
+                            </a>
+                        </p>
                     </div>
-                    <?php 
-                            endif;
-                        endforeach;  
-                    ?>
-                </div>
+                </div>     
+                    <div class="grid p-0 clearfix row row-cols-1 row-cols-lg-2 row-cols-xl-4" >
+                        <?php 
+                            foreach ($categorias as $categoria): 
+                                if ($categoria['catStatus'] === 'ativo'): 
+                        ?>
+                        <div class="col mb-4">
+                            <a href="https://members.fepacoc.com.br/categoria&a=<?= $categoria['catNome']; ?>" 
+                                onclick="trackUserAction('<?= $categoria['catNome']; ?>', '<?= $user['email'] ?>')">
+                                <img src="vendor/uploads/categorias/<?= $categoria['catCapa']; ?>" class="img-fluid rounded-4" alt="Capa da categoria">
+                            </a>
+                        </div>
+                        <?php 
+                                endif;
+                            endforeach;  
+                        ?>
+                    </div>
 
-</section>
+    </section>
+</div>
 <?php 
     
 }
