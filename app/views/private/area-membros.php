@@ -230,12 +230,12 @@ $assuntos = fetchAssunto();
  <?php include "app/views/parts/footer.php" ?>
 
 
- <div class="offcanvas offcanvas-end" tabindex="-1" id="productOffcanvas" aria-labelledby="offcanvasTitle">
+ <div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="productOffcanvas" aria-labelledby="offcanvasTitle">
     <div class="offcanvas-header">
         <h5 id="offcanvasTitle"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body text-dark">
         <img id="offcanvasImage" src="" class="img-fluid rounded-4 mb-3" alt="">
         <p class="text-primary fw-bold" id="offcanvasPrice"></p>
         <p id="offcanvasDescription"></p>
@@ -284,7 +284,7 @@ $assuntos = fetchAssunto();
 <script>
     function openOffcanvas(title, image, price, description, link) {
         document.getElementById('offcanvasTitle').innerText = title;
-        document.getElementById('offcanvasImage').src = 'vendor/img/produtos/capas/' + image;
+        document.getElementById('offcanvasImage').src = 'vendor/uploads/produtos/' + image;
         document.getElementById('offcanvasPrice').innerText = 'R$ ' + price;
         document.getElementById('offcanvasDescription').innerText = description;
         document.getElementById('offcanvasLink').href = link;
