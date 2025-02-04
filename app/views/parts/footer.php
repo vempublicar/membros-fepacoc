@@ -1,5 +1,5 @@
 
-<footer id="footer" class="dark-mode text-white py-5" style="display: none;">
+<footer id="footer" class="dark-mode text-white py-5" >
     <div class="container-sm">
       <div class="row g-md-5 my-5">
         <div class="col-md-4">

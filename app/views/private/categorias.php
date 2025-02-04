@@ -14,9 +14,9 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
 });
 ?>
 
-<div id="assuntoContainer" style="display: none; min-height: 60vh;">
+<div id="assuntoContainer" class="container mb-6" style="min-height: 100vh;">
     <section class="portfolio py-5 mt-5">
-        <div class="container mb-6">
+        
                     <div class="grid p-0 clearfix row row-cols-1 row-cols-lg-2 row-cols-xl-3" id="assuntoGrid">
                         <?php if (!empty($assuntosFiltrados)): ?>
                             <?php foreach ($assuntosFiltrados as $assunto): ?>
@@ -38,17 +38,11 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
                             </div>
                         <?php endif; ?>
                     </div>
-                    <?php  include_once "app/views/parts/footer.php"; ?>
-            </div>
+                    
+            
     </section>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(function() {
-            document.getElementById("assuntoContainer").style.display = "block";
-            document.getElementById("footer").style.display = "block";
-        }, 1500);
-    });
-</script>
+<hr>
+<?php  include_once "app/views/parts/footer.php"; ?>
 
 
