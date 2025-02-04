@@ -82,11 +82,11 @@ body {
     /* Estilização para diferenciar botões ativos e inativos */
     .nav-link.active i,
     .nav-link.active small {
-      color: #0d6efd !important;  /* Cor primária para ativos */
+      color: #ffffff !important;  /* Cor primária para ativos */
     }
     .nav-link i,
     .nav-link small {
-      color: #6c757d;  /* Cor secundária para inativos */
+      color: #595a5a;  /* Cor secundária para inativos */
     }
 
 video {
