@@ -11,7 +11,7 @@ $favorito = '';
 if(isset($materialDownload) && $materialDownload > ""){
   $material = 'vendor/uploads/videos/material/'.$materialDownload; 
 }
-echo $material;
+
 $busca    = '/buscar'; 
 $idvideo  = ''; 
 ?>
@@ -34,6 +34,7 @@ $idvideo  = '';
       <button class="nav-link text-center <?= !empty($material) ? 'active' : '' ?>"
          <?= !empty($material) ? "onclick=\"baixarconteudo('{$material}')\"" : "" ?>>
         <i class="fas fa-book fa-lg <?= !empty($material) ? 'text-white' : 'text-secondary' ?>"></i>
+        <p><?= $materialDownload ?></p>
       </button>
       
       <!-- Botão Pesquisa (sempre ativo) -->
