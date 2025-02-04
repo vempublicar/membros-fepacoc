@@ -112,7 +112,7 @@
         </form>
     </div>
 </div>
-
+<?php include 'app/views/parts/footer.php' ?>
 <script>
 function editarAssunto(element) {
     document.getElementById("offcanvasAddAssuntoLabel").textContent = "Editar Assunto";

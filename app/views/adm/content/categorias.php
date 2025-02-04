@@ -124,7 +124,7 @@
         </form>
     </div>
 </div>
-
+<?php include 'app/views/parts/footer.php' ?>
 <script>
 function editarCategoria(element) {
     document.getElementById("offcanvasAddCategoryLabel").textContent = "Editar Categoria";

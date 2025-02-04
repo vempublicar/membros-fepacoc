@@ -169,7 +169,7 @@
         </form>
     </div>
 </div>
-
+<?php include 'app/views/parts/footer.php' ?>
 <script>
 function editMaterial(element) {
     document.getElementById("offcanvasAddMaterialLabel").textContent = "Editar Material";

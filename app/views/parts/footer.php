@@ -1,5 +1,5 @@
 
-<footer id="footer" class="dark-mode text-white py-5" >
+<!-- <footer id="footer" class="dark-mode text-white py-5" >
     <div class="container-sm">
       <div class="row g-md-5 my-5">
         <div class="col-md-4">
@@ -33,7 +33,7 @@
         <span>Área de Membros - Fepacoc. Criado pelo time <a href="https://vempublicar.com/" class="text-white" target="_blank">Vempublicar</a>. Versão Beta 1.0.02 </span>
       </div>
     </div>
-  </footer>
+  </footer> -->
 
   <script src="vendor/js/jquery-1.11.0.min.js"></script> 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -43,7 +43,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
     crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script> 
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 <script src="vendor/js/plugins.js"></script>

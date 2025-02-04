@@ -142,7 +142,7 @@
         </form>
     </div>
 </div>
-
+<?php include 'app/views/parts/footer.php' ?>
 <script>
 function editarProduto(element) {
     document.getElementById("offcanvasAddProductLabel").textContent = "Editar Produto";

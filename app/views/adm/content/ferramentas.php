@@ -158,7 +158,7 @@
         </form>
     </div>
 </div>
-
+<?php include 'app/views/parts/footer.php' ?>
 <script>
 function editFerramenta(element) {
     document.getElementById("offcanvasAddFerramentaLabel").textContent = "Editar Ferramenta";

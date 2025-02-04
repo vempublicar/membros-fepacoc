@@ -224,7 +224,7 @@
         </form>
     </div>
 </div>
-
+<?php include 'app/views/parts/footer.php' ?>
 <script>
 function editarVideo(element) {
     document.getElementById("offcanvasAddVideoLabel").textContent = "Editar Vídeo";
