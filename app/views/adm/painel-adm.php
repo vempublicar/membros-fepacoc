@@ -103,6 +103,7 @@ $assuntos = fetchAssunto();
             <section id="dashboard" class="content-section">
                 <h2>Dashboard</h2>
                 <p>Bem-vindo à sua área administrativa. Use os menus à esquerda para navegar.</p>
+                <?php print_r($_SESSION['error']) ?>
             </section>
             <section id="videos" class="content-section" style="display: none;">
                 <?php include "app/views/adm/content/videos.php" ?>
