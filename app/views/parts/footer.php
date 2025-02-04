@@ -1,4 +1,5 @@
-<footer id="footer" class="dark-mode text-white py-5">
+
+<footer id="footer" class="dark-mode text-white py-5" style="display: none;">
     <div class="container-sm">
       <div class="row g-md-5 my-5">
         <div class="col-md-4">
@@ -48,6 +49,13 @@
 <script src="vendor/js/plugins.js"></script>
 <script src="vendor/js/script.js"></script>
 <script type="text/javascript" src="vendor/js/lightbox.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+            document.getElementById("footer").style.display = "block";
+        }, 500); // Espera 500ms para garantir que os dados carregaram
+    });
+</script>
 
   <script>
   if ('serviceWorker' in navigator) {
