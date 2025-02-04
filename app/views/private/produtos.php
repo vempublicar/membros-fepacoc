@@ -91,7 +91,7 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
 <script>
     function abrirProduto(nome, imagem, preco, descricao, link) {
         document.getElementById('productOffcanvasLabel').innerText = nome;
-        document.getElementById('productOffcanvasImage').src = 'vendor/img/produtos/capas/' + imagem;
+        document.getElementById('productOffcanvasImage').src = 'vendor/uploads/produtos/' + imagem;
         document.getElementById('productOffcanvasPrice').innerText = 'R$ ' + preco;
         document.getElementById('productOffcanvasDescription').innerText = descricao;
         document.getElementById('productOffcanvasLink').href = link;
