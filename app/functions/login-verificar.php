@@ -2,6 +2,7 @@
 session_start();
 include '../config/bd/connection.php';  // Conexão com o banco MySQL
 include '../config/path.php';
+include "data/busca-dados.php";
 
 // Verificar se os dados do formulário foram enviados
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -48,6 +49,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Armazena os dados da empresa na sessão
                     $empresa = $stmtEmpresa->fetch(PDO::FETCH_ASSOC);
                     $_SESSION['dados_profissionais'] = json_encode($empresa, JSON_UNESCAPED_UNICODE);
+                    $_SESSION['videos'] = fetchVideos();
+                    $_SESSION['produtos'] = fetchProdutos();
+                    $_SESSION['materiais'] = fetchMateriais();
+                    $_SESSION['leads'] = fetchLeads();
+                    $_SESSION['categorias'] = fetchCategorias();
+                    $_SESSION['ferramentas'] = fetchFerramentas();
+                    $_SESSION['capas'] = fetchCapas();
+                    $_SESSION['assuntos'] = fetchAssunto();
                 } else {
                     // Caso o usuário não tenha empresa vinculada
                     $_SESSION['dados_profissionais'] = json_encode([]);

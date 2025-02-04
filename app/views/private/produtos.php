@@ -12,8 +12,16 @@ function normalizarTexto($texto) {
     return $texto;
 }
 
-// Carregar produtos do banco de dados
-$produtos = fetchProdutos();
+
+// Função para buscar os dados apenas se não estiverem na sessão
+function getSessionData($key, $fetchFunction) {
+    if (!isset($_SESSION[$key])) {
+        $_SESSION[$key] = $fetchFunction();
+    }
+    return $_SESSION[$key];
+}
+
+$produtos = getSessionData('produtos', 'fetchProdutos');
 
 // Pegando a categoria da URL e normalizando
 $categoriaSelecionada = isset($_GET['categoria']) ? urldecode($_GET['categoria']) : '';

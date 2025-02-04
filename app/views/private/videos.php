@@ -12,7 +12,14 @@ function normalizarTexto($texto) {
     return $texto;
 }
 
-$videos = fetchVideos();
+// Função para buscar os dados apenas se não estiverem na sessão
+function getSessionData($key, $fetchFunction) {
+    if (!isset($_SESSION[$key])) {
+        $_SESSION[$key] = $fetchFunction();
+    }
+    return $_SESSION[$key];
+}
+$videos = getSessionData('videos', 'fetchVideos');
 
 // Pegando o assunto da URL e normalizando
 $assuntoSelecionado = isset($_GET['assunto']) ? urldecode($_GET['assunto']) : '';

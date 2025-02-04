@@ -20,15 +20,26 @@ if (isset($_SESSION['user_dados'])) {
     header('Location: login');
     // exit;
 }
-$videos = fetchVideos();
-$produtos = fetchProdutos();
-$materiais = fetchMateriais();
-$leads = fetchLeads();
-$categorias = fetchCategorias();
-$ferramentas = fetchFerramentas();
-$capas = fetchCapas();
-$assuntos = fetchAssunto();
-// print_r($materiais);
+session_start(); // Garante que a sessão esteja ativa
+
+// Função para buscar os dados apenas se não estiverem na sessão
+function getSessionData($key, $fetchFunction) {
+    if (!isset($_SESSION[$key])) {
+        $_SESSION[$key] = $fetchFunction();
+    }
+    return $_SESSION[$key];
+}
+
+// Carregar dados da sessão ou do banco de dados
+$videos = getSessionData('videos', 'fetchVideos');
+$produtos = getSessionData('produtos', 'fetchProdutos');
+$materiais = getSessionData('materiais', 'fetchMateriais');
+$leads = getSessionData('leads', 'fetchLeads');
+$categorias = getSessionData('categorias', 'fetchCategorias');
+$ferramentas = getSessionData('ferramentas', 'fetchFerramentas');
+$capas = getSessionData('capas', 'fetchCapas');
+$assuntos = getSessionData('assuntos', 'fetchAssunto');
+
 ?>
 <section class="top-banner mt-5">
     <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">

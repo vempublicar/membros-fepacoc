@@ -3,8 +3,16 @@ include_once "app/views/parts/head.php";
 include_once "app/views/parts/header.php";
 include "app/functions/data/busca-dados.php";
 
-// Pegando as ferramentas do banco de dados
-$ferramentas = fetchFerramentas();
+
+// Função para buscar os dados apenas se não estiverem na sessão
+function getSessionData($key, $fetchFunction) {
+    if (!isset($_SESSION[$key])) {
+        $_SESSION[$key] = $fetchFunction();
+    }
+    return $_SESSION[$key];
+}
+
+$ferramentas = getSessionData('ferramentas', 'fetchFerramentas');
 ?>
 
 <section class="portfolio py-5 mt-5">

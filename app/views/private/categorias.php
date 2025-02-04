@@ -3,7 +3,15 @@ include_once "app/views/parts/head.php";
 include_once "app/views/parts/header.php";
 include "app/functions/data/busca-dados.php";
 
-$assuntos = fetchAssunto();
+function getSessionData($key, $fetchFunction) {
+    if (!isset($_SESSION[$key])) {
+        $_SESSION[$key] = $fetchFunction();
+    }
+    return $_SESSION[$key];
+}
+
+
+$assuntos = getSessionData('assuntos', 'fetchAssunto');
 
 // Pegando a categoria da URL
 $categoriaSelecionada = isset($_GET['a']) ? urldecode($_GET['a']) : '';
