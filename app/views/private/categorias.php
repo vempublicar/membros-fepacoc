@@ -91,7 +91,7 @@ if (isset($_GET['a'])) {
 }
 ?>
 <!-- Barra fixa no rodapé para mobile -->
-<nav class="navbar navbar-light bg-light fixed-bottom d-md-none border-top">
+<nav class="navbar navbar-light bg-dark fixed-bottom d-md-none border-top">
   <div class="container-fluid justify-content-around">
     <!-- Botão Home -->
     <a href="home" class="nav-link text-center">
