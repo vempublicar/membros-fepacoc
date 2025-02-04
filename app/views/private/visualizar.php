@@ -28,7 +28,7 @@ foreach ($videos as $video) {
         break;
     }
 }
-
+print_r($videoToView);
 // Caso o vídeo não seja encontrado, exibe uma mensagem
 if (!$videoToView) {
     echo "<div class='container py-5'><h3>Vídeo não encontrado.</h3></div>";
