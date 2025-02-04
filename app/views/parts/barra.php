@@ -25,16 +25,16 @@ $idvideo  = '';
       </a>
       
       <!-- Botão Favoritar -->
-      <a href="" class="nav-link text-center <?= !empty($favorito) ? 'active' : '' ?>"
+      <button class="nav-link text-center <?= !empty($favorito) ? 'active' : '' ?>"
          <?= !empty($favorito) ? "onclick=\"addfavorito('{$favorito}', '{$idvideo}')\"" : "" ?>>
         <i class="fas fa-star fa-lg <?= !empty($favorito) ? 'text-white' : 'text-secondary' ?>"></i>
-      </a>
+      </button>
       
       <!-- Botão Material Apoio -->
-      <a href="" class="nav-link text-center <?= !empty($material) ? 'active' : '' ?>"
+      <button class="nav-link text-center <?= !empty($material) ? 'active' : '' ?>"
          <?= !empty($material) ? "onclick=\"baixarconteudo('{$material}')\"" : "" ?>>
         <i class="fas fa-book fa-lg <?= !empty($material) ? 'text-white' : 'text-secondary' ?>"></i>
-      </a>
+      </button>
       
       <!-- Botão Pesquisa (sempre ativo) -->
       <a href="<?= $busca ?>" class="nav-link text-center active">
