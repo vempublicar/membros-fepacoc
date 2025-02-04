@@ -54,6 +54,10 @@ switch ($page) {
     case 'favoritos':
         require 'app/views/private/favoritos.php';
         break;
+
+    case 'visualizar':
+        require 'app/views/private/visualizar.php';
+        break;
                     
     case 'aulas':
         require 'app/views/private/aulas.php';
