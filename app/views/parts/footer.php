@@ -46,13 +46,7 @@
 <script src="vendor/js/plugins.js"></script>
 <script src="vendor/js/script.js"></script>
 <script type="text/javascript" src="vendor/js/lightbox.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(function() {
-            document.getElementById("footer").style.display = "block";
-        }, 3000); // Espera 1 segundo (1000ms) antes de exibir o footer
-    });
-</script>
+
 
   <script>
   if ('serviceWorker' in navigator) {
