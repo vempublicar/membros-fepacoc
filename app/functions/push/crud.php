@@ -36,7 +36,7 @@ $tabela = $_POST['tabela'] ?? null;
 
 // Validação da tabela (evita SQL Injection)
 if (!$tabela || !preg_match('/^[a-zA-Z0-9_]+$/', $tabela)) {
-    header("Location: " . $_SERVER['HTTP_REFERER'] . "#erro");
+    header("Location: " . $_SERVER['HTTP_REFERER'] . "#erro1");
     exit();
 }
 
@@ -162,6 +162,6 @@ try {
 
 } catch (Exception $e) {
     $_SESSION['error'] = "Erro: " . $e->getMessage();
-    header("Location: " . $_SERVER['HTTP_REFERER'] . "#erro");
+    header("Location: " . $_SERVER['HTTP_REFERER'] . "#erro2");
     exit();
 }
