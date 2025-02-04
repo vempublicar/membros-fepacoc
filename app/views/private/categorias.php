@@ -17,7 +17,7 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
 <div id="assuntoContainer" style="display: none;">
     <section class="portfolio py-5 mt-5">
         <div class="container">
-            <div class="row">
+            <div class="">
                 <div class="col-lg-12">
                     <div class="grid p-0 clearfix row row-cols-1 row-cols-lg-2 row-cols-xl-3" id="assuntoGrid">
                         <?php if (!empty($assuntosFiltrados)): ?>
