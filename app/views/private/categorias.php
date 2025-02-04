@@ -90,10 +90,10 @@ if (isset($_GET['a'])) {
     
 }
 $home     = 'painel'; 
-$favorito = 'email-usuario'; 
-$material = 'material-apoio'; 
+$favorito = ''; 
+$material = ''; 
 $busca    = '/buscar'; 
-$idvideo  = 123; 
+$idvideo  = ''; 
 ?>
 <!-- Barra fixa no rodapé para mobile -->
 <nav class="navbar navbar-dark bg-dark fixed-bottom d-md-none border-top">
