@@ -63,10 +63,7 @@ if (isset($_GET['a'])) {
     <section class="portfolio py-5 mt-5">
                 <div class="row">
                     <div class="col text-start">
-                        <p class="text-uppercase text-secondary">Categorias | 
-                            <a href="categoria" class="text-uppercase text-info text-decoration-none">
-                                Todos
-                            </a>
+                        <p class="text-uppercase text-secondary">Todas Categorias 
                         </p>
                     </div>
                 </div>     
