@@ -42,7 +42,11 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
             
     </section>
 </div>
-<hr>
-<?php  include_once "app/views/parts/footer.php"; ?>
+<?php 
+// Espera 1 segundo antes de carregar o footer
+sleep(3);
+include_once "app/views/parts/footer.php"; 
+?>
+
 
 
