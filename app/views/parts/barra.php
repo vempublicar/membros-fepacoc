@@ -8,7 +8,10 @@ if(isset($_GET['video']) && isset($_GET['assunto'])){
     $home     = 'painel'; 
 }
 $favorito = ''; 
-$material = ''; 
+if(isset($materialDownload) && $materialDownload > ""){
+  $material = 'vendor/uploads/videos/material/'.$materialDownload; 
+}
+
 $busca    = '/buscar'; 
 $idvideo  = ''; 
 ?>
