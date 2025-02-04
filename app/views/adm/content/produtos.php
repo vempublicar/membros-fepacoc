@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-12">
         <!-- Botão para adicionar novo produto -->
-        <button class="btn btn-primary mb-3" style="float: left;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddProduct">
+        <button class="btn btn-primary mb-3" style="float: left;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddProduct" onclick="resetForm()">
             <i class="fa fa-plus"></i> Adicionar Produto
         </button>
         <h3 class="text-center">Gerenciar Produtos</h3>
@@ -136,6 +136,12 @@
             <div class="mb-3">
                 <label for="proCapa" class="form-label">Imagem</label>
                 <input type="file" class="form-control" id="proCapa" name="proCapa" accept="image/*">
+            </div>
+
+            <!-- Novo campo para upload de material PDF ou DOC -->
+            <div class="mb-3">
+                <label for="vidMaterial" class="form-label">Material de Apoio (PDF ou DOC)</label>
+                <input type="file" class="form-control" id="vidMaterial" name="vidMaterial" accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>
