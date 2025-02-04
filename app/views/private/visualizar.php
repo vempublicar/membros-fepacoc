@@ -23,12 +23,12 @@ $idvideo = isset($_GET['video']) ? $_GET['video'] : 0;
 // Procura o vídeo correspondente no array de vídeos
 $videoToView = null;
 foreach ($videos as $video) {
-    if ($video['idvideo'] == $idvideo) {
+    if ($video['id'] == $idvideo) {
         $videoToView = $video;
         break;
     }
 }
-print_r($videos);
+
 // Caso o vídeo não seja encontrado, exibe uma mensagem
 if (!$videoToView) {
     echo "<div class='container py-5'><h3>Vídeo não encontrado.</h3></div>";
