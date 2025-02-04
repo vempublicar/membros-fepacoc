@@ -1,13 +1,8 @@
 <?php
-// Inicia a sessão apenas uma vez
 session_start();
-
-// Inclusão dos arquivos de head, header e funções
 include_once "app/views/parts/head.php";
 include_once "app/views/parts/header.php";
 include "app/functions/data/busca-dados.php";
-
-// Verifica se o usuário está logado e busca seus dados
 if (isset($_SESSION['user_dados'])) {
     $userDados = json_decode($_SESSION['user_dados'], true);
     $email = $userDados['user']['email'];  // Acessa o email do usuário logado
@@ -23,8 +18,9 @@ if (isset($_SESSION['user_dados'])) {
 } else {
     echo "Usuário não logado.";
     header('Location: login');
-    exit;
+    // exit;
 }
+session_start(); // Garante que a sessão esteja ativa
 
 // Função para buscar os dados apenas se não estiverem na sessão
 function getSessionData($key, $fetchFunction) {
@@ -35,33 +31,29 @@ function getSessionData($key, $fetchFunction) {
 }
 
 // Carregar dados da sessão ou do banco de dados
-$videos       = getSessionData('videos', 'fetchVideos');
-$produtos     = getSessionData('produtos', 'fetchProdutos');
-$materiais    = getSessionData('materiais', 'fetchMateriais');
-$leads        = getSessionData('leads', 'fetchLeads');
-$categorias   = getSessionData('categorias', 'fetchCategorias');
-$ferramentas  = getSessionData('ferramentas', 'fetchFerramentas');
-$capas        = getSessionData('capas', 'fetchCapas');
-$assuntos     = getSessionData('assuntos', 'fetchAssunto');
-?>
+$videos = getSessionData('videos', 'fetchVideos');
+$produtos = getSessionData('produtos', 'fetchProdutos');
+$materiais = getSessionData('materiais', 'fetchMateriais');
+$leads = getSessionData('leads', 'fetchLeads');
+$categorias = getSessionData('categorias', 'fetchCategorias');
+$ferramentas = getSessionData('ferramentas', 'fetchFerramentas');
+$capas = getSessionData('capas', 'fetchCapas');
+$assuntos = getSessionData('assuntos', 'fetchAssunto');
 
-<!-- Seção: Banner com Carrossel -->
+?>
 <section class="top-banner mt-5">
     <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-inner">
             <?php foreach ($capas as $index => $banner): ?>
                 <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                     <picture>
-                        <!-- Versão para mobile com espaço reservado -->
-                        <source media="(max-width: 768px)" 
-                                srcset="vendor/uploads/capas/mobile/<?= htmlspecialchars($banner['capaMobile']) ?>">
+                        <!-- Versão para mobile -->
+                        <source media="(max-width: 768px)" srcset="vendor/uploads/capas/mobile/<?= htmlspecialchars($banner['capaMobile']) ?>">
                         <!-- Versão para desktops e tablets maiores -->
                         <img src="vendor/uploads/capas/desktop/<?= htmlspecialchars($banner['capaDesktop']) ?>" 
-                             class="d-block w-100 object-fit-cover" 
-                             alt="Capa do vídeo"
-                             loading="lazy"
-                             width="1200" height="450"
-                             style="object-fit: cover;">
+                            class="d-block w-100 object-fit-cover" 
+                            alt="Capa do vídeo"
+                            style="max-height: 450px; height: 100%; object-fit: cover;">
                     </picture>
                 </div>
             <?php endforeach; ?>
@@ -79,201 +71,190 @@ $assuntos     = getSessionData('assuntos', 'fetchAssunto');
     </div>
 </section>
 
-<!-- Seção: Categorias -->
+<!-- CATEGORIAS -->
 <section class="portfolio p-3">
-    <div class="row">
-        <div class="col text-start">
-            <p class="text-uppercase text-secondary">
-                Categorias | 
-                <a href="videos" class="text-uppercase text-info text-decoration-none">Todos</a>
-            </p>
-        </div>
-    </div>     
-    <!-- Carrossel Swiper para Categorias -->
-    <div class="swiper mySwiper" data-aos="fade-up">
-        <div class="swiper-wrapper">
-            <?php 
-                $count = 0;
-                foreach ($categorias as $categoria): 
-                    if ($categoria['catStatus'] === 'ativo' && $count < 8): 
-                        $count++;
-            ?>
-            <div class="swiper-slide">
-                <a href="https://members.fepacoc.com.br/categoria&a=<?= $categoria['catNome']; ?>" 
-                   onclick="trackUserAction('<?= $categoria['catNome']; ?>', '<?= $user['email'] ?>')">
-                    <img src="vendor/uploads/categorias/<?= $categoria['catCapa']; ?>" 
-                         class="img-fluid rounded-4" 
-                         alt="Capa da categoria"
-                         loading="lazy"
-                         width="300" height="200">
-                </a>
-            </div>
-            <?php 
-                    endif;
-                endforeach;  
-            ?>
-        </div>
-
-        <!-- Controles do Carrossel -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-pagination"></div>
-    </div>
-</section>
-
-<!-- Seção: Produtos -->
-<section class="produto p-4">
-    <div class="row">
-        <div class="col text-start">
-            <p class="text-uppercase text-secondary">
-                Produtos | 
-                <a href="produtos" class="text-uppercase text-info text-decoration-none">Todos</a>
-            </p>
-        </div>
-    </div>
-    <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-4" data-aos="fade-up">
-        <?php 
-            $count = 0;
-            foreach ($produtos as $produto): 
-                if ($produto['proStatus'] === 'ativo' && $count < 4): 
-                    $count++;
-        ?>
-            <div class="col mb-4 portfolio-item photography">
-                <a href="#" onclick="openOffcanvas(
-                    '<?= htmlspecialchars($produto['proNome']); ?>', 
-                    '<?= $produto['proCapa']; ?>',
-                    '<?= number_format($produto['proPreco'], 2, ',', '.'); ?>',
-                    '<?= htmlspecialchars($produto['proSobre']); ?>',
-                    '<?= $produto['proPagina']; ?>'
-                    )">
-                    <img src="vendor/uploads/produtos/<?= $produto['proCapa']; ?>" 
-                         class="card-img-top rounded-top-4" 
-                         alt="<?= htmlspecialchars($produto['proNome']); ?>"
-                         loading="lazy"
-                         width="400" height="300">
-                </a>
-            </div>
-        <?php 
-                endif;
-            endforeach;  
-        ?>
-    </div>
-</section>
-
-<!-- Seção: Favoritos (Assunto) -->
-<section class="portfolio p-3">
-    <div class="row">
-        <div class="col text-start">
-            <p class="text-uppercase text-secondary">
-                Favoritos | 
-                <a href="favoritos" class="text-uppercase text-info text-decoration-none">Todos</a>
-            </p>
-        </div>                
-    </div>
-    <div class="swiper mySwiperAssunto" data-aos="fade-up">
-        <div class="swiper-wrapper">
-            <?php 
-                $count = 0;
-                foreach ($assuntos as $item): 
-                    if ($count < 8): 
-                        $count++;
-            ?>
-            <div class="swiper-slide">
-                <a href="https://members.fepacoc.com.br/videos&assunto=<?= $item['assunto']; ?>" 
-                   onclick="trackUserAction('<?= $item['assunto']; ?>', '<?= $user['email'] ?>')">
-                    <img src="vendor/uploads/assunto/<?= $item['assCapa']; ?>" 
-                         class="img-fluid rounded-4" 
-                         alt="<?= $item['assunto']; ?>"
-                         loading="lazy"
-                         width="300" height="200">
-                </a>
-            </div>
-            <?php 
-                    endif;
-                endforeach;  
-            ?>
-        </div>
-        <!-- Controles do Carrossel -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-pagination"></div>
-    </div>
-</section>
-
-<!-- Seção: Materiais -->
-<section class="portfolio p-3">
-    <div class="row">
-        <div class="col text-start">
-            <p class="text-uppercase text-secondary">
-                Materiais | 
-                <a href="materiais" class="text-uppercase text-info text-decoration-none">Todos</a>
-            </p>
-        </div>
-    </div> 
-    <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
-        <?php foreach ($materiais as $material): ?>
-            <div class="col mb-4 portfolio-item photography">
-                <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $material['link']; ?>" 
-                   onclick="trackUserAction('<?= htmlspecialchars($material['matCapa']); ?>', '<?= $user['email'] ?>')">
-                    <img src="vendor/uploads/materiais/capa/<?= $material['matCapa']; ?>" 
-                         class="img-fluid rounded-4" 
-                         alt="Capa do material"
-                         loading="lazy"
-                         width="400" height="300">
-                </a>
-                <button class="btn btn-icon float-end" onclick="openModal('<?= $material['id']; ?>')">
-                    <i class="fas fa-star"></i>
-                </button>
-            </div>
-        <?php endforeach; ?>
-    </div>
-</section>
-
-<!-- Seção: Ferramentas -->
-<section class="portfolio p-3">
-    <div class="row">
-        <div class="col text-start">
-            <p class="text-uppercase text-secondary">
-                Ferramentas | 
-                <a href="ferramentas" class="text-uppercase text-info text-decoration-none">Todos</a>
-            </p>
-        </div>
-    </div> 
-    <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
-        <?php foreach ($ferramentas as $ferramenta): ?>
-            <?php if ($ferramenta['ferStatus'] === 'ativo'): ?>
-                <div class="col mb-4 portfolio-item photography">
-                    <a href="<?= $ferramenta['ferLink']; ?>" target="_blank">
-                        <img src="vendor/uploads/ferramentas/<?= $ferramenta['ferCapa']; ?>" 
-                             class="card-img-top rounded-top-4" 
-                             alt="<?= htmlspecialchars($ferramenta['ferNome']); ?>"
-                             loading="lazy"
-                             width="400" height="300">
-                    </a>
+            <div class="row">
+                <div class="col text-start">
+                    <p class="text-uppercase text-secondary">Categorias | 
+                        <a href="videos" class="text-uppercase text-info text-decoration-none">
+                            Todos
+                        </a>
+                    </p>
                 </div>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </div>
+            </div>     
+            <!-- Carrossel Swiper -->
+            <div class="swiper mySwiper" data-aos="fade-up">
+                <div class="swiper-wrapper">
+                    <?php 
+                        $count = 0;
+                        foreach ($categorias as $categoria): 
+                            if ($categoria['catStatus'] === 'ativo' && $count < 8): 
+                                $count++;
+                    ?>
+                    <div class="swiper-slide">
+                        <a href="https://members.fepacoc.com.br/categoria&a=<?= $categoria['catNome']; ?>" 
+                            onclick="trackUserAction('<?= $categoria['catNome']; ?>', '<?= $user['email'] ?>')">
+                            <img src="vendor/uploads/categorias/<?= $categoria['catCapa']; ?>" class="img-fluid rounded-4" alt="Capa da categoria">
+                        </a>
+                    </div>
+                    <?php 
+                            endif;
+                        endforeach;  
+                    ?>
+                </div>
+
+                <!-- Controles do Carrossel -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+            </div>
 </section>
+
+<!-- PRODUTOS -->
+<section class="produto p-4">
+        <div class="row">
+            <div class="col text-start">
+                <p class="text-uppercase text-secondary">Produtos | 
+                        <a href="produtos" class="text-uppercase text-info text-decoration-none">
+                            Todos
+                        </a>
+                </p>
+            </div>
+            <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-4" data-aos="fade-up">
+                <?php 
+                    $count = 0;
+                    foreach ($produtos as $produto): 
+                        if ($produto['proStatus'] === 'ativo' && $count < 4): 
+                            $count++;
+                ?>
+                        <div class="col mb-4 portfolio-item photography">
+                                <a href="#" onclick="openOffcanvas(
+                                    '<?= htmlspecialchars($produto['proNome']); ?>', 
+                                    '<?= $produto['proCapa']; ?>',
+                                    '<?= number_format($produto['proPreco'], 2, ',', '.'); ?>',
+                                    '<?= htmlspecialchars($produto['proSobre']); ?>',
+                                    '<?= $produto['proPagina']; ?>'
+                                    )">
+                                    <img src="vendor/uploads/produtos/<?= $produto['proCapa']; ?>" 
+                                         class="card-img-top rounded-top-4" 
+                                         alt="<?= htmlspecialchars($produto['proNome']); ?>">
+                                </a>
+                        </div>
+                <?php 
+                        endif;
+                    endforeach;  
+                ?>
+            </div>
+
+</section>
+
+<!-- ASSUNTO -->
+<section class="portfolio p-3">
+            <div class="row">
+                <div class="col text-start">
+                    <p class="text-uppercase text-secondary">Favoritos | 
+                        <a href="favoritos" class="text-uppercase text-info text-decoration-none">
+                            Todos
+                        </a>
+                    </p>
+                </div>                
+            </div>
+            <div class="swiper mySwiperAssunto" data-aos="fade-up">
+                <div class="swiper-wrapper">
+                    <?php 
+                        $count = 0;
+                        foreach ($assuntos as $item): 
+                            if ($count < 8): 
+                                $count++;
+                    ?>
+                    <div class="swiper-slide">
+                        <a href="https://members.fepacoc.com.br/videos&assunto=<?= $item['assunto']; ?>" 
+                            onclick="trackUserAction('<?= $item['assunto']; ?>', '<?= $user['email'] ?>')">
+                            <img src="vendor/uploads/assunto/<?= $item['assCapa']; ?>" class="img-fluid rounded-4" alt="<?= $item['assunto']; ?>">
+                        </a>
+                    </div>
+                    <?php 
+                            endif;
+                        endforeach;  
+                    ?>
+                </div>
+                <!-- Controles do Carrossel -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+</section>
+
+<!-- MATERIAIS -->
+<section class="portfolio p-3">
+            <div class="row">
+                <div class="col text-start">
+                    <p class="text-uppercase text-secondary">Materiais | 
+                        <a href="materiais" class="text-uppercase text-info text-decoration-none">
+                            Todos
+                        </a>
+                    </p>
+                </div>
+            </div> 
+            <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
+                <?php foreach ($materiais as $material): ?>
+                        <div class="col mb-4 portfolio-item photography">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="<?= $material['link']; ?>" onclick="trackUserAction('<?= $video['title']; ?>', <?= $user['email'] ?>)" >
+                                <img src="vendor/uploads/materiais/capa/<?= $material['matCapa']; ?>" class="img-fluid rounded-4" alt="Capa do vídeo">
+                            </a>
+                            <button class="btn btn-icon float-end" onclick="openModal('<?= $material['id']; ?>')">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </div>
+                <?php endforeach; ?>
+            </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section class="portfolio p-3">
+            <div class="row">
+                <div class="col text-start">
+                    <p class="text-uppercase text-secondary">Ferramentas | 
+                        <a href="ferramentas" class="text-uppercase text-info text-decoration-none">
+                            Todos
+                        </a>
+                    </p>
+                </div>
+            </div> 
+            <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
+                <?php foreach ($ferramentas as $ferramenta): ?>
+                    <?php if ($ferramenta['ferStatus'] === 'ativo'): ?>
+                        <div class="col mb-4 portfolio-item photography">
+                                <a href="<?= $ferramenta['ferLink']; ?>" target="_blank">
+                                    <img src="vendor/uploads/ferramentas/<?= $ferramenta['ferCapa']; ?>" 
+                                         class="card-img-top rounded-top-4" 
+                                         alt="<?= htmlspecialchars($ferramenta['ferNome']); ?>">
+                                </a>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+</section>
+
 
 <!-- Rodapé -->
-<?php include "app/views/parts/footer.php" ?>
+ <?php include "app/views/parts/footer.php" ?>
 
-<!-- Offcanvas para exibição dos detalhes do produto -->
-<div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="productOffcanvas" aria-labelledby="offcanvasTitle">
+
+ <div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="productOffcanvas" aria-labelledby="offcanvasTitle">
     <div class="offcanvas-header">
         <h5 id="offcanvasTitle"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body text-dark">
-        <img id="offcanvasImage" src="" class="img-fluid rounded-4 mb-3" alt="Detalhes do produto">
+        <img id="offcanvasImage" src="" class="img-fluid rounded-4 mb-3" alt="">
         <p class="text-primary fw-bold" id="offcanvasPrice"></p>
         <p id="offcanvasDescription"></p>
         <a id="offcanvasLink" href="#" class="btn btn-primary w-100" target="_blank">Abrir Página</a>
     </div>
 </div>
 
-<!-- Scripts do Swiper -->
+
 <script>
     var swiperAssunto = new Swiper(".mySwiperAssunto", {
         slidesPerView: 2, // Para mobile
@@ -311,8 +292,6 @@ $assuntos     = getSessionData('assuntos', 'fetchAssunto');
         }
     });
 </script>
-
-<!-- Script para o Offcanvas de produto -->
 <script>
     function openOffcanvas(title, image, price, description, link) {
         document.getElementById('offcanvasTitle').innerText = title;
