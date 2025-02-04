@@ -131,6 +131,14 @@ if (!empty($videoToView['vidLinkExterno'])) {
         <strong>Situação:</strong>
         <span><?= htmlspecialchars($videoToView['vidSituacao']); ?></span>
     </div>
+    <div class="mb-3">
+        <strong>Link Formulário:</strong>
+        <span><?= htmlspecialchars($videoToView['vidFormulario']); ?></span>
+    </div>
+    <div class="mb-3">
+        <strong>Material de Apoio:</strong>
+        <span><?= htmlspecialchars($videoToView['vidMaterial']); ?></span>
+    </div>
 </section>
 
 
