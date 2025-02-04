@@ -50,6 +50,10 @@ switch ($page) {
     case 'material':
         require 'app/views/private/materiais.php';
         break;
+
+    case 'favoritos':
+        require 'app/views/private/favoritos.php';
+        break;
                     
     case 'aulas':
         require 'app/views/private/aulas.php';
