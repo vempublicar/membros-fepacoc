@@ -47,7 +47,7 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
                                      alt="<?= htmlspecialchars($produto['proNome']); ?>">
                             </a>
                             <div class="card-body text-center text-dark">
-                                <h5 class="card-title"><?= htmlspecialchars($produto['proNome']); ?></h5>
+                                <h5><?= htmlspecialchars($produto['proNome']); ?></h5>
                                 <button class="btn btn-outline-secondary btn-sm" >
                                     <i class="fas fa-info-circle"></i> Detalhes
                                 </button>
