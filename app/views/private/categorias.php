@@ -60,7 +60,7 @@ if (isset($_GET['a'])) {
     
 ?>
 <div id="categoriaContainer" class="container mb-6">
-    <section class="portfolio p-3">
+    <section class="portfolio py-5 mt-5">
                 <div class="row">
                     <div class="col text-start">
                         <p class="text-uppercase text-secondary">Categorias | 
