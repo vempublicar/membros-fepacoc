@@ -14,7 +14,7 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
 });
 ?>
 
-<div id="assuntoContainer" class="container mb-6" style="min-height: 100vh;">
+<div id="assuntoContainer" class="container mb-6">
     <section class="portfolio py-5 mt-5">
         
                     <div class="grid p-0 clearfix row row-cols-1 row-cols-lg-2 row-cols-xl-3" id="assuntoGrid">
