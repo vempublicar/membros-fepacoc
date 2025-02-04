@@ -43,5 +43,6 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
         </div>
     </div>
 </section>
+<hr>
 
 <?php include_once "app/views/parts/footer.php"; ?>
