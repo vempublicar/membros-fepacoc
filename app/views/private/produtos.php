@@ -92,6 +92,9 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
     </div>
 </div>
 
+
+<?php include_once "app/views/parts/footer.php"; ?>
+
 <script>
     function abrirProduto(nome, imagem, preco, descricao, link) {
         document.getElementById('productOffcanvasLabel').innerText = nome;
@@ -104,5 +107,3 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
         offcanvas.show();
     }
 </script>
-
-<?php include_once "app/views/parts/footer.php"; ?>
