@@ -103,7 +103,11 @@ $assuntos = fetchAssunto();
 <section class="produto p-3">
         <div class="row">
             <div class="col text-start">
-                <p class="text-uppercase text-secondary">Produtos</p>
+                <p class="text-uppercase text-secondary">Produtos | 
+                        <a href="produtos" class="text-uppercase text-info text-decoration-none">
+                            Todos
+                        </a>
+                </p>
             </div>
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-4" data-aos="fade-up">
                 <?php 
@@ -136,7 +140,13 @@ $assuntos = fetchAssunto();
 <!-- ASSUNTO -->
 <section class="portfolio p-3">
             <div class="row">
-                <div class="col text-start"><p class="text-uppercase text-secondary">Favoritos</p></div>                
+                <div class="col text-start">
+                    <p class="text-uppercase text-secondary">Favoritos | 
+                        <a href="favoritos" class="text-uppercase text-info text-decoration-none">
+                            Todos
+                        </a>
+                    </p>
+                </div>                
             </div>
             <div class="swiper mySwiperAssunto" data-aos="fade-up">
                 <div class="swiper-wrapper">
@@ -157,7 +167,6 @@ $assuntos = fetchAssunto();
                         endforeach;  
                     ?>
                 </div>
-
                 <!-- Controles do Carrossel -->
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
@@ -168,14 +177,14 @@ $assuntos = fetchAssunto();
 <!-- MATERIAIS -->
 <section class="portfolio p-3">
             <div class="row">
-                <div class="col text-start"><p class="text-uppercase text-secondary">Materiais</p></div>
-                <div class="col text-end">
-                    <a href="materiais" class="text-uppercase text-info text-decoration-none">
-                        mais materiais
-                    </a>
+                <div class="col text-start">
+                    <p class="text-uppercase text-secondary">Materiais | 
+                        <a href="materiais" class="text-uppercase text-info text-decoration-none">
+                            Todos
+                        </a>
+                    </p>
                 </div>
             </div> 
-
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
                 <?php foreach ($materiais as $material): ?>
                         <div class="col mb-4 portfolio-item photography">
@@ -193,14 +202,14 @@ $assuntos = fetchAssunto();
 <!-- FERRAMENTAS -->
 <section class="portfolio p-3">
             <div class="row">
-                <div class="col text-start"><p class="text-uppercase text-secondary">Ferramentas</p></div>
-                <div class="col text-end">
-                    <a href="ferramentas" class="text-uppercase text-info text-decoration-none">
-                        mais ferramentas
-                    </a>
+                <div class="col text-start">
+                    <p class="text-uppercase text-secondary">Ferramentas | 
+                        <a href="ferramentas" class="text-uppercase text-info text-decoration-none">
+                            Todos
+                        </a>
+                    </p>
                 </div>
             </div> 
-
             <div class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4" data-aos="fade-up">
                 <?php foreach ($ferramentas as $ferramenta): ?>
                     <?php if ($ferramenta['ferStatus'] === 'ativo'): ?>
