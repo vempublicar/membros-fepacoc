@@ -91,26 +91,33 @@ if (isset($_GET['a'])) {
 }
 ?>
 <!-- Barra fixa no rodapé para mobile -->
-<nav class="navbar navbar-light bg-dark fixed-bottom d-md-none border-top">
-  <div class="container-fluid justify-content-around">
-    <!-- Botão Home -->
-    <a href="home" class="nav-link text-center">
-      <i class="fas fa-home fa-lg"></i>
-    </a>
-    <!-- Botão Favoritar -->
-    <a href="favoritos" class="nav-link text-center">
-      <i class="fas fa-star fa-lg"></i>
-    </a>
-    <!-- Botão Material Apoio -->
-    <a href="material-apoio" class="nav-link text-center">
-      <i class="fas fa-book fa-lg"></i>
-    </a>
-    <!-- Botão Pesquisa -->
-    <a href="pesquisa" class="nav-link text-center">
-      <i class="fas fa-search fa-lg"></i>
-    </a>
-  </div>
-</nav>
+<nav class="navbar navbar-light bg-light fixed-bottom d-md-none border-top">
+    <div class="container-fluid justify-content-around">
+      <!-- Botão Home -->
+      <a href="home" class="nav-link text-center <?php echo ($activePage === 'home') ? 'active' : ''; ?>">
+        <i class="fas fa-home fa-lg <?php echo ($activePage === 'home') ? 'text-primary' : 'text-secondary'; ?>"></i>
+        <small class="d-block <?php echo ($activePage === 'home') ? 'text-primary' : 'text-secondary'; ?>">Home</small>
+      </a>
+
+      <!-- Botão Favoritar -->
+      <a href="favoritos" class="nav-link text-center <?php echo ($activePage === 'favoritos') ? 'active' : ''; ?>">
+        <i class="fas fa-star fa-lg <?php echo ($activePage === 'favoritos') ? 'text-primary' : 'text-secondary'; ?>"></i>
+        <small class="d-block <?php echo ($activePage === 'favoritos') ? 'text-primary' : 'text-secondary'; ?>">Favoritar</small>
+      </a>
+
+      <!-- Botão Material Apoio -->
+      <a href="material-apoio" class="nav-link text-center <?php echo ($activePage === 'material-apoio') ? 'active' : ''; ?>">
+        <i class="fas fa-book fa-lg <?php echo ($activePage === 'material-apoio') ? 'text-primary' : 'text-secondary'; ?>"></i>
+        <small class="d-block <?php echo ($activePage === 'material-apoio') ? 'text-primary' : 'text-secondary'; ?>">Material Apoio</small>
+      </a>
+
+      <!-- Botão Pesquisa -->
+      <a href="pesquisa" class="nav-link text-center <?php echo ($activePage === 'pesquisa') ? 'active' : ''; ?>">
+        <i class="fas fa-search fa-lg <?php echo ($activePage === 'pesquisa') ? 'text-primary' : 'text-secondary'; ?>"></i>
+        <small class="d-block <?php echo ($activePage === 'pesquisa') ? 'text-primary' : 'text-secondary'; ?>">Pesquisa</small>
+      </a>
+    </div>
+  </nav>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const themeToggle = document.getElementById("themeToggle");
