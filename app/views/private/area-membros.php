@@ -63,11 +63,12 @@ $assuntos = fetchAssunto();
 <!-- CATEGORIAS -->
 <section class="portfolio p-3">
             <div class="row">
-                <div class="col text-start"><p class="text-uppercase text-secondary">Categorias</p></div>
-                <div class="col text-end">
-                    <a href="videos" class="text-uppercase text-info text-decoration-none">
-                        Mais categorias
-                    </a>
+                <div class="col text-start">
+                    <p class="text-uppercase text-secondary">Categorias | 
+                        <a href="videos" class="text-uppercase text-info text-decoration-none">
+                            Todos
+                        </a>
+                    </p>
                 </div>
             </div>     
             <!-- Carrossel Swiper -->
