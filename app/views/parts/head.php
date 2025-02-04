@@ -23,7 +23,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="vendor/css/lightbox.min.css">
+  <!--<link rel="stylesheet" href="vendor/css/lightbox.min.css">-->
   <link rel="icon" href="vendor/images/icone.png" type="image/png">
   <!--style sheet-->
   <link rel="stylesheet" href="vendor/css/style.css">
