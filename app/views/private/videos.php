@@ -94,7 +94,6 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
         </div>
     </div>
 </section>
-<?php include_once "app/views/parts/footer.php"; ?>
 <!-- Modal para exibição do vídeo -->
 <div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="videoOffcanvas" aria-labelledby="videoOffcanvasLabel">
     <div class="offcanvas-header">
@@ -138,6 +137,29 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
 <script type="text/javascript" src="vendor/js/lightbox.min.js"></script>
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 <script src="vendor/js/script.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const themeToggle = document.getElementById("themeToggle");
+        const body = document.body;
+
+        // Verifica o tema salvo no localStorage
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+            body.classList.add("dark-mode");
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+
+        // Alterna o tema
+        themeToggle.addEventListener("click", function() {
+            body.classList.toggle("dark-mode");
+            const isDarkMode = body.classList.contains("dark-mode");
+            localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+            themeToggle.innerHTML = isDarkMode ?
+                '<i class="fas fa-moon"></i>' :
+                '<i class="fas fa-sun"></i>';
+        });
+    });
+</script>
 <script>
 function abrirVideo(element) {
         var videoUrl = element.getAttribute('data-video-url');
