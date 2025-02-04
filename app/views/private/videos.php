@@ -61,7 +61,7 @@ $videosFiltrados = array_filter($videos, function ($video) use ($assuntoSelecion
                                     : "vendor/uploads/videos/arquivo/" . htmlspecialchars($video['vidLink']);
                                 
                                 // Definir o ID do vídeo para a URL de visualização
-                                $idvideo = htmlspecialchars($video['idvideo']); // ou o nome do campo que contenha o ID
+                                $idvideo = htmlspecialchars($video['id']); // ou o nome do campo que contenha o ID
                             ?>
                             <div class="col mb-4 portfolio-item">
                                 <!-- O link redireciona para /visualizar&video=$idvideo -->
