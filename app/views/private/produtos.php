@@ -38,7 +38,6 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
                             <a href="#" onclick="abrirProduto(
                                 '<?= htmlspecialchars($produto['proNome']); ?>', 
                                 '<?= $produto['proCapa']; ?>',
-                                '<?= number_format($produto['proPreco'], 2, ',', '.'); ?>',
                                 '<?= htmlspecialchars($produto['proSobre']); ?>',
                                 '<?= $produto['proPagina']; ?>'
                             )">
