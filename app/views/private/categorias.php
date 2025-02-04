@@ -100,24 +100,24 @@ $idvideo  = '';
     <div class="container-fluid justify-content-around">
       <!-- Botão Home -->
       <a href="<?= !empty($home) ? $home : '#' ?>" class="nav-link text-center <?= !empty($home) ? 'active' : '' ?>">
-        <i class="fas fa-home fa-lg <?= !empty($home) ? 'text-primary' : 'text-secondary' ?>"></i>
+        <i class="fas fa-home fa-lg <?= !empty($home) ? 'text-white' : 'text-secondary' ?>"></i>
       </a>
       
       <!-- Botão Favoritar -->
       <a href="#" class="nav-link text-center <?= !empty($favorito) ? 'active' : '' ?>"
          <?= !empty($favorito) ? "onclick=\"addfavorito('{$favorito}', '{$idvideo}')\"" : "" ?>>
-        <i class="fas fa-star fa-lg <?= !empty($favorito) ? 'text-primary' : 'text-secondary' ?>"></i>
+        <i class="fas fa-star fa-lg <?= !empty($favorito) ? 'text-white' : 'text-secondary' ?>"></i>
       </a>
       
       <!-- Botão Material Apoio -->
       <a href="#" class="nav-link text-center <?= !empty($material) ? 'active' : '' ?>"
          <?= !empty($material) ? "onclick=\"baixarconteudo('{$material}')\"" : "" ?>>
-        <i class="fas fa-book fa-lg <?= !empty($material) ? 'text-primary' : 'text-secondary' ?>"></i>
+        <i class="fas fa-book fa-lg <?= !empty($material) ? 'text-white' : 'text-secondary' ?>"></i>
       </a>
       
       <!-- Botão Pesquisa (sempre ativo) -->
       <a href="<?= $busca ?>" class="nav-link text-center active">
-        <i class="fas fa-search fa-lg text-primary"></i>
+        <i class="fas fa-search fa-lg text-white"></i>
       </a>
     </div>
   </nav>
