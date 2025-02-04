@@ -12,15 +12,15 @@ function getSessionData($key, $fetchFunction) {
 }
 
 $assuntos = getSessionData('assuntos', 'fetchAssunto');
+$categorias = getSessionData('categorias', 'fetchCategorias');
 
 if (isset($_GET['a'])) {
     $categoriaSelecionada = urldecode($_GET['a']);
     $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoriaSelecionada) {
         return isset($assunto['categoria']) && $assunto['categoria'] === $categoriaSelecionada;
     });
-} else {
-    $assuntosFiltrados = $assuntos;
-}
+
+
 
 ?>
 
@@ -54,7 +54,50 @@ if (isset($_GET['a'])) {
         </div>
     </section>
 </div>
+<?php
 
+} else {
+    
+?>
+<section class="portfolio p-3">
+            <div class="row">
+                <div class="col text-start">
+                    <p class="text-uppercase text-secondary">Categorias | 
+                        <a href="categoria" class="text-uppercase text-info text-decoration-none">
+                            Todos
+                        </a>
+                    </p>
+                </div>
+            </div>     
+            <!-- Carrossel Swiper -->
+            <div class="swiper mySwiper" data-aos="fade-up">
+                <div class="swiper-wrapper">
+                    <?php 
+                        foreach ($categorias as $categoria): 
+                            if ($categoria['catStatus'] === 'ativo'): 
+                    ?>
+                    <div class="swiper-slide">
+                        <a href="https://members.fepacoc.com.br/categoria&a=<?= $categoria['catNome']; ?>" 
+                            onclick="trackUserAction('<?= $categoria['catNome']; ?>', '<?= $user['email'] ?>')">
+                            <img src="vendor/uploads/categorias/<?= $categoria['catCapa']; ?>" class="img-fluid rounded-4" alt="Capa da categoria">
+                        </a>
+                    </div>
+                    <?php 
+                            endif;
+                        endforeach;  
+                    ?>
+                </div>
+
+                <!-- Controles do Carrossel -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+</section>
+<?php 
+    
+}
+?>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const themeToggle = document.getElementById("themeToggle");
