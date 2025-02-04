@@ -2,7 +2,7 @@
 <?php
 if(isset($_GET['video']) && isset($_GET['assunto'])){
     $home     = 'videos&assunto='.$_GET['assunto']; 
-}elseif(!isset($_GET['categoria']) && isset($_GET['assunto'])){
+}elseif(isset($_GET['categoria']) && isset($_GET['assunto'])){
     $home     = 'categoria&a='.$_GET['categoria']; 
 }else{
     $home     = 'painel'; 
