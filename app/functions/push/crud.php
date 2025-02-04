@@ -162,6 +162,7 @@ try {
 
 } catch (Exception $e) {
     $_SESSION['error'] = "Erro: " . $e->getMessage();
-    header("Location: " . $_SERVER['HTTP_REFERER'] . "#erro2");
-    exit();
+    print_r($e);
+    //header("Location: " . $_SERVER['HTTP_REFERER'] . "#erro2");
+    //exit();
 }
