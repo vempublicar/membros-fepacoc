@@ -157,7 +157,7 @@ $assuntos = fetchAssunto();
                                 $count++;
                     ?>
                     <div class="swiper-slide">
-                        <a href="https://members.fepacoc.com.br/assunto&a=<?= urlencode($item['assunto']); ?>" 
+                        <a href="https://members.fepacoc.com.br/videos&assunto=<?= $item['assunto']; ?>" 
                             onclick="trackUserAction('<?= $item['assunto']; ?>', '<?= $user['email'] ?>')">
                             <img src="vendor/uploads/assunto/<?= $item['assCapa']; ?>" class="img-fluid rounded-4" alt="<?= $item['assunto']; ?>">
                         </a>
