@@ -64,6 +64,7 @@ body {
     color: var(--text-color);
     font-family: var(--body-font);
     transition: background-color 0.3s ease, color 0.3s ease;
+    padding-bottom: 100px;
 }
 .exclusive-badge {
     top: 10px;
@@ -319,7 +320,11 @@ p.a { line-height: 10%; }
     margin: 20px auto; /* Centraliza horizontalmente */
     border-radius: 2px; /* Bordas arredondadas (opcional) */
 }
-
+footer {
+    position: relative;
+    width: 100%;
+    z-index: 10; /* Garante que não sobreponha outros elementos */
+}
         /* Ajuste para que o menu recolhido tenha largura menor */
         #sidebar.collapsed {
             width: 60px;
