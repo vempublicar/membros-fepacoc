@@ -28,11 +28,10 @@ foreach ($videos as $video) {
         break;
     }
 }
-print_r($videoToView);
+print_r($videos);
 // Caso o vídeo não seja encontrado, exibe uma mensagem
 if (!$videoToView) {
     echo "<div class='container py-5'><h3>Vídeo não encontrado.</h3></div>";
-    include_once "app/views/parts/footer.php";
     exit;
 }
 
