@@ -49,15 +49,7 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
                             <div class="card-body text-center text-dark">
                                 <h5 class="card-title"><?= htmlspecialchars($produto['proNome']); ?></h5>
                                 <p class="card-text fw-bold text-primary">R$ <?= number_format($produto['proPreco'], 2, ',', '.'); ?></p>
-                                <button class="btn btn-outline-secondary btn-sm" onclick="abrirProduto(
-                                    '<?= htmlspecialchars($produto['proNome']); ?>', 
-                                    '<?= $produto['proCapa']; ?>',
-                                    '<?= number_format($produto['proPreco'], 2, ',', '.'); ?>',
-                                    '<?= htmlspecialchars($produto['proSobre']); ?>',
-                                    '<?= $produto['proPagina']; ?>'
-                                )">
-                                    <i class="fas fa-info-circle"></i> Detalhes
-                                </button>
+                                
                             </div>
                         </div>
                     </div>
