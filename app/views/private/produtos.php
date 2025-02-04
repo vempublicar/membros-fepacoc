@@ -46,11 +46,6 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
                                      class="card-img-top rounded-top-4" 
                                      alt="<?= htmlspecialchars($produto['proNome']); ?>">
                             </a>
-                            <div class="card-body text-center text-dark">
-                                <h5 class="card-title"><?= htmlspecialchars($produto['proNome']); ?></h5>
-                                <p class="card-text fw-bold text-primary">R$ <?= number_format($produto['proPreco'], 2, ',', '.'); ?></p>
-                                
-                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
