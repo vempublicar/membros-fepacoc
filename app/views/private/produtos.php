@@ -49,7 +49,7 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
                                 '<?= htmlspecialchars($produto['proSobre']); ?>',
                                 '<?= $produto['proPagina']; ?>'
                             )">
-                                <img src="vendor/img/produtos/capas/<?= $produto['proCapa']; ?>" 
+                                <img src="vendor/uploads/produtos/<?= $produto['proCapa']; ?>" 
                                      class="card-img-top rounded-top-4" 
                                      alt="<?= htmlspecialchars($produto['proNome']); ?>">
                             </a>
