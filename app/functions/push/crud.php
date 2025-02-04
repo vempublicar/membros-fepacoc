@@ -53,6 +53,7 @@ try {
         'videos' => [
             'vidCapa' => "../../../vendor/uploads/videos/capa/",
             'vidLink' => "../../../vendor/uploads/videos/arquivo/"
+            'vidMaterial' => "../../../vendor/uploads/videos/material/"
         ],
         'materiais' => [
             'matCapa' => "../../../vendor/uploads/materiais/capa/",
