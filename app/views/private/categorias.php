@@ -38,9 +38,10 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
                             </div>
                         <?php endif; ?>
                     </div>
+                    <hr>
+                    <?php  include_once "app/views/parts/footer.php"; ?>
             </div>
     </section>
-    <hr>
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -51,4 +52,4 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
     });
 </script>
 
-<?php  include_once "app/views/parts/footer.php"; ?>
+
