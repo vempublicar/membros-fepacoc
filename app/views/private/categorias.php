@@ -13,13 +13,15 @@ function getSessionData($key, $fetchFunction) {
 
 $assuntos = getSessionData('assuntos', 'fetchAssunto');
 
-// Pegando a categoria da URL
-$categoriaSelecionada = isset($_GET['a']) ? urldecode($_GET['a']) : '';
+if (isset($_GET['a'])) {
+    $categoriaSelecionada = urldecode($_GET['a']);
+    $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoriaSelecionada) {
+        return isset($assunto['categoria']) && $assunto['categoria'] === $categoriaSelecionada;
+    });
+} else {
+    $assuntosFiltrados = $assuntos;
+}
 
-// Filtrando os assuntos pela categoria
-$assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoriaSelecionada) {
-    return isset($assunto['categoria']) && $assunto['categoria'] === $categoriaSelecionada;
-});
 ?>
 
 <div id="assuntoContainer" class="container mb-6">
