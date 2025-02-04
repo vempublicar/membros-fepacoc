@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-12">
         <!-- Botão para adicionar novo vídeo -->
-        <button class="btn btn-primary mb-3" style="float: left;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddVideo">
+        <button class="btn btn-primary mb-3" style="float: left;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddVideo" onclick="resetForm()">
             <i class="fa fa-plus"></i> Adicionar Vídeo
         </button>
         <h3 class="text-center">Gerenciar Vídeos</h3>
@@ -207,12 +207,17 @@
                 <input type="file" class="form-control" id="vidCapa" name="vidCapa" accept="image/*">
             </div>
             <div class="col-12 mb-3">
-                    <label for="vidLinkExterno" class="form-label">Link Externo do Vídeo</label>
-                    <input type="url" class="form-control" id="vidLinkExterno" name="vidLinkExterno" placeholder="https://">
+                <label for="vidLinkExterno" class="form-label">Link Externo do Vídeo</label>
+                <input type="url" class="form-control" id="vidLinkExterno" name="vidLinkExterno" placeholder="https://">
             </div>
             <div class="mb-3">
                 <label for="vidLink" class="form-label">Vídeo (MP4)</label>
                 <input type="file" class="form-control" id="vidLink" name="vidLink" accept="video/mp4">
+            </div>
+            <!-- Novo campo para upload de material de apoio (PDF ou DOC) -->
+            <div class="mb-3">
+                <label for="vidMaterial" class="form-label">Material de Apoio (PDF ou DOC)</label>
+                <input type="file" class="form-control" id="vidMaterial" name="vidMaterial" accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -258,4 +263,3 @@ function resetForm() {
     document.getElementById("vidCapa").parentNode.querySelector("img")?.remove();
 }
 </script>
-
