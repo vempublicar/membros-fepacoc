@@ -100,7 +100,7 @@ $assuntos = fetchAssunto();
 </section>
 
 <!-- PRODUTOS -->
-<section class="produto p-5">
+<section class="produto p-4">
         <div class="row">
             <div class="col text-start">
                 <p class="text-uppercase text-secondary">Produtos | 
