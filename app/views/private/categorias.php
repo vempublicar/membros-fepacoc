@@ -89,31 +89,57 @@ if (isset($_GET['a'])) {
 <?php 
     
 }
+$home     = 'painel'; 
+$favorito = 'email-usuario'; 
+$material = 'material-apoio'; 
+$busca    = '/buscar'; 
+$idvideo  = 123; 
 ?>
 <!-- Barra fixa no rodapé para mobile -->
-<nav class="navbar navbar-light bg-dark fixed-bottom d-md-none border-top">
+<nav class="navbar navbar-dark bg-dark fixed-bottom d-md-none border-top">
     <div class="container-fluid justify-content-around">
       <!-- Botão Home -->
-      <a href="home" class="nav-link text-center <?php echo ($activePage === 'home') ? 'active' : ''; ?>">
-        <i class="fas fa-home fa-lg <?php echo ($activePage === 'home') ? 'text-primary' : 'text-secondary'; ?>"></i>
+      <a href="<?= !empty($home) ? $home : '#' ?>" class="nav-link text-center <?= !empty($home) ? 'active' : '' ?>">
+        <i class="fas fa-home fa-lg <?= !empty($home) ? 'text-primary' : 'text-secondary' ?>"></i>
+        <small class="d-block <?= !empty($home) ? 'text-primary' : 'text-secondary' ?>">Home</small>
       </a>
-
+      
       <!-- Botão Favoritar -->
-      <a href="favoritos" class="nav-link text-center <?php echo ($activePage === 'favoritos') ? 'active' : ''; ?>">
-        <i class="fas fa-star fa-lg <?php echo ($activePage === 'favoritos') ? 'text-primary' : 'text-secondary'; ?>"></i>
+      <a href="#" class="nav-link text-center <?= !empty($favorito) ? 'active' : '' ?>"
+         <?= !empty($favorito) ? "onclick=\"addfavorito('{$favorito}', '{$idvideo}')\"" : "" ?>>
+        <i class="fas fa-star fa-lg <?= !empty($favorito) ? 'text-primary' : 'text-secondary' ?>"></i>
+        <small class="d-block <?= !empty($favorito) ? 'text-primary' : 'text-secondary' ?>">Favoritar</small>
       </a>
-
+      
       <!-- Botão Material Apoio -->
-      <a href="material-apoio" class="nav-link text-center <?php echo ($activePage === 'material-apoio') ? 'active' : ''; ?>">
-        <i class="fas fa-book fa-lg <?php echo ($activePage === 'material-apoio') ? 'text-primary' : 'text-secondary'; ?>"></i>
+      <a href="#" class="nav-link text-center <?= !empty($material) ? 'active' : '' ?>"
+         <?= !empty($material) ? "onclick=\"baixarconteudo('{$material}')\"" : "" ?>>
+        <i class="fas fa-book fa-lg <?= !empty($material) ? 'text-primary' : 'text-secondary' ?>"></i>
+        <small class="d-block <?= !empty($material) ? 'text-primary' : 'text-secondary' ?>">Material Apoio</small>
       </a>
-
-      <!-- Botão Pesquisa -->
-      <a href="pesquisa" class="nav-link text-center <?php echo ($activePage === 'pesquisa') ? 'active' : ''; ?>">
-        <i class="fas fa-search fa-lg <?php echo ($activePage === 'pesquisa') ? 'text-primary' : 'text-secondary'; ?>"></i>
+      
+      <!-- Botão Pesquisa (sempre ativo) -->
+      <a href="<?= $busca ?>" class="nav-link text-center active">
+        <i class="fas fa-search fa-lg text-primary"></i>
+        <small class="d-block text-primary">Pesquisa</small>
       </a>
     </div>
   </nav>
+  <script>
+    function addfavorito(favorito, idvideo) {
+      // Exemplo de função para adicionar favorito
+      alert('Adicionando favorito: ' + favorito + ' para o vídeo ' + idvideo);
+      // Sua lógica aqui...
+    }
+
+    function baixarconteudo(material) {
+      // Exemplo de função para baixar material de apoio
+      alert('Baixando conteúdo: ' + material);
+      // Sua lógica aqui...
+    }
+  </script>
+
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const themeToggle = document.getElementById("themeToggle");
