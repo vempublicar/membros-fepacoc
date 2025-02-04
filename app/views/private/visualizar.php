@@ -79,7 +79,7 @@ if (!empty($videoToView['vidLinkExterno'])) {
 ?>
 
 <!-- Conteúdo da página de visualização -->
-<section class="container py-5">
+<section class="container py-5 mt-5">
     <h3 class="fw-bold mb-4 text-center"><?= htmlspecialchars($videoToView['vidTitulo']); ?></h3>
 
     <!-- Player do vídeo -->
