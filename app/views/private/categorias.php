@@ -30,7 +30,7 @@ if (isset($_GET['a'])) {
             <?php if (!empty($assuntosFiltrados)): ?>
                 <?php foreach ($assuntosFiltrados as $assunto): ?>
                     <div class="col mb-4">
-                        <a href="videos&assunto=<?= urlencode($assunto['assunto']) ?>" class="text-decoration-none">
+                        <a href="videos&assunto=<?= urlencode($assunto['assunto'])?>&categoria=<?= $_GET['a'] ?>" class="text-decoration-none">
                             <div class="card h-100 shadow-sm">
                                 <?php 
                                 // Define a imagem de capa: se existir uma imagem definida, usa-a; senão, utiliza uma imagem padrão.

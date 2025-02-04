@@ -1,6 +1,12 @@
 
 <?php
-$home     = 'painel'; 
+if(isset($_GET['video']) && isset($_GET['assunto'])){
+    $home     = 'videos&assunto='.$_GET['assunto']; 
+}elseif(!isset($_GET['categoria']) && isset($_GET['assunto'])){
+    $home     = 'categoria&a='.$_GET['categoria']; 
+}else{
+    $home     = 'painel'; 
+}
 $favorito = ''; 
 $material = ''; 
 $busca    = '/buscar'; 
@@ -12,7 +18,7 @@ $idvideo  = '';
     <div class="container-fluid justify-content-around">
       <!-- Botão Home -->
       <a href="<?= !empty($home) ? $home : '#' ?>" class="nav-link text-center <?= !empty($home) ? 'active' : '' ?>">
-        <i class="fas fa-home fa-lg <?= !empty($home) ? 'text-white' : 'text-secondary' ?>"></i>
+        <i class="fas fa-arrow-left fa-lg <?= !empty($home) ? 'text-white' : 'text-secondary' ?>"></i>
       </a>
       
       <!-- Botão Favoritar -->
