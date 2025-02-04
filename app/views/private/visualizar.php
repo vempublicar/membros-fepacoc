@@ -143,8 +143,9 @@ if (!empty($videoToView['vidLinkExterno'])) {
 
 
 <?php 
-include 'app/views/parts/barra.php'; 
 $materialDownload = $videoToView['vidMaterial'];
+include 'app/views/parts/barra.php'; 
+
 ?>
 <?php include 'app/views/parts/footer.php' ?>
 <script>
