@@ -79,7 +79,7 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
 </section>
 
 <!-- Offcanvas para Exibir os Detalhes do Produto -->
-<div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="productOffcanvas" aria-labelledby="productOffcanvasLabel">
+<div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="productOffcanvas2" aria-labelledby="productOffcanvasLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title fw-bold" id="productOffcanvasLabel">Detalhes do Produto</h5>
         <button type="button" class="btn-close text-dark" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
@@ -100,7 +100,7 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
         document.getElementById('productOffcanvasDescription').innerText = descricao;
         document.getElementById('productOffcanvasLink').href = link;
 
-        var offcanvas = new bootstrap.Offcanvas(document.getElementById('productOffcanvas'));
+        var offcanvas = new bootstrap.Offcanvas(document.getElementById('productOffcanvas2'));
         offcanvas.show();
     }
 </script>
