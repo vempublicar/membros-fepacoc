@@ -39,9 +39,7 @@ $assuntosFiltrados = array_filter($assuntos, function ($assunto) use ($categoria
                                 <img src="<?= $imgSrc ?>"
                                      class="card-img-top"
                                      alt="Capa do Assunto"
-                                     loading="lazy"
-                                     width="400"
-                                     height="300">
+                                     loading="lazy">
                             </div>
                         </a>
                     </div>
