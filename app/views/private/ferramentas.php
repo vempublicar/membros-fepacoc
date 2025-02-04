@@ -38,7 +38,7 @@ $ferramentas = getSessionData('ferramentas', 'fetchFerramentas');
         </div>
     </div>
 </section>
-
+<?php include 'app/views/parts/footer.php' ?>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const themeToggle = document.getElementById("themeToggle");

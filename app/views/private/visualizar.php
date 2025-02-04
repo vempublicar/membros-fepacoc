@@ -146,6 +146,7 @@ if (!empty($videoToView['vidLinkExterno'])) {
 include 'app/views/parts/barra.php'; 
 $materialDownload = $videoToView['vidMaterial'];
 ?>
+<?php include 'app/views/parts/footer.php' ?>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const themeToggle = document.getElementById("themeToggle");

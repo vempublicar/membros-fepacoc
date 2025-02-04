@@ -86,7 +86,7 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
     </div>
 </div>
 
-
+<?php include 'app/views/parts/footer.php' ?>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const themeToggle = document.getElementById("themeToggle");

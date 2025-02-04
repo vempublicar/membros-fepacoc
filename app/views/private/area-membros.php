@@ -253,7 +253,7 @@ $assuntos = getSessionData('assuntos', 'fetchAssunto');
         <a id="offcanvasLink" href="#" class="btn btn-primary w-100" target="_blank">Abrir Página</a>
     </div>
 </div>
-
+<?php include 'app/views/parts/footer.php' ?>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const themeToggle = document.getElementById("themeToggle");

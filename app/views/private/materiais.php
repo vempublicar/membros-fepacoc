@@ -37,7 +37,7 @@ $materiais = getSessionData('materiais', 'fetchMateriais');
         </div>
     </div>
 </section>
-
+<?php include 'app/views/parts/footer.php' ?>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const themeToggle = document.getElementById("themeToggle");

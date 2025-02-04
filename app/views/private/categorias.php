@@ -91,7 +91,7 @@ if (isset($_GET['a'])) {
 }
 include 'app/views/parts/barra.php';
 ?>
-
+<?php include 'app/views/parts/footer.php' ?>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
