@@ -66,7 +66,7 @@ $idvideo  = '';
 
   <script>
   function addFavorito(favorito, tipo) {
-    fetch('../../../../functions/push/favorito.php', {
+    fetch('app/functions/push/favorito.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
