@@ -220,8 +220,11 @@ print_r($favAssuntos);
 <section class="portfolio p-3">
   <div class="row">
     <div class="col text-start">
-      <p class="text-uppercase text-secondary">
-      </p>
+      <?php if(empty($favVideos)){ ?>
+        <p class="text-uppercase text-secondary">
+            Favoritos Vídeos 
+        </p>
+      <?php } ?>
     </div>
   </div>
   <div class="swiper mySwiperVideos" data-aos="fade-up">
