@@ -31,7 +31,7 @@ if(isset($materialDownload) && $materialDownload > ""){
 $busca    = '/buscar'; 
 $idvideo  = ''; 
 ?>
-
+ <div id="alertContainer" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1050;"></div>
 <!-- Barra fixa no rodapé para mobile -->
 <nav class="navbar navbar-dark bg-dark fixed-bottom d-md-none border-top">
     <div class="container-fluid justify-content-around">
