@@ -186,7 +186,7 @@ print_r($favAssuntos);
     <div class="col text-start">
         <?php if(!empty($favAssuntos)){ ?>
             <p class="text-uppercase text-secondary">
-                Favoritos Assuntos | 
+                Assuntos Favoritos| 
                 <a href="favoritos" class="text-uppercase text-info text-decoration-none">Todos</a>
             </p>
         <?php } ?>
@@ -224,7 +224,7 @@ print_r($favAssuntos);
     <div class="col text-start">
       <?php if(!empty($favVideos)){ ?>
         <p class="text-uppercase text-secondary">
-            Favoritos Vídeos 
+        Vídeos Favoritos  
         </p>
       <?php } ?>
     </div>
@@ -261,7 +261,7 @@ print_r($favAssuntos);
     <div class="col text-start">
         <?php if(!empty($favVideos)){ ?>
             <p class="text-uppercase text-secondary">
-                Favoritos Ferramentas
+                Ferramentas Favoritas 
             </p>
         <?php } ?>
     </div>
