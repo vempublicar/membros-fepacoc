@@ -66,7 +66,7 @@ $idvideo  = '';
 
   <script>
   function addFavorito(favorito, tipo) {
-    fetch('app/functions/push/favorito.php', {
+    fetch('../functions/push/favorito.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -96,7 +96,7 @@ $idvideo  = '';
       }, 5000);
     })
     .catch(error => {
-      console.error('Erro:', error);
+      //console.error('Erro:', error);
       const alertContainer = document.getElementById('alertContainer');
       alertContainer.innerHTML = `
         <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
