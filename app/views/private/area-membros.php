@@ -232,7 +232,7 @@ $favFerramentas = array_filter($ferramentas, function($item) use ($favFerramenta
                     $count++;
             ?>
             <div class="swiper-slide">
-                <a href="https://members.fepacoc.com.br/videos&video=<?= urlencode($item['id']); ?>" 
+                <a href="https://members.fepacoc.com.br/visualizar&video=<?= urlencode($item['id']); ?>" 
                    onclick="trackUserAction('<?= $item['id']; ?>', '<?= $user['email']; ?>')">
                     <img src="vendor/uploads/videos/capa/<?= $item['vidCapa']; ?>" class="img-fluid rounded-4" alt="<?= $item['titulo'] ?? 'Vídeo'; ?>">
                 </a>
