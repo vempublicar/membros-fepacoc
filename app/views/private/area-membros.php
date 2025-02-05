@@ -39,6 +39,12 @@ $categorias = getSessionData('categorias', 'fetchCategorias');
 $ferramentas = getSessionData('ferramentas', 'fetchFerramentas');
 $capas = getSessionData('capas', 'fetchCapas');
 $assuntos = getSessionData('assuntos', 'fetchAssunto');
+$favoritos = fetchFavoritos();
+
+// Filtra os favoritos por tipo:
+$favAssuntos    = array_filter($favoritos, function($fav) { return !empty($fav['assunto']); });
+$favVideos      = array_filter($favoritos, function($fav) { return !empty($fav['video']); });
+$favFerramentas = array_filter($favoritos, function($fav) { return !empty($fav['ferramenta']); });
 
 ?>
 <section class="top-banner mt-5">
@@ -150,39 +156,109 @@ $assuntos = getSessionData('assuntos', 'fetchAssunto');
 
 <!-- ASSUNTO -->
 <section class="portfolio p-3">
-            <div class="row">
-                <div class="col text-start">
-                    <p class="text-uppercase text-secondary">Favoritos | 
-                        <a href="favoritos" class="text-uppercase text-info text-decoration-none">
-                            Todos
-                        </a>
-                    </p>
-                </div>                
-            </div>
-            <div class="swiper mySwiperAssunto" data-aos="fade-up">
-                <div class="swiper-wrapper">
-                    <?php 
-                        $count = 0;
-                        foreach ($assuntos as $item): 
-                            if ($count < 8): 
-                                $count++;
-                    ?>
-                    <div class="swiper-slide">
-                        <a href="https://members.fepacoc.com.br/videos&assunto=<?= $item['assunto']; ?>" 
-                            onclick="trackUserAction('<?= $item['assunto']; ?>', '<?= $user['email'] ?>')">
-                            <img src="vendor/uploads/assunto/<?= $item['assCapa']; ?>" class="img-fluid rounded-4" alt="<?= $item['assunto']; ?>">
-                        </a>
-                    </div>
-                    <?php 
-                            endif;
-                        endforeach;  
-                    ?>
-                </div>
-                <!-- Controles do Carrossel -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-pagination"></div>
-            </div>
+  <div class="row">
+    <div class="col text-start">
+      <p class="text-uppercase text-secondary">
+        Favoritos Assuntos | 
+        <a href="favoritos" class="text-uppercase text-info text-decoration-none">Todos</a>
+      </p>
+    </div>                
+  </div>
+  <div class="swiper mySwiperAssunto" data-aos="fade-up">
+    <div class="swiper-wrapper">
+      <?php 
+        $count = 0;
+        foreach ($favAssuntos as $item): 
+          if ($count < 8):
+            $count++;
+      ?>
+      <div class="swiper-slide">
+        <a href="https://members.fepacoc.com.br/videos&assunto=<?= urlencode($item['assunto']); ?>" 
+           onclick="trackUserAction('<?= $item['assunto']; ?>', '<?= $user['email'] ?>')">
+          <img src="vendor/uploads/assunto/<?= $item['assCapa']; ?>" class="img-fluid rounded-4" alt="<?= $item['assunto']; ?>">
+        </a>
+      </div>
+      <?php 
+          endif;
+        endforeach;  
+      ?>
+    </div>
+    <!-- Controles do Carrossel -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-pagination"></div>
+  </div>
+</section>
+
+
+<section class="portfolio p-3">
+  <div class="row">
+    <div class="col text-start">
+      <p class="text-uppercase text-secondary">
+        Favoritos Vídeos | 
+        <a href="favoritos" class="text-uppercase text-info text-decoration-none">Todos</a>
+      </p>
+    </div>                
+  </div>
+  <div class="swiper mySwiperVideos" data-aos="fade-up">
+    <div class="swiper-wrapper">
+      <?php 
+        $count = 0;
+        foreach ($favVideos as $item): 
+          if ($count < 8):
+            $count++;
+      ?>
+      <div class="swiper-slide">
+        <a href="https://members.fepacoc.com.br/videos&video=<?= urlencode($item['video']); ?>" 
+           onclick="trackUserAction('<?= $item['video']; ?>', '<?= $user['email'] ?>')">
+          <img src="vendor/uploads/videos/capa/<?= $item['vidCapa']; ?>" class="img-fluid rounded-4" alt="<?= $item['video']; ?>">
+        </a>
+        </div>
+        <?php 
+            endif;
+            endforeach;  
+        ?>
+        </div>
+        <!-- Controles do Carrossel -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+<section class="portfolio p-3">
+  <div class="row">
+    <div class="col text-start">
+      <p class="text-uppercase text-secondary">
+        Favoritos Ferramentas | 
+        <a href="favoritos" class="text-uppercase text-info text-decoration-none">Todos</a>
+      </p>
+    </div>                
+  </div>
+  <div class="swiper mySwiperFerramenta" data-aos="fade-up">
+    <div class="swiper-wrapper">
+      <?php 
+        $count = 0;
+        foreach ($favFerramentas as $item): 
+          if ($count < 8):
+            $count++;
+      ?>
+      <div class="swiper-slide">
+        <a href="https://members.fepacoc.com.br/videos&ferramenta=<?= urlencode($item['ferramenta']); ?>" 
+           onclick="trackUserAction('<?= $item['ferramenta']; ?>', '<?= $user['email'] ?>')">
+          <img src="vendor/uploads/ferramentas/<?= $item['ferCapa']; ?>" class="img-fluid rounded-4" alt="<?= $item['ferramenta']; ?>">
+        </a>
+      </div>
+      <?php 
+          endif;
+        endforeach;  
+      ?>
+    </div>
+    <!-- Controles do Carrossel -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-pagination"></div>
+  </div>
 </section>
 
 <!-- MATERIAIS -->

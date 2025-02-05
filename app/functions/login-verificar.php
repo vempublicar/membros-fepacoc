@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['categorias'] = fetchCategorias();
                     $_SESSION['ferramentas'] = fetchFerramentas();
                     $_SESSION['capas'] = fetchCapas();
-                    $_SESSION['assuntos'] = fetchAssunto();
+                    $_SESSION['assuntos'] = fetchAssunto();                    
                 } else {
                     // Caso o usuário não tenha empresa vinculada
                     $_SESSION['dados_profissionais'] = json_encode([]);
