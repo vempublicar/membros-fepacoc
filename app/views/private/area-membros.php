@@ -184,10 +184,12 @@ print_r($favAssuntos);
 <section class="portfolio p-3">
   <div class="row">
     <div class="col text-start">
-      <p class="text-uppercase text-secondary">
-        Favoritos Assuntos | 
-        <a href="favoritos" class="text-uppercase text-info text-decoration-none">Todos</a>
-      </p>
+        <?php if(empty($favAssuntos)){ ?>
+            <p class="text-uppercase text-secondary">
+                Favoritos Assuntos | 
+                <a href="favoritos" class="text-uppercase text-info text-decoration-none">Todos</a>
+            </p>
+        <?php } ?>
     </div>
   </div>
   <div class="swiper mySwiperAssunto" data-aos="fade-up">
