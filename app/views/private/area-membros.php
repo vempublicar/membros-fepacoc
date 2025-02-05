@@ -107,7 +107,7 @@ $favFerramentas = array_filter($ferramentas, function($item) use ($favFerramenta
             <div class="row">
                 <div class="col text-start">
                     <p class="text-uppercase text-secondary">Categorias | 
-                        <a href="categoria" class="text-uppercase text-muted text-decoration-none">
+                        <a href="categoria" class="text-uppercase text-light text-decoration-none">
                             Ver Todos
                         </a>
                     </p>
@@ -146,7 +146,7 @@ $favFerramentas = array_filter($ferramentas, function($item) use ($favFerramenta
         <div class="row">
             <div class="col text-start">
                 <p class="text-uppercase text-secondary">Produtos | 
-                        <a href="produtos" class="text-uppercase text-muted text-decoration-none">
+                        <a href="produtos" class="text-uppercase text-light text-decoration-none">
                             Ver Todos
                         </a>
                 </p>
@@ -186,7 +186,7 @@ $favFerramentas = array_filter($ferramentas, function($item) use ($favFerramenta
         <?php if(!empty($favAssuntos)){ ?>
             <p class="text-uppercase text-secondary">
                 Assuntos Favoritos| 
-                <a href="favoritos" class="text-uppercase text-muted text-decoration-none">ver Todos</a>
+                <a href="favoritos" class="text-uppercase text-light text-decoration-none">ver Todos</a>
             </p>
         <?php } ?>
     </div>
@@ -297,7 +297,7 @@ $favFerramentas = array_filter($ferramentas, function($item) use ($favFerramenta
             <div class="row">
                 <div class="col text-start">
                     <p class="text-uppercase text-secondary">Materiais | 
-                        <a href="materiais" class="text-uppercase text-muted text-decoration-none">
+                        <a href="materiais" class="text-uppercase text-light text-decoration-none">
                             Ver Todos
                         </a>
                     </p>
@@ -322,7 +322,7 @@ $favFerramentas = array_filter($ferramentas, function($item) use ($favFerramenta
             <div class="row">
                 <div class="col text-start">
                     <p class="text-uppercase text-secondary">Ferramentas | 
-                        <a href="ferramentas" class="text-uppercase text-muted text-decoration-none">
+                        <a href="ferramentas" class="text-uppercase text-light text-decoration-none">
                             Ver Todos
                         </a>
                     </p>
