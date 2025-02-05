@@ -195,7 +195,7 @@ print_r($favAssuntos);
       <?php 
       $count = 0;
       foreach ($favAssuntos as $item): 
-        if ($count < 8): 
+        if ($count < 12): 
           $count++;
       ?>
       <div class="swiper-slide">
