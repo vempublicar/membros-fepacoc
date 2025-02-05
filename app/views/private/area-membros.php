@@ -194,7 +194,7 @@ print_r($favAssuntos);
     <div class="swiper-wrapper">
       <?php 
       $count = 0;
-      foreach ($favAssuntosData as $item): 
+      foreach ($favAssuntos as $item): 
         if ($count < 8): 
           $count++;
       ?>
