@@ -7,7 +7,23 @@ if(isset($_GET['video']) && isset($_GET['assunto']) && isset($_GET['categoria'])
 }else{
     $home     = 'painel'; 
 }
-$favorito = ''; 
+if(isset($_GET['video'])){
+  $tipo = 'video';
+  $favorito = $videoToView['id']; 
+  $idUser = $_SESSION['user_id'];
+} elseif(!isset($_GET['video']) && isset($_GET['assunto'])){
+  $tipo = 'assunto';
+  $favorito = $_GET['assunto']; 
+  $idUser = $_SESSION['user_id']; 
+} elseif(isset($_GET['ferramenta'])) { 
+  $tipo = 'ferramenta'; 
+  $favorito = $_GET['ferramenta'];  
+  $idUser = $_SESSION['user_id']; 
+} else { 
+  $favorito = '';
+}
+
+
 if(isset($materialDownload) && $materialDownload > ""){
   $material = 'vendor/uploads/videos/material/'.$materialDownload; 
 }
@@ -26,7 +42,7 @@ $idvideo  = '';
       
       <!-- Botão Favoritar -->
       <button class="nav-link text-center <?= !empty($favorito) ? 'active' : '' ?>"
-         <?= !empty($favorito) ? "onclick=\"addfavorito('{$favorito}', '{$idvideo}')\"" : "" ?>>
+        <?= !empty($favorito) ? "onclick=\"addFavorito('{$favorito}', '{$tipo}')\"" : "" ?>>
         <i class="fas fa-star fa-lg <?= !empty($favorito) ? 'text-white' : 'text-secondary' ?>"></i>
       </button>
       
@@ -47,16 +63,48 @@ $idvideo  = '';
       </a>
     </div>
   </nav>
-  <script>
-    function addfavorito(favorito, idvideo) {
-      // Exemplo de função para adicionar favorito
-      alert('Adicionando favorito: ' + favorito + ' para o vídeo ' + idvideo);
-      // Sua lógica aqui...
-    }
 
-    function baixarconteudo(material) {
-      // Exemplo de função para baixar material de apoio
-      alert('Baixando conteúdo: ' + material);
-      // Sua lógica aqui...
-    }
-  </script>
+  <script>
+  function addFavorito(favorito, tipo) {
+    fetch('app/functions/push/favorito.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: 'tipo=' + encodeURIComponent(tipo) + '&favorito=' + encodeURIComponent(favorito)
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Seleciona o container de alerta
+      const alertContainer = document.getElementById('alertContainer');
+
+      // Define a classe do alerta (sucesso ou erro)
+      const alertClass = data.status === 'success' ? 'alert-success' : 'alert-danger';
+
+      // Cria o HTML do alerta utilizando os componentes do Bootstrap
+      alertContainer.innerHTML = `
+        <div class="alert ${alertClass} alert-dismissible fade show m-3" role="alert">
+          ${data.message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      `;
+
+      // Opcional: Remover o alerta após alguns segundos (por exemplo, 5 segundos)
+      setTimeout(() => {
+        const alert = bootstrap.Alert.getOrCreateInstance(document.querySelector('.alert'));
+        alert.close();
+      }, 5000);
+    })
+    .catch(error => {
+      console.error('Erro:', error);
+      const alertContainer = document.getElementById('alertContainer');
+      alertContainer.innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
+          Ocorreu um erro ao tentar salvar o favorito.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      `;
+    });
+  }
+</script>
+
