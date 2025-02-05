@@ -39,7 +39,7 @@ $materiais = getSessionData('materiais', 'fetchMateriais');
 $leads = getSessionData('leads', 'fetchLeads');
 $categorias = getSessionData('categorias', 'fetchCategorias');
 $ferramentas = getSessionData('ferramentas', 'fetchFerramentas');
-$capas = getSessionData('capas', 'fetchCapas');
+$capas = fetchCapas();
 $assuntos = getSessionData('assuntos', 'fetchAssunto');
 $favoritos = fetchFavoritos();
 
