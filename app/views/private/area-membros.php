@@ -230,7 +230,7 @@ print_r($favAssuntos);
     <div class="swiper-wrapper">
       <?php 
       $count = 0;
-      foreach ($favVideosData as $item): 
+      foreach ($favVideos as $item): 
         if ($count < 8): 
           $count++;
       ?>
@@ -266,7 +266,7 @@ print_r($favAssuntos);
     <div class="swiper-wrapper">
       <?php 
       $count = 0;
-      foreach ($favFerramentasData as $item): 
+      foreach ($favFerramentas as $item): 
         if ($count < 8): 
           $count++;
       ?>
