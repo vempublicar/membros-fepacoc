@@ -221,8 +221,6 @@ print_r($favAssuntos);
   <div class="row">
     <div class="col text-start">
       <p class="text-uppercase text-secondary">
-        Favoritos Vídeos | 
-        <a href="favoritos" class="text-uppercase text-info text-decoration-none">Todos</a>
       </p>
     </div>
   </div>
@@ -257,8 +255,7 @@ print_r($favAssuntos);
   <div class="row">
     <div class="col text-start">
       <p class="text-uppercase text-secondary">
-        Favoritos Ferramentas | 
-        <a href="favoritos" class="text-uppercase text-info text-decoration-none">Todos</a>
+        Favoritos Ferramentas
       </p>
     </div>
   </div>
