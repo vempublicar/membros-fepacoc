@@ -31,10 +31,15 @@ $idvideo  = '';
       </button>
       
       <!-- Botão Material Apoio -->
-      <button class="nav-link text-center <?= !empty($material) ? 'active' : '' ?>"
-         <?= !empty($material) ? "onclick=\"baixarconteudo('{$material}')\"" : "" ?>>
-        <i class="fas fa-book fa-lg <?= !empty($material) ? 'text-white' : 'text-secondary' ?>"></i>
-      </button>
+      <?php if (!empty($material)): ?>
+        <a class="nav-link text-center active" href="<?= $material ?>" download>
+          <i class="fas fa-book fa-lg text-white"></i>
+        </a>
+      <?php else: ?>
+        <button class="nav-link text-center">
+          <i class="fas fa-book fa-lg text-secondary"></i>
+        </button>
+      <?php endif; ?>
       
       <!-- Botão Pesquisa (sempre ativo) -->
       <a href="<?= $busca ?>" class="nav-link text-center active">
