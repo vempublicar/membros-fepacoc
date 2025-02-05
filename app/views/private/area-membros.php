@@ -71,7 +71,6 @@ $favFerramentas = array_filter($ferramentas, function($item) use ($favFerramenta
     return in_array($item['id'], $favFerramentasIds);
 });
 
-print_r($favAssuntos);
 ?>
 <section class="top-banner mt-5">
     <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
