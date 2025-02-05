@@ -46,6 +46,7 @@ $favAssuntos    = array_filter($favoritos, function($fav) { return !empty($fav['
 $favVideos      = array_filter($favoritos, function($fav) { return !empty($fav['video']); });
 $favFerramentas = array_filter($favoritos, function($fav) { return !empty($fav['ferramenta']); });
 
+print_r($favAssuntos);
 ?>
 <section class="top-banner mt-5">
     <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
